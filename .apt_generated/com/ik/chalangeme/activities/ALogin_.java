@@ -20,8 +20,8 @@ import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
 import org.androidannotations.api.view.OnViewChangedNotifier;
 
-public final class ASrtart_
-    extends ASrtart
+public final class ALogin_
+    extends ALogin
     implements HasViews, OnViewChangedListener
 {
 
@@ -33,7 +33,7 @@ public final class ASrtart_
         init_(savedInstanceState);
         super.onCreate(savedInstanceState);
         OnViewChangedNotifier.replaceNotifier(previousNotifier);
-        setContentView(layout.activity_srtart);
+        setContentView(layout.activity_login);
     }
 
     private void init_(Bundle savedInstanceState) {
@@ -58,26 +58,26 @@ public final class ASrtart_
         onViewChangedNotifier_.notifyViewChanged(this);
     }
 
-    public static ASrtart_.IntentBuilder_ intent(Context context) {
-        return new ASrtart_.IntentBuilder_(context);
+    public static ALogin_.IntentBuilder_ intent(Context context) {
+        return new ALogin_.IntentBuilder_(context);
     }
 
-    public static ASrtart_.IntentBuilder_ intent(Fragment supportFragment) {
-        return new ASrtart_.IntentBuilder_(supportFragment);
+    public static ALogin_.IntentBuilder_ intent(Fragment supportFragment) {
+        return new ALogin_.IntentBuilder_(supportFragment);
     }
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        btnIamNew = ((Button) hasViews.findViewById(id.btnIamNew));
+        btnLogin = ((Button) hasViews.findViewById(id.btnLogin));
         {
-            View view = hasViews.findViewById(id.btnIamNew);
+            View view = hasViews.findViewById(id.btnLogin);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ASrtart_.this.btnIamNew();
+                        ALogin_.this.btnLogin();
                     }
 
                 }
@@ -94,20 +94,20 @@ public final class ASrtart_
 
         public IntentBuilder_(Context context) {
             context_ = context;
-            intent_ = new Intent(context, ASrtart_.class);
+            intent_ = new Intent(context, ALogin_.class);
         }
 
         public IntentBuilder_(Fragment fragment) {
             fragmentSupport_ = fragment;
             context_ = fragment.getActivity();
-            intent_ = new Intent(context_, ASrtart_.class);
+            intent_ = new Intent(context_, ALogin_.class);
         }
 
         public Intent get() {
             return intent_;
         }
 
-        public ASrtart_.IntentBuilder_ flags(int flags) {
+        public ALogin_.IntentBuilder_ flags(int flags) {
             intent_.setFlags(flags);
             return this;
         }

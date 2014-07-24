@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name">ChallangeMe</string>
+	<string name="app_name">Challenge Me</string>
+	<string name="hint">hint</string>
+
+	<!-- Start screen -->
+	<string name="iamnew">I am new here</string>
+	<string name="ihaveacc">I have an account</string>
+	<!-- Start screen -->
+
+
+	<!-- Login screen -->
+	<string name="login">Login</string>
+	<string name="password">Password</string>
+	<!-- Login screen -->
 	
+	<!-- Menu screen -->
+	<string name="create_note">Create note</string>
+	<!-- Menu screen -->
+	
+	
+	<!-- Add note screen -->
+	<!-- Add note screen -->
 
 </resources>

@@ -11,18 +11,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
-import com.ik.chalangeme.R.id;
 import com.ik.chalangeme.R.layout;
 import org.androidannotations.api.view.HasViews;
-import org.androidannotations.api.view.OnViewChangedListener;
 import org.androidannotations.api.view.OnViewChangedNotifier;
 
-public final class ASrtart_
-    extends ASrtart
-    implements HasViews, OnViewChangedListener
+public final class ACreateNote_
+    extends ACreateNote
+    implements HasViews
 {
 
     private final OnViewChangedNotifier onViewChangedNotifier_ = new OnViewChangedNotifier();
@@ -33,11 +29,10 @@ public final class ASrtart_
         init_(savedInstanceState);
         super.onCreate(savedInstanceState);
         OnViewChangedNotifier.replaceNotifier(previousNotifier);
-        setContentView(layout.activity_srtart);
+        setContentView(layout.activity_create_note);
     }
 
     private void init_(Bundle savedInstanceState) {
-        OnViewChangedNotifier.registerOnViewChangedListener(this);
     }
 
     @Override
@@ -58,32 +53,12 @@ public final class ASrtart_
         onViewChangedNotifier_.notifyViewChanged(this);
     }
 
-    public static ASrtart_.IntentBuilder_ intent(Context context) {
-        return new ASrtart_.IntentBuilder_(context);
+    public static ACreateNote_.IntentBuilder_ intent(Context context) {
+        return new ACreateNote_.IntentBuilder_(context);
     }
 
-    public static ASrtart_.IntentBuilder_ intent(Fragment supportFragment) {
-        return new ASrtart_.IntentBuilder_(supportFragment);
-    }
-
-    @Override
-    public void onViewChanged(HasViews hasViews) {
-        btnIamNew = ((Button) hasViews.findViewById(id.btnIamNew));
-        {
-            View view = hasViews.findViewById(id.btnIamNew);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ASrtart_.this.btnIamNew();
-                    }
-
-                }
-                );
-            }
-        }
+    public static ACreateNote_.IntentBuilder_ intent(Fragment supportFragment) {
+        return new ACreateNote_.IntentBuilder_(supportFragment);
     }
 
     public static class IntentBuilder_ {
@@ -94,20 +69,20 @@ public final class ASrtart_
 
         public IntentBuilder_(Context context) {
             context_ = context;
-            intent_ = new Intent(context, ASrtart_.class);
+            intent_ = new Intent(context, ACreateNote_.class);
         }
 
         public IntentBuilder_(Fragment fragment) {
             fragmentSupport_ = fragment;
             context_ = fragment.getActivity();
-            intent_ = new Intent(context_, ASrtart_.class);
+            intent_ = new Intent(context_, ACreateNote_.class);
         }
 
         public Intent get() {
             return intent_;
         }
 
-        public ASrtart_.IntentBuilder_ flags(int flags) {
+        public ACreateNote_.IntentBuilder_ flags(int flags) {
             intent_.setFlags(flags);
             return this;
         }

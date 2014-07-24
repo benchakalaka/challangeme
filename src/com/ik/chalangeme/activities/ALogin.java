@@ -10,15 +10,10 @@ import android.widget.Button;
 
 import com.ik.chalangeme.R;
 
-@EActivity ( R.layout.activity_srtart ) public class ASrtart extends Activity {
+@EActivity ( R.layout.activity_login ) public class ALogin extends Activity {
+     @ViewById Button btnLogin;
 
-     // load views
-     @ViewById Button btnIamNew;
-
-     /**
-      * Execute if user clicked "i am new" button
-      */
-     @Click void btnIamNew() {
-          startActivity(new Intent(this, ALogin_.class));
+     @Click void btnLogin() {
+          startActivity(new Intent(this, AMenu_.class));
      }
 }
