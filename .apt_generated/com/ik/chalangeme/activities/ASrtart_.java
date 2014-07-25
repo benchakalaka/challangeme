@@ -84,6 +84,7 @@ public final class ASrtart_
                 );
             }
         }
+        afterViews();
     }
 
     public static class IntentBuilder_ {

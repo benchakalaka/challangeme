@@ -10,15 +10,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
+import com.ik.chalangeme.R.id;
 import com.ik.chalangeme.R.layout;
+import org.androidannotations.api.SdkVersionHelper;
 import org.androidannotations.api.view.HasViews;
+import org.androidannotations.api.view.OnViewChangedListener;
 import org.androidannotations.api.view.OnViewChangedNotifier;
 
 public final class ACreateNote_
     extends ACreateNote
-    implements HasViews
+    implements HasViews, OnViewChangedListener
 {
 
     private final OnViewChangedNotifier onViewChangedNotifier_ = new OnViewChangedNotifier();
@@ -33,6 +39,7 @@ public final class ACreateNote_
     }
 
     private void init_(Bundle savedInstanceState) {
+        OnViewChangedNotifier.registerOnViewChangedListener(this);
     }
 
     @Override
@@ -59,6 +66,50 @@ public final class ACreateNote_
 
     public static ACreateNote_.IntentBuilder_ intent(Fragment supportFragment) {
         return new ACreateNote_.IntentBuilder_(supportFragment);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (((SdkVersionHelper.getSdkInt()< 5)&&(keyCode == KeyEvent.KEYCODE_BACK))&&(event.getRepeatCount() == 0)) {
+            onBackPressed();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onViewChanged(HasViews hasViews) {
+        ivDraw = ((ImageView) hasViews.findViewById(id.ivDraw));
+        ivDate = ((ImageView) hasViews.findViewById(id.ivDate));
+        {
+            View view = hasViews.findViewById(id.ivDraw);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ACreateNote_.this.ivDraw();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivDate);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ACreateNote_.this.ivDate();
+                    }
+
+                }
+                );
+            }
+        }
     }
 
     public static class IntentBuilder_ {
