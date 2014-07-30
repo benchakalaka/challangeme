@@ -14,6 +14,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import com.ik.chalangeme.R.id;
 import com.ik.chalangeme.R.layout;
@@ -78,17 +80,20 @@ public final class ACreateNote_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ivDraw = ((ImageView) hasViews.findViewById(id.ivDraw));
+        ivPinOnMap = ((ImageView) hasViews.findViewById(id.ivPinOnMap));
+        btnCreateNote = ((Button) hasViews.findViewById(id.btnCreateNote));
+        etDescription = ((EditText) hasViews.findViewById(id.etDescription));
         ivDate = ((ImageView) hasViews.findViewById(id.ivDate));
+        ivDraw = ((ImageView) hasViews.findViewById(id.ivDraw));
         {
-            View view = hasViews.findViewById(id.ivDraw);
+            View view = hasViews.findViewById(id.ivPinOnMap);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ACreateNote_.this.ivDraw();
+                        ACreateNote_.this.ivPinOnMap();
                     }
 
                 }
@@ -110,6 +115,37 @@ public final class ACreateNote_
                 );
             }
         }
+        {
+            View view = hasViews.findViewById(id.ivDraw);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ACreateNote_.this.ivDraw();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.btnCreateNote);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ACreateNote_.this.btnCreateNote();
+                    }
+
+                }
+                );
+            }
+        }
+        afterViews();
     }
 
     public static class IntentBuilder_ {

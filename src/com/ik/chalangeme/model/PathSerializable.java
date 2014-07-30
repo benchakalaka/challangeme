@@ -1,4 +1,4 @@
-package com.ik.chalangeme.utils;
+package com.ik.chalangeme.model;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -9,7 +9,7 @@ import java.util.List;
 import android.graphics.Path;
 import android.graphics.RectF;
 
-import com.ik.chalangeme.utils.PathSerializable.PathAction.PathActionType;
+import com.ik.chalangeme.model.PathSerializable.PathAction.PathActionType;
 
 public class PathSerializable extends Path implements Serializable {
 

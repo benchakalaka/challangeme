@@ -5,8 +5,8 @@
 	android:background="@android:color/black"
 	tools:context="${packageName}.${activityClass}" >
 
-	<com.ik.chalangeme.custom.DrawingView
-		android:id="@+id/drawingView"
+	<com.ik.chalangeme.custom.CDrawingView
+		android:id="@+id/cDrawingView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent" />
 	

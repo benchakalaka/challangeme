@@ -5,28 +5,6 @@
 	android:background="@drawable/background_image"
 	tools:context="${packageName}.${activityClass}" >
 
-	<ImageView
-		android:id="@+id/imageView1"
-		android:layout_width="100dp"
-		android:layout_height="100dp"
-		android:layout_alignParentTop="true"
-		android:layout_margin="10dp"
-		android:background="@drawable/transparent_inside_and_white_border"
-		android:padding="10dp"
-		android:src="@drawable/scream" />
-
-	<TextView
-		android:id="@+id/textView1"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignBottom="@+id/imageView1"
-		android:layout_marginBottom="30dp"
-		android:layout_toRightOf="@+id/imageView1"
-		android:gravity="center"
-		android:text="@string/app_name"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textColor="@android:color/white" />
-
 	<Button
 		android:id="@+id/btnCreateNote"
 		android:layout_width="wrap_content"
@@ -40,32 +18,29 @@
 		android:textColor="@android:color/white" />
 
 	<EditText
-		android:id="@+id/editText1"
+		android:id="@+id/etDescription"
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignLeft="@+id/imageView1"
-		android:layout_alignRight="@+id/btnCreateNote"
-		android:layout_below="@+id/imageView1"
-		android:typeface="serif"
-		android:padding="20dp"
-		android:text="sadasd"
-		android:layout_marginTop="10dp"
-		android:background="@drawable/papirus"
-		android:ems="10" >
-	</EditText>
-
-	<HorizontalScrollView
-		android:id="@+id/horizontalScrollView1"
-		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
-		android:layout_below="@+id/editText1" >
+		android:layout_alignParentTop="true"
+		android:background="@drawable/papirus"
+		android:ems="10"
+		android:padding="20dp"
+		android:text="sadasd"
+		android:typeface="serif" >
+	</EditText>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_below="@+id/etDescription"
+		android:orientation="vertical" >
 
 		<LinearLayout
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:orientation="vertical" >
+			android:layout_height="wrap_content"
+			android:orientation="horizontal" >
 
 			<ImageView
 				android:id="@+id/ivDate"
@@ -81,25 +56,76 @@
 				android:layout_height="50dp"
 				android:layout_weight="1"
 				android:background="@drawable/transparent_inside_and_white_border"
-				android:src="@drawable/location" />
-			
-			<ImageView
-				android:id="@+id/iv2"
-				android:layout_width="match_parent"
-				android:layout_height="50dp"
-					android:layout_weight="1"
-				android:background="@drawable/transparent_inside_and_white_border"
-				android:src="@drawable/compas" />
-			
-			<ImageView
-				android:id="@+id/iv4"
-				android:layout_width="match_parent"
-				android:layout_height="50dp"
-					android:layout_weight="1"
-				android:background="@drawable/transparent_inside_and_white_border"
-				android:src="@drawable/circle" />
-
+				android:src="@drawable/drawing" />
 		</LinearLayout>
-	</HorizontalScrollView>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal" >
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/app_name"
+				android:layout_weight="1"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:textColor="@android:color/white" />
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="@string/app_name"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:textColor="@android:color/white" />
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal" >
+
+			<ImageView
+				android:id="@+id/ivPinOnMap"
+				android:layout_width="match_parent"
+				android:layout_height="50dp"
+				android:layout_weight="1"
+				android:background="@drawable/transparent_inside_and_white_border"
+				android:src="@drawable/marker" />
+
+			<ImageView
+				android:id="@+id/iv"
+				android:layout_width="match_parent"
+				android:layout_height="50dp"
+				android:layout_weight="1"
+				android:background="@drawable/transparent_inside_and_white_border"
+				android:src="@drawable/picture" />
+		</LinearLayout>
+		
+		
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal" >
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:text="@string/app_name"
+				android:layout_weight="1"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:textColor="@android:color/white" />
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:text="@string/app_name"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:textColor="@android:color/white" />
+		</LinearLayout>
+		
+	</LinearLayout>
 
 </RelativeLayout>

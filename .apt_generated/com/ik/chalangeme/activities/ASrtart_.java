@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.TextView;
 import com.ik.chalangeme.R.id;
 import com.ik.chalangeme.R.layout;
 import org.androidannotations.api.view.HasViews;
@@ -69,6 +70,7 @@ public final class ASrtart_
     @Override
     public void onViewChanged(HasViews hasViews) {
         btnIamNew = ((Button) hasViews.findViewById(id.btnIamNew));
+        twOwerview = ((TextView) hasViews.findViewById(id.twOwerview));
         {
             View view = hasViews.findViewById(id.btnIamNew);
             if (view!= null) {

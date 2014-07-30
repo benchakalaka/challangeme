@@ -25,7 +25,7 @@ import com.ik.chalangeme.colpicker.OpacityBar;
 import com.ik.chalangeme.colpicker.OpacityBar.OnOpacityChangedListener;
 import com.ik.chalangeme.colpicker.SaturationBar;
 import com.ik.chalangeme.colpicker.SaturationBar.OnSaturationChangedListener;
-import com.ik.chalangeme.custom.DrawingView;
+import com.ik.chalangeme.custom.CDrawingView;
 import com.ik.chalangeme.utils.Utils;
 import com.ik.chalangeme.utils.Utils.AnimationManager;
 
@@ -37,7 +37,7 @@ import com.ik.chalangeme.utils.Utils.AnimationManager;
      @ViewById ImageButton       ibColorsPanel , ibColourBlack , ibColourBlue , ibColourGreen , ibColourRed , ibColorPicker;
      @ViewById ImageButton       ibClearAll , ibPencilSettings , ibRedo , ibUndo , ibThick , ibMedium , ibThin , ibEraser;
 
-     @ViewById DrawingView       drawingView;
+     @ViewById CDrawingView       cDrawingView;
 
      private Dialog              dialogChangeColour;
      private AlertDialog.Builder builder;
@@ -80,9 +80,9 @@ import com.ik.chalangeme.utils.Utils.AnimationManager;
 
           ((Button) dialogChangeColour.findViewById(R.id.buttonOk)).setOnClickListener(new OnClickListener() {
                @Override public void onClick(View v) {
-                    drawingView.disableEraserMode();
+                    cDrawingView.disableEraserMode();
                     // color selected by the user.
-                    drawingView.setColor(colorToSet);
+                    cDrawingView.setColor(colorToSet);
                     // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.new_color_has_been_set, R.drawable.color_picker);
                     dialogChangeColour.hide();
                }
@@ -97,7 +97,7 @@ import com.ik.chalangeme.utils.Utils.AnimationManager;
      }
 
      @UiThread @Click void ibDrawText() {
-          drawingView.disableEraserMode();
+          cDrawingView.disableEraserMode();
           ibDrawText.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.text_mode_is_active, R.drawable.text);
           // dialogInputText.show();
@@ -107,8 +107,8 @@ import com.ik.chalangeme.utils.Utils.AnimationManager;
           ibColorPicker.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.choose_custom_color, R.drawable.color_picker);
           try {
-               picker.setOldCenterColor(drawingView.getCurrentColor());
-               picker.setColor(drawingView.getCurrentColor());
+               picker.setOldCenterColor(cDrawingView.getCurrentColor());
+               picker.setColor(cDrawingView.getCurrentColor());
           } catch (Exception ex) {
                Utils.logw(ex.getMessage());
           }
@@ -120,8 +120,8 @@ import com.ik.chalangeme.utils.Utils.AnimationManager;
           builder.setMessage(getResources().getString(R.string.everything_will_be_clear)).setIcon(R.drawable.clear);
           builder.setPositiveButton(getResources().getString(android.R.string.yes), new DialogInterface.OnClickListener() {
                @Override public void onClick(DialogInterface dialog, int which) {
-                    drawingView.disableEraserMode();
-                    drawingView.clearAll();
+                    cDrawingView.disableEraserMode();
+                    cDrawingView.clearAll();
                     ibClearAll.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
                     // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.whiteboard_clear, R.drawable.clear);
                     dialog.dismiss();
@@ -137,99 +137,99 @@ import com.ik.chalangeme.utils.Utils.AnimationManager;
 
      @Click void ibEraser() {
           ibEraser.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          drawingView.setEraserMode();
+          cDrawingView.setEraserMode();
           // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.erase_mode_is_active, R.drawable.eraser);
      }
 
      @Click void ibThin() {
           ibThin.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          drawingView.setBrushSize(15);
+          cDrawingView.setBrushSize(15);
           // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.thick_brush, R.drawable.brush_pencil128);
      }
 
      @Click void ibMedium() {
           ibMedium.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          drawingView.setBrushSize(10);
+          cDrawingView.setBrushSize(10);
           // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.medium_brush_size, R.drawable.brush_pencil128);
      }
 
      @Click void ibThick() {
           ibThick.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          drawingView.setBrushSize(5);
+          cDrawingView.setBrushSize(5);
           // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.thin_brush_size, R.drawable.brush_pencil128);
      }
 
      @Click void ibShapesRectangle() {
-          drawingView.disableEraserMode();
+          cDrawingView.disableEraserMode();
           ibShapesRectangle.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          drawingView.setDrawingShape(DrawingView.ShapesType.RECTANGLE);
+          cDrawingView.setDrawingShape(CDrawingView.ShapesType.RECTANGLE);
           // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.draw_rectangle, R.drawable.rectangle);
      }
 
      @Click void ibShapesCircle() {
-          drawingView.disableEraserMode();
+          cDrawingView.disableEraserMode();
           ibShapesCircle.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          drawingView.setDrawingShape(DrawingView.ShapesType.CIRCLE);
+          cDrawingView.setDrawingShape(CDrawingView.ShapesType.CIRCLE);
           // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.draw_circle, R.drawable.circle);
      }
 
      @Click void ibShapesLine() {
-          drawingView.disableEraserMode();
+          cDrawingView.disableEraserMode();
           ibShapesLine.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          drawingView.setDrawingShape(DrawingView.ShapesType.LINE);
+          cDrawingView.setDrawingShape(CDrawingView.ShapesType.LINE);
           // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.draw_line, R.drawable.line);
      }
 
      @Click void ibShapesTriangle() {
-          drawingView.disableEraserMode();
+          cDrawingView.disableEraserMode();
           ibShapesTriangle.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          drawingView.setDrawingShape(DrawingView.ShapesType.TRIANGLE);
+          cDrawingView.setDrawingShape(CDrawingView.ShapesType.TRIANGLE);
           // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.draw_triangle, R.drawable.triangle);
      }
 
      @Click void ibShapesFreeDrawing() {
-          drawingView.disableEraserMode();
+          cDrawingView.disableEraserMode();
           ibShapesFreeDrawing.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          drawingView.setDrawingShape(DrawingView.ShapesType.STANDART_DRAWING);
+          cDrawingView.setDrawingShape(CDrawingView.ShapesType.STANDART_DRAWING);
           // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.free_drawing, R.drawable.free_drawing);
      }
 
      @Click void ibColourBlue() {
-          drawingView.disableEraserMode();
+          cDrawingView.disableEraserMode();
           ibColourBlue.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          drawingView.setColor(Color.BLUE);
+          cDrawingView.setColor(Color.BLUE);
           // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.brush_color_is_set_to_blue, R.drawable.circle_blue);
      }
 
      @Click void ibColourGreen() {
-          drawingView.disableEraserMode();
+          cDrawingView.disableEraserMode();
           ibColourGreen.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          drawingView.setColor(Color.GREEN);
+          cDrawingView.setColor(Color.GREEN);
           // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.brush_color_is_set_to_green, R.drawable.circle_green);
      }
 
      @Click void ibColourRed() {
-          drawingView.disableEraserMode();
+          cDrawingView.disableEraserMode();
           ibColourRed.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          drawingView.setColor(Color.RED);
+          cDrawingView.setColor(Color.RED);
           // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.brush_color_is_set_to_red, R.drawable.circle_red);
      }
 
      @Click void ibColourBlack() {
-          drawingView.disableEraserMode();
+          cDrawingView.disableEraserMode();
           ibColourBlack.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          drawingView.setColor(Color.BLACK);
+          cDrawingView.setColor(Color.BLACK);
           // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.brush_color_is_black, R.drawable.circle_black);
      }
 
      @Click void ibUndo() {
           // ibUndo.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          drawingView.redo();
+          cDrawingView.redo();
      }
 
      @Click void ibRedo() {
           // ibRedo.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          drawingView.undo();
+          cDrawingView.undo();
      }
 
      @Override public void onColorChanged(int color) {

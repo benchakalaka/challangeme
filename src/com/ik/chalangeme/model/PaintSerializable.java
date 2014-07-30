@@ -1,4 +1,4 @@
-package com.ik.chalangeme.utils;
+package com.ik.chalangeme.model;
 
 import java.io.Serializable;
 

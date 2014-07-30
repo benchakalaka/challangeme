@@ -1,18 +1,38 @@
 package com.ik.chalangeme.activities;
 
+import java.io.IOException;
+import java.util.List;
+
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.ViewById;
 
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.widget.ImageButton;
 
-import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
+import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.ik.chalangeme.R;
+import com.ik.chalangeme.utils.GPSTracker;
+import com.ik.chalangeme.utils.Utils;
 import com.roomorama.caldroid.CaldroidFragment;
 
 /**
@@ -20,28 +40,40 @@ import com.roomorama.caldroid.CaldroidFragment;
  * map
  * 
  * @author Ihor Karpachev
- *         All content is activity property of Datascope Systems Ltd. Date: 13 Dec 2013
- *         Time: 18:21:35
  */
 
-@EActivity ( R.layout.activity_map ) public class AMap extends FragmentActivity implements OnCameraChangeListener {
+@EActivity ( R.layout.activity_map ) public class AMap extends FragmentActivity implements OnMarkerDragListener , OnCameraChangeListener , ConnectionCallbacks , OnConnectionFailedListener , OnMarkerClickListener {
 
+     // ---------------------------- VIEVS
+     @ViewById ImageButton          ibPinMyLocation;
+
+     // ---------------------------- VARIABLES
      // Google map instance
      public GoogleMap               googleMap;
      // Calendar view
      public static CaldroidFragment dialogCaldroidFragment = new CaldroidFragment();
-     // represents center of UK
-     private static final LatLng    APPROX_CENTER_OF_UK    = new LatLng(52.6368778, -1.139759199999957);
+     // Location client
+     private LocationClient         locationClient;
+     // geocoder to represents address to human readable string
+     private Geocoder               geocoder;
 
      @AfterViews void afterViews() {
           // obtaining map object
           googleMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.googleMap)).getMap();
-          // set-up cluster manager
+          // enable my location button
+          googleMap.setMyLocationEnabled(true);
+          // create location manager client
+          locationClient = new LocationClient(this, this, this);
+          // set drag listener as this
+          googleMap.setOnMarkerDragListener(this);
+          // set up geocoder
+          geocoder = new Geocoder(this);
+          // set this as listener on marker click
+          googleMap.setOnMarkerClickListener(this);
+     }
 
-          // temporary trick, capture event when map has been downloaded ................................................
-          googleMap.setOnCameraChangeListener(this);
+     @Click void ibPinMyLocation() {
 
-          animateCamera(APPROX_CENTER_OF_UK, 7);
      }
 
      /**
@@ -51,12 +83,82 @@ import com.roomorama.caldroid.CaldroidFragment;
       * @param zoom
       */
      private void animateCamera(LatLng position, float zoom) {
-          CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(position, zoom);
-          googleMap.animateCamera(cameraUpdate, 2000, null);
+          googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, zoom), 2000, null);
      }
 
-     @Override public void onCameraChange(CameraPosition arg0) {
+     @Override public void onCameraChange(CameraPosition camera) {
           // map has been downloaded, refresh map and destroy listener
           googleMap.setOnCameraChangeListener(null);
+     }
+
+     @Override public void onConnectionFailed(ConnectionResult connectionResult) {
+          // TODO SET UT IF FAILED
+     }
+
+     @Override public void onDisconnected() {
+          // TODO SET UT IF FAILED
+     }
+
+     @Override public void onConnected(Bundle bundle) {
+          Location loc = locationClient.getLastLocation();
+          if ( null == loc ) {
+               Utils.showCustomToast(this, "Cannot obtain current location", R.drawable.calendar);
+               return;
+          }
+          try {
+               List <Address> result = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
+               LatLng location = new LatLng(loc.getLatitude(), loc.getLongitude());
+               // animate to center of UK
+               animateCamera(location, 12);
+               createMarker(location, result.get(0));
+          } catch (IOException e) {
+               e.printStackTrace();
+          }
+     }
+
+     private void createMarker(LatLng position, Address address) {
+          // set up marker options
+          MarkerOptions markerOptions = new MarkerOptions();
+          markerOptions.position(position);
+          markerOptions.title(String.valueOf(GPSTracker.convertAddressToText(address)));
+          markerOptions.snippet("Drag me");
+
+          // set up marker
+          Marker locationMarker = googleMap.addMarker(markerOptions);
+          locationMarker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
+          locationMarker.setDraggable(true);
+          locationMarker.showInfoWindow();
+     }
+
+     @Override public boolean onMarkerClick(Marker marker) {
+          return false;
+     }
+
+     /**
+      * OnPause - disconnect from location client
+      */
+     @Override protected void onPause() {
+          super.onPause();
+          locationClient.disconnect();
+     }
+
+     /**
+      * Trying to connect to location client
+      */
+     @Override protected void onResume() {
+          super.onResume();
+          locationClient.connect();
+     }
+
+     @Override public void onMarkerDrag(Marker marker) {
+          // ommit it
+     }
+
+     @Override public void onMarkerDragEnd(Marker marker) {
+          Utils.showCustomToast(this, "Marker: " + marker.getPosition().latitude, R.drawable.scream);
+     }
+
+     @Override public void onMarkerDragStart(Marker marker) {
+          Utils.showCustomToast(this, "Drag item to any place", R.drawable.scream);
      }
 }

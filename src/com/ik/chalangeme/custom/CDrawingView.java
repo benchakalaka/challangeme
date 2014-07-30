@@ -20,11 +20,11 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import com.ik.chalangeme.R;
-import com.ik.chalangeme.utils.PaintSerializable;
-import com.ik.chalangeme.utils.PathSerializable;
+import com.ik.chalangeme.model.PaintSerializable;
+import com.ik.chalangeme.model.PathSerializable;
 import com.ik.chalangeme.utils.Utils;
 
-public class DrawingView extends View {
+public class CDrawingView extends View {
 
      private static String            textToDraw           = "";
      boolean                          isNeedToRedraw       = false;
@@ -75,7 +75,7 @@ public class DrawingView extends View {
      public static int                WIDTH;
      public static int                HEIGHT;
 
-     public DrawingView ( Context context , AttributeSet attrs ) {
+     public CDrawingView ( Context context , AttributeSet attrs ) {
           super(context, attrs);
           resetDrawingTools();
           setDrawingCacheEnabled(true);
@@ -331,8 +331,8 @@ public class DrawingView extends View {
                     if ( CURRENT_DRAWING_TYPE != ShapesType.STANDART_DRAWING ) {
                          PathSerializable newPath = new PathSerializable();
                          newPath.setPaint(ps);
-                         newPath.setSavedCanvasX(DrawingView.WIDTH);
-                         newPath.setSavedCanvasY(DrawingView.HEIGHT);
+                         newPath.setSavedCanvasX(CDrawingView.WIDTH);
+                         newPath.setSavedCanvasY(CDrawingView.HEIGHT);
 
                          switch (CURRENT_DRAWING_TYPE) {
 
@@ -398,8 +398,8 @@ public class DrawingView extends View {
                               // set brush to path
                               drawPath.setPaint(ps);
                               // apply WIDTH and HEIGHT scale factor to path for different screen support
-                              drawPath.setSavedCanvasX(DrawingView.WIDTH);
-                              drawPath.setSavedCanvasY(DrawingView.HEIGHT);
+                              drawPath.setSavedCanvasX(CDrawingView.WIDTH);
+                              drawPath.setSavedCanvasY(CDrawingView.HEIGHT);
                               // add path
                               getPaths().add(drawPath);
                          }

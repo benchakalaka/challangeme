@@ -50,7 +50,7 @@ public class ColorPicker extends View {
      /**
       * Colors to construct the color wheel using {@link SweepGradient}.
       * <p>
-      * Note: The algorithm in {@link #normalizeColor(int)} highly depends on these exact values. Be aware that {@link #setColor(int)} might break if you change
+      * ModelNote: The algorithm in {@link #normalizeColor(int)} highly depends on these exact values. Be aware that {@link #setColor(int)} might break if you change
       * this array.
       * </p>
       */
@@ -149,7 +149,7 @@ public class ColorPicker extends View {
       * View-specific coordinate system. So this is the value we use to translate from one coordinate system to the other.
       * </p>
       * <p>
-      * Note: (Re)calculated in {@link #onMeasure(int, int)}.
+      * ModelNote: (Re)calculated in {@link #onMeasure(int, int)}.
       * </p>
       * 
       * @see #onDraw(Canvas)

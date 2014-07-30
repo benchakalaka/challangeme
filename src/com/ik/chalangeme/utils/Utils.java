@@ -20,12 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ik.chalangeme.R;
+import com.ik.chalangeme.constants.ActiveRecord;
 import com.ik.chalangeme.constants.Global;
 
 public class Utils {
      private final static SimpleDateFormat dateFormat = new SimpleDateFormat();
-
-     private static Context                appContext;
 
      /**
       * @param monthNumber
@@ -194,21 +193,6 @@ public class Utils {
      }
 
      /**
-      * @return the appContext
-      */
-     public static Context getAppContext() {
-          return appContext;
-     }
-
-     /**
-      * @param appContext
-      *             the appContext to set
-      */
-     public static void setAppContext(Context appContext) {
-          Utils.appContext = appContext;
-     }
-
-     /**
       * Provide animation utils
       * 
       * @author Karpachev Ihor
@@ -227,8 +211,8 @@ public class Utils {
            */
           public static Animation load(int id) {
                Animation animation = null;
-               if ( null != appContext ) {
-                    animation = AnimationUtils.loadAnimation(appContext, id);
+               if ( null != ActiveRecord.context ) {
+                    animation = AnimationUtils.loadAnimation(ActiveRecord.context, id);
                }
                return animation;
           }
@@ -290,8 +274,8 @@ public class Utils {
            */
           public static Animation load(int id, int duration, int startOffset) {
                Animation animation = null;
-               if ( null != appContext ) {
-                    animation = AnimationUtils.loadAnimation(appContext, id);
+               if ( null != ActiveRecord.context ) {
+                    animation = AnimationUtils.loadAnimation(ActiveRecord.context, id);
                     if ( 0 != duration ) {
                          animation.setDuration(duration);
                     }
