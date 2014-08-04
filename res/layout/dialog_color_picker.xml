@@ -27,7 +27,7 @@
                 android:textStyle="italic|bold" />
         </LinearLayout>
 
-        <com.ik.chalangeme.colpicker.ColorPicker
+        <com.ik.ggnote.colpicker.ColorPicker
             android:id="@+id/picker"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
             android:background="@drawable/transparent_inside_and_white_border"
             android:orientation="horizontal" >
 
-            <com.ik.chalangeme.colpicker.OpacityBar
+            <com.ik.ggnote.colpicker.OpacityBar
                 android:id="@+id/opacitybar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -110,7 +110,7 @@
             android:background="@drawable/transparent_inside_and_white_border"
             android:orientation="horizontal" >
 
-            <com.ik.chalangeme.colpicker.SaturationBar
+            <com.ik.ggnote.colpicker.SaturationBar
                 android:id="@+id/saturationbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

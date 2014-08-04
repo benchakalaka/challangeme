@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<string name="app_name">Challenge Me</string>
+	<string name="app_name">GGNote</string>
 	<string name="hint">hint</string>
 	<string name="failed">failed</string>
 	<string name="clear_canvas">clear_canvas</string>
 	<string name="everything_will_be_clear">everything_will_be_clear</string>
 	<string name="choose_color_saturation_opacity">Choose color/saturation value/opacity/saturation</string>
-
+	
 	<!-- Start screen -->
 	<string name="iamnew">I am new here</string>
 	<string name="ihaveacc">I have an account</string>
@@ -22,6 +22,7 @@
 
 	<!-- Menu screen -->
 	<string name="create_note">Create note</string>
+	<string name="my_notes">My note</string>
 	<!-- Menu screen -->
 
 
