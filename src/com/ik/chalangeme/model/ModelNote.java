@@ -26,4 +26,8 @@ public class ModelNote extends SugarRecord <ModelNote> {
           super(context);
      }
 
+     @Override public String toString() {
+          return "Descr: " + description + " , date " + date + " photo " + pathToPhoto + " , drawing " + pathToDrawing + " , location = " + ((location == null) ? "null" : location.latitude);
+     }
+
 }

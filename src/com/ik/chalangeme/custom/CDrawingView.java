@@ -1,5 +1,9 @@
 package com.ik.chalangeme.custom;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +12,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path.Direction;
 import android.graphics.RectF;
@@ -224,7 +227,7 @@ public class CDrawingView extends View {
                // draw last path with last selected color
                drawPaint.setColor(paintColor);
           } else {
-               drawPaint.setColor(Color.WHITE);
+               drawPaint.setColor(Color.BLACK);
           }
 
           if ( CURRENT_DRAWING_TYPE != ShapesType.STANDART_DRAWING ) {
@@ -429,7 +432,7 @@ public class CDrawingView extends View {
 
      public void setEraserMode() {
           isEraser = true;
-          drawPaint.setColor(Color.WHITE);
+          drawPaint.setColor(Color.BLACK);
           CURRENT_DRAWING_TYPE = ShapesType.STANDART_DRAWING;
      }
 
@@ -481,30 +484,6 @@ public class CDrawingView extends View {
           return this.paths;
      }
 
-     public void selectNext() {
-          if ( selectedPathIndex < getPaths().size() ) {
-               selectedPathIndex += 1;
-               invalidate();
-          }
-     }
-
-     public void selectPrev() {
-          if ( selectedPathIndex >= 0 ) {
-               selectedPathIndex -= 1;
-               invalidate();
-          }
-     }
-
-     public void transformSelected(Matrix transformMatrix) {
-          for ( int i = 0; i < getPaths().size(); i++ ) {
-               if ( selectedPathIndex == i ) {
-                    getPaths().get(i).transform(transformMatrix);
-                    invalidate();
-                    return;
-               }
-          }
-     }
-
      /**
       * Set drawing type: it could be any constant from static ShapeType interface
       * 
@@ -514,45 +493,30 @@ public class CDrawingView extends View {
           CURRENT_DRAWING_TYPE = shapeType;
      }
 
-     public void scale(float scaleFactor) {
-          if ( selectedPathIndex > -1 && selectedPathIndex < paths.size() ) {
-               try {
-                    Matrix m = new Matrix();
-                    RectF rectF = new RectF();
-                    paths.get(selectedPathIndex).computeBounds(rectF, true);
-                    m.setScale(scaleFactor, scaleFactor, rectF.centerX(), rectF.centerY());
-                    transformSelected(m);
-               } catch (Exception e) {
-                    Utils.logw(e.getMessage());
-               }
+     /**
+      * Save existing drawing list to file
+      * 
+      * @param context
+      * @return name of created file or empty string otherwise
+      */
+     public String saveDrawingToFile(Context context) {
+          // created filename
+          String filename = "";
+          // Create if need directory for saving file
+          File dir = context.getDir("note", Context.MODE_PRIVATE);
+          // create file inside directody with random name
+          File drawing = new File(dir, System.currentTimeMillis() + ".drawing");
+
+          try {
+               ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(drawing));
+               out.writeObject(this.paths);
+               out.close();
+               filename = drawing.getAbsolutePath();
+          } catch (IOException e) {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
           }
+          return filename;
      }
 
-     public void rotateLeft() {
-          if ( selectedPathIndex > -1 && selectedPathIndex < paths.size() ) {
-               try {
-                    Matrix m = new Matrix();
-                    RectF rectF = new RectF();
-                    paths.get(selectedPathIndex).computeBounds(rectF, true);
-                    m.postRotate(-1, rectF.centerX(), rectF.centerY());
-                    transformSelected(m);
-               } catch (Exception e) {
-                    Utils.logw(e.getMessage());
-               }
-          }
-     }
-
-     public void rotateRight() {
-          if ( selectedPathIndex > -1 && selectedPathIndex < paths.size() ) {
-               try {
-                    Matrix m = new Matrix();
-                    RectF rectF = new RectF();
-                    paths.get(selectedPathIndex).computeBounds(rectF, true);
-                    m.postRotate(1, rectF.centerX(), rectF.centerY());
-                    transformSelected(m);
-               } catch (Exception e) {
-                    Utils.logw(e.getMessage());
-               }
-          }
-     }
 }

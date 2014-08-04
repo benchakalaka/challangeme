@@ -31,6 +31,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ik.chalangeme.R;
+import com.ik.chalangeme.constants.ActiveRecord;
+import com.ik.chalangeme.model.ModelLocation;
 import com.ik.chalangeme.utils.GPSTracker;
 import com.ik.chalangeme.utils.Utils;
 import com.roomorama.caldroid.CaldroidFragment;
@@ -56,6 +58,8 @@ import com.roomorama.caldroid.CaldroidFragment;
      private LocationClient         locationClient;
      // geocoder to represents address to human readable string
      private Geocoder               geocoder;
+     // marker
+     private Marker                 locationMarker;
 
      @AfterViews void afterViews() {
           // obtaining map object
@@ -72,8 +76,14 @@ import com.roomorama.caldroid.CaldroidFragment;
           googleMap.setOnMarkerClickListener(this);
      }
 
+     /**
+      * Save my location to current note
+      */
      @Click void ibPinMyLocation() {
-
+          ActiveRecord.currentNote.location = new ModelLocation(getApplicationContext());
+          ActiveRecord.currentNote.location.latitude = locationMarker.getPosition().latitude;
+          ActiveRecord.currentNote.location.longitude = locationMarker.getPosition().longitude;
+          onBackPressed();
      }
 
      /**
@@ -124,7 +134,7 @@ import com.roomorama.caldroid.CaldroidFragment;
           markerOptions.snippet("Drag me");
 
           // set up marker
-          Marker locationMarker = googleMap.addMarker(markerOptions);
+          locationMarker = googleMap.addMarker(markerOptions);
           locationMarker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
           locationMarker.setDraggable(true);
           locationMarker.showInfoWindow();

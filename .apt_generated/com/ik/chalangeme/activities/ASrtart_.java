@@ -69,8 +69,8 @@ public final class ASrtart_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        btnIamNew = ((Button) hasViews.findViewById(id.btnIamNew));
         twOwerview = ((TextView) hasViews.findViewById(id.twOwerview));
+        btnIamNew = ((Button) hasViews.findViewById(id.btnIamNew));
         {
             View view = hasViews.findViewById(id.btnIamNew);
             if (view!= null) {

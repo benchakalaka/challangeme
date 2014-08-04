@@ -3,7 +3,6 @@ package com.ik.chalangeme.activities;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import android.app.AlertDialog;
@@ -25,6 +24,7 @@ import com.ik.chalangeme.colpicker.OpacityBar;
 import com.ik.chalangeme.colpicker.OpacityBar.OnOpacityChangedListener;
 import com.ik.chalangeme.colpicker.SaturationBar;
 import com.ik.chalangeme.colpicker.SaturationBar.OnSaturationChangedListener;
+import com.ik.chalangeme.constants.ActiveRecord;
 import com.ik.chalangeme.custom.CDrawingView;
 import com.ik.chalangeme.utils.Utils;
 import com.ik.chalangeme.utils.Utils.AnimationManager;
@@ -34,21 +34,24 @@ import com.ik.chalangeme.utils.Utils.AnimationManager;
      // --------------------------------- VIEWS
      @ViewById ImageButton       ibShapesCircle , ibShapesRectangle , ibShapesTriangle , ibShapesFreeDrawing , ibDrawText , ibShapesLine;
 
-     @ViewById ImageButton       ibColorsPanel , ibColourBlack , ibColourBlue , ibColourGreen , ibColourRed , ibColorPicker;
-     @ViewById ImageButton       ibClearAll , ibPencilSettings , ibRedo , ibUndo , ibThick , ibMedium , ibThin , ibEraser;
+     @ViewById ImageButton       ibColourBlack , ibColourBlue , ibColourGreen , ibColourRed , ibColorPicker;
+     @ViewById ImageButton       ibSave , ibClearAll , ibRedo , ibUndo , ibThick , ibMedium , ibThin , ibEraser;
 
-     @ViewById CDrawingView       cDrawingView;
+     // canvas
+     @ViewById CDrawingView      cDrawingView;
 
+     // colorpicker dialog
      private Dialog              dialogChangeColour;
+     // dialog builder
      private AlertDialog.Builder builder;
+     // color picker view
      private ColorPicker         picker;
-
+     // indicates level of saturation and opacity in change color dialog
      private TextView            twSaturationBar , twOpacityBar;
 
      private int                 colorToSet;
 
      @AfterViews void afterViews() {
-          builder = new Builder(getApplicationContext());
           picker = new ColorPicker(getApplicationContext());
           dialogChangeColour = new Dialog(this);
           // dialogInputText = new Dialog(this);
@@ -96,10 +99,23 @@ import com.ik.chalangeme.utils.Utils.AnimationManager;
           });
      }
 
-     @UiThread @Click void ibDrawText() {
+     @Click void ibSave() {
+          String filename = cDrawingView.saveDrawingToFile(this);
+          // check return value if null or empty, file has not been created
+          if ( null != filename && !filename.equals("") ) {
+               ActiveRecord.currentNote.pathToDrawing = filename;
+               Utils.logw("File saved to " + filename);
+               onBackPressed();
+          } else {
+               Utils.showCustomToast(ADrawingView.this, R.string.ihaveacc, R.drawable.text);
+          }
+     }
+
+     @Click void ibDrawText() {
+
           cDrawingView.disableEraserMode();
           ibDrawText.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.text_mode_is_active, R.drawable.text);
+          Utils.showCustomToast(ADrawingView.this, R.string.ihaveacc, R.drawable.text);
           // dialogInputText.show();
      }
 
@@ -116,6 +132,7 @@ import com.ik.chalangeme.utils.Utils.AnimationManager;
      }
 
      @Click void ibClearAll() {
+          builder = new Builder(ADrawingView.this);
           builder.setTitle(getResources().getString(R.string.clear_canvas));
           builder.setMessage(getResources().getString(R.string.everything_will_be_clear)).setIcon(R.drawable.clear);
           builder.setPositiveButton(getResources().getString(android.R.string.yes), new DialogInterface.OnClickListener() {
@@ -132,6 +149,7 @@ import com.ik.chalangeme.utils.Utils.AnimationManager;
                     dialog.dismiss();
                }
           });
+
           builder.create().show();
      }
 
@@ -223,12 +241,12 @@ import com.ik.chalangeme.utils.Utils.AnimationManager;
      }
 
      @Click void ibUndo() {
-          // ibUndo.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
+          ibUndo.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.redo();
      }
 
      @Click void ibRedo() {
-          // ibRedo.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
+          ibRedo.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.undo();
      }
 
@@ -243,5 +261,4 @@ import com.ik.chalangeme.utils.Utils.AnimationManager;
      @Override public void onSaturationChanged(int saturation) {
           twSaturationBar.setText(saturation + "%");
      }
-
 }

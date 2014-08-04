@@ -3,6 +3,7 @@
 
 	<string name="app_name">Challenge Me</string>
 	<string name="hint">hint</string>
+	<string name="failed">failed</string>
 	<string name="clear_canvas">clear_canvas</string>
 	<string name="everything_will_be_clear">everything_will_be_clear</string>
 	<string name="choose_color_saturation_opacity">Choose color/saturation value/opacity/saturation</string>
@@ -29,7 +30,7 @@
 
 	<!-- Add note screen -->
 
-	<string name="s12"></string>
+	<string name="success">success</string>
 	<string name="s13"></string>
 	<string name="s14"></string>
 	<string name="s15"></string>

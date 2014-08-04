@@ -18,5 +18,4 @@ public class ModelLocation extends SugarRecord <ModelLocation> {
      public ModelLocation ( Context context ) {
           super(context);
      }
-
 }

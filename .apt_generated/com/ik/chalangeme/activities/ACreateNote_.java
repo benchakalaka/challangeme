@@ -80,35 +80,21 @@ public final class ACreateNote_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ivPinOnMap = ((ImageView) hasViews.findViewById(id.ivPinOnMap));
-        btnCreateNote = ((Button) hasViews.findViewById(id.btnCreateNote));
-        etDescription = ((EditText) hasViews.findViewById(id.etDescription));
+        ivPinPhoto = ((ImageView) hasViews.findViewById(id.ivPinPhoto));
         ivDate = ((ImageView) hasViews.findViewById(id.ivDate));
         ivDraw = ((ImageView) hasViews.findViewById(id.ivDraw));
+        ivPinOnMap = ((ImageView) hasViews.findViewById(id.ivPinOnMap));
+        etDescription = ((EditText) hasViews.findViewById(id.etDescription));
+        btnCreateNote = ((Button) hasViews.findViewById(id.btnCreateNote));
         {
-            View view = hasViews.findViewById(id.ivPinOnMap);
+            View view = hasViews.findViewById(id.btnCreateNote);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ACreateNote_.this.ivPinOnMap();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ivDate);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ACreateNote_.this.ivDate();
+                        ACreateNote_.this.btnCreateNote();
                     }
 
                 }
@@ -131,14 +117,44 @@ public final class ACreateNote_
             }
         }
         {
-            View view = hasViews.findViewById(id.btnCreateNote);
+            View view = hasViews.findViewById(id.ivPinOnMap);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ACreateNote_.this.btnCreateNote();
+                        ACreateNote_.this.ivPinOnMap();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivPinPhoto);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ACreateNote_.this.ivPinPhoto();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivDate);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ACreateNote_.this.ivDate();
                     }
 
                 }
@@ -146,6 +162,16 @@ public final class ACreateNote_
             }
         }
         afterViews();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case  100 :
+                ACreateNote_.this.onResult(resultCode, data);
+                break;
+        }
     }
 
     public static class IntentBuilder_ {

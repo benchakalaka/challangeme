@@ -9,8 +9,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
@@ -31,7 +29,6 @@ public final class ADrawingView_
 {
 
     private final OnViewChangedNotifier onViewChangedNotifier_ = new OnViewChangedNotifier();
-    private Handler handler_ = new Handler(Looper.getMainLooper());
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,50 +80,34 @@ public final class ADrawingView_
     @Override
     public void onViewChanged(HasViews hasViews) {
         ibShapesTriangle = ((ImageButton) hasViews.findViewById(id.ibShapesTriangle));
-        ibColourGreen = ((ImageButton) hasViews.findViewById(id.ibColourGreen));
-        ibShapesRectangle = ((ImageButton) hasViews.findViewById(id.ibShapesRectangle));
-        ibShapesFreeDrawing = ((ImageButton) hasViews.findViewById(id.ibShapesFreeDrawing));
-        ibRedo = ((ImageButton) hasViews.findViewById(id.ibRedo));
-        ibEraser = ((ImageButton) hasViews.findViewById(id.ibEraser));
-        ibPencilSettings = ((ImageButton) hasViews.findViewById(id.ibPencilSettings));
-        ibClearAll = ((ImageButton) hasViews.findViewById(id.ibClearAll));
-        cDrawingView = ((CDrawingView) hasViews.findViewById(id.cDrawingView));
-        ibThick = ((ImageButton) hasViews.findViewById(id.ibThick));
-        ibColourBlue = ((ImageButton) hasViews.findViewById(id.ibColourBlue));
-        ibColorsPanel = ((ImageButton) hasViews.findViewById(id.ibColorsPanel));
-        ibColorPicker = ((ImageButton) hasViews.findViewById(id.ibColorPicker));
         ibDrawText = ((ImageButton) hasViews.findViewById(id.ibDrawText));
-        ibUndo = ((ImageButton) hasViews.findViewById(id.ibUndo));
+        ibColorPicker = ((ImageButton) hasViews.findViewById(id.ibColorPicker));
+        ibColourBlue = ((ImageButton) hasViews.findViewById(id.ibColourBlue));
         ibShapesCircle = ((ImageButton) hasViews.findViewById(id.ibShapesCircle));
-        ibThin = ((ImageButton) hasViews.findViewById(id.ibThin));
-        ibMedium = ((ImageButton) hasViews.findViewById(id.ibMedium));
         ibColourRed = ((ImageButton) hasViews.findViewById(id.ibColourRed));
+        ibMedium = ((ImageButton) hasViews.findViewById(id.ibMedium));
         ibColourBlack = ((ImageButton) hasViews.findViewById(id.ibColourBlack));
+        ibRedo = ((ImageButton) hasViews.findViewById(id.ibRedo));
+        ibColourGreen = ((ImageButton) hasViews.findViewById(id.ibColourGreen));
+        ibClearAll = ((ImageButton) hasViews.findViewById(id.ibClearAll));
+        ibSave = ((ImageButton) hasViews.findViewById(id.ibSave));
         ibShapesLine = ((ImageButton) hasViews.findViewById(id.ibShapesLine));
+        cDrawingView = ((CDrawingView) hasViews.findViewById(id.cDrawingView));
+        ibShapesFreeDrawing = ((ImageButton) hasViews.findViewById(id.ibShapesFreeDrawing));
+        ibThin = ((ImageButton) hasViews.findViewById(id.ibThin));
+        ibThick = ((ImageButton) hasViews.findViewById(id.ibThick));
+        ibEraser = ((ImageButton) hasViews.findViewById(id.ibEraser));
+        ibShapesRectangle = ((ImageButton) hasViews.findViewById(id.ibShapesRectangle));
+        ibUndo = ((ImageButton) hasViews.findViewById(id.ibUndo));
         {
-            View view = hasViews.findViewById(id.ibThick);
+            View view = hasViews.findViewById(id.ibColourRed);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ADrawingView_.this.ibThick();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibColorPicker);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADrawingView_.this.ibColorPicker();
+                        ADrawingView_.this.ibColourRed();
                     }
 
                 }
@@ -149,14 +130,14 @@ public final class ADrawingView_
             }
         }
         {
-            View view = hasViews.findViewById(id.ibClearAll);
+            View view = hasViews.findViewById(id.ibEraser);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ADrawingView_.this.ibClearAll();
+                        ADrawingView_.this.ibEraser();
                     }
 
                 }
@@ -179,66 +160,6 @@ public final class ADrawingView_
             }
         }
         {
-            View view = hasViews.findViewById(id.ibThin);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADrawingView_.this.ibThin();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibShapesLine);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADrawingView_.this.ibShapesLine();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibColourRed);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADrawingView_.this.ibColourRed();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibShapesRectangle);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADrawingView_.this.ibShapesRectangle();
-                    }
-
-                }
-                );
-            }
-        }
-        {
             View view = hasViews.findViewById(id.ibShapesTriangle);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
@@ -247,6 +168,21 @@ public final class ADrawingView_
                     @Override
                     public void onClick(View view) {
                         ADrawingView_.this.ibShapesTriangle();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibColourGreen);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADrawingView_.this.ibColourGreen();
                     }
 
                 }
@@ -284,14 +220,14 @@ public final class ADrawingView_
             }
         }
         {
-            View view = hasViews.findViewById(id.ibColourGreen);
+            View view = hasViews.findViewById(id.ibColourBlack);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ADrawingView_.this.ibColourGreen();
+                        ADrawingView_.this.ibColourBlack();
                     }
 
                 }
@@ -299,14 +235,59 @@ public final class ADrawingView_
             }
         }
         {
-            View view = hasViews.findViewById(id.ibRedo);
+            View view = hasViews.findViewById(id.ibClearAll);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ADrawingView_.this.ibRedo();
+                        ADrawingView_.this.ibClearAll();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibShapesLine);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADrawingView_.this.ibShapesLine();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibShapesRectangle);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADrawingView_.this.ibShapesRectangle();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibThin);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADrawingView_.this.ibThin();
                     }
 
                 }
@@ -329,6 +310,51 @@ public final class ADrawingView_
             }
         }
         {
+            View view = hasViews.findViewById(id.ibThick);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADrawingView_.this.ibThick();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibRedo);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADrawingView_.this.ibRedo();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibColorPicker);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADrawingView_.this.ibColorPicker();
+                    }
+
+                }
+                );
+            }
+        }
+        {
             View view = hasViews.findViewById(id.ibShapesCircle);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
@@ -344,29 +370,14 @@ public final class ADrawingView_
             }
         }
         {
-            View view = hasViews.findViewById(id.ibColourBlack);
+            View view = hasViews.findViewById(id.ibSave);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ADrawingView_.this.ibColourBlack();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibEraser);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADrawingView_.this.ibEraser();
+                        ADrawingView_.this.ibSave();
                     }
 
                 }
@@ -374,20 +385,6 @@ public final class ADrawingView_
             }
         }
         afterViews();
-    }
-
-    @Override
-    public void ibDrawText() {
-        handler_.post(new Runnable() {
-
-
-            @Override
-            public void run() {
-                ADrawingView_.super.ibDrawText();
-            }
-
-        }
-        );
     }
 
     public static class IntentBuilder_ {
