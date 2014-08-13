@@ -28,7 +28,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.ik.chalangeme.R;
+import com.ik.ggnote.R;
 
 public class ValueBar extends View {
 
@@ -189,7 +189,7 @@ public class ValueBar extends View {
           mBarPointerHaloRadius = a.getDimensionPixelSize(R.styleable.ColorBars_bar_pointer_halo_radius, b.getDimensionPixelSize(R.dimen.bar_pointer_halo_radius));
           mOrientation = a.getBoolean(R.styleable.ColorBars_bar_orientation_horizontal, ORIENTATION_DEFAULT);
 
-          a.recycle(); 
+          a.recycle();
 
           mBarPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
           mBarPaint.setShader(shader);

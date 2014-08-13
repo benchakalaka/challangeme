@@ -2,7 +2,7 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@drawable/background_image"
+	android:background="@drawable/bg"
 	tools:context="${packageName}.${activityClass}" >
 
 	<ImageView
@@ -20,7 +20,6 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignBottom="@+id/imageView1"
-		android:layout_alignRight="@+id/button1"
 		android:layout_marginBottom="30dp"
 		android:layout_toRightOf="@+id/imageView1"
 		android:gravity="center"
@@ -48,9 +47,9 @@
 		android:layout_margin="10dp"
 		android:background="@drawable/transparent_inside_and_white_border"
 		android:ems="10"
-		android:padding="3dp"
 		android:hint="@string/hint"
 		android:inputType="textPassword"
+		android:padding="3dp"
 		android:textColor="@android:color/white" >
 	</EditText>
 
@@ -71,11 +70,11 @@
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
 		android:layout_below="@+id/textView2"
-		android:padding="3dp"
-		android:hint="@string/hint"
 		android:layout_margin="10dp"
 		android:background="@drawable/transparent_inside_and_white_border"
 		android:ems="10"
+		android:hint="@string/hint"
+		android:padding="3dp"
 		android:textColor="@android:color/white" />
 
 	<ToggleButton
@@ -83,10 +82,9 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_alignRight="@+id/etPassword"
-		android:textOn="YES"
-		android:textOff="NO"
 		android:layout_below="@+id/etPassword"
-		/>
+		android:textOff="NO"
+		android:textOn="YES" />
 
 	<Button
 		android:id="@+id/btnLogin"
@@ -104,15 +102,21 @@
 		android:id="@+id/textView4"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_alignBottom="@+id/toggleButton1"
-		android:layout_alignParentLeft="true"
-		android:layout_alignTop="@+id/toggleButton1"
-		android:layout_toLeftOf="@+id/toggleButton1"
-		android:gravity="center_vertical"
-		android:text="Ask password every time?"
+		android:layout_alignBottom="@+id/tbRememberMe"
+		android:layout_alignLeft="@+id/btnLogin"
+		android:layout_alignTop="@+id/tbRememberMe"
 		android:layout_margin="10dp"
+		android:gravity="center_vertical"
+		android:text="Remember me"
 		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:textColor="@android:color/white" 
-		 />
+		android:textColor="@android:color/white" />
+
+	<RadioButton
+		android:id="@+id/radioButton1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignTop="@+id/textView4"
+		android:layout_toRightOf="@+id/textView4"
+		android:text="RadioButton" />
 
 </RelativeLayout>

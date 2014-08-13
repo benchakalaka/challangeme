@@ -30,7 +30,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.ik.chalangeme.R;
+import com.ik.ggnote.R;
 import com.ik.ggnote.constants.ActiveRecord;
 import com.ik.ggnote.model.ModelLocation;
 import com.ik.ggnote.utils.GPSTracker;
@@ -83,6 +83,14 @@ import com.roomorama.caldroid.CaldroidFragment;
           ActiveRecord.currentNote.location = new ModelLocation(getApplicationContext());
           ActiveRecord.currentNote.location.latitude = locationMarker.getPosition().latitude;
           ActiveRecord.currentNote.location.longitude = locationMarker.getPosition().longitude;
+
+          try {
+               List <Address> result = geocoder.getFromLocation(locationMarker.getPosition().latitude, locationMarker.getPosition().longitude, 1);
+               ActiveRecord.currentNote.location.address = String.valueOf(GPSTracker.convertAddressToText(result.get(0)));
+          } catch (IOException e) {
+               e.printStackTrace();
+          }
+
           onBackPressed();
      }
 
@@ -123,6 +131,8 @@ import com.roomorama.caldroid.CaldroidFragment;
                createMarker(location, result.get(0));
           } catch (IOException e) {
                e.printStackTrace();
+               Utils.showCustomToast(AMap.this, "PROBLEEEMS", R.drawable.scream);
+               onBackPressed();
           }
      }
 
@@ -170,5 +180,16 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      @Override public void onMarkerDragStart(Marker marker) {
           Utils.showCustomToast(this, "Drag item to any place", R.drawable.scream);
+          try {
+               List <Address> result = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
+               if ( null != result && result.size() > 0 ) {
+                    marker.setTitle(String.valueOf(GPSTracker.convertAddressToText(result.get(0))));
+                    marker.hideInfoWindow();
+                    marker.showInfoWindow();
+               }
+          } catch (IOException e) {
+               // TODO Auto-generated catch block
+               e.printStackTrace();
+          }
      }
 }

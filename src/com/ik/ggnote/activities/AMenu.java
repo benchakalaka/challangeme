@@ -8,7 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.widget.Button;
 
-import com.ik.chalangeme.R;
+import com.ik.ggnote.R;
 
 @EActivity ( R.layout.activity_menu ) public class AMenu extends Activity {
 

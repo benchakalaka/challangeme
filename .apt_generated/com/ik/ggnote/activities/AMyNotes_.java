@@ -13,14 +13,17 @@ import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import com.ik.chalangeme.R.layout;
+import android.widget.LinearLayout;
+import com.ik.ggnote.R.id;
+import com.ik.ggnote.R.layout;
 import org.androidannotations.api.SdkVersionHelper;
 import org.androidannotations.api.view.HasViews;
+import org.androidannotations.api.view.OnViewChangedListener;
 import org.androidannotations.api.view.OnViewChangedNotifier;
 
 public final class AMyNotes_
     extends AMyNotes
-    implements HasViews
+    implements HasViews, OnViewChangedListener
 {
 
     private final OnViewChangedNotifier onViewChangedNotifier_ = new OnViewChangedNotifier();
@@ -35,6 +38,7 @@ public final class AMyNotes_
     }
 
     private void init_(Bundle savedInstanceState) {
+        OnViewChangedNotifier.registerOnViewChangedListener(this);
     }
 
     @Override
@@ -69,6 +73,12 @@ public final class AMyNotes_
             onBackPressed();
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onViewChanged(HasViews hasViews) {
+        llMyNotes = ((LinearLayout) hasViews.findViewById(id.llMyNotes));
+        afterViews();
     }
 
     public static class IntentBuilder_ {

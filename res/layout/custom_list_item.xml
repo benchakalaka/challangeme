@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:background="@drawable/blue_gradient"
+	android:orientation="vertical"
+	android:padding="8dp" >
+
+	<ImageView
+		android:id="@+id/image"
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:layout_alignParentLeft="true"
+		android:layout_gravity="center_vertical"
+		android:background="#0000FF" />
+
+	<TextView
+		android:id="@+id/text"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignTop="@+id/image"
+		android:layout_gravity="center_vertical"
+		android:layout_toRightOf="@+id/image"
+		android:paddingLeft="10dp"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="@android:color/white"
+		android:textStyle="italic" />
+
+	<ImageView
+		android:id="@+id/ivEditNote"
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:layout_toLeftOf="@+id/ivDeleteNote"
+		android:src="@drawable/edit" />
+
+	<ImageView
+		android:id="@+id/ivDeleteNote"
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:layout_alignParentRight="true"
+		android:src="@drawable/close" />
+
+</RelativeLayout>

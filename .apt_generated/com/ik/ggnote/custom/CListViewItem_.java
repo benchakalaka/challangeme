@@ -6,10 +6,13 @@
 package com.ik.ggnote.custom;
 
 import android.content.Context;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.ik.chalangeme.R.id;
-import com.ik.chalangeme.R.layout;
+import com.ik.ggnote.R.id;
+import com.ik.ggnote.R.layout;
+import com.ik.ggnote.model.ModelNote;
 import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
 import org.androidannotations.api.view.OnViewChangedNotifier;
@@ -31,13 +34,13 @@ public final class CListViewItem_
     private boolean alreadyInflated_ = false;
     private final OnViewChangedNotifier onViewChangedNotifier_ = new OnViewChangedNotifier();
 
-    public CListViewItem_(Context context) {
-        super(context);
+    public CListViewItem_(Context context, ModelNote modelNote) {
+        super(context, modelNote);
         init_();
     }
 
-    public static CListViewItem build(Context context) {
-        CListViewItem_ instance = new CListViewItem_(context);
+    public static CListViewItem build(Context context, ModelNote modelNote) {
+        CListViewItem_ instance = new CListViewItem_(context, modelNote);
         instance.onFinishInflate();
         return instance;
     }
@@ -53,7 +56,7 @@ public final class CListViewItem_
     public void onFinishInflate() {
         if (!alreadyInflated_) {
             alreadyInflated_ = true;
-            inflate(getContext(), layout.list_item, this);
+            inflate(getContext(), layout.custom_list_item, this);
             onViewChangedNotifier_.notifyViewChanged(this);
         }
         super.onFinishInflate();
@@ -67,8 +70,26 @@ public final class CListViewItem_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
+        ivDeleteNote = ((ImageView) hasViews.findViewById(id.ivDeleteNote));
         text = ((TextView) hasViews.findViewById(id.text));
         image = ((ImageView) hasViews.findViewById(id.image));
+        ivEditNote = ((ImageView) hasViews.findViewById(id.ivEditNote));
+        {
+            View view = hasViews.findViewById(id.ivDeleteNote);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        CListViewItem_.this.ivDeleteNote();
+                    }
+
+                }
+                );
+            }
+        }
+        afterViews();
     }
 
 }

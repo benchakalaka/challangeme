@@ -14,11 +14,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import com.ik.chalangeme.R.id;
-import com.ik.chalangeme.R.layout;
+import com.ik.ggnote.R.id;
+import com.ik.ggnote.R.layout;
 import org.androidannotations.api.SdkVersionHelper;
 import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
@@ -80,21 +80,25 @@ public final class ACreateNote_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ivPinOnMap = ((ImageView) hasViews.findViewById(id.ivPinOnMap));
-        ivPinPhoto = ((ImageView) hasViews.findViewById(id.ivPinPhoto));
+        ivPinOnMapDone = ((ImageView) hasViews.findViewById(id.ivPinOnMapDone));
+        ibCreateNote = ((ImageButton) hasViews.findViewById(id.ibCreateNote));
+        ivDateDone = ((ImageView) hasViews.findViewById(id.ivDateDone));
+        ivDrawDone = ((ImageView) hasViews.findViewById(id.ivDrawDone));
+        ibPinOnMap = ((ImageButton) hasViews.findViewById(id.ibPinOnMap));
+        ivPinPhotoDone = ((ImageView) hasViews.findViewById(id.ivPinPhotoDone));
         etDescription = ((EditText) hasViews.findViewById(id.etDescription));
-        ivDate = ((ImageView) hasViews.findViewById(id.ivDate));
-        btnCreateNote = ((Button) hasViews.findViewById(id.btnCreateNote));
-        ivDraw = ((ImageView) hasViews.findViewById(id.ivDraw));
+        ibDate = ((ImageButton) hasViews.findViewById(id.ibDate));
+        ibDraw = ((ImageButton) hasViews.findViewById(id.ibDraw));
+        ibPinPhoto = ((ImageButton) hasViews.findViewById(id.ibPinPhoto));
         {
-            View view = hasViews.findViewById(id.btnCreateNote);
+            View view = hasViews.findViewById(id.ibPinOnMap);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ACreateNote_.this.btnCreateNote();
+                        ACreateNote_.this.ibPinOnMap();
                     }
 
                 }
@@ -102,14 +106,14 @@ public final class ACreateNote_
             }
         }
         {
-            View view = hasViews.findViewById(id.ivDate);
+            View view = hasViews.findViewById(id.ibDate);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ACreateNote_.this.ivDate();
+                        ACreateNote_.this.ibDate();
                     }
 
                 }
@@ -117,14 +121,14 @@ public final class ACreateNote_
             }
         }
         {
-            View view = hasViews.findViewById(id.ivPinPhoto);
+            View view = hasViews.findViewById(id.ibDraw);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ACreateNote_.this.ivPinPhoto();
+                        ACreateNote_.this.ibDraw();
                     }
 
                 }
@@ -132,14 +136,14 @@ public final class ACreateNote_
             }
         }
         {
-            View view = hasViews.findViewById(id.ivDraw);
+            View view = hasViews.findViewById(id.ibPinPhoto);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ACreateNote_.this.ivDraw();
+                        ACreateNote_.this.ibPinPhoto();
                     }
 
                 }
@@ -147,14 +151,14 @@ public final class ACreateNote_
             }
         }
         {
-            View view = hasViews.findViewById(id.ivPinOnMap);
+            View view = hasViews.findViewById(id.ibCreateNote);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ACreateNote_.this.ivPinOnMap();
+                        ACreateNote_.this.ibCreateNote();
                     }
 
                 }

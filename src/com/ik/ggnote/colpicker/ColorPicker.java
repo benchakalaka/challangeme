@@ -28,7 +28,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.ik.chalangeme.R;
+import com.ik.ggnote.R;
 
 /**
  * Displays a holo-themed color picker.
@@ -50,8 +50,8 @@ public class ColorPicker extends View {
      /**
       * Colors to construct the color wheel using {@link SweepGradient}.
       * <p>
-      * ModelNote: The algorithm in {@link #normalizeColor(int)} highly depends on these exact values. Be aware that {@link #setColor(int)} might break if you change
-      * this array.
+      * ModelNote: The algorithm in {@link #normalizeColor(int)} highly depends on these exact values. Be aware that {@link #setColor(int)} might break if you
+      * change this array.
       * </p>
       */
      private static final int[]      COLORS               = new int[] { 0xFFFF0000, 0xFFFF00FF, 0xFF0000FF, 0xFF00FFFF, 0xFF00FF00, 0xFFFFFF00, 0xFFFF0000 };

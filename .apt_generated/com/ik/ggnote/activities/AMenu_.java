@@ -14,8 +14,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import com.ik.chalangeme.R.id;
-import com.ik.chalangeme.R.layout;
+import com.ik.ggnote.R.id;
+import com.ik.ggnote.R.layout;
 import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
 import org.androidannotations.api.view.OnViewChangedNotifier;
@@ -68,23 +68,8 @@ public final class AMenu_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        btnCreateNote = ((Button) hasViews.findViewById(id.btnCreateNote));
         btnExistingNotes = ((Button) hasViews.findViewById(id.btnExistingNotes));
-        {
-            View view = hasViews.findViewById(id.btnExistingNotes);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        AMenu_.this.btnExistingNotes();
-                    }
-
-                }
-                );
-            }
-        }
+        btnCreateNote = ((Button) hasViews.findViewById(id.btnCreateNote));
         {
             View view = hasViews.findViewById(id.btnCreateNote);
             if (view!= null) {
@@ -94,6 +79,21 @@ public final class AMenu_
                     @Override
                     public void onClick(View view) {
                         AMenu_.this.btnCreateNote();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.btnExistingNotes);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AMenu_.this.btnExistingNotes();
                     }
 
                 }

@@ -17,12 +17,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.ik.chalangeme.R;
+import com.ik.ggnote.R;
 import com.ik.ggnote.colpicker.ColorPicker;
-import com.ik.ggnote.colpicker.OpacityBar;
-import com.ik.ggnote.colpicker.SaturationBar;
 import com.ik.ggnote.colpicker.ColorPicker.OnColorChangedListener;
+import com.ik.ggnote.colpicker.OpacityBar;
 import com.ik.ggnote.colpicker.OpacityBar.OnOpacityChangedListener;
+import com.ik.ggnote.colpicker.SaturationBar;
 import com.ik.ggnote.colpicker.SaturationBar.OnSaturationChangedListener;
 import com.ik.ggnote.constants.ActiveRecord;
 import com.ik.ggnote.custom.CDrawingView;
@@ -107,7 +107,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
                Utils.logw("File saved to " + filename);
                onBackPressed();
           } else {
-               Utils.showCustomToast(ADrawingView.this, R.string.ihaveacc, R.drawable.text);
+               Utils.showCustomToast(ADrawingView.this, "PROBLEMS", R.drawable.text);
           }
      }
 

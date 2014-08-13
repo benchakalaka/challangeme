@@ -28,7 +28,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.ik.chalangeme.R;
+import com.ik.ggnote.R;
 
 public class OpacityBar extends View {
 

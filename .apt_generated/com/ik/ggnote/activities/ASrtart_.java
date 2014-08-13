@@ -16,8 +16,8 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ToggleButton;
-import com.ik.chalangeme.R.id;
-import com.ik.chalangeme.R.layout;
+import com.ik.ggnote.R.id;
+import com.ik.ggnote.R.layout;
 import com.ik.ggnote.utils.AppSharedPreferences_;
 import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
@@ -72,10 +72,10 @@ public final class ASrtart_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        btnLogin = ((Button) hasViews.findViewById(id.btnLogin));
         etPassword = ((EditText) hasViews.findViewById(id.etPassword));
-        tbRememberMe = ((ToggleButton) hasViews.findViewById(id.tbRememberMe));
         etLogin = ((EditText) hasViews.findViewById(id.etLogin));
+        btnLogin = ((Button) hasViews.findViewById(id.btnLogin));
+        tbRememberMe = ((ToggleButton) hasViews.findViewById(id.tbRememberMe));
         {
             View view = hasViews.findViewById(id.btnLogin);
             if (view!= null) {

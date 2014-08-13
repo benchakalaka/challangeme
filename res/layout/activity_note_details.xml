@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@drawable/bg" >
+
+	<TextView
+		android:id="@+id/twTime"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:layout_margin="10dp"
+		android:background="@drawable/background_round_border_green"
+		android:gravity="center"
+		android:padding="4dp"
+		android:text="asdasdasdasd"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:textColor="#25383C"
+		android:textStyle="italic|bold" />
+
+	<TextView
+		android:id="@+id/twDescription"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_below="@+id/twTime"
+		android:layout_margin="10dp"
+		android:background="@drawable/background_round_border_green"
+		android:padding="4dp"
+		android:text="asdaasdvfsdasdasd"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:textColor="#25383C"
+		android:textStyle="italic|bold" />
+
+	<com.ik.ggnote.custom.CDrawingView
+		android:id="@+id/drawingView"
+		android:layout_width="match_parent"
+		android:layout_height="200dp"
+		android:layout_alignParentLeft="true"
+		android:layout_below="@+id/googleMapNoteDetail" />
+
+</RelativeLayout>
