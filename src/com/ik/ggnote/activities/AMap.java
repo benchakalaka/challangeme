@@ -179,17 +179,22 @@ import com.roomorama.caldroid.CaldroidFragment;
      }
 
      @Override public void onMarkerDragStart(Marker marker) {
-          Utils.showCustomToast(this, "Drag item to any place", R.drawable.scream);
-          try {
-               List <Address> result = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
-               if ( null != result && result.size() > 0 ) {
-                    marker.setTitle(String.valueOf(GPSTracker.convertAddressToText(result.get(0))));
-                    marker.hideInfoWindow();
-                    marker.showInfoWindow();
-               }
-          } catch (IOException e) {
-               // TODO Auto-generated catch block
-               e.printStackTrace();
-          }
+          Utils.showCustomToast(this, "Drag me somewhere", R.drawable.scream);
+
+          marker.setTitle("Drag me somewhere");
+          marker.hideInfoWindow();
+          marker.showInfoWindow();
+          /*
+           * try {
+           * List <Address> result = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
+           * if ( null != result && result.size() > 0 ) {
+           * marker.setTitle(String.valueOf(GPSTracker.convertAddressToText(result.get(0))));
+           * marker.hideInfoWindow();
+           * marker.showInfoWindow();
+           * }
+           * } catch (IOException e) {
+           * e.printStackTrace();
+           * }
+           */
      }
 }

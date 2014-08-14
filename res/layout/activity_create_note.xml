@@ -3,6 +3,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:background="@drawable/bg"
+	android:clipChildren="false"
 	tools:context="${packageName}.${activityClass}" >
 
 	<EditText
@@ -16,9 +17,12 @@
 		android:layout_margin="10dp"
 		android:background="@drawable/transparent_inside_and_white_border"
 		android:ems="10"
+		android:gravity="center"
 		android:padding="20dp"
-		android:text="sadasd"
-		android:typeface="serif" >
+		android:text="sd"
+		android:textAppearance="?android:attr/textAppearanceLarge"
+		android:textColor="@android:color/white"
+		android:typeface="monospace" >
 	</EditText>
 
 	<LinearLayout
@@ -29,13 +33,16 @@
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
 		android:layout_margin="10dp"
+		android:clipChildren="false"
 		android:background="@drawable/transparent_inside_and_white_border"
 		android:orientation="horizontal" >
 
 		<RelativeLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_weight="1" >
+			android:layout_weight="1"
+			android:clipChildren="false"
+			android:gravity="center" >
 
 			<ImageButton
 				android:id="@+id/ibDate"
@@ -43,7 +50,6 @@
 				android:layout_height="80dp"
 				android:layout_margin="10dp"
 				android:background="@drawable/transparent_inside_and_white_border"
-				android:scaleType="fitXY"
 				android:src="@drawable/calendar"
 				android:textColor="@android:color/white" />
 
@@ -61,7 +67,8 @@
 		<RelativeLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_weight="1" >
+			android:layout_weight="1"
+			android:gravity="center" >
 
 			<ImageButton
 				android:id="@+id/ibDraw"
@@ -69,7 +76,6 @@
 				android:layout_height="80dp"
 				android:layout_margin="10dp"
 				android:background="@drawable/transparent_inside_and_white_border"
-				android:scaleType="fitXY"
 				android:src="@drawable/drawing"
 				android:textColor="@android:color/white" />
 
@@ -79,7 +85,6 @@
 				android:layout_height="30dp"
 				android:layout_alignParentTop="true"
 				android:layout_alignRight="@+id/ibDraw"
-				android:scaleType="fitXY"
 				android:src="@drawable/red_ok"
 				android:visibility="invisible" />
 		</RelativeLayout>
@@ -87,7 +92,8 @@
 		<RelativeLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_weight="1" >
+			android:layout_weight="1"
+			android:gravity="center" >
 
 			<ImageButton
 				android:id="@+id/ibPinOnMap"
@@ -95,7 +101,6 @@
 				android:layout_height="80dp"
 				android:layout_margin="10dp"
 				android:background="@drawable/transparent_inside_and_white_border"
-				android:scaleType="fitXY"
 				android:src="@drawable/marker"
 				android:textColor="@android:color/white" />
 
@@ -105,7 +110,6 @@
 				android:layout_height="30dp"
 				android:layout_alignParentTop="true"
 				android:layout_alignRight="@+id/ibPinOnMap"
-				android:scaleType="fitXY"
 				android:src="@drawable/red_ok"
 				android:visibility="invisible" />
 		</RelativeLayout>
@@ -113,7 +117,8 @@
 		<RelativeLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_weight="1" >
+			android:layout_weight="1"
+			android:gravity="center" >
 
 			<ImageButton
 				android:id="@+id/ibPinPhoto"
@@ -121,8 +126,7 @@
 				android:layout_height="80dp"
 				android:layout_margin="10dp"
 				android:background="@drawable/transparent_inside_and_white_border"
-				android:scaleType="fitXY"
-				android:src="@drawable/picture"
+				android:src="@drawable/camera"
 				android:textColor="@android:color/white" />
 
 			<ImageView
@@ -131,7 +135,6 @@
 				android:layout_height="30dp"
 				android:layout_alignParentTop="true"
 				android:layout_alignRight="@+id/ibPinPhoto"
-				android:scaleType="fitXY"
 				android:src="@drawable/red_ok"
 				android:visibility="invisible" />
 		</RelativeLayout>
@@ -139,7 +142,8 @@
 		<RelativeLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_weight="1" >
+			android:layout_weight="1"
+			android:gravity="center" >
 
 			<ImageButton
 				android:id="@+id/ibCreateNote"
@@ -147,8 +151,7 @@
 				android:layout_height="80dp"
 				android:layout_margin="10dp"
 				android:background="@drawable/transparent_inside_and_white_border"
-				android:scaleType="fitXY"
-				android:src="@drawable/good_or_tick"
+				android:src="@drawable/ok"
 				android:textColor="@android:color/white" />
 		</RelativeLayout>
 	</LinearLayout>

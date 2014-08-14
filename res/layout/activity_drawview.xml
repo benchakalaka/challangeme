@@ -9,6 +9,15 @@
 		android:id="@+id/cDrawingView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent" />
+	
+	<ImageView
+		android:id="@+id/ivLock"
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentRight="true"
+		android:layout_margin="10dp"
+		android:background="@drawable/unlocked" />
 
 	<LinearLayout
 		android:id="@+id/llChangeColour"

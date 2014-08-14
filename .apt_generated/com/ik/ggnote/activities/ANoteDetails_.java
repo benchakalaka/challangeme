@@ -12,11 +12,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
-import com.ik.ggnote.custom.CDrawingView;
 import org.androidannotations.api.SdkVersionHelper;
 import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
@@ -79,8 +81,59 @@ public final class ANoteDetails_
     @Override
     public void onViewChanged(HasViews hasViews) {
         twDescription = ((TextView) hasViews.findViewById(id.twDescription));
+        ibBackToMenu = ((ImageButton) hasViews.findViewById(id.ibBackToMenu));
         twTime = ((TextView) hasViews.findViewById(id.twTime));
-        drawingView = ((CDrawingView) hasViews.findViewById(id.drawingView));
+        ibViewDraw = ((ImageButton) hasViews.findViewById(id.ibViewDraw));
+        ibViewPinPhoto = ((ImageButton) hasViews.findViewById(id.ibViewPinPhoto));
+        ivViewPinOnMapDone = ((ImageView) hasViews.findViewById(id.ivViewPinOnMapDone));
+        ivViewDrawDone = ((ImageView) hasViews.findViewById(id.ivViewDrawDone));
+        ibViewPinOnMap = ((ImageButton) hasViews.findViewById(id.ibViewPinOnMap));
+        ivViewPinPhotoDone = ((ImageView) hasViews.findViewById(id.ivViewPinPhotoDone));
+        {
+            View view = hasViews.findViewById(id.ibBackToMenu);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ANoteDetails_.this.ibBackToMenu();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibViewDraw);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ANoteDetails_.this.ibViewDraw();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibViewPinPhoto);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ANoteDetails_.this.ibViewPinPhoto();
+                    }
+
+                }
+                );
+            }
+        }
         afterViews();
     }
 

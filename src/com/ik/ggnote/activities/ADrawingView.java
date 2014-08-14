@@ -15,8 +15,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
+import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.ik.ggnote.R;
 import com.ik.ggnote.colpicker.ColorPicker;
 import com.ik.ggnote.colpicker.ColorPicker.OnColorChangedListener;
@@ -32,6 +35,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
 @EActivity ( R.layout.activity_drawview ) public class ADrawingView extends FragmentActivity implements OnColorChangedListener , OnOpacityChangedListener , OnSaturationChangedListener {
 
      // --------------------------------- VIEWS
+     @ViewById ImageView         ivLock;
      @ViewById ImageButton       ibShapesCircle , ibShapesRectangle , ibShapesTriangle , ibShapesFreeDrawing , ibDrawText , ibShapesLine;
 
      @ViewById ImageButton       ibColourBlack , ibColourBlue , ibColourGreen , ibColourRed , ibColorPicker;
@@ -111,12 +115,21 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           }
      }
 
+     @Click void ivLock() {
+          final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(this);
+
+          dialogBuilder.withButton1Text("Ok").withIcon(R.drawable.scream).withEffect(Effectstype.Slit).withTitle("GGNote").withMessage("This is read-only mode").setButton1Click(new View.OnClickListener() {
+               @Override public void onClick(View v) {
+                    dialogBuilder.dismiss();
+               }
+          }).show();
+     }
+
      @Click void ibDrawText() {
 
           cDrawingView.disableEraserMode();
           ibDrawText.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           Utils.showCustomToast(ADrawingView.this, R.string.ihaveacc, R.drawable.text);
-          // dialogInputText.show();
      }
 
      @Click void ibColorPicker() {

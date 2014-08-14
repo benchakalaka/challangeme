@@ -121,7 +121,6 @@ import com.roomorama.caldroid.CaldroidFragment;
                if ( !TextUtils.isEmpty(ActiveRecord.currentNote.pathToPhoto) ) {
                     ivPinPhotoDone.setVisibility(View.VISIBLE);
                }
-
           }
      }
 
@@ -143,33 +142,44 @@ import com.roomorama.caldroid.CaldroidFragment;
       * Create ready note
       */
      @Click void ibCreateNote() {
+          // set note description
           ActiveRecord.currentNote.description = etDescription.getText().toString();
+          // if user set location, save it (sugar lib not saving it by cascade)
           if ( null != ActiveRecord.currentNote.location ) {
                ActiveRecord.currentNote.location.save();
           }
+          // save note
           ActiveRecord.currentNote.save();
 
           final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(this);
 
           dialogBuilder.withButton1Text("Ok").withIcon(R.drawable.scream).withEffect(Effectstype.Slit).withTitle("Success").withMessage("Note has been created successfully.").setButton1Click(new View.OnClickListener() {
                @Override public void onClick(View v) {
-                    Utils.logw("btn1");
                     dialogBuilder.dismiss();
+                    startActivity(new Intent(ACreateNote.this, AMenu_.class));
                }
           }).show();
      }
 
      @OnActivityResult ( Global.CAPTURE_CAMERA_PHOTO ) void onResult(int resultCode, Intent data) {
           if ( resultCode == Activity.RESULT_OK ) {
-               File photo = new File(ActiveRecord.currentNote.pathToPhoto);
-               if ( (null != photo) && (photo.length() != 0) ) {
-                    Utils.showCustomToast(this, R.string.success, R.drawable.triangle);
-               } else {
-                    Utils.showCustomToast(this, R.string.failed, R.drawable.triangle);
+               try {
+                    File photo = new File(ActiveRecord.currentNote.pathToPhoto);
+                    if ( (null != photo) && (photo.length() != 0) ) {
+                         Utils.showCustomToast(this, R.string.success, R.drawable.triangle);
+                    } else {
+                         Utils.showCustomToast(this, R.string.failed, R.drawable.triangle);
+                    }
+               } catch (Exception ex) {
+                    ex.printStackTrace();
+                    Utils.showCustomToast(ACreateNote.this, "Ne sozdalos' photo", R.drawable.unsuccess);
+                    ActiveRecord.currentNote.pathToPhoto = "";
                }
+
           } else {
                ActiveRecord.currentNote.pathToPhoto = "";
           }
+
      }
 
      public void captureCameraPhoto(Activity activity) {

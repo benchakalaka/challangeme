@@ -72,10 +72,10 @@ public final class ASrtart_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        etPassword = ((EditText) hasViews.findViewById(id.etPassword));
         etLogin = ((EditText) hasViews.findViewById(id.etLogin));
-        btnLogin = ((Button) hasViews.findViewById(id.btnLogin));
+        etPassword = ((EditText) hasViews.findViewById(id.etPassword));
         tbRememberMe = ((ToggleButton) hasViews.findViewById(id.tbRememberMe));
+        btnLogin = ((Button) hasViews.findViewById(id.btnLogin));
         {
             View view = hasViews.findViewById(id.btnLogin);
             if (view!= null) {

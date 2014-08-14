@@ -160,7 +160,6 @@ public class Utils {
 
                          ImageView image = ((ImageView) layout.findViewById(R.id.toast_image_view));
                          TextView text = (TextView) layout.findViewById(R.id.toast_text_view);
-
                          text.setText(activity.getResources().getString(messageResourcesId));
                          image.setImageResource(imageResourcesId);
 

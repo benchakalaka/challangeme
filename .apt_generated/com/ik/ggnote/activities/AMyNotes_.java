@@ -12,7 +12,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
@@ -78,6 +80,22 @@ public final class AMyNotes_
     @Override
     public void onViewChanged(HasViews hasViews) {
         llMyNotes = ((LinearLayout) hasViews.findViewById(id.llMyNotes));
+        ibBack = ((ImageButton) hasViews.findViewById(id.ibBack));
+        {
+            View view = hasViews.findViewById(id.ibBack);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AMyNotes_.this.ibBack();
+                    }
+
+                }
+                );
+            }
+        }
         afterViews();
     }
 

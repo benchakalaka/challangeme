@@ -71,21 +71,6 @@ public final class AMenu_
         btnExistingNotes = ((Button) hasViews.findViewById(id.btnExistingNotes));
         btnCreateNote = ((Button) hasViews.findViewById(id.btnCreateNote));
         {
-            View view = hasViews.findViewById(id.btnCreateNote);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        AMenu_.this.btnCreateNote();
-                    }
-
-                }
-                );
-            }
-        }
-        {
             View view = hasViews.findViewById(id.btnExistingNotes);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
@@ -94,6 +79,21 @@ public final class AMenu_
                     @Override
                     public void onClick(View view) {
                         AMenu_.this.btnExistingNotes();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.btnCreateNote);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AMenu_.this.btnCreateNote();
                     }
 
                 }
