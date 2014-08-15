@@ -34,7 +34,6 @@
 		android:layout_alignParentRight="true"
 		android:layout_margin="10dp"
 		android:clipChildren="false"
-		android:background="@drawable/transparent_inside_and_white_border"
 		android:orientation="horizontal" >
 
 		<RelativeLayout
@@ -49,7 +48,7 @@
 				android:layout_width="80dp"
 				android:layout_height="80dp"
 				android:layout_margin="10dp"
-				android:background="@drawable/transparent_inside_and_white_border"
+				android:background="@drawable/button_bg"
 				android:src="@drawable/calendar"
 				android:textColor="@android:color/white" />
 
@@ -75,7 +74,7 @@
 				android:layout_width="80dp"
 				android:layout_height="80dp"
 				android:layout_margin="10dp"
-				android:background="@drawable/transparent_inside_and_white_border"
+				android:background="@drawable/button_bg"
 				android:src="@drawable/drawing"
 				android:textColor="@android:color/white" />
 
@@ -100,7 +99,7 @@
 				android:layout_width="80dp"
 				android:layout_height="80dp"
 				android:layout_margin="10dp"
-				android:background="@drawable/transparent_inside_and_white_border"
+				android:background="@drawable/button_bg"
 				android:src="@drawable/marker"
 				android:textColor="@android:color/white" />
 
@@ -125,7 +124,7 @@
 				android:layout_width="80dp"
 				android:layout_height="80dp"
 				android:layout_margin="10dp"
-				android:background="@drawable/transparent_inside_and_white_border"
+				android:background="@drawable/button_bg"
 				android:src="@drawable/camera"
 				android:textColor="@android:color/white" />
 
@@ -150,9 +149,8 @@
 				android:layout_width="80dp"
 				android:layout_height="80dp"
 				android:layout_margin="10dp"
-				android:background="@drawable/transparent_inside_and_white_border"
-				android:src="@drawable/ok"
-				android:textColor="@android:color/white" />
+				android:background="@drawable/button_bg"
+				android:src="@drawable/ok" />
 		</RelativeLayout>
 	</LinearLayout>
 

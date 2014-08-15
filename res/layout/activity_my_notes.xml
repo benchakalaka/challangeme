@@ -25,7 +25,6 @@
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
 		android:layout_margin="10dp"
-		android:background="@drawable/transparent_inside_and_white_border"
 		android:orientation="horizontal" >
 
 		<ImageButton
@@ -34,7 +33,7 @@
 			android:layout_height="80dp"
 			android:layout_alignParentRight="true"
 			android:layout_margin="10dp"
-			android:background="@drawable/transparent_inside_and_white_border"
+			android:background="@drawable/button_bg"
 			android:src="@drawable/back" />
 	</RelativeLayout>
 

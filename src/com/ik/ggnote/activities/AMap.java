@@ -8,12 +8,18 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -44,7 +50,7 @@ import com.roomorama.caldroid.CaldroidFragment;
  * @author Ihor Karpachev
  */
 
-@EActivity ( R.layout.activity_map ) public class AMap extends FragmentActivity implements OnMarkerDragListener , OnCameraChangeListener , ConnectionCallbacks , OnConnectionFailedListener , OnMarkerClickListener {
+@EActivity ( R.layout.activity_map ) public class AMap extends FragmentActivity implements OnMarkerDragListener , OnCameraChangeListener , ConnectionCallbacks , OnConnectionFailedListener , OnMarkerClickListener , LocationListener {
 
      // ---------------------------- VIEVS
      @ViewById ImageButton          ibPinMyLocation;
@@ -118,21 +124,27 @@ import com.roomorama.caldroid.CaldroidFragment;
      }
 
      @Override public void onConnected(Bundle bundle) {
+          LatLng location = null;
           Location loc = locationClient.getLastLocation();
           if ( null == loc ) {
-               Utils.showCustomToast(this, "Cannot obtain current location", R.drawable.calendar);
+               // TODO obtain location with help of location service
+               Utils.showCustomToast(this, "Cannot obtain current location", R.drawable.scream);
+               createMarkerWithLocation();
                return;
           }
           try {
+               location = new LatLng(loc.getLatitude(), loc.getLongitude());
                List <Address> result = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
-               LatLng location = new LatLng(loc.getLatitude(), loc.getLongitude());
+
                // animate to center of UK
                animateCamera(location, 12);
                createMarker(location, result.get(0));
+               // createMarkerWithLocation();
           } catch (IOException e) {
                e.printStackTrace();
-               Utils.showCustomToast(AMap.this, "PROBLEEEMS", R.drawable.scream);
-               onBackPressed();
+               Utils.showCustomToast(AMap.this, "Problem obtain address   " + e.getMessage(), R.drawable.scream);
+               animateCamera(location, 12);
+               createMarker(location, null);
           }
      }
 
@@ -140,7 +152,11 @@ import com.roomorama.caldroid.CaldroidFragment;
           // set up marker options
           MarkerOptions markerOptions = new MarkerOptions();
           markerOptions.position(position);
-          markerOptions.title(String.valueOf(GPSTracker.convertAddressToText(address)));
+          if ( null != address ) {
+               markerOptions.title(String.valueOf(GPSTracker.convertAddressToText(address)));
+          } else {
+               markerOptions.title("Unknown address");
+          }
           markerOptions.snippet("Drag me");
 
           // set up marker
@@ -170,6 +186,41 @@ import com.roomorama.caldroid.CaldroidFragment;
           locationClient.connect();
      }
 
+     private void createMarkerWithLocation() {
+          /* Use the LocationManager class to obtain GPS locations */
+          LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+          mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 300000, 40, this);
+
+          Location location = mlocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+          /* check both providers even for lastKnownLocation */
+          if ( location == null ) {
+               location = mlocManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+          }
+          if ( location != null ) {
+
+               double latitude = location.getLatitude();
+               double longitude = location.getLongitude();
+
+               LatLng currentLatLng = new LatLng(latitude, longitude);
+
+               if ( isConnected(this) ) {
+                    // List <Address> addresses = getInfos(latitude, longitude);
+                    String address = "address"; // addresses.get(0).getAddressLine(0);
+
+                    String city = "city";// addresses.get(0).getAddressLine(1);
+                    String country = "country";// addresses.get(0).getAddressLine(2);
+                    Toast.makeText(this, country + ", " + city + ", " + address, Toast.LENGTH_SHORT).show();
+
+                    Marker marker = googleMap.addMarker(new MarkerOptions().position(currentLatLng).title(city).snippet(address).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+               }
+          }
+     }
+
+     public static boolean isConnected(Context context) {
+          NetworkInfo ni = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+          return (ni != null && ni.isAvailable() && ni.isConnected());
+     }
+
      @Override public void onMarkerDrag(Marker marker) {
           // ommit it
      }
@@ -196,5 +247,25 @@ import com.roomorama.caldroid.CaldroidFragment;
            * e.printStackTrace();
            * }
            */
+     }
+
+     @Override public void onLocationChanged(Location location) {
+          // TODO Auto-generated method stub
+
+     }
+
+     @Override public void onProviderDisabled(String provider) {
+          // TODO Auto-generated method stub
+
+     }
+
+     @Override public void onProviderEnabled(String provider) {
+          // TODO Auto-generated method stub
+
+     }
+
+     @Override public void onStatusChanged(String provider, int status, Bundle extras) {
+          // TODO Auto-generated method stub
+
      }
 }

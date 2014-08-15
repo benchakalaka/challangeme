@@ -13,7 +13,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
+import android.widget.ImageButton;
 import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
 import org.androidannotations.api.view.HasViews;
@@ -68,17 +68,18 @@ public final class AMenu_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        btnExistingNotes = ((Button) hasViews.findViewById(id.btnExistingNotes));
-        btnCreateNote = ((Button) hasViews.findViewById(id.btnCreateNote));
+        ibLogout = ((ImageButton) hasViews.findViewById(id.ibLogout));
+        ibExistingNotes = ((ImageButton) hasViews.findViewById(id.ibExistingNotes));
+        ibCreateNote = ((ImageButton) hasViews.findViewById(id.ibCreateNote));
         {
-            View view = hasViews.findViewById(id.btnExistingNotes);
+            View view = hasViews.findViewById(id.ibCreateNote);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        AMenu_.this.btnExistingNotes();
+                        AMenu_.this.ibCreateNote();
                     }
 
                 }
@@ -86,14 +87,29 @@ public final class AMenu_
             }
         }
         {
-            View view = hasViews.findViewById(id.btnCreateNote);
+            View view = hasViews.findViewById(id.ibLogout);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        AMenu_.this.btnCreateNote();
+                        AMenu_.this.ibLogout();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibExistingNotes);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AMenu_.this.ibExistingNotes();
                     }
 
                 }

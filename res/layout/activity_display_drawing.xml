@@ -3,31 +3,37 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical" >
-	
+
 	<com.ik.ggnote.custom.CDrawingView
 		android:id="@+id/cDisplayDrawingView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:background="@android:color/black" />
-	
-	<ImageView
-		android:id="@+id/ivLock"
-		android:layout_width="40dp"
-		android:layout_height="40dp"
-		android:layout_alignParentTop="true"
+
+	<RelativeLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
 		android:layout_alignParentRight="true"
-		android:layout_margin="10dp"
-		android:background="@drawable/locked" />
+		android:layout_alignParentTop="true"
+		android:layout_margin="10dp" >
+
+		<ImageView
+			android:id="@+id/ivLock"
+			android:layout_width="80dp"
+			android:layout_height="80dp"
+			android:layout_margin="10dp"
+			android:background="@drawable/button_bg"
+			android:src="@drawable/locked" />
+	</RelativeLayout>
 
 	<ImageButton
 		android:id="@+id/ibBack"
-		android:layout_width="match_parent"
+		android:layout_width="80dp"
 		android:layout_height="80dp"
 		android:layout_alignParentBottom="true"
-		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
 		android:layout_margin="10dp"
-		android:background="@drawable/transparent_inside_and_white_border"
+		android:background="@drawable/button_bg"
 		android:src="@drawable/back" />
 
 </RelativeLayout>

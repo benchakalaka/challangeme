@@ -9,7 +9,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -22,7 +21,6 @@ import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.ik.ggnote.R;
 import com.ik.ggnote.model.PaintSerializable;
 import com.ik.ggnote.model.PathSerializable;
 import com.ik.ggnote.utils.Utils;
@@ -33,8 +31,6 @@ public class CDrawingView extends View {
      boolean                          isNeedToRedraw       = false;
 
      private static int               CURRENT_DRAWING_TYPE = ShapesType.STANDART_DRAWING;
-
-     private static Bitmap            moveTextIndicator    = BitmapFactory.decodeResource(Utils.getResources(), R.drawable.calendar);
 
      // current finger position X
      float                            touchX;
@@ -261,16 +257,6 @@ public class CDrawingView extends View {
                               }
                          }
                          canvas.drawPath(shapePath, staticPaint);
-                         break;
-
-                    case ShapesType.DRAW_TEXT:
-                         if ( isNeedToRedraw ) {
-                              canvas.drawText(textToDraw, 100, 100, labelsPaint);
-                              canvas.drawBitmap(moveTextIndicator, 90, 120, null);
-                         } else {
-                              canvas.drawText(textToDraw, touchX - 40, touchY - 40, labelsPaint);
-                              canvas.drawBitmap(moveTextIndicator, touchX - 40, touchY, null);
-                         }
                          break;
 
                     case ShapesType.TRIANGLE:

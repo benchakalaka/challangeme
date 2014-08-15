@@ -79,8 +79,8 @@ public final class AMyNotes_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        llMyNotes = ((LinearLayout) hasViews.findViewById(id.llMyNotes));
         ibBack = ((ImageButton) hasViews.findViewById(id.ibBack));
+        llMyNotes = ((LinearLayout) hasViews.findViewById(id.llMyNotes));
         {
             View view = hasViews.findViewById(id.ibBack);
             if (view!= null) {

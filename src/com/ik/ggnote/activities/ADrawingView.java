@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,25 +36,29 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
 @EActivity ( R.layout.activity_drawview ) public class ADrawingView extends FragmentActivity implements OnColorChangedListener , OnOpacityChangedListener , OnSaturationChangedListener {
 
      // --------------------------------- VIEWS
-     @ViewById ImageView         ivLock;
-     @ViewById ImageButton       ibShapesCircle , ibShapesRectangle , ibShapesTriangle , ibShapesFreeDrawing , ibDrawText , ibShapesLine;
+     @ViewById ImageView ivLock;
+     @ViewById ImageButton ibShapesCircle , ibShapesRectangle , ibShapesTriangle , ibShapesFreeDrawing , ibDrawText , ibShapesLine;
 
-     @ViewById ImageButton       ibColourBlack , ibColourBlue , ibColourGreen , ibColourRed , ibColorPicker;
-     @ViewById ImageButton       ibSave , ibClearAll , ibRedo , ibUndo , ibThick , ibMedium , ibThin , ibEraser;
+     @ViewById ImageButton ibColourBlack , ibColourBlue , ibColourGreen , ibColourRed , ibColorPicker;
+     @ViewById ImageButton ibSave , ibClearAll , ibRedo , ibUndo , ibThick , ibMedium , ibThin , ibEraser;
+
+     @ViewById ImageButton ibBrushColours , ibDrawingSettings , ibShapes , ibBack;
+
+     @ViewById HorizontalScrollView hsvDrawingSettings , hsvBrushColour , hsvDrawShapes;
 
      // canvas
-     @ViewById CDrawingView      cDrawingView;
+     @ViewById CDrawingView         cDrawingView;
 
      // colorpicker dialog
-     private Dialog              dialogChangeColour;
+     private Dialog                 dialogChangeColour;
      // dialog builder
-     private AlertDialog.Builder builder;
+     private AlertDialog.Builder    builder;
      // color picker view
-     private ColorPicker         picker;
+     private ColorPicker            picker;
      // indicates level of saturation and opacity in change color dialog
-     private TextView            twSaturationBar , twOpacityBar;
+     private TextView               twSaturationBar , twOpacityBar;
 
-     private int                 colorToSet;
+     private int                    colorToSet;
 
      @AfterViews void afterViews() {
           picker = new ColorPicker(getApplicationContext());
@@ -101,6 +106,34 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
                     dialogChangeColour.hide();
                }
           });
+     }
+
+     @Click void ibBack() {
+          // TODO add dialog ask to save
+          onBackPressed();
+     }
+
+     @Click void ibDrawingSettings() {
+          inverseHorizontalScrollViewVisibility(hsvDrawingSettings);
+          hsvBrushColour.setVisibility(View.GONE);
+          hsvDrawShapes.setVisibility(View.GONE);
+     }
+
+     @Click void ibBrushColours() {
+          inverseHorizontalScrollViewVisibility(hsvBrushColour);
+          hsvDrawingSettings.setVisibility(View.GONE);
+          hsvDrawShapes.setVisibility(View.GONE);
+     }
+
+     @Click void ibShapes() {
+          inverseHorizontalScrollViewVisibility(hsvDrawShapes);
+          hsvDrawingSettings.setVisibility(View.GONE);
+          hsvBrushColour.setVisibility(View.GONE);
+     }
+
+     private void inverseHorizontalScrollViewVisibility(HorizontalScrollView view) {
+          int visibility = view.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE;
+          view.setVisibility(visibility);
      }
 
      @Click void ibSave() {

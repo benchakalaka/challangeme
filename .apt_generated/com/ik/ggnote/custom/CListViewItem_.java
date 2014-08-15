@@ -70,9 +70,9 @@ public final class CListViewItem_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ivDeleteNote = ((ImageView) hasViews.findViewById(id.ivDeleteNote));
-        image = ((ImageView) hasViews.findViewById(id.image));
         text = ((TextView) hasViews.findViewById(id.text));
+        image = ((ImageView) hasViews.findViewById(id.image));
+        ivDeleteNote = ((ImageView) hasViews.findViewById(id.ivDeleteNote));
         {
             View view = hasViews.findViewById(id.ivDeleteNote);
             if (view!= null) {

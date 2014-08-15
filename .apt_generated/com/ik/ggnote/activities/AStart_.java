@@ -10,21 +10,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ToggleButton;
+import android.widget.ImageButton;
 import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
 import com.ik.ggnote.utils.AppSharedPreferences_;
+import org.androidannotations.api.SdkVersionHelper;
 import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
 import org.androidannotations.api.view.OnViewChangedNotifier;
 
-public final class ASrtart_
-    extends ASrtart
+public final class AStart_
+    extends AStart
     implements HasViews, OnViewChangedListener
 {
 
@@ -62,29 +63,67 @@ public final class ASrtart_
         onViewChangedNotifier_.notifyViewChanged(this);
     }
 
-    public static ASrtart_.IntentBuilder_ intent(Context context) {
-        return new ASrtart_.IntentBuilder_(context);
+    public static AStart_.IntentBuilder_ intent(Context context) {
+        return new AStart_.IntentBuilder_(context);
     }
 
-    public static ASrtart_.IntentBuilder_ intent(Fragment supportFragment) {
-        return new ASrtart_.IntentBuilder_(supportFragment);
+    public static AStart_.IntentBuilder_ intent(Fragment supportFragment) {
+        return new AStart_.IntentBuilder_(supportFragment);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (((SdkVersionHelper.getSdkInt()< 5)&&(keyCode == KeyEvent.KEYCODE_BACK))&&(event.getRepeatCount() == 0)) {
+            onBackPressed();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        etLogin = ((EditText) hasViews.findViewById(id.etLogin));
+        ibSettings = ((ImageButton) hasViews.findViewById(id.ibSettings));
         etPassword = ((EditText) hasViews.findViewById(id.etPassword));
-        tbRememberMe = ((ToggleButton) hasViews.findViewById(id.tbRememberMe));
-        btnLogin = ((Button) hasViews.findViewById(id.btnLogin));
+        ibLogin = ((ImageButton) hasViews.findViewById(id.ibLogin));
+        ibExit = ((ImageButton) hasViews.findViewById(id.ibExit));
         {
-            View view = hasViews.findViewById(id.btnLogin);
+            View view = hasViews.findViewById(id.ibExit);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ASrtart_.this.btnLogin();
+                        AStart_.this.ibExit();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibLogin);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AStart_.this.ibLogin();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibSettings);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AStart_.this.ibSettings();
                     }
 
                 }
@@ -102,20 +141,20 @@ public final class ASrtart_
 
         public IntentBuilder_(Context context) {
             context_ = context;
-            intent_ = new Intent(context, ASrtart_.class);
+            intent_ = new Intent(context, AStart_.class);
         }
 
         public IntentBuilder_(Fragment fragment) {
             fragmentSupport_ = fragment;
             context_ = fragment.getActivity();
-            intent_ = new Intent(context_, ASrtart_.class);
+            intent_ = new Intent(context_, AStart_.class);
         }
 
         public Intent get() {
             return intent_;
         }
 
-        public ASrtart_.IntentBuilder_ flags(int flags) {
+        public AStart_.IntentBuilder_ flags(int flags) {
             intent_.setFlags(flags);
             return this;
         }
