@@ -16,6 +16,8 @@ public class ModelNote extends SugarRecord <ModelNote> {
      public String        pathToPhoto;
      // path to drawing
      public String        pathToDrawing;
+     // type of note
+     public String        noteType;
 
      /**
       * Default constructor

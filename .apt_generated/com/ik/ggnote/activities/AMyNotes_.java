@@ -79,8 +79,10 @@ public final class AMyNotes_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ibBack = ((ImageButton) hasViews.findViewById(id.ibBack));
+        ibFilter = ((ImageButton) hasViews.findViewById(id.ibFilter));
+        ibDate = ((ImageButton) hasViews.findViewById(id.ibDate));
         llMyNotes = ((LinearLayout) hasViews.findViewById(id.llMyNotes));
+        ibBack = ((ImageButton) hasViews.findViewById(id.ibBack));
         {
             View view = hasViews.findViewById(id.ibBack);
             if (view!= null) {
@@ -90,6 +92,36 @@ public final class AMyNotes_
                     @Override
                     public void onClick(View view) {
                         AMyNotes_.this.ibBack();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibDate);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AMyNotes_.this.ibDate();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibFilter);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AMyNotes_.this.ibFilter();
                     }
 
                 }

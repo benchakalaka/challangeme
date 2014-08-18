@@ -59,8 +59,7 @@
 				android:layout_alignParentTop="true"
 				android:layout_alignRight="@+id/ibDate"
 				android:scaleType="fitXY"
-				android:src="@drawable/red_ok"
-				android:visibility="invisible" />
+				android:src="@drawable/ok_ok" />
 		</RelativeLayout>
 
 		<RelativeLayout
@@ -84,7 +83,7 @@
 				android:layout_height="30dp"
 				android:layout_alignParentTop="true"
 				android:layout_alignRight="@+id/ibDraw"
-				android:src="@drawable/red_ok"
+				android:src="@drawable/ok_ok"
 				android:visibility="invisible" />
 		</RelativeLayout>
 
@@ -109,7 +108,7 @@
 				android:layout_height="30dp"
 				android:layout_alignParentTop="true"
 				android:layout_alignRight="@+id/ibPinOnMap"
-				android:src="@drawable/red_ok"
+				android:src="@drawable/ok_ok"
 				android:visibility="invisible" />
 		</RelativeLayout>
 
@@ -134,8 +133,32 @@
 				android:layout_height="30dp"
 				android:layout_alignParentTop="true"
 				android:layout_alignRight="@+id/ibPinPhoto"
-				android:src="@drawable/red_ok"
+				android:src="@drawable/ok_ok"
 				android:visibility="invisible" />
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center" >
+
+			<ImageButton
+				android:id="@+id/ibNoteType"
+				android:layout_width="80dp"
+				android:layout_height="80dp"
+				android:layout_margin="10dp"
+				android:background="@drawable/button_bg"
+				android:src="@drawable/priority"
+				android:textColor="@android:color/white" />
+
+			<ImageView
+				android:id="@+id/ibNoteTypeDone"
+				android:layout_width="30dp"
+				android:layout_height="30dp"
+				android:layout_alignParentTop="true"
+				android:layout_alignRight="@+id/ibNoteType"
+				android:src="@drawable/ok_ok" />
 		</RelativeLayout>
 
 		<RelativeLayout

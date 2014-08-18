@@ -2,7 +2,6 @@ package com.ik.ggnote.activities;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -20,9 +19,12 @@ import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
+import android.widget.RadioGroup.OnCheckedChangeListener;
 
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
@@ -40,6 +42,7 @@ import com.roomorama.caldroid.CaldroidFragment;
      @ViewById ImageButton                                ibDraw;
      @ViewById ImageButton                                ibPinOnMap;
      @ViewById ImageButton                                ibPinPhoto;
+     @ViewById ImageButton                                ibNoteType;
      @ViewById ImageButton                                ibCreateNote;
 
      @ViewById ImageView                                  ivDateDone;
@@ -56,6 +59,7 @@ import com.roomorama.caldroid.CaldroidFragment;
      // Setup listener
      public final com.roomorama.caldroid.CaldroidListener onDateChangeListener = new com.roomorama.caldroid.CaldroidListener() {
                                                                                     @Override public void onSelectDate(final Date date, View view) {
+                                                                                         ActiveRecord.currentNote.date = Utils.formatDate(date, DatabaseUtils.DATE_PATTERN_YYYY_MM_DD_HH_MM_SS);
                                                                                          calendar.dismiss();
                                                                                     }
 
@@ -76,13 +80,7 @@ import com.roomorama.caldroid.CaldroidFragment;
           bundle.putBoolean(CaldroidFragment.ENABLE_CLICK_ON_DISABLED_DATES, false);
           // create note object
           ActiveRecord.currentNote = new ModelNote(getApplicationContext());
-          // set up current date
-          Date now = new Date();
-          now.setHours(Calendar.HOUR);
-          now.setMinutes(Calendar.MINUTE);
-          now.setSeconds(Calendar.SECOND);
-          // set date of creating note to current date by default
-          ActiveRecord.currentNote.date = Utils.formatDate(now, DatabaseUtils.DATE_PATTERN_YYYY_MM_DD_HH_MM_SS);
+          ActiveRecord.currentNote.noteType = Global.NOTES.SIMPLE_STR;
      }
 
      @Click void ibPinPhoto() {
@@ -102,6 +100,11 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      @Override protected void onResume() {
           super.onResume();
+          // set up current date
+          Date now = new Date();
+          // set date of creating note to current date by default
+          ActiveRecord.currentNote.date = Utils.formatDate(now, DatabaseUtils.DATE_PATTERN_YYYY_MM_DD_HH_MM_SS);
+
           displayDoneImages();
      }
 
@@ -175,11 +178,9 @@ import com.roomorama.caldroid.CaldroidFragment;
                     Utils.showCustomToast(ACreateNote.this, "Ne sozdalos' photo", R.drawable.unsuccess);
                     ActiveRecord.currentNote.pathToPhoto = "";
                }
-
           } else {
                ActiveRecord.currentNote.pathToPhoto = "";
           }
-
      }
 
      public void captureCameraPhoto(Activity activity) {
@@ -210,5 +211,65 @@ import com.roomorama.caldroid.CaldroidFragment;
                Utils.logw(e.getMessage());
                Utils.showCustomToast(activity, R.string.failed, R.drawable.triangle);
           }
+     }
+
+     @Click void ibNoteType() {
+          showNoteTypePopup();
+     }
+
+     private void showNoteTypePopup() {
+          final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(this);
+          dialogBuilder.setContentView(R.layout.dialog_type_of_note);
+
+          int imageId = Utils.getNoteImageIdFromNoteType(ActiveRecord.currentNote.noteType);
+          int buttonId = Utils.getRadioButtonIdFromNoteType(ActiveRecord.currentNote.noteType);
+          if ( imageId != -1 ) {
+               ((ImageView) dialogBuilder.findViewById(R.id.ivNoteType)).setBackgroundResource(imageId);
+               ((RadioGroup) dialogBuilder.findViewById(R.id.rgTypeOfNote)).check(buttonId);
+               // switch (imageId) {
+               // case R.drawable.simple:
+               //
+               // break;
+               //
+               // case R.drawable.event:
+               // break;
+               //
+               // case R.drawable.urgent:
+               // break;
+               //
+               // case R.drawable.work:
+               // break;
+               //
+               // case R.drawable.reminder:
+               // break;
+               // }
+          }
+
+          ((RadioGroup) dialogBuilder.findViewById(R.id.rgTypeOfNote)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+               @Override public void onCheckedChanged(RadioGroup group, int checkedId) {
+                    int imageId = Utils.getNoteImageIdFromNoteType(dialogBuilder.findViewById(checkedId).getTag().toString());
+                    ((ImageView) dialogBuilder.findViewById(R.id.ivNoteType)).setBackgroundResource(imageId);
+               }
+          });
+
+          dialogBuilder.findViewById(R.id.buttonOk).setOnClickListener(new OnClickListener() {
+
+               @Override public void onClick(View v) {
+                    int rbCheckedId = ((RadioGroup) dialogBuilder.findViewById(R.id.rgTypeOfNote)).getCheckedRadioButtonId();
+                    String buttonTag = dialogBuilder.findViewById(rbCheckedId).getTag().toString();
+                    ActiveRecord.currentNote.noteType = buttonTag;
+                    dialogBuilder.dismiss();
+               }
+          });
+
+          dialogBuilder.findViewById(R.id.buttonCancel).setOnClickListener(new OnClickListener() {
+
+               @Override public void onClick(View v) {
+                    dialogBuilder.dismiss();
+               }
+          });
+
+          dialogBuilder.show();
      }
 }

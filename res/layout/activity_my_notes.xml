@@ -28,6 +28,25 @@
 		android:orientation="horizontal" >
 
 		<ImageButton
+			android:id="@+id/ibDate"
+			android:layout_width="80dp"
+			android:layout_height="80dp"
+			android:layout_margin="10dp"
+			android:layout_toLeftOf="@+id/ibFilter"
+			android:background="@drawable/button_bg"
+			android:src="@drawable/calendar" />
+
+		<ImageButton
+			android:id="@+id/ibFilter"
+			android:layout_width="80dp"
+			android:layout_height="80dp"
+			android:layout_centerHorizontal="true"
+			android:layout_margin="10dp"
+			android:layout_toLeftOf="@+id/ibBack"
+			android:background="@drawable/button_bg"
+			android:src="@drawable/filter" />
+
+		<ImageButton
 			android:id="@+id/ibBack"
 			android:layout_width="80dp"
 			android:layout_height="80dp"

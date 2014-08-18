@@ -30,8 +30,6 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
      @ViewById public TextView  text;
      // delete note iv
      @ViewById public ImageView ivDeleteNote;
-     // edit note
-     @ViewById public ImageView ivEditNote;
 
      // ============================================== VARIABLES
      private final ModelNote    note;
@@ -56,7 +54,10 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
       */
      private void setNote() {
           if ( null != note ) {
-               image.setBackgroundResource(R.drawable.shapes);
+               int id = Utils.getNoteImageIdFromNoteType(note.noteType);
+               if ( -1 != id ) {
+                    image.setBackgroundResource(id);
+               }
                text.setText(note.description);
           } else {
                Utils.logw("CListViewItem :: setNote : note == null");

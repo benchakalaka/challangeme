@@ -83,10 +83,10 @@ public final class ASettings_
     @Override
     public void onViewChanged(HasViews hasViews) {
         rbDontAskPassword = ((RadioButton) hasViews.findViewById(id.rbDontAskPassword));
-        etPassword = ((EditText) hasViews.findViewById(id.etPassword));
         ibSave = ((ImageButton) hasViews.findViewById(id.ibSave));
-        rbAskPassword = ((RadioButton) hasViews.findViewById(id.rbAskPassword));
+        etPassword = ((EditText) hasViews.findViewById(id.etPassword));
         ibBack = ((ImageButton) hasViews.findViewById(id.ibBack));
+        rbAskPassword = ((RadioButton) hasViews.findViewById(id.rbAskPassword));
         {
             View view = hasViews.findViewById(id.ibSave);
             if (view!= null) {

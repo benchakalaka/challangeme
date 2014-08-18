@@ -284,4 +284,46 @@ public class Utils {
           }
      }
 
+     /**
+      * Get image id by note type
+      * 
+      * @param noteType
+      *             string representation of note
+      * @return image id if note type is correct, -1 otherwise
+      */
+     public static int getNoteImageIdFromNoteType(String noteType) {
+          // EVENT IMAGE
+          if ( noteType.equals(Global.NOTES.EVENT_STR) ) { return R.drawable.event; }
+          // REMINDER IMAGE
+          if ( noteType.equals(Global.NOTES.REMINDER_STR) ) { return R.drawable.reminder; }
+          // SIMPLE IMAGE
+          if ( noteType.equals(Global.NOTES.SIMPLE_STR) ) { return R.drawable.simple; }
+          // URGENT IMAGE
+          if ( noteType.equals(Global.NOTES.URGENT_STR) ) { return R.drawable.urgent; }
+          // WORK IMAGE
+          if ( noteType.equals(Global.NOTES.WORK_STR) ) { return R.drawable.work; }
+          return -1;
+     }
+
+     /**
+      * Get image id by note type
+      * 
+      * @param noteType
+      *             string representation of note
+      * @return image id if note type is correct, -1 otherwise
+      */
+     public static int getRadioButtonIdFromNoteType(String noteType) {
+          // EVENT IMAGE
+          if ( noteType.equals(Global.NOTES.EVENT_STR) ) { return R.id.rbEvent; }
+          // REMINDER IMAGE
+          if ( noteType.equals(Global.NOTES.REMINDER_STR) ) { return R.id.rbReminder; }
+          // SIMPLE IMAGE
+          if ( noteType.equals(Global.NOTES.SIMPLE_STR) ) { return R.id.rbSimple; }
+          // URGENT IMAGE
+          if ( noteType.equals(Global.NOTES.URGENT_STR) ) { return R.id.rbUrgent; }
+          // WORK IMAGE
+          if ( noteType.equals(Global.NOTES.WORK_STR) ) { return R.id.rbWork; }
+          return -1;
+     }
+
 }

@@ -80,9 +80,9 @@ public final class ADisplayPhoto_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
+        ivPhoto = ((ImageView) hasViews.findViewById(id.ivPhoto));
         cDisplayDrawingView = ((CDrawingView) hasViews.findViewById(id.cDisplayDrawingView));
         ibBack = ((ImageButton) hasViews.findViewById(id.ibBack));
-        ivPhoto = ((ImageView) hasViews.findViewById(id.ivPhoto));
         {
             View view = hasViews.findViewById(id.ibBack);
             if (view!= null) {
