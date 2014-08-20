@@ -19,27 +19,27 @@ public final class R {
 		public static final int dialog_padding = 0x7f080015;
 	}
 	public static final class drawable {
-		public static final int btn_press = 0x7f02005c;
-		public static final int btn_selector = 0x7f02005d;
-		public static final int btn_unpress = 0x7f02005e;
-		public static final int dialog_bg = 0x7f020082;
+		public static final int btn_press = 0x7f02005e;
+		public static final int btn_selector = 0x7f02005f;
+		public static final int btn_unpress = 0x7f020060;
+		public static final int dialog_bg = 0x7f020084;
 	}
 	public static final class id {
-		public static final int alertTitle = 0x7f05009d;
-		public static final int button1 = 0x7f0500a2;
-		public static final int button2 = 0x7f0500a3;
-		public static final int contentPanel = 0x7f05009f;
-		public static final int customPanel = 0x7f0500a1;
-		public static final int icon = 0x7f05002d;
-		public static final int main = 0x7f050099;
-		public static final int message = 0x7f0500a0;
-		public static final int parentPanel = 0x7f05009a;
-		public static final int titleDivider = 0x7f05009e;
-		public static final int title_template = 0x7f05009c;
-		public static final int topPanel = 0x7f05009b;
+		public static final int alertTitle = 0x7f0500b6;
+		public static final int button1 = 0x7f0500bb;
+		public static final int button2 = 0x7f0500bc;
+		public static final int contentPanel = 0x7f0500b8;
+		public static final int customPanel = 0x7f0500ba;
+		public static final int icon = 0x7f050032;
+		public static final int main = 0x7f0500b2;
+		public static final int message = 0x7f0500b9;
+		public static final int parentPanel = 0x7f0500b3;
+		public static final int titleDivider = 0x7f0500b7;
+		public static final int title_template = 0x7f0500b5;
+		public static final int topPanel = 0x7f0500b4;
 	}
 	public static final class layout {
-		public static final int dialog_layout = 0x7f030028;
+		public static final int dialog_layout = 0x7f03002a;
 	}
 	public static final class style {
 		public static final int DialogWindowTitle = 0x7f0b008b;

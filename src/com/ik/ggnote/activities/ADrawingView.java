@@ -19,6 +19,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.ik.ggnote.R;
@@ -33,13 +35,13 @@ import com.ik.ggnote.custom.CDrawingView;
 import com.ik.ggnote.utils.Utils;
 import com.ik.ggnote.utils.Utils.AnimationManager;
 
-@EActivity ( R.layout.activity_drawview ) public class ADrawingView extends FragmentActivity implements OnColorChangedListener , OnOpacityChangedListener , OnSaturationChangedListener {
+@EActivity ( R.layout.activity_drawview ) public class ADrawingView extends FragmentActivity implements OnClickListener , OnColorChangedListener , OnOpacityChangedListener , OnSaturationChangedListener {
 
      // --------------------------------- VIEWS
      @ViewById ImageView ivLock;
      @ViewById ImageButton ibShapesCircle , ibShapesRectangle , ibShapesTriangle , ibShapesFreeDrawing , ibDrawText , ibShapesLine;
 
-     @ViewById ImageButton ibColourBlack , ibColourBlue , ibColourGreen , ibColourRed , ibColorPicker;
+     @ViewById ImageButton ibColour1 , ibColour2 , ibColour3 , ibColour4 , ibColour5 , ibColour6 , ibColour7 , ibColour8 , ibColour9 , ibColour10 , ibColour11 , ibColour12 , ibColour13 , ibColour14 , ibColour15 , ibColour16 , ibColour17 , ibColorPicker;
      @ViewById ImageButton ibSave , ibClearAll , ibRedo , ibUndo , ibThick , ibMedium , ibThin , ibEraser;
 
      @ViewById ImageButton ibBrushColours , ibDrawingSettings , ibShapes , ibBack;
@@ -61,6 +63,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
      private int                    colorToSet;
 
      @AfterViews void afterViews() {
+          cDrawingView.setColor(Color.WHITE);
           picker = new ColorPicker(getApplicationContext());
           dialogChangeColour = new Dialog(this);
           // dialogInputText = new Dialog(this);
@@ -95,7 +98,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
                     cDrawingView.disableEraserMode();
                     // color selected by the user.
                     cDrawingView.setColor(colorToSet);
-                    // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.new_color_has_been_set, R.drawable.color_picker);
+                    Utils.showCustomToastWithBackgroundColour(ADrawingView.this, getResources().getString(R.string.color_changed), colorToSet);
                     dialogChangeColour.hide();
                }
           });
@@ -106,26 +109,66 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
                     dialogChangeColour.hide();
                }
           });
+          ibColour1.setBackgroundResource(R.drawable.button_bg);
+          ibColour1.setOnClickListener(this);
+          ibColour2.setOnClickListener(this);
+          ibColour3.setOnClickListener(this);
+          ibColour4.setOnClickListener(this);
+          ibColour5.setOnClickListener(this);
+          ibColour6.setOnClickListener(this);
+          ibColour7.setOnClickListener(this);
+          ibColour8.setOnClickListener(this);
+          ibColour9.setOnClickListener(this);
+          ibColour10.setOnClickListener(this);
+          ibColour11.setOnClickListener(this);
+          ibColour12.setOnClickListener(this);
+          ibColour13.setOnClickListener(this);
+          ibColour14.setOnClickListener(this);
+          ibColour15.setOnClickListener(this);
+          ibColour16.setOnClickListener(this);
+          ibColour17.setOnClickListener(this);
      }
 
      @Click void ibBack() {
-          // TODO add dialog ask to save
-          onBackPressed();
+          final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
+
+          dialogBuilder.withButton1Text("Cancel").withButton2Text("Save").withIcon(R.drawable.scream).withEffect(Effectstype.Slit).withTitle("Drawing has not been saved.").withMessage("Do you want to save Drawing?").setButton1Click(new View.OnClickListener() {
+               @Override public void onClick(View v) {
+                    dialogBuilder.dismiss();
+                    onBackPressed();
+               }
+          }).setButton2Click(new OnClickListener() {
+
+               @Override public void onClick(View v) {
+                    String filename = cDrawingView.saveDrawingToFile(ADrawingView.this);
+                    // check return value if null or empty, file has not been created
+                    if ( null != filename && !filename.equals("") ) {
+                         ActiveRecord.currentNote.pathToDrawing = filename;
+                         Utils.logw("File saved to " + filename);
+                         onBackPressed();
+                    } else {
+                         Utils.showCustomToast(ADrawingView.this, "PROBLEMS", R.drawable.text);
+                    }
+               }
+          }).show();
      }
 
      @Click void ibDrawingSettings() {
           inverseHorizontalScrollViewVisibility(hsvDrawingSettings);
+          YoYo.with(Techniques.ZoomInDown).duration(700).playOn(hsvDrawingSettings);
           hsvBrushColour.setVisibility(View.GONE);
           hsvDrawShapes.setVisibility(View.GONE);
      }
 
      @Click void ibBrushColours() {
+          YoYo.with(Techniques.ZoomInDown).duration(700).playOn(hsvBrushColour);
           inverseHorizontalScrollViewVisibility(hsvBrushColour);
           hsvDrawingSettings.setVisibility(View.GONE);
           hsvDrawShapes.setVisibility(View.GONE);
      }
 
      @Click void ibShapes() {
+          YoYo.with(Techniques.ZoomInDown).duration(700).playOn(hsvDrawShapes);
           inverseHorizontalScrollViewVisibility(hsvDrawShapes);
           hsvDrawingSettings.setVisibility(View.GONE);
           hsvBrushColour.setVisibility(View.GONE);
@@ -137,19 +180,11 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
      }
 
      @Click void ibSave() {
-          String filename = cDrawingView.saveDrawingToFile(this);
-          // check return value if null or empty, file has not been created
-          if ( null != filename && !filename.equals("") ) {
-               ActiveRecord.currentNote.pathToDrawing = filename;
-               Utils.logw("File saved to " + filename);
-               onBackPressed();
-          } else {
-               Utils.showCustomToast(ADrawingView.this, "PROBLEMS", R.drawable.text);
-          }
+
      }
 
      @Click void ivLock() {
-          final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(this);
+          final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
 
           dialogBuilder.withButton1Text("Ok").withIcon(R.drawable.scream).withEffect(Effectstype.Slit).withTitle("GGNote").withMessage("This is read-only mode").setButton1Click(new View.OnClickListener() {
                @Override public void onClick(View v) {
@@ -159,7 +194,6 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
      }
 
      @Click void ibDrawText() {
-
           cDrawingView.disableEraserMode();
           ibDrawText.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           Utils.showCustomToast(ADrawingView.this, R.string.ihaveacc, R.drawable.text);
@@ -167,7 +201,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
 
      @Click void ibColorPicker() {
           ibColorPicker.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.choose_custom_color, R.drawable.color_picker);
+          Utils.showCustomToast(ADrawingView.this, R.string.choose_custom_color, R.drawable.pen);
           try {
                picker.setOldCenterColor(cDrawingView.getCurrentColor());
                picker.setColor(cDrawingView.getCurrentColor());
@@ -186,7 +220,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
                     cDrawingView.disableEraserMode();
                     cDrawingView.clearAll();
                     ibClearAll.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-                    // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.whiteboard_clear, R.drawable.clear);
+                    Utils.showCustomToast(ADrawingView.this, R.string.clear_drawing, R.drawable.clear);
                     dialog.dismiss();
                }
           });
@@ -195,105 +229,78 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
                     dialog.dismiss();
                }
           });
-
           builder.create().show();
      }
 
      @Click void ibEraser() {
           ibEraser.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.setEraserMode();
-          // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.erase_mode_is_active, R.drawable.eraser);
+          Utils.showCustomToast(ADrawingView.this, R.string.erase_mode_is_active, R.drawable.eraser);
      }
 
      @Click void ibThin() {
           ibThin.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.setBrushSize(15);
-          // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.thick_brush, R.drawable.brush_pencil128);
+          Utils.showCustomToast(ADrawingView.this, R.string.thick_brush, R.drawable.pencil_thin);
      }
 
      @Click void ibMedium() {
           ibMedium.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.setBrushSize(10);
-          // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.medium_brush_size, R.drawable.brush_pencil128);
+          Utils.showCustomToast(ADrawingView.this, R.string.medium_brush_size, R.drawable.pencil_medium);
      }
 
      @Click void ibThick() {
           ibThick.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.setBrushSize(5);
-          // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.thin_brush_size, R.drawable.brush_pencil128);
+          Utils.showCustomToast(ADrawingView.this, R.string.thin_brush_size, R.drawable.pencil);
      }
 
      @Click void ibShapesRectangle() {
           cDrawingView.disableEraserMode();
           ibShapesRectangle.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.setDrawingShape(CDrawingView.ShapesType.RECTANGLE);
-          // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.draw_rectangle, R.drawable.rectangle);
+          Utils.showCustomToast(ADrawingView.this, R.string.draw_rectangle, R.drawable.rectangle);
      }
 
      @Click void ibShapesCircle() {
           cDrawingView.disableEraserMode();
           ibShapesCircle.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.setDrawingShape(CDrawingView.ShapesType.CIRCLE);
-          // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.draw_circle, R.drawable.circle);
+          Utils.showCustomToast(ADrawingView.this, R.string.draw_circle, R.drawable.circle);
      }
 
      @Click void ibShapesLine() {
           cDrawingView.disableEraserMode();
           ibShapesLine.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.setDrawingShape(CDrawingView.ShapesType.LINE);
-          // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.draw_line, R.drawable.line);
+          Utils.showCustomToast(ADrawingView.this, R.string.draw_line, R.drawable.line);
      }
 
      @Click void ibShapesTriangle() {
           cDrawingView.disableEraserMode();
           ibShapesTriangle.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.setDrawingShape(CDrawingView.ShapesType.TRIANGLE);
-          // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.draw_triangle, R.drawable.triangle);
+          Utils.showCustomToast(ADrawingView.this, R.string.draw_triangle, R.drawable.triangle);
      }
 
      @Click void ibShapesFreeDrawing() {
           cDrawingView.disableEraserMode();
           ibShapesFreeDrawing.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.setDrawingShape(CDrawingView.ShapesType.STANDART_DRAWING);
-          // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.free_drawing, R.drawable.free_drawing);
-     }
-
-     @Click void ibColourBlue() {
-          cDrawingView.disableEraserMode();
-          ibColourBlue.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          cDrawingView.setColor(Color.BLUE);
-          // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.brush_color_is_set_to_blue, R.drawable.circle_blue);
-     }
-
-     @Click void ibColourGreen() {
-          cDrawingView.disableEraserMode();
-          ibColourGreen.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          cDrawingView.setColor(Color.GREEN);
-          // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.brush_color_is_set_to_green, R.drawable.circle_green);
-     }
-
-     @Click void ibColourRed() {
-          cDrawingView.disableEraserMode();
-          ibColourRed.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          cDrawingView.setColor(Color.RED);
-          // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.brush_color_is_set_to_red, R.drawable.circle_red);
-     }
-
-     @Click void ibColourBlack() {
-          cDrawingView.disableEraserMode();
-          ibColourBlack.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          cDrawingView.setColor(Color.BLACK);
-          // Utils.showCustomToast(GeneralWhiteBoardActivity.this, R.string.brush_color_is_black, R.drawable.circle_black);
+          Utils.showCustomToast(ADrawingView.this, R.string.free_drawing, R.drawable.free_drawing);
      }
 
      @Click void ibUndo() {
           ibUndo.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.redo();
+          Utils.showCustomToast(ADrawingView.this, R.string.undo, R.drawable.left_arrow);
      }
 
      @Click void ibRedo() {
           ibRedo.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.undo();
+          Utils.showCustomToast(ADrawingView.this, R.string.redo, R.drawable.right_arrow);
      }
 
      @Override public void onColorChanged(int color) {
@@ -306,5 +313,35 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
 
      @Override public void onSaturationChanged(int saturation) {
           twSaturationBar.setText(saturation + "%");
+     }
+
+     @Override public void onClick(View v) {
+          cDrawingView.disableEraserMode();
+          int color = Color.parseColor(v.getTag().toString());
+          cDrawingView.setColor(color);
+          v.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
+          unselectAllColorButtons();
+          v.setBackgroundResource(R.drawable.button_bg);
+          Utils.showCustomToastWithBackgroundColour(ADrawingView.this, getResources().getString(R.string.color_changed), color);
+     }
+
+     private void unselectAllColorButtons() {
+          ibColour1.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
+          ibColour2.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
+          ibColour3.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
+          ibColour4.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
+          ibColour5.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
+          ibColour6.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
+          ibColour7.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
+          ibColour8.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
+          ibColour9.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
+          ibColour10.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
+          ibColour11.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
+          ibColour12.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
+          ibColour13.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
+          ibColour14.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
+          ibColour15.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
+          ibColour16.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
+          ibColour17.setBackgroundResource(R.drawable.transparent_inside_and_white_border);
      }
 }

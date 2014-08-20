@@ -37,10 +37,10 @@ import com.ik.ggnote.utils.Utils;
 
      @Override protected void onResume() {
           super.onResume();
-          etPassword.setText("");
+          etPassword.setText("p");
           // check if flag rememberMe was set, fill fields with proper values
           if ( appPref.password().get().equals("") ) {
-               final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(this);
+               final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
 
                dialogBuilder.withButton1Text("Ok").withIcon(R.drawable.scream).withEffect(Effectstype.Slit).withTitle("Welcome to GGNote")
                          .withMessage("Hello, it's seems like you are first time here, set up your password and login, these settings will be remembered when you next time will launch GGNote").setButton1Click(new View.OnClickListener() {
@@ -81,7 +81,7 @@ import com.ik.ggnote.utils.Utils;
                // if password from edittext == user password
                if ( etPassword.getText().toString().equals(appPref.password().get()) ) {
                     // go to main menu, authentification successful
-                    startActivity(new Intent(this, AMenu_.class));
+                    startActivity(new Intent(this, AMyNotes_.class));
                } else {
                     Utils.showCustomToast(AStart.this, "Wrong pass", R.drawable.unsuccess);
                }

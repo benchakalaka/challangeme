@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<color name="selected_color">#98AFC7</color>
+	<color name="unselected_color">#3BB9FF</color>
+	<color name="slide_menu_background">#2C3539</color>
+	<color name="slide_menu_divider_color">#565051</color>
+
+</resources>

@@ -121,6 +121,44 @@ public class Utils {
           }
      }
 
+     /**
+      * Show custom toast with coloured background instead of image
+      * 
+      * @param activity
+      *             current activity
+      * @param message
+      *             message to show
+      * @param background
+      *             value which represents color
+      */
+     public static void showCustomToastWithBackgroundColour(final Activity activity, final String message, final int background) {
+          activity.runOnUiThread(new Runnable() {
+               @Override public void run() {
+                    try {
+                         View layout = activity.getLayoutInflater().inflate(R.layout.custom_toast, (ViewGroup) activity.findViewById(R.id.toast_layout_root));
+
+                         ImageView image = (ImageView) layout.findViewById(R.id.toast_image_view);
+                         TextView text = (TextView) layout.findViewById(R.id.toast_text_view);
+
+                         text.setText(message);
+                         image.setBackgroundColor(background);
+
+                         Toast toast = new Toast(activity.getApplicationContext());
+
+                         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                         toast.setDuration(Toast.LENGTH_SHORT);
+                         toast.setView(layout);
+
+                         toast.show();
+                         text.startAnimation(AnimationManager.load(android.R.anim.slide_in_left));
+                    } catch (Exception e) {
+                         Utils.logw(e.getMessage());
+                         Utils.showToast(activity.getApplicationContext(), message, true);
+                    }
+               }
+          });
+     }
+
      public static void showCustomToast(final Activity activity, final String message, final int imageResourcesId) {
           activity.runOnUiThread(new Runnable() {
 

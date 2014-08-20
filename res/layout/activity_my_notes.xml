@@ -4,10 +4,66 @@
 	android:layout_height="match_parent"
 	android:background="@drawable/bg" >
 
+	<RelativeLayout
+		android:id="@+id/rlCurrentDate"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_margin="3dp"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:background="@drawable/transparent_inside_and_white_border" >
+
+		<ImageView
+			android:id="@+id/ivPrevDay"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignBottom="@+id/twDate"
+			android:layout_marginLeft="3dp"
+			android:layout_alignTop="@+id/twDate"
+			android:layout_toLeftOf="@+id/twDate"
+			android:src="@drawable/left" />
+
+		<TextView
+			android:id="@+id/twDate"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:padding="2dp"
+			android:layout_centerHorizontal="true"
+			android:layout_alignParentTop="true"
+			android:text="20/20/2013"
+			android:background="@drawable/button_bg"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textColor="@android:color/white" />
+
+		<ImageView
+			android:id="@+id/ivNextDay"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginRight="3dp"
+			android:layout_alignBottom="@+id/twDate"
+			android:layout_alignTop="@+id/twDate"
+			android:layout_toRightOf="@+id/twDate"
+			android:src="@drawable/right" />
+		
+		
+		<ImageView
+			android:id="@+id/ivFilter"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="3dp"
+			android:layout_alignBottom="@+id/twDate"
+			android:layout_alignTop="@+id/twDate"
+			android:layout_alignParentRight="true"
+			android:src="@drawable/filter" />
+
+	</RelativeLayout>
+
 	<ScrollView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_above="@+id/llBottomMenuDetails" >
+		android:layout_above="@+id/rlBottomMenu"
+		android:layout_below="@+id/rlCurrentDate"
+		android:layout_margin="5dp" >
 
 		<LinearLayout
 			android:id="@+id/llMyNotes"
@@ -16,44 +72,60 @@
 			android:orientation="vertical" >
 		</LinearLayout>
 	</ScrollView>
-
-	<RelativeLayout
-		android:id="@+id/llBottomMenuDetails"
+	
+	
+	
+	<LinearLayout
+		android:id="@+id/rlBottomMenu"
 		android:layout_width="match_parent"
-		android:layout_height="100dp"
-		android:layout_alignParentBottom="true"
+		android:layout_height="wrap_content"
+		android:layout_margin="5dp"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
-		android:layout_margin="10dp"
-		android:orientation="horizontal" >
+		android:layout_alignParentBottom="true"
+		android:background="@drawable/transparent_inside_and_white_border" >
 
-		<ImageButton
-			android:id="@+id/ibDate"
-			android:layout_width="80dp"
-			android:layout_height="80dp"
-			android:layout_margin="10dp"
-			android:layout_toLeftOf="@+id/ibFilter"
-			android:background="@drawable/button_bg"
-			android:src="@drawable/calendar" />
 
-		<ImageButton
-			android:id="@+id/ibFilter"
-			android:layout_width="80dp"
-			android:layout_height="80dp"
+		<TextView
+			android:id="@+id/twMyNotes"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:layout_gravity="center"
+			android:gravity="center"
 			android:layout_centerHorizontal="true"
-			android:layout_margin="10dp"
-			android:layout_toLeftOf="@+id/ibBack"
-			android:background="@drawable/button_bg"
-			android:src="@drawable/filter" />
+			android:layout_alignParentTop="true"
+			android:text="Notes"
+			android:layout_margin="1dp"
+			android:background="@color/selected_color"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textColor="@android:color/white" />
+		
+		
+		<ImageView
+			android:layout_width="2dp"
+			android:layout_height="match_parent"
+			android:background="@android:color/white" />
+		
+		<TextView
+			android:id="@+id/twCompleted"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center"
+			android:layout_margin="1dp"
+			android:layout_gravity="center"
+			android:layout_centerHorizontal="true"
+			android:layout_alignParentTop="true"
+			android:text="Completed"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textColor="@android:color/white" />
 
-		<ImageButton
-			android:id="@+id/ibBack"
-			android:layout_width="80dp"
-			android:layout_height="80dp"
-			android:layout_alignParentRight="true"
-			android:layout_margin="10dp"
-			android:background="@drawable/button_bg"
-			android:src="@drawable/back" />
-	</RelativeLayout>
 
+	</LinearLayout>
+	
+	
+	
+	
+	
 </RelativeLayout>

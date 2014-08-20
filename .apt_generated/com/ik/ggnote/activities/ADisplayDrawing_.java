@@ -80,9 +80,9 @@ public final class ADisplayDrawing_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        cDisplayDrawingView = ((CDrawingView) hasViews.findViewById(id.cDisplayDrawingView));
-        ibBack = ((ImageButton) hasViews.findViewById(id.ibBack));
         ivLock = ((ImageView) hasViews.findViewById(id.ivLock));
+        ibBack = ((ImageButton) hasViews.findViewById(id.ibBack));
+        cDisplayDrawingView = ((CDrawingView) hasViews.findViewById(id.cDisplayDrawingView));
         {
             View view = hasViews.findViewById(id.ibBack);
             if (view!= null) {

@@ -25,13 +25,15 @@
 	<uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 	<application
 		android:name="com.orm.SugarApp"
 		android:allowBackup="true"
+		android:allowClearUserData="false"
 		android:icon="@drawable/ic_launcher"
 		android:label="@string/app_name"
-		android:theme="@style/AppTheme" android:allowClearUserData="false" >
+		android:theme="@style/AppTheme" >
 		<meta-data
 			android:name="VERSION"
 			android:value="2" />
@@ -40,7 +42,7 @@
 			android:value="true" />
 		<meta-data
 			android:name="DATABASE"
-			android:value="note5.db" />
+			android:value="note6.db" />
 		<meta-data
 			android:name="DOMAIN_PACKAGE_NAME"
 			android:value="com.ik.ggnote" />
@@ -75,6 +77,7 @@
 		</activity>
 		<activity
 			android:name="com.ik.ggnote.activities.AMyNotes_"
+			android:theme="@style/Theme.AppCompat.Light"
 			android:label="@string/app_name"
 			android:screenOrientation="portrait" >
 		</activity>
@@ -103,13 +106,16 @@
 			android:label="@string/app_name"
 			android:screenOrientation="portrait" >
 		</activity>
-		
 		<activity
 			android:name="com.ik.ggnote.activities.ASettings_"
 			android:label="@string/app_name"
 			android:screenOrientation="portrait" >
 		</activity>
-		
+		<activity
+			android:name="com.ik.ggnote.activities.ACompletedNotes_"
+			android:label="@string/app_name"
+			android:screenOrientation="portrait" >
+		</activity>
 	</application>
 
 </manifest>

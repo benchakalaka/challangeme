@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+	<string-array name="array_notes_types">
+		<item>Display all</item>
+		<item>Simple</item>
+		<item>Event</item>
+		<item>Urgent</item>
+		<item>Reminder</item>
+		<item>Work</item>
+	</string-array>
+
 	<string name="app_name">GGNote</string>
 	<string name="hint">hint</string>
 	<string name="failed">failed</string>
 	<string name="clear_canvas">clear_canvas</string>
 	<string name="everything_will_be_clear">everything_will_be_clear</string>
 	<string name="choose_color_saturation_opacity">Choose color/saturation value/opacity/saturation</string>
-	
+
 	<!-- Start screen -->
 	<string name="iamnew">I am new here</string>
 	<string name="ihaveacc">I have an account</string>
@@ -32,20 +41,20 @@
 	<!-- Add note screen -->
 
 	<string name="success">success</string>
-	<string name="s13"></string>
-	<string name="s14"></string>
-	<string name="s15"></string>
-	<string name="s112"></string>
-	<string name="s121"></string>
-	<string name="s132"></string>
-	<string name="s123"></string>
-	<string name="s123452"></string>
-	<string name="s1213"></string>
-	<string name="s12231"></string>
-	<string name="s1231"></string>
-	<string name="s241"></string>
-	<string name="stgy1"></string>
-	<string name="sds1"></string>
+	<string name="color_changed">Color has been changed</string>
+	<string name="choose_custom_color">Choose custom color</string>
+	<string name="clear_drawing">Drawing has been cleaned</string>
+	<string name="erase_mode_is_active">Erase mode is on</string>
+	<string name="thick_brush">Thick brush size</string>
+	<string name="medium_brush_size">Medium brush size</string>
+	<string name="thin_brush_size">Thin brush size</string>
+	<string name="draw_rectangle">Draw rectangle</string>
+	<string name="draw_circle">Draw circle</string>
+	<string name="draw_line">Draw line</string>
+	<string name="draw_triangle">Draw triangle</string>
+	<string name="free_drawing">Free drawing</string>
+	<string name="undo">Undo</string>
+	<string name="redo">Redo</string>
 	<string name="szcx1"></string>
 	<string name="sase1"></string>
 	<string name="szcbtr1"></string>

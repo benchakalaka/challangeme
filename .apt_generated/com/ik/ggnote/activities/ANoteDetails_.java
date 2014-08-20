@@ -80,15 +80,15 @@ public final class ANoteDetails_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        twDescription = ((TextView) hasViews.findViewById(id.twDescription));
-        ivViewPinPhotoDone = ((ImageView) hasViews.findViewById(id.ivViewPinPhotoDone));
-        ivViewPinOnMapDone = ((ImageView) hasViews.findViewById(id.ivViewPinOnMapDone));
         ibViewDraw = ((ImageButton) hasViews.findViewById(id.ibViewDraw));
+        ibViewPinPhoto = ((ImageButton) hasViews.findViewById(id.ibViewPinPhoto));
         ibViewPinOnMap = ((ImageButton) hasViews.findViewById(id.ibViewPinOnMap));
+        ivViewPinOnMapDone = ((ImageView) hasViews.findViewById(id.ivViewPinOnMapDone));
+        twTime = ((TextView) hasViews.findViewById(id.twTime));
         ibBackToMenu = ((ImageButton) hasViews.findViewById(id.ibBackToMenu));
         ivViewDrawDone = ((ImageView) hasViews.findViewById(id.ivViewDrawDone));
-        twTime = ((TextView) hasViews.findViewById(id.twTime));
-        ibViewPinPhoto = ((ImageButton) hasViews.findViewById(id.ibViewPinPhoto));
+        twDescription = ((TextView) hasViews.findViewById(id.twDescription));
+        ivViewPinPhotoDone = ((ImageView) hasViews.findViewById(id.ivViewPinPhotoDone));
         {
             View view = hasViews.findViewById(id.ibBackToMenu);
             if (view!= null) {

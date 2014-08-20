@@ -81,19 +81,19 @@ public final class AStart_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        etPassword = ((EditText) hasViews.findViewById(id.etPassword));
-        ibSettings = ((ImageButton) hasViews.findViewById(id.ibSettings));
-        ibExit = ((ImageButton) hasViews.findViewById(id.ibExit));
         ibLogin = ((ImageButton) hasViews.findViewById(id.ibLogin));
+        ibSettings = ((ImageButton) hasViews.findViewById(id.ibSettings));
+        etPassword = ((EditText) hasViews.findViewById(id.etPassword));
+        ibExit = ((ImageButton) hasViews.findViewById(id.ibExit));
         {
-            View view = hasViews.findViewById(id.ibLogin);
+            View view = hasViews.findViewById(id.ibSettings);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        AStart_.this.ibLogin();
+                        AStart_.this.ibSettings();
                     }
 
                 }
@@ -116,14 +116,14 @@ public final class AStart_
             }
         }
         {
-            View view = hasViews.findViewById(id.ibSettings);
+            View view = hasViews.findViewById(id.ibLogin);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        AStart_.this.ibSettings();
+                        AStart_.this.ibLogin();
                     }
 
                 }

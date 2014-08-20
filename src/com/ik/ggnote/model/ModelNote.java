@@ -18,6 +18,8 @@ public class ModelNote extends SugarRecord <ModelNote> {
      public String        pathToDrawing;
      // type of note
      public String        noteType;
+     // is item mark as completed
+     public boolean       isCompleted;
 
      /**
       * Default constructor

@@ -1,27 +1,30 @@
 package com.ik.ggnote.activities;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 
 import com.ik.ggnote.R;
 import com.ik.ggnote.utils.AppSharedPreferences_;
 import com.ik.ggnote.utils.Utils;
 
-@EActivity ( R.layout.activity_settings ) public class ASettings extends Activity {
+@EActivity ( R.layout.activity_settings ) public class ASettings extends ActionBarActivity implements OnClickListener {
 
      // ============================================= VIEWS
-     @ViewById ImageButton       ibSave , ibBack;
      @ViewById EditText          etPassword;
      @ViewById RadioButton       rbAskPassword , rbDontAskPassword;
 
@@ -33,36 +36,55 @@ import com.ik.ggnote.utils.Utils;
           if ( !TextUtils.isEmpty(appPref.password().get()) ) {
                etPassword.setVisibility(View.GONE);
           }
+
+          // Inflate your custom layout
+          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_settings, null);
+
+          // Set up your ActionBar
+          ActionBar actionBar = getSupportActionBar();
+          // You customization
+          actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#98AFC7")));
+
+          actionBar.setIcon(R.drawable.left);
+          actionBar.setDisplayShowHomeEnabled(true);
+          actionBar.setDisplayShowTitleEnabled(false);
+          actionBar.setDisplayShowCustomEnabled(true);
+          actionBar.setHomeButtonEnabled(true);
+          actionBar.setCustomView(actionBarLayout);
+          actionBar.getCustomView().findViewById(R.id.ivSaveSettings).setOnClickListener(this);
+
      }
 
-     /**
-      * 'back to login' screen
-      */
-     @Click void ibBack() {
-          onBackPressed();
+     @Override protected void onPause() {
+          super.onPause();
+          overridePendingTransition(R.anim.slide_right, 0);
      }
 
-     @Override public void onBackPressed() {
-          super.onBackPressed();
+     @Override public boolean onOptionsItemSelected(MenuItem item) {
+          startActivity(new Intent(this, AMyNotes_.class));
+          return super.onOptionsItemSelected(item);
      }
 
-     /**
-      * Login to the system
-      */
-     @Click void ibSave() {
+     @Override public void onClick(View v) {
+          switch (v.getId()) {
+               case R.id.ivSaveSettings:
 
-          if ( etPassword.getVisibility() == View.GONE ) {
-               // go to main menu
-               startActivity(new Intent(this, AStart_.class));
-               return;
-          }
+                    // if ( etPassword.getVisibility() == View.GONE ) {
+                    // go to main menu
+                    // startActivity(new Intent(this, AStart_.class));
+                    // return;
+                    // }
 
-          if ( !"".equals(etPassword.getText().toString()) ) {
-               appPref.edit().password().put(etPassword.getText().toString()).apply();
-               // go to main menu
-               startActivity(new Intent(this, AStart_.class));
-          } else {
-               Utils.showCustomToast(ASettings.this, "fileds cannot be empty", R.drawable.unsuccess);
+                    // if ( !"".equals(etPassword.getText().toString()) ) {
+                    // appPref.edit().password().put(etPassword.getText().toString()).apply();
+                    Utils.showCustomToast(ASettings.this, "Saved settings!", R.drawable.unsuccess);
+                    // go to main menu
+                    onBackPressed();
+                    // } else {
+                    // Utils.showCustomToast(ASettings.this, "fileds cannot be empty", R.drawable.unsuccess);
+                    // }
+
+                    break;
           }
      }
 }

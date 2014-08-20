@@ -66,7 +66,7 @@
 			android:orientation="horizontal" >
 
 			<RadioGroup
-				android:id="@+id/rgTypeOfNote"
+				android:id="@+id/rgFilterType"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:layout_margin="10dp"
@@ -98,12 +98,44 @@
 				android:layout_weight="1"
 				android:background="@drawable/transparent_inside_and_white_border" >
 
+				<EditText
+					android:id="@+id/etByWord"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_alignParentLeft="true"
+					android:layout_alignParentRight="true"
+					android:padding="5dp"
+					android:maxLines="1"
+					android:textColor="@android:color/white"
+					android:layout_centerVertical="true"
+					android:layout_margin="4dp"
+					android:background="@drawable/transparent_inside_and_white_border" >
+				</EditText>
+
+				<Spinner
+					android:id="@+id/spinnerByType"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:padding="5dp"
+					android:layout_alignParentLeft="true"
+					android:layout_alignParentRight="true"
+					android:layout_centerVertical="true"
+					android:entries="@array/array_notes_types"
+					android:layout_margin="4dp"
+					android:background="@drawable/button_bg"
+					android:visibility="gone" />
+
 				<ImageView
-					android:id="@+id/ivNoteType"
-					android:layout_width="80dp"
-					android:layout_height="80dp"
-					android:layout_centerInParent="true"
-					android:background="@drawable/simple" />
+					android:id="@+id/ivExpandFilter"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_alignBottom="@+id/spinnerByType"
+					android:padding="3dp"
+					android:layout_alignRight="@+id/spinnerByType"
+					android:visibility="gone"
+					android:layout_alignTop="@+id/spinnerByType"
+					android:src="@drawable/arrow_down" />
+				
 			</RelativeLayout>
 		</LinearLayout>
 

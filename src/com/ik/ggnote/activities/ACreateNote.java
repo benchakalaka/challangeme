@@ -10,21 +10,30 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.OnActivityResult;
 import org.androidannotations.annotations.ViewById;
+import org.apache.commons.lang3.time.DateUtils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.widget.TextView;
 
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
@@ -34,32 +43,28 @@ import com.ik.ggnote.constants.Global;
 import com.ik.ggnote.model.ModelNote;
 import com.ik.ggnote.utils.DatabaseUtils;
 import com.ik.ggnote.utils.Utils;
+import com.ik.ggnote.utils.Utils.AnimationManager;
 import com.roomorama.caldroid.CaldroidFragment;
 
-@EActivity ( R.layout.activity_create_note ) public class ACreateNote extends FragmentActivity {
+@EActivity ( R.layout.activity_create_note ) public class ACreateNote extends ActionBarActivity implements OnClickListener {
      // ===================================================================================== VIEWS
-     @ViewById ImageButton                                ibDate;
-     @ViewById ImageButton                                ibDraw;
-     @ViewById ImageButton                                ibPinOnMap;
-     @ViewById ImageButton                                ibPinPhoto;
-     @ViewById ImageButton                                ibNoteType;
-     @ViewById ImageButton                                ibCreateNote;
+     @ViewById ImageButton                                ibDraw , ibPinOnMap , ibPinPhoto , ibCreateNote , ibNoteType;
 
-     @ViewById ImageView                                  ivDateDone;
-     @ViewById ImageView                                  ivDrawDone;
-     @ViewById ImageView                                  ivPinOnMapDone;
-     @ViewById ImageView                                  ivPinPhotoDone;
+     @ViewById ImageView                                  ibNoteTypeDone , ivDrawDone , ivPrevDay , ivNextDay , ivPinOnMapDone , ivPinPhotoDone;
 
      @ViewById EditText                                   etDescription;
+     @ViewById TextView                                   twDate;
 
      // ===================================================================================== VARIABLES
      private CaldroidFragment                             calendar;
      private final Bundle                                 bundle               = new Bundle();
+     private Date                                         currentDate;
 
      // Setup listener
      public final com.roomorama.caldroid.CaldroidListener onDateChangeListener = new com.roomorama.caldroid.CaldroidListener() {
                                                                                     @Override public void onSelectDate(final Date date, View view) {
-                                                                                         ActiveRecord.currentNote.date = Utils.formatDate(date, DatabaseUtils.DATE_PATTERN_YYYY_MM_DD_HH_MM_SS);
+                                                                                         currentDate = date;
+                                                                                         setUpCurrentDate(currentDate);
                                                                                          calendar.dismiss();
                                                                                     }
 
@@ -81,16 +86,28 @@ import com.roomorama.caldroid.CaldroidFragment;
           // create note object
           ActiveRecord.currentNote = new ModelNote(getApplicationContext());
           ActiveRecord.currentNote.noteType = Global.NOTES.SIMPLE_STR;
-     }
 
-     @Click void ibPinPhoto() {
-          captureCameraPhoto(this);
+          // Inflate your custom layout
+          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_create_notes, null);
+
+          // Set up your ActionBar
+          ActionBar actionBar = getSupportActionBar();
+          // You customization
+          actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#98AFC7")));
+
+          actionBar.setIcon(R.drawable.left);
+          actionBar.setDisplayShowHomeEnabled(true);
+          actionBar.setDisplayShowTitleEnabled(false);
+          actionBar.setDisplayShowCustomEnabled(true);
+          actionBar.setHomeButtonEnabled(true);
+          actionBar.setCustomView(actionBarLayout);
+          actionBar.getCustomView().findViewById(R.id.ivCreateNote).setOnClickListener(this);
      }
 
      /**
-      * If date of note different from today, user can set it
+      * Change date
       */
-     @Click void ibDate() {
+     @Click void twDate() {
           calendar = new CaldroidFragment();
           calendar.setCaldroidListener(onDateChangeListener);
           calendar.setArguments(bundle);
@@ -98,20 +115,34 @@ import com.roomorama.caldroid.CaldroidFragment;
           calendar.show(getSupportFragmentManager(), Global.TAG);
      }
 
+     @Click void ivPrevDay() {
+          ivPrevDay.startAnimation(AnimationManager.load(R.anim.fade_in));
+          twDate.startAnimation(AnimationManager.load(R.anim.rotate_right));
+          currentDate = DateUtils.addDays(currentDate, -1);
+          setUpCurrentDate(currentDate);
+     }
+
+     @Click void ivNextDay() {
+          ivNextDay.startAnimation(AnimationManager.load(R.anim.fade_in));
+          twDate.startAnimation(AnimationManager.load(R.anim.rotate_left));
+          currentDate = DateUtils.addDays(currentDate, 1);
+          setUpCurrentDate(currentDate);
+     }
+
+     @Click void ibPinPhoto() {
+          captureCameraPhoto(this);
+     }
+
      @Override protected void onResume() {
           super.onResume();
           // set up current date
-          Date now = new Date();
-          // set date of creating note to current date by default
-          ActiveRecord.currentNote.date = Utils.formatDate(now, DatabaseUtils.DATE_PATTERN_YYYY_MM_DD_HH_MM_SS);
-
+          currentDate = new Date();
+          setUpCurrentDate(currentDate);
           displayDoneImages();
      }
 
      private void displayDoneImages() {
           if ( null != ActiveRecord.currentNote ) {
-               // display all time
-               ivDateDone.setVisibility(View.VISIBLE);
                // display only if user set proper location
                if ( null != ActiveRecord.currentNote.location ) {
                     ivPinOnMapDone.setVisibility(View.VISIBLE);
@@ -141,25 +172,38 @@ import com.roomorama.caldroid.CaldroidFragment;
           startActivity(new Intent(this, AMap_.class));
      }
 
+     private void setUpCurrentDate(Date dateToSetUp) {
+          twDate.setText(Utils.formatDate(dateToSetUp, DatabaseUtils.DATE_PATTERN_YYYY_MM_DD));
+     }
+
+     @Override public boolean onOptionsItemSelected(MenuItem item) {
+          startActivity(new Intent(this, AMyNotes_.class));
+          return super.onOptionsItemSelected(item);
+     }
+
      /**
       * Create ready note
       */
      @Click void ibCreateNote() {
+          // set up selected date
+          ActiveRecord.currentNote.date = Utils.formatDate(currentDate, DatabaseUtils.DATE_PATTERN_YYYY_MM_DD_HH_MM_SS);
           // set note description
           ActiveRecord.currentNote.description = etDescription.getText().toString();
           // if user set location, save it (sugar lib not saving it by cascade)
           if ( null != ActiveRecord.currentNote.location ) {
                ActiveRecord.currentNote.location.save();
           }
+          // just created note mark as incompleted
+          ActiveRecord.currentNote.isCompleted = false;
           // save note
           ActiveRecord.currentNote.save();
 
-          final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(this);
+          final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
 
           dialogBuilder.withButton1Text("Ok").withIcon(R.drawable.scream).withEffect(Effectstype.Slit).withTitle("Success").withMessage("Note has been created successfully.").setButton1Click(new View.OnClickListener() {
                @Override public void onClick(View v) {
                     dialogBuilder.dismiss();
-                    startActivity(new Intent(ACreateNote.this, AMenu_.class));
+                    startActivity(new Intent(ACreateNote.this, AMyNotes_.class));
                }
           }).show();
      }
@@ -205,7 +249,7 @@ import com.roomorama.caldroid.CaldroidFragment;
                     cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
                     activity.startActivityForResult(cameraIntent, Global.CAPTURE_CAMERA_PHOTO);
                } else {
-                    Utils.showCustomToast(ACreateNote.this, R.string.password, R.drawable.share);
+                    Utils.showCustomToast(ACreateNote.this, R.string.password, R.drawable.settings);
                }
           } catch (Exception e) {
                Utils.logw(e.getMessage());
@@ -218,7 +262,7 @@ import com.roomorama.caldroid.CaldroidFragment;
      }
 
      private void showNoteTypePopup() {
-          final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(this);
+          final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
           dialogBuilder.setContentView(R.layout.dialog_type_of_note);
 
           int imageId = Utils.getNoteImageIdFromNoteType(ActiveRecord.currentNote.noteType);
@@ -226,23 +270,6 @@ import com.roomorama.caldroid.CaldroidFragment;
           if ( imageId != -1 ) {
                ((ImageView) dialogBuilder.findViewById(R.id.ivNoteType)).setBackgroundResource(imageId);
                ((RadioGroup) dialogBuilder.findViewById(R.id.rgTypeOfNote)).check(buttonId);
-               // switch (imageId) {
-               // case R.drawable.simple:
-               //
-               // break;
-               //
-               // case R.drawable.event:
-               // break;
-               //
-               // case R.drawable.urgent:
-               // break;
-               //
-               // case R.drawable.work:
-               // break;
-               //
-               // case R.drawable.reminder:
-               // break;
-               // }
           }
 
           ((RadioGroup) dialogBuilder.findViewById(R.id.rgTypeOfNote)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -271,5 +298,33 @@ import com.roomorama.caldroid.CaldroidFragment;
           });
 
           dialogBuilder.show();
+     }
+
+     @Override protected void onPause() {
+          super.onPause();
+          overridePendingTransition(R.anim.slide_right, 0);
+     }
+
+     @Override public void onClick(View v) {
+          switch (v.getId()) {
+               case R.id.ivCreateNote:
+                    // TODO : load from resources androidannootaiioton
+                    Animation animation = AnimationManager.load(R.anim.rotate_right);
+                    animation.setAnimationListener(new AnimationListener() {
+                         @Override public void onAnimationStart(Animation animation) {
+                         }
+
+                         @Override public void onAnimationRepeat(Animation animation) {
+                         }
+
+                         @Override public void onAnimationEnd(Animation animation) {
+                              ibCreateNote();
+                         }
+                    });
+                    getSupportActionBar().getCustomView().findViewById(R.id.ivCreateNote).startAnimation(animation);
+
+                    break;
+          }
+
      }
 }

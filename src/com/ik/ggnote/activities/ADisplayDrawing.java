@@ -47,7 +47,7 @@ import com.ik.ggnote.model.PathSerializable;
      }
 
      @Click void ivLock() {
-          final NiftyDialogBuilder dialogBuilder = NiftyDialogBuilder.getInstance(this);
+          final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
 
           dialogBuilder.withButton1Text("Ok").withIcon(R.drawable.scream).withEffect(Effectstype.Slit).withTitle("GGNote").withMessage("You cannot modify this note").setButton1Click(new View.OnClickListener() {
                @Override public void onClick(View v) {

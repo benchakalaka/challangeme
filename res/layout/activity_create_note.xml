@@ -6,6 +6,49 @@
 	android:clipChildren="false"
 	tools:context="${packageName}.${activityClass}" >
 
+	<RelativeLayout
+		android:id="@+id/rlCurrentDate"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:layout_margin="5dp"
+		android:background="@drawable/transparent_inside_and_white_border" >
+
+		<ImageView
+			android:id="@+id/ivPrevDay"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignBottom="@+id/twDate"
+			android:layout_alignTop="@+id/twDate"
+			android:layout_marginLeft="3dp"
+			android:layout_toLeftOf="@+id/twDate"
+			android:src="@drawable/left" />
+
+		<TextView
+			android:id="@+id/twDate"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentTop="true"
+			android:layout_centerHorizontal="true"
+			android:background="@drawable/button_bg"
+			android:padding="2dp"
+			android:text="20/20/2013"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textColor="@android:color/white" />
+
+		<ImageView
+			android:id="@+id/ivNextDay"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignBottom="@+id/twDate"
+			android:layout_alignTop="@+id/twDate"
+			android:layout_marginRight="3dp"
+			android:layout_toRightOf="@+id/twDate"
+			android:src="@drawable/right" />
+	</RelativeLayout>
+
 	<EditText
 		android:id="@+id/etDescription"
 		android:layout_width="wrap_content"
@@ -13,7 +56,7 @@
 		android:layout_above="@+id/llBottomMenu"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
-		android:layout_alignParentTop="true"
+		android:layout_below="@+id/rlCurrentDate"
 		android:layout_margin="10dp"
 		android:background="@drawable/transparent_inside_and_white_border"
 		android:ems="10"
@@ -35,32 +78,6 @@
 		android:layout_margin="10dp"
 		android:clipChildren="false"
 		android:orientation="horizontal" >
-
-		<RelativeLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:clipChildren="false"
-			android:gravity="center" >
-
-			<ImageButton
-				android:id="@+id/ibDate"
-				android:layout_width="80dp"
-				android:layout_height="80dp"
-				android:layout_margin="10dp"
-				android:background="@drawable/button_bg"
-				android:src="@drawable/calendar"
-				android:textColor="@android:color/white" />
-
-			<ImageView
-				android:id="@+id/ivDateDone"
-				android:layout_width="30dp"
-				android:layout_height="30dp"
-				android:layout_alignParentTop="true"
-				android:layout_alignRight="@+id/ibDate"
-				android:scaleType="fitXY"
-				android:src="@drawable/ok_ok" />
-		</RelativeLayout>
 
 		<RelativeLayout
 			android:layout_width="wrap_content"
@@ -149,31 +166,16 @@
 				android:layout_height="80dp"
 				android:layout_margin="10dp"
 				android:background="@drawable/button_bg"
-				android:src="@drawable/priority"
-				android:textColor="@android:color/white" />
+				android:src="@drawable/priority" />
 
 			<ImageView
 				android:id="@+id/ibNoteTypeDone"
 				android:layout_width="30dp"
 				android:layout_height="30dp"
 				android:layout_alignParentTop="true"
-				android:layout_alignRight="@+id/ibNoteType"
-				android:src="@drawable/ok_ok" />
-		</RelativeLayout>
-
-		<RelativeLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:gravity="center" >
-
-			<ImageButton
-				android:id="@+id/ibCreateNote"
-				android:layout_width="80dp"
-				android:layout_height="80dp"
-				android:layout_margin="10dp"
-				android:background="@drawable/button_bg"
-				android:src="@drawable/ok" />
+				android:layout_alignRight="@+id/ivNoteType"
+				android:src="@drawable/ok_ok"
+				android:visibility="invisible" />
 		</RelativeLayout>
 	</LinearLayout>
 

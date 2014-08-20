@@ -12,10 +12,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
@@ -82,41 +80,9 @@ public final class ASettings_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        rbDontAskPassword = ((RadioButton) hasViews.findViewById(id.rbDontAskPassword));
-        ibSave = ((ImageButton) hasViews.findViewById(id.ibSave));
-        etPassword = ((EditText) hasViews.findViewById(id.etPassword));
-        ibBack = ((ImageButton) hasViews.findViewById(id.ibBack));
         rbAskPassword = ((RadioButton) hasViews.findViewById(id.rbAskPassword));
-        {
-            View view = hasViews.findViewById(id.ibSave);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ASettings_.this.ibSave();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibBack);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ASettings_.this.ibBack();
-                    }
-
-                }
-                );
-            }
-        }
+        etPassword = ((EditText) hasViews.findViewById(id.etPassword));
+        rbDontAskPassword = ((RadioButton) hasViews.findViewById(id.rbDontAskPassword));
         afterViews();
     }
 

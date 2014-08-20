@@ -34,13 +34,13 @@ public final class CListViewItem_
     private boolean alreadyInflated_ = false;
     private final OnViewChangedNotifier onViewChangedNotifier_ = new OnViewChangedNotifier();
 
-    public CListViewItem_(Context context, ModelNote modelNote) {
-        super(context, modelNote);
+    public CListViewItem_(Context context, ModelNote modelNote, boolean deleteMode) {
+        super(context, modelNote, deleteMode);
         init_();
     }
 
-    public static CListViewItem build(Context context, ModelNote modelNote) {
-        CListViewItem_ instance = new CListViewItem_(context, modelNote);
+    public static CListViewItem build(Context context, ModelNote modelNote, boolean deleteMode) {
+        CListViewItem_ instance = new CListViewItem_(context, modelNote, deleteMode);
         instance.onFinishInflate();
         return instance;
     }
@@ -70,18 +70,18 @@ public final class CListViewItem_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ivDeleteNote = ((ImageView) hasViews.findViewById(id.ivDeleteNote));
+        ivDeleteOrCompleteNote = ((ImageView) hasViews.findViewById(id.ivDeleteOrCompleteNote));
         text = ((TextView) hasViews.findViewById(id.text));
         image = ((ImageView) hasViews.findViewById(id.image));
         {
-            View view = hasViews.findViewById(id.ivDeleteNote);
+            View view = hasViews.findViewById(id.ivDeleteOrCompleteNote);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        CListViewItem_.this.ivDeleteNote();
+                        CListViewItem_.this.ivDeleteOrCompleteNote();
                     }
 
                 }
