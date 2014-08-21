@@ -1,22 +1,26 @@
 package com.ik.ggnote.activities;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.v4.app.FragmentActivity;
-import android.widget.ImageButton;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ik.ggnote.R;
 import com.ik.ggnote.custom.CDrawingView;
 
-@EActivity ( R.layout.activity_display_photo ) public class ADisplayPhoto extends FragmentActivity {
+@EActivity ( R.layout.activity_display_photo ) public class ADisplayPhoto extends ActionBarActivity {
 
      // ================================= VIEWS
-     @ViewById ImageButton  ibBack;
      @ViewById ImageView    ivPhoto;
 
      // ================================= VARIABLES
@@ -26,10 +30,29 @@ import com.ik.ggnote.custom.CDrawingView;
      @AfterViews void afterViews() {
           Drawable d = Drawable.createFromPath(ANoteDetails.note.pathToPhoto);
           ivPhoto.setBackgroundDrawable(d);
+          // Inflate your custom layout
+          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_create_notes, null);
+
+          // Set up your ActionBar
+          ActionBar actionBar = getSupportActionBar();
+          // You customization
+          actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#98AFC7")));
+
+          actionBar.setIcon(R.drawable.left);
+          actionBar.setDisplayShowHomeEnabled(true);
+          actionBar.setDisplayShowTitleEnabled(false);
+          actionBar.setDisplayShowCustomEnabled(true);
+          actionBar.setHomeButtonEnabled(true);
+          actionBar.setCustomView(actionBarLayout);
+          actionBar.getCustomView().findViewById(R.id.ivCreateNote).setVisibility(View.INVISIBLE);
+
+          ((TextView) actionBar.getCustomView().findViewById(R.id.tvTitle)).setText("Attached photo");
      }
 
-     @Click void ibBack() {
+     @Override public boolean onOptionsItemSelected(MenuItem item) {
           onBackPressed();
+          return super.onOptionsItemSelected(item);
+
      }
 
 }

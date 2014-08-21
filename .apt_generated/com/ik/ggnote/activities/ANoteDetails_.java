@@ -82,22 +82,21 @@ public final class ANoteDetails_
     public void onViewChanged(HasViews hasViews) {
         ibViewDraw = ((ImageButton) hasViews.findViewById(id.ibViewDraw));
         ibViewPinPhoto = ((ImageButton) hasViews.findViewById(id.ibViewPinPhoto));
-        ibViewPinOnMap = ((ImageButton) hasViews.findViewById(id.ibViewPinOnMap));
         ivViewPinOnMapDone = ((ImageView) hasViews.findViewById(id.ivViewPinOnMapDone));
-        twTime = ((TextView) hasViews.findViewById(id.twTime));
-        ibBackToMenu = ((ImageButton) hasViews.findViewById(id.ibBackToMenu));
-        ivViewDrawDone = ((ImageView) hasViews.findViewById(id.ivViewDrawDone));
         twDescription = ((TextView) hasViews.findViewById(id.twDescription));
+        twTime = ((TextView) hasViews.findViewById(id.twTime));
+        ibViewPinOnMap = ((ImageButton) hasViews.findViewById(id.ibViewPinOnMap));
         ivViewPinPhotoDone = ((ImageView) hasViews.findViewById(id.ivViewPinPhotoDone));
+        ivViewDrawDone = ((ImageView) hasViews.findViewById(id.ivViewDrawDone));
         {
-            View view = hasViews.findViewById(id.ibBackToMenu);
+            View view = hasViews.findViewById(id.ibViewDraw);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ANoteDetails_.this.ibBackToMenu();
+                        ANoteDetails_.this.ibViewDraw();
                     }
 
                 }
@@ -113,21 +112,6 @@ public final class ANoteDetails_
                     @Override
                     public void onClick(View view) {
                         ANoteDetails_.this.ibViewPinPhoto();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibViewDraw);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ANoteDetails_.this.ibViewDraw();
                     }
 
                 }

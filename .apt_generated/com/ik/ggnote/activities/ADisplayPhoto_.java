@@ -12,9 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
@@ -82,22 +80,6 @@ public final class ADisplayPhoto_
     public void onViewChanged(HasViews hasViews) {
         ivPhoto = ((ImageView) hasViews.findViewById(id.ivPhoto));
         cDisplayDrawingView = ((CDrawingView) hasViews.findViewById(id.cDisplayDrawingView));
-        ibBack = ((ImageButton) hasViews.findViewById(id.ibBack));
-        {
-            View view = hasViews.findViewById(id.ibBack);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADisplayPhoto_.this.ibBack();
-                    }
-
-                }
-                );
-            }
-        }
         afterViews();
     }
 

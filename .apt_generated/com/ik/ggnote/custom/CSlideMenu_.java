@@ -68,25 +68,10 @@ public final class CSlideMenu_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        filter = ((RelativeLayout) hasViews.findViewById(id.filter));
-        notes = ((RelativeLayout) hasViews.findViewById(id.notes));
         settings = ((RelativeLayout) hasViews.findViewById(id.settings));
+        notes = ((RelativeLayout) hasViews.findViewById(id.notes));
+        filter = ((RelativeLayout) hasViews.findViewById(id.filter));
         logout = ((RelativeLayout) hasViews.findViewById(id.logout));
-        {
-            View view = hasViews.findViewById(id.logout);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        CSlideMenu_.this.logout();
-                    }
-
-                }
-                );
-            }
-        }
         {
             View view = hasViews.findViewById(id.filter);
             if (view!= null) {
@@ -126,6 +111,21 @@ public final class CSlideMenu_
                     @Override
                     public void onClick(View view) {
                         CSlideMenu_.this.settings();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.logout);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        CSlideMenu_.this.logout();
                     }
 
                 }

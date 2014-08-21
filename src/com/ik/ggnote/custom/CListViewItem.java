@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.ik.ggnote.R;
+import com.ik.ggnote.activities.AMyNotes;
 import com.ik.ggnote.activities.ANoteDetails;
 import com.ik.ggnote.activities.ANoteDetails_;
 import com.ik.ggnote.model.ModelNote;
@@ -77,7 +78,7 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
      public void completeItem() {
           if ( null != note ) {
 
-               YoYo.with(Techniques.FadeOutRight).duration(700).withListener(new AnimatorListener() {
+               YoYo.with(Techniques.FlipOutY).duration(700).withListener(new AnimatorListener() {
 
                     @Override public void onAnimationStart(Animator arg0) {
                     }
@@ -90,6 +91,7 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
                          note.isCompleted = true;
                          note.save();
                          setVisibility(View.GONE);
+                         ((AMyNotes) context).setUpAmountOfCompletedAndAciveNotes();
                     }
 
                     @Override public void onAnimationCancel(Animator arg0) {
@@ -104,7 +106,7 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
      public void deleteNote() {
           if ( null != note ) {
 
-               YoYo.with(Techniques.FadeOutRight).duration(700).withListener(new AnimatorListener() {
+               YoYo.with(Techniques.RollOut).duration(700).withListener(new AnimatorListener() {
 
                     @Override public void onAnimationStart(Animator arg0) {
                     }
@@ -115,6 +117,7 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
                     @Override public void onAnimationEnd(Animator arg0) {
                          note.delete();
                          setVisibility(View.GONE);
+                         ((AMyNotes) context).setUpAmountOfCompletedAndAciveNotes();
                     }
 
                     @Override public void onAnimationCancel(Animator arg0) {

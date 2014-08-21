@@ -14,7 +14,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
@@ -80,24 +79,8 @@ public final class ADisplayDrawing_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ivLock = ((ImageView) hasViews.findViewById(id.ivLock));
-        ibBack = ((ImageButton) hasViews.findViewById(id.ibBack));
         cDisplayDrawingView = ((CDrawingView) hasViews.findViewById(id.cDisplayDrawingView));
-        {
-            View view = hasViews.findViewById(id.ibBack);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADisplayDrawing_.this.ibBack();
-                    }
-
-                }
-                );
-            }
-        }
+        ivLock = ((ImageView) hasViews.findViewById(id.ivLock));
         {
             View view = hasViews.findViewById(id.ivLock);
             if (view!= null) {

@@ -6,9 +6,14 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,7 +22,7 @@ import com.ik.ggnote.R;
 import com.ik.ggnote.model.ModelNote;
 import com.ik.ggnote.utils.Utils;
 
-@EActivity ( R.layout.activity_note_details ) public class ANoteDetails extends FragmentActivity {
+@EActivity ( R.layout.activity_note_details ) public class ANoteDetails extends ActionBarActivity {
 
      public static ModelNote note;
      // =============================================== VIEWS
@@ -39,12 +44,32 @@ import com.ik.ggnote.utils.Utils;
      @AfterViews void afterViews() {
           twTime.setText(note.date);
           twDescription.setText(note.description);
+          // Inflate your custom layout
+          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_create_notes, null);
+
+          // Set up your ActionBar
+          ActionBar actionBar = getSupportActionBar();
+          // You customization
+          actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#98AFC7")));
+
+          actionBar.setIcon(R.drawable.left);
+          actionBar.setDisplayShowHomeEnabled(true);
+          actionBar.setDisplayShowTitleEnabled(false);
+          actionBar.setDisplayShowCustomEnabled(true);
+          actionBar.setHomeButtonEnabled(true);
+          actionBar.setCustomView(actionBarLayout);
+          actionBar.getCustomView().findViewById(R.id.ivCreateNote).setVisibility(View.INVISIBLE);
+          ((TextView) actionBar.getCustomView().findViewById(R.id.tvTitle)).setText("Note detail");
+     }
+
+     @Override public boolean onOptionsItemSelected(MenuItem item) {
+          startActivity(new Intent(ANoteDetails.this, AMyNotes_.class));
+          return super.onOptionsItemSelected(item);
      }
 
      @Override protected void onResume() {
           super.onResume();
           displayDoneImages();
-
      }
 
      private void displayDoneImages() {
@@ -81,12 +106,5 @@ import com.ik.ggnote.utils.Utils;
           } else {
                Utils.showCustomToast(ANoteDetails.this, "NETY photo", R.drawable.unsuccess);
           }
-     }
-
-     /**
-      * Back to menu class on back button press
-      */
-     @Click void ibBackToMenu() {
-          startActivity(new Intent(ANoteDetails.this, AMyNotes_.class));
      }
 }

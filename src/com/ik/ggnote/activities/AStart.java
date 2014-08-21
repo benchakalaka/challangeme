@@ -1,17 +1,21 @@
 package com.ik.ggnote.activities;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
 
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
@@ -20,10 +24,9 @@ import com.ik.ggnote.constants.ActiveRecord;
 import com.ik.ggnote.utils.AppSharedPreferences_;
 import com.ik.ggnote.utils.Utils;
 
-@EActivity ( R.layout.activity_start ) public class AStart extends Activity {
+@EActivity ( R.layout.activity_start ) public class AStart extends ActionBarActivity implements OnClickListener {
 
      // ============================================= VIEWS
-     @ViewById ImageButton       ibLogin , ibSettings , ibExit;
      @ViewById EditText          etPassword;
 
      // ============================================= VARIABLES
@@ -33,6 +36,21 @@ import com.ik.ggnote.utils.Utils;
      @AfterViews void afterViews() {
           // set up GLOBAL context
           ActiveRecord.context = getApplicationContext();
+          // Inflate your custom layout
+          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_create_notes, null);
+
+          // Set up your ActionBar
+          ActionBar actionBar = getSupportActionBar();
+          // You customization
+          actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#98AFC7")));
+
+          actionBar.setIcon(R.drawable.off);
+          actionBar.setDisplayShowHomeEnabled(true);
+          actionBar.setDisplayShowTitleEnabled(false);
+          actionBar.setDisplayShowCustomEnabled(true);
+          actionBar.setHomeButtonEnabled(true);
+          actionBar.setCustomView(actionBarLayout);
+          actionBar.getCustomView().findViewById(R.id.ivCreateNote).setOnClickListener(this);
      }
 
      @Override protected void onResume() {
@@ -52,30 +70,23 @@ import com.ik.ggnote.utils.Utils;
           }
      }
 
-     /**
-      * 'Exit' form app
-      */
-     @Click void ibSettings() {
-          startActivity(new Intent(AStart.this, ASettings_.class));
+     @Override public boolean onOptionsItemSelected(MenuItem item) {
+          exit();
+          return super.onOptionsItemSelected(item);
      }
 
      /**
       * 'Exit' form app
       */
-     @Click void ibExit() {
+     private void exit() {
           Utils.showCustomToast(AStart.this, "Byeee", R.drawable.happy);
           moveTaskToBack(true);
-     }
-
-     @Override public void onBackPressed() {
-          super.onBackPressed();
-          ibExit.performClick();
      }
 
      /**
       * Login to the system
       */
-     @Click void ibLogin() {
+     private void login() {
           // if password is not empty
           if ( !TextUtils.isEmpty(etPassword.getText().toString()) ) {
                // if password from edittext == user password
@@ -88,5 +99,14 @@ import com.ik.ggnote.utils.Utils;
           } else {
                Utils.showCustomToast(AStart.this, "Filed cannot be empty", R.drawable.unsuccess);
           }
+     }
+
+     @Override public void onClick(View v) {
+          switch (v.getId()) {
+               case R.id.ivCreateNote:
+                    login();
+                    break;
+          }
+
      }
 }

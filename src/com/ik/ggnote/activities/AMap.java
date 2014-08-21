@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.ViewById;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -17,10 +17,16 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.widget.ImageButton;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
+import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -50,10 +56,9 @@ import com.roomorama.caldroid.CaldroidFragment;
  * @author Ihor Karpachev
  */
 
-@EActivity ( R.layout.activity_map ) public class AMap extends FragmentActivity implements OnMarkerDragListener , OnCameraChangeListener , ConnectionCallbacks , OnConnectionFailedListener , OnMarkerClickListener , LocationListener {
+@EActivity ( R.layout.activity_map ) public class AMap extends ActionBarActivity implements OnMarkerDragListener , OnCameraChangeListener , ConnectionCallbacks , OnConnectionFailedListener , OnMarkerClickListener , LocationListener , OnClickListener {
 
      // ---------------------------- VIEVS
-     @ViewById ImageButton          ibPinMyLocation;
 
      // ---------------------------- VARIABLES
      // Google map instance
@@ -80,12 +85,55 @@ import com.roomorama.caldroid.CaldroidFragment;
           geocoder = new Geocoder(this);
           // set this as listener on marker click
           googleMap.setOnMarkerClickListener(this);
+
+          // Inflate your custom layout
+          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_settings, null);
+
+          // Set up your ActionBar
+          ActionBar actionBar = getSupportActionBar();
+          // You customization
+          actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#98AFC7")));
+
+          actionBar.setIcon(R.drawable.left);
+          actionBar.setDisplayShowHomeEnabled(true);
+          actionBar.setDisplayShowTitleEnabled(false);
+          actionBar.setDisplayShowCustomEnabled(true);
+          actionBar.setHomeButtonEnabled(true);
+          actionBar.setCustomView(actionBarLayout);
+          actionBar.getCustomView().findViewById(R.id.ivSaveSettings).setOnClickListener(this);
+     }
+
+     @Override public boolean onOptionsItemSelected(MenuItem item) {
+          ibPinMyLocation(true);
+          return super.onOptionsItemSelected(item);
      }
 
      /**
       * Save my location to current note
       */
-     @Click void ibPinMyLocation() {
+     public void ibPinMyLocation(boolean askSave) {
+
+          if ( askSave ) {
+               final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
+
+               dialogBuilder.withButton1Text("Cancel").withButton2Text("Save").withIcon(R.drawable.scream).withEffect(Effectstype.Slit).withTitle("Location has not been saved.").withMessage("Do you want to save location?").setButton1Click(new View.OnClickListener() {
+                    @Override public void onClick(View v) {
+                         dialogBuilder.dismiss();
+                         onBackPressed();
+                    }
+               }).setButton2Click(new OnClickListener() {
+
+                    @Override public void onClick(View v) {
+                         saveLocation();
+                    }
+
+               }).show();
+          } else {
+               saveLocation();
+          }
+     }
+
+     private void saveLocation() {
           ActiveRecord.currentNote.location = new ModelLocation(getApplicationContext());
           ActiveRecord.currentNote.location.latitude = locationMarker.getPosition().latitude;
           ActiveRecord.currentNote.location.longitude = locationMarker.getPosition().longitude;
@@ -266,6 +314,15 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      @Override public void onStatusChanged(String provider, int status, Bundle extras) {
           // TODO Auto-generated method stub
+
+     }
+
+     @Override public void onClick(View v) {
+          switch (v.getId()) {
+               case R.id.ivSaveSettings:
+                    ibPinMyLocation(false);
+                    break;
+          }
 
      }
 }

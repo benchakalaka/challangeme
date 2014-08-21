@@ -21,19 +21,8 @@
 			android:id="@+id/ivLock"
 			android:layout_width="80dp"
 			android:layout_height="80dp"
-			android:layout_margin="10dp"
-			android:background="@drawable/button_bg"
+			android:background="@android:color/white"
 			android:src="@drawable/locked" />
 	</RelativeLayout>
-
-	<ImageButton
-		android:id="@+id/ibBack"
-		android:layout_width="80dp"
-		android:layout_height="80dp"
-		android:layout_alignParentBottom="true"
-		android:layout_alignParentRight="true"
-		android:layout_margin="10dp"
-		android:background="@drawable/button_bg"
-		android:src="@drawable/back" />
 
 </RelativeLayout>

@@ -48,7 +48,7 @@ import com.roomorama.caldroid.CaldroidFragment;
 
 @EActivity ( R.layout.activity_create_note ) public class ACreateNote extends ActionBarActivity implements OnClickListener {
      // ===================================================================================== VIEWS
-     @ViewById ImageButton                                ibDraw , ibPinOnMap , ibPinPhoto , ibCreateNote , ibNoteType;
+     @ViewById ImageButton                                ibDraw , ibPinOnMap , ibPinPhoto , ibNoteType;
 
      @ViewById ImageView                                  ibNoteTypeDone , ivDrawDone , ivPrevDay , ivNextDay , ivPinOnMapDone , ivPinPhotoDone;
 
@@ -143,6 +143,8 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      private void displayDoneImages() {
           if ( null != ActiveRecord.currentNote ) {
+               //
+               ibNoteTypeDone.setVisibility(View.VISIBLE);
                // display only if user set proper location
                if ( null != ActiveRecord.currentNote.location ) {
                     ivPinOnMapDone.setVisibility(View.VISIBLE);
@@ -184,7 +186,7 @@ import com.roomorama.caldroid.CaldroidFragment;
      /**
       * Create ready note
       */
-     @Click void ibCreateNote() {
+     private void ibCreateNote() {
           // set up selected date
           ActiveRecord.currentNote.date = Utils.formatDate(currentDate, DatabaseUtils.DATE_PATTERN_YYYY_MM_DD_HH_MM_SS);
           // set note description

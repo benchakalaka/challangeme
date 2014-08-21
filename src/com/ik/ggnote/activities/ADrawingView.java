@@ -10,9 +10,13 @@ import android.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.support.v4.app.FragmentActivity;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
@@ -35,7 +39,7 @@ import com.ik.ggnote.custom.CDrawingView;
 import com.ik.ggnote.utils.Utils;
 import com.ik.ggnote.utils.Utils.AnimationManager;
 
-@EActivity ( R.layout.activity_drawview ) public class ADrawingView extends FragmentActivity implements OnClickListener , OnColorChangedListener , OnOpacityChangedListener , OnSaturationChangedListener {
+@EActivity ( R.layout.activity_drawview ) public class ADrawingView extends ActionBarActivity implements OnClickListener , OnColorChangedListener , OnOpacityChangedListener , OnSaturationChangedListener {
 
      // --------------------------------- VIEWS
      @ViewById ImageView ivLock;
@@ -127,6 +131,28 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           ibColour15.setOnClickListener(this);
           ibColour16.setOnClickListener(this);
           ibColour17.setOnClickListener(this);
+
+          // Inflate your custom layout
+          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_create_notes, null);
+
+          // Set up your ActionBar
+          ActionBar actionBar = getSupportActionBar();
+          // You customization
+          actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#98AFC7")));
+
+          actionBar.setIcon(R.drawable.left);
+          actionBar.setDisplayShowHomeEnabled(true);
+          actionBar.setDisplayShowTitleEnabled(false);
+          actionBar.setDisplayShowCustomEnabled(true);
+          actionBar.setHomeButtonEnabled(true);
+          actionBar.setCustomView(actionBarLayout);
+          actionBar.getCustomView().findViewById(R.id.ivCreateNote).setOnClickListener(this);
+          ((TextView) actionBar.getCustomView().findViewById(R.id.tvTitle)).setText("Attach drawing");
+     }
+
+     @Override public boolean onOptionsItemSelected(MenuItem item) {
+          ibBack();
+          return super.onOptionsItemSelected(item);
      }
 
      @Click void ibBack() {
@@ -140,17 +166,23 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           }).setButton2Click(new OnClickListener() {
 
                @Override public void onClick(View v) {
-                    String filename = cDrawingView.saveDrawingToFile(ADrawingView.this);
-                    // check return value if null or empty, file has not been created
-                    if ( null != filename && !filename.equals("") ) {
-                         ActiveRecord.currentNote.pathToDrawing = filename;
-                         Utils.logw("File saved to " + filename);
-                         onBackPressed();
-                    } else {
-                         Utils.showCustomToast(ADrawingView.this, "PROBLEMS", R.drawable.text);
-                    }
+                    saveDrawing();
                }
+
           }).show();
+     }
+
+     private void saveDrawing() {
+          String filename = cDrawingView.saveDrawingToFile(ADrawingView.this);
+          // check return value if null or empty, file has not been created
+          if ( null != filename && !filename.equals("") ) {
+               ActiveRecord.currentNote.pathToDrawing = filename;
+               Utils.logw("File saved to " + filename);
+               onBackPressed();
+          } else {
+               Utils.showCustomToast(ADrawingView.this, "PROBLEMS", R.drawable.text);
+          }
+
      }
 
      @Click void ibDrawingSettings() {
@@ -316,6 +348,11 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
      }
 
      @Override public void onClick(View v) {
+          switch (v.getId()) {
+               case R.id.ivCreateNote:
+                    saveDrawing();
+                    return;
+          }
           cDrawingView.disableEraserMode();
           int color = Color.parseColor(v.getTag().toString());
           cDrawingView.setColor(color);

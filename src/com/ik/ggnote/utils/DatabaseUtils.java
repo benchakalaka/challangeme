@@ -23,4 +23,11 @@ public class DatabaseUtils {
           return Select.from(ModelNote.class).where(Condition.prop("date").like(yearMonth_YYYY_MM_DD + "%")).list();
      }
 
+     /**
+      * Select all records, where date starts from yearMonth_YYYY_MM
+      * example yearMonth_YYYY_MM_DD = 2014/05/05, date = 2014/05/23 12:23:13,
+      */
+     public static List <ModelNote> getAllNotesCompletedByDate(String yearMonth_YYYY_MM_DD, boolean completed) {
+          return Select.from(ModelNote.class).where(Condition.prop("date").like(yearMonth_YYYY_MM_DD + "%"), Condition.prop("IS_COMPLETED").eq(completed)).list();
+     }
 }

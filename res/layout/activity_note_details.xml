@@ -111,21 +111,6 @@
 				android:visibility="invisible" />
 		</RelativeLayout>
 
-		<RelativeLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:gravity="center" >
-
-			<ImageButton
-				android:id="@+id/ibBackToMenu"
-				android:layout_width="70dp"
-				android:layout_height="70dp"
-				android:layout_margin="15dp"
-				android:background="@drawable/button_bg"
-				android:src="@drawable/back"
-				android:textColor="@android:color/white" />
-		</RelativeLayout>
 	</LinearLayout>
 
 	<TextView

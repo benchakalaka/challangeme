@@ -12,10 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageButton;
-import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
 import org.androidannotations.api.SdkVersionHelper;
 import org.androidannotations.api.view.HasViews;
@@ -78,22 +75,6 @@ public final class AMap_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ibPinMyLocation = ((ImageButton) hasViews.findViewById(id.ibPinMyLocation));
-        {
-            View view = hasViews.findViewById(id.ibPinMyLocation);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        AMap_.this.ibPinMyLocation();
-                    }
-
-                }
-                );
-            }
-        }
         afterViews();
     }
 

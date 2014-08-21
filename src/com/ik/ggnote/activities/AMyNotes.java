@@ -25,7 +25,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -52,9 +51,8 @@ import com.roomorama.caldroid.CaldroidFragment;
 @EActivity ( R.layout.activity_my_notes ) public class AMyNotes extends ActionBarActivity implements OnClickListener {
      // =================================================== VIEWS
      @ViewById LinearLayout                               llMyNotes;
-     @ViewById ImageButton                                ibBack;
-     @ViewById TextView                                   twDate , twMyNotes , twCompleted;
-     @ViewById ImageView                                  ivPrevDay , ivNextDay , ivFilter;
+     @ViewById TextView                                   twDate , twMyNotes , twCompleted , twAmoutNotes , twAmoutFinished;
+     @ViewById ImageView                                  ivPrevDay , ivNextDay;
 
      // =================================================== VARIABLES
      private List <ModelNote>                             myNotes;
@@ -87,6 +85,9 @@ import com.roomorama.caldroid.CaldroidFragment;
      @AfterViews void afterViews() {
           selectedColor = getResources().getColor(R.color.slide_menu_background);
           currentDate = new Date();
+
+          setUpAmountOfCompletedAndAciveNotes();
+
           // configure persistant bundle for displaying calendar view
           bundle.putString(com.roomorama.caldroid.CaldroidFragment.DIALOG_TITLE, "Select date");
           bundle.putBoolean(CaldroidFragment.ENABLE_CLICK_ON_DISABLED_DATES, false);
@@ -107,6 +108,12 @@ import com.roomorama.caldroid.CaldroidFragment;
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivCreateNote).setOnClickListener(this);
+     }
+
+     public void setUpAmountOfCompletedAndAciveNotes() {
+          String dateNowInStringFormat = Utils.formatDate(currentDate, DatabaseUtils.DATE_PATTERN_YYYY_MM_DD);
+          twAmoutNotes.setText("" + DatabaseUtils.getAllNotesCompletedByDate(dateNowInStringFormat, false).size());
+          twAmoutFinished.setText("" + DatabaseUtils.getAllNotesCompletedByDate(dateNowInStringFormat, true).size());
      }
 
      @Override protected void onResume() {
@@ -200,7 +207,7 @@ import com.roomorama.caldroid.CaldroidFragment;
      /**
       * Filter by name of note
       */
-     @Click public void ivFilter() {
+     public void ivFilter() {
 
           final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
           dialogBuilder.setContentView(R.layout.dialog_notes_filter);
@@ -260,7 +267,7 @@ import com.roomorama.caldroid.CaldroidFragment;
       */
      private void loadNotesAndCreateViews(final Date date, final boolean loadCompleted) {
           setUpCurrentDate(currentDate);
-
+          setUpAmountOfCompletedAndAciveNotes();
           llMyNotes.removeAllViews();
           String dateNowInStringFormat = Utils.formatDate(date, DatabaseUtils.DATE_PATTERN_YYYY_MM_DD);
           myNotes = DatabaseUtils.getAllNotesByDate(dateNowInStringFormat);
@@ -276,7 +283,6 @@ import com.roomorama.caldroid.CaldroidFragment;
                llMyNotes.getChildAt(i).startAnimation(animation);
 
           }
-
      }
 
      /**

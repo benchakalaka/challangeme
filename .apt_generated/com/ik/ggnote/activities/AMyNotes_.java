@@ -14,7 +14,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -81,53 +80,23 @@ public final class AMyNotes_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ivFilter = ((ImageView) hasViews.findViewById(id.ivFilter));
+        twAmoutNotes = ((TextView) hasViews.findViewById(id.twAmoutNotes));
         twMyNotes = ((TextView) hasViews.findViewById(id.twMyNotes));
-        llMyNotes = ((LinearLayout) hasViews.findViewById(id.llMyNotes));
-        ivPrevDay = ((ImageView) hasViews.findViewById(id.ivPrevDay));
-        ibBack = ((ImageButton) hasViews.findViewById(id.ibBack));
-        twCompleted = ((TextView) hasViews.findViewById(id.twCompleted));
-        ivNextDay = ((ImageView) hasViews.findViewById(id.ivNextDay));
         twDate = ((TextView) hasViews.findViewById(id.twDate));
+        ivPrevDay = ((ImageView) hasViews.findViewById(id.ivPrevDay));
+        ivNextDay = ((ImageView) hasViews.findViewById(id.ivNextDay));
+        twAmoutFinished = ((TextView) hasViews.findViewById(id.twAmoutFinished));
+        twCompleted = ((TextView) hasViews.findViewById(id.twCompleted));
+        llMyNotes = ((LinearLayout) hasViews.findViewById(id.llMyNotes));
         {
-            View view = hasViews.findViewById(id.ivFilter);
+            View view = hasViews.findViewById(id.ivNextDay);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        AMyNotes_.this.ivFilter();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.twMyNotes);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        AMyNotes_.this.twMyNotes();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.twDate);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        AMyNotes_.this.twDate();
+                        AMyNotes_.this.ivNextDay();
                     }
 
                 }
@@ -150,14 +119,14 @@ public final class AMyNotes_
             }
         }
         {
-            View view = hasViews.findViewById(id.ivNextDay);
+            View view = hasViews.findViewById(id.twDate);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        AMyNotes_.this.ivNextDay();
+                        AMyNotes_.this.twDate();
                     }
 
                 }
@@ -173,6 +142,21 @@ public final class AMyNotes_
                     @Override
                     public void onClick(View view) {
                         AMyNotes_.this.twCompleted();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.twMyNotes);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AMyNotes_.this.twMyNotes();
                     }
 
                 }

@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,9 +32,9 @@ import com.ik.ggnote.utils.Utils;
 
      // ============================================= METHODS
      @AfterViews void afterViews() {
-          if ( !TextUtils.isEmpty(appPref.password().get()) ) {
-               etPassword.setVisibility(View.GONE);
-          }
+          // if ( !TextUtils.isEmpty(appPref.password().get()) ) {
+          // etPassword.setVisibility(View.GONE);
+          // }
 
           // Inflate your custom layout
           final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_settings, null);
@@ -69,20 +68,20 @@ import com.ik.ggnote.utils.Utils;
           switch (v.getId()) {
                case R.id.ivSaveSettings:
 
-                    // if ( etPassword.getVisibility() == View.GONE ) {
-                    // go to main menu
-                    // startActivity(new Intent(this, AStart_.class));
-                    // return;
-                    // }
+                    if ( etPassword.getVisibility() == View.GONE ) {
+                         // go to main menu
+                         startActivity(new Intent(this, AStart_.class));
+                         return;
+                    }
 
-                    // if ( !"".equals(etPassword.getText().toString()) ) {
-                    // appPref.edit().password().put(etPassword.getText().toString()).apply();
-                    Utils.showCustomToast(ASettings.this, "Saved settings!", R.drawable.unsuccess);
-                    // go to main menu
-                    onBackPressed();
-                    // } else {
-                    // Utils.showCustomToast(ASettings.this, "fileds cannot be empty", R.drawable.unsuccess);
-                    // }
+                    if ( !"".equals(etPassword.getText().toString()) ) {
+                         appPref.edit().password().put(etPassword.getText().toString()).apply();
+                         Utils.showCustomToast(ASettings.this, "Saved settings!", R.drawable.unsuccess);
+                         // go to main menu
+                         onBackPressed();
+                    } else {
+                         Utils.showCustomToast(ASettings.this, "fileds cannot be empty", R.drawable.unsuccess);
+                    }
 
                     break;
           }

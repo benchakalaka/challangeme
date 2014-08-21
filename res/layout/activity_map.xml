@@ -14,13 +14,4 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:background="@android:color/transparent" />
-
-	<ImageButton
-		android:id="@+id/ibPinMyLocation"
-		android:layout_width="60dp"
-		android:layout_height="60dp"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentTop="true"
-		android:src="@drawable/calendar" />
-
 </RelativeLayout>

@@ -11,25 +11,4 @@
 		android:layout_height="match_parent"
 		android:layout_margin="10dp"
 		android:background="@drawable/transparent_inside_and_white_border" />
-
-	<RelativeLayout
-		android:id="@+id/llBottomMenuDetails"
-		android:layout_width="match_parent"
-		android:layout_height="100dp"
-		android:layout_alignParentBottom="true"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentRight="true"
-		android:layout_margin="10dp"
-		android:orientation="horizontal" >
-
-		<ImageButton
-			android:id="@+id/ibBack"
-			android:layout_width="80dp"
-			android:layout_height="80dp"
-			android:layout_alignParentRight="true"
-			android:layout_margin="10dp"
-			android:background="@drawable/button_bg"
-			android:src="@drawable/back" />
-	</RelativeLayout>
-
-</RelativeLayout>
+</RelativeLayout>

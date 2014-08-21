@@ -12,10 +12,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
 import com.ik.ggnote.utils.AppSharedPreferences_;
@@ -81,55 +79,7 @@ public final class AStart_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ibLogin = ((ImageButton) hasViews.findViewById(id.ibLogin));
-        ibSettings = ((ImageButton) hasViews.findViewById(id.ibSettings));
         etPassword = ((EditText) hasViews.findViewById(id.etPassword));
-        ibExit = ((ImageButton) hasViews.findViewById(id.ibExit));
-        {
-            View view = hasViews.findViewById(id.ibSettings);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        AStart_.this.ibSettings();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibExit);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        AStart_.this.ibExit();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibLogin);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        AStart_.this.ibLogin();
-                    }
-
-                }
-                );
-            }
-        }
         afterViews();
     }
 

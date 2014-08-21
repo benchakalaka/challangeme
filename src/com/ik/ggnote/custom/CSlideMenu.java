@@ -5,7 +5,6 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RelativeLayout;
@@ -25,8 +24,6 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
      private final AMyNotes   activity;
      // Side slide menu
      private SlidingMenu      menu;
-     // Dialog for changing brush size
-     private Dialog           dialog;
 
      // load views
      @ViewById RelativeLayout notes;
@@ -46,8 +43,6 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
      }
 
      @AfterViews void afterViews() {
-          dialog = new Dialog(activity);
-
           // configure the SlidingMenu
           // Point size = new Point();
           // activity.getWindowManager().getDefaultDisplay().getSize(size);
@@ -105,6 +100,9 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
           this.activity.logout();
      }
 
+     /**
+      * Callback which will be invoked when menu is start close
+      */
      @Override public void onClose() {
      }
 
