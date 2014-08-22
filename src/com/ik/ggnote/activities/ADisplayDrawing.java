@@ -49,21 +49,21 @@ import com.ik.ggnote.model.PathSerializable;
           }
 
           // Inflate your custom layout
-          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_settings, null);
+          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar, null);
 
           // Set up your ActionBar
           ActionBar actionBar = getSupportActionBar();
           // You customization
-          actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#98AFC7")));
+          actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.ab_background)));
 
-          actionBar.setIcon(R.drawable.left);
+          actionBar.setIcon(R.drawable.arrowleft);
           actionBar.setDisplayShowHomeEnabled(true);
           actionBar.setDisplayShowTitleEnabled(false);
           actionBar.setDisplayShowCustomEnabled(true);
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
-          actionBar.getCustomView().findViewById(R.id.ivSaveSettings).setVisibility(View.INVISIBLE);
-          ((TextView) actionBar.getCustomView().findViewById(R.id.tvTitle)).setText("Attached drawing");
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setVisibility(View.INVISIBLE);
+          ((TextView) actionBar.getCustomView().findViewById(R.id.text)).setText("Attached drawing");
      }
 
      @Click void ivLock() {

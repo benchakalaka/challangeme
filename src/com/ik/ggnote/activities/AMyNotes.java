@@ -61,7 +61,6 @@ import com.roomorama.caldroid.CaldroidFragment;
      private Date                                         currentDate;
      private CSlideMenu                                   menu;
      private static boolean                               loadCompleted        = true;
-     private int                                          selectedColor;
 
      // Setup listener
      public final com.roomorama.caldroid.CaldroidListener onDateChangeListener = new com.roomorama.caldroid.CaldroidListener() {
@@ -83,37 +82,40 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      // =================================================== METHODS
      @AfterViews void afterViews() {
-          selectedColor = getResources().getColor(R.color.slide_menu_background);
           currentDate = new Date();
 
+          menu = CSlideMenu_.build(this);
           setUpAmountOfCompletedAndAciveNotes();
 
           // configure persistant bundle for displaying calendar view
           bundle.putString(com.roomorama.caldroid.CaldroidFragment.DIALOG_TITLE, "Select date");
           bundle.putBoolean(CaldroidFragment.ENABLE_CLICK_ON_DISABLED_DATES, false);
-          menu = CSlideMenu_.build(this);
 
           // Inflate your custom layout
-          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_my_notes, null);
+          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar, null);
 
           // Set up your ActionBar
           ActionBar actionBar = getSupportActionBar();
           // You customization
-          actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#98AFC7")));
+          actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.ab_background)));
 
-          actionBar.setIcon(R.drawable.list);
+          actionBar.setIcon(R.drawable.menu);
           actionBar.setDisplayShowHomeEnabled(true);
           actionBar.setDisplayShowTitleEnabled(false);
           actionBar.setDisplayShowCustomEnabled(true);
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
-          actionBar.getCustomView().findViewById(R.id.ivCreateNote).setOnClickListener(this);
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.add_note);
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
      }
 
      public void setUpAmountOfCompletedAndAciveNotes() {
           String dateNowInStringFormat = Utils.formatDate(currentDate, DatabaseUtils.DATE_PATTERN_YYYY_MM_DD);
-          twAmoutNotes.setText("" + DatabaseUtils.getAllNotesCompletedByDate(dateNowInStringFormat, false).size());
-          twAmoutFinished.setText("" + DatabaseUtils.getAllNotesCompletedByDate(dateNowInStringFormat, true).size());
+          int amountOfNotes = DatabaseUtils.getAllNotesCompletedByDate(dateNowInStringFormat, false).size();
+          int amountOfCompleted = DatabaseUtils.getAllNotesCompletedByDate(dateNowInStringFormat, true).size();
+          twAmoutNotes.setText(String.valueOf(amountOfNotes));
+          twAmoutFinished.setText(String.valueOf(amountOfCompleted));
+          menu.setUpAmountOfNotesAndCompleted(amountOfNotes, amountOfCompleted);
      }
 
      @Override protected void onResume() {
@@ -123,12 +125,16 @@ import com.roomorama.caldroid.CaldroidFragment;
           Animation anim = AnimationManager.load(R.anim.fade_in);
           anim.setDuration(200);
           if ( loadCompleted ) {
-               twMyNotes.setBackgroundColor(selectedColor);
-               twCompleted.setBackgroundColor(getResources().getColor(R.color.unselected_color));
+               ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText("My notes");
+               twMyNotes.setTextColor(Color.BLACK);
+               twMyNotes.setBackgroundColor(getResources().getColor(R.color.ab_background));
+               twCompleted.setBackgroundColor(Color.TRANSPARENT);
                twCompleted.startAnimation(anim);
           } else {
-               twCompleted.setBackgroundColor(selectedColor);
-               twMyNotes.setBackgroundColor(getResources().getColor(R.color.unselected_color));
+               ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText("Completed");
+               twCompleted.setTextColor(Color.BLACK);
+               twCompleted.setBackgroundColor(getResources().getColor(R.color.ab_background));
+               twMyNotes.setBackgroundColor(Color.TRANSPARENT);
                twMyNotes.startAnimation(anim);
           }
      }
@@ -158,13 +164,19 @@ import com.roomorama.caldroid.CaldroidFragment;
           loadCompleted = !loadCompleted;
           // My Notes selected
           if ( loadCompleted ) {
-               twMyNotes.setBackgroundColor(selectedColor);
-               twCompleted.setBackgroundColor(getResources().getColor(R.color.unselected_color));
-               YoYo.with(Techniques.ZoomIn).duration(500).playOn(twMyNotes);
+               ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText("Notes");
+               YoYo.with(Techniques.FlipInX).duration(500).playOn(getSupportActionBar().getCustomView().findViewById(R.id.text));
+               twMyNotes.setTextColor(Color.BLACK);
+               twMyNotes.setBackgroundColor(getResources().getColor(R.color.ab_background));
+               twCompleted.setBackgroundColor(Color.TRANSPARENT);
+               YoYo.with(Techniques.ZoomIn).duration(300).playOn(twMyNotes);
           } else {
-               twCompleted.setBackgroundColor(selectedColor);
-               twMyNotes.setBackgroundColor(getResources().getColor(R.color.unselected_color));
-               YoYo.with(Techniques.ZoomIn).duration(500).playOn(twCompleted);
+               ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText("Completed");
+               YoYo.with(Techniques.FlipInX).duration(500).playOn(getSupportActionBar().getCustomView().findViewById(R.id.text));
+               twCompleted.setTextColor(Color.BLACK);
+               twCompleted.setBackgroundColor(getResources().getColor(R.color.ab_background));
+               twMyNotes.setBackgroundColor(Color.TRANSPARENT);
+               YoYo.with(Techniques.ZoomIn).duration(300).playOn(twCompleted);
           }
      }
 
@@ -335,7 +347,7 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      @Override public void onClick(View v) {
           switch (v.getId()) {
-               case R.id.ivCreateNote:
+               case R.id.ivRightOkButton:
                     // TODO : load from resources androidannootaiioton
                     Animation animation = AnimationManager.load(R.anim.rotate_right);
                     animation.setAnimationListener(new AnimationListener() {
@@ -349,7 +361,7 @@ import com.roomorama.caldroid.CaldroidFragment;
                               startActivity(new Intent(AMyNotes.this, ACreateNote_.class));
                          }
                     });
-                    getSupportActionBar().getCustomView().findViewById(R.id.ivCreateNote).startAnimation(animation);
+                    getSupportActionBar().getCustomView().findViewById(R.id.ivRightOkButton).startAnimation(animation);
 
                     break;
           }

@@ -2,9 +2,8 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:clipChildren="false"
 	android:background="@drawable/bg"
-	 >
+	android:clipChildren="false" >
 
 	<TextView
 		android:id="@+id/twDescription"
@@ -38,6 +37,7 @@
 		<RelativeLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_margin="15dp"
 			android:layout_weight="1"
 			android:gravity="center" >
 
@@ -45,7 +45,7 @@
 				android:id="@+id/ibViewDraw"
 				android:layout_width="70dp"
 				android:layout_height="70dp"
-				android:layout_margin="15dp"
+				android:scaleType="fitXY"
 				android:background="@drawable/button_bg"
 				android:src="@drawable/drawing"
 				android:textColor="@android:color/white" />
@@ -54,16 +54,17 @@
 				android:id="@+id/ivViewDrawDone"
 				android:layout_width="30dp"
 				android:layout_height="30dp"
-				android:clipChildren="false"
 				android:layout_alignParentTop="true"
 				android:layout_alignRight="@+id/ibViewDraw"
-				android:src="@drawable/ok_ok"
+				android:clipChildren="false"
+				android:src="@drawable/done"
 				android:visibility="invisible" />
 		</RelativeLayout>
 
 		<RelativeLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_margin="15dp"
 			android:layout_weight="1"
 			android:gravity="center" >
 
@@ -71,7 +72,7 @@
 				android:id="@+id/ibViewPinOnMap"
 				android:layout_width="70dp"
 				android:layout_height="70dp"
-				android:layout_margin="15dp"
+				android:scaleType="fitXY"
 				android:background="@drawable/button_bg"
 				android:src="@drawable/marker"
 				android:textColor="@android:color/white" />
@@ -82,13 +83,14 @@
 				android:layout_height="30dp"
 				android:layout_alignParentTop="true"
 				android:layout_alignRight="@+id/ibViewPinOnMap"
-				android:src="@drawable/ok_ok"
+				android:src="@drawable/done"
 				android:visibility="invisible" />
 		</RelativeLayout>
 
 		<RelativeLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_margin="15dp"
 			android:layout_weight="1"
 			android:gravity="center" >
 
@@ -96,7 +98,7 @@
 				android:id="@+id/ibViewPinPhoto"
 				android:layout_width="70dp"
 				android:layout_height="70dp"
-				android:layout_margin="15dp"
+				android:scaleType="fitXY"
 				android:background="@drawable/button_bg"
 				android:src="@drawable/camera"
 				android:textColor="@android:color/white" />
@@ -107,25 +109,24 @@
 				android:layout_height="30dp"
 				android:layout_alignParentTop="true"
 				android:layout_alignRight="@+id/ibViewPinPhoto"
-				android:src="@drawable/ok_ok"
+				android:src="@drawable/done"
 				android:visibility="invisible" />
 		</RelativeLayout>
-
 	</LinearLayout>
 
 	<TextView
 		android:id="@+id/twTime"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_alignRight="@+id/twDescription"
-		android:layout_alignTop="@+id/twDescription"
-		android:layout_margin="10dp"
-		android:background="@drawable/background_round_border_green"
+		android:layout_alignParentTop="true"
+		android:layout_centerHorizontal="true"
+		android:layout_margin="15dp"
+		android:background="@drawable/transparent_inside_and_white_round_border"
 		android:gravity="center"
-		android:padding="4dp"
+		android:padding="10dp"
 		android:text="asdasdasdasd"
 		android:textAppearance="?android:attr/textAppearanceSmall"
-		android:textColor="#25383C"
+		android:textColor="@android:color/white"
 		android:textStyle="italic|bold" />
 
 </RelativeLayout>

@@ -6,7 +6,6 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -32,7 +31,6 @@ import com.ik.ggnote.utils.Utils;
      @ViewById ImageButton   ibViewDraw;
      @ViewById ImageButton   ibViewPinOnMap;
      @ViewById ImageButton   ibViewPinPhoto;
-     @ViewById ImageButton   ibBackToMenu;
 
      @ViewById ImageView     ivViewDrawDone;
      @ViewById ImageView     ivViewPinOnMapDone;
@@ -45,26 +43,31 @@ import com.ik.ggnote.utils.Utils;
           twTime.setText(note.date);
           twDescription.setText(note.description);
           // Inflate your custom layout
-          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_create_notes, null);
+          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar, null);
 
           // Set up your ActionBar
           ActionBar actionBar = getSupportActionBar();
           // You customization
-          actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#98AFC7")));
+          actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.ab_background)));
 
-          actionBar.setIcon(R.drawable.left);
+          actionBar.setIcon(R.drawable.arrowleft);
           actionBar.setDisplayShowHomeEnabled(true);
           actionBar.setDisplayShowTitleEnabled(false);
           actionBar.setDisplayShowCustomEnabled(true);
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
-          actionBar.getCustomView().findViewById(R.id.ivCreateNote).setVisibility(View.INVISIBLE);
-          ((TextView) actionBar.getCustomView().findViewById(R.id.tvTitle)).setText("Note detail");
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setVisibility(View.INVISIBLE);
+          ((TextView) actionBar.getCustomView().findViewById(R.id.text)).setText("Note detail");
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {
           startActivity(new Intent(ANoteDetails.this, AMyNotes_.class));
           return super.onOptionsItemSelected(item);
+     }
+
+     @Override protected void onPause() {
+          super.onPause();
+          overridePendingTransition(R.anim.slide_right, 0);
      }
 
      @Override protected void onResume() {

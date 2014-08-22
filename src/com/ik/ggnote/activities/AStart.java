@@ -6,7 +6,6 @@ import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -15,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.widget.EditText;
 
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
@@ -23,6 +24,7 @@ import com.ik.ggnote.R;
 import com.ik.ggnote.constants.ActiveRecord;
 import com.ik.ggnote.utils.AppSharedPreferences_;
 import com.ik.ggnote.utils.Utils;
+import com.ik.ggnote.utils.Utils.AnimationManager;
 
 @EActivity ( R.layout.activity_start ) public class AStart extends ActionBarActivity implements OnClickListener {
 
@@ -37,12 +39,12 @@ import com.ik.ggnote.utils.Utils;
           // set up GLOBAL context
           ActiveRecord.context = getApplicationContext();
           // Inflate your custom layout
-          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_create_notes, null);
+          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar, null);
 
           // Set up your ActionBar
           ActionBar actionBar = getSupportActionBar();
           // You customization
-          actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#98AFC7")));
+          actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.ab_background)));
 
           actionBar.setIcon(R.drawable.off);
           actionBar.setDisplayShowHomeEnabled(true);
@@ -50,7 +52,13 @@ import com.ik.ggnote.utils.Utils;
           actionBar.setDisplayShowCustomEnabled(true);
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
-          actionBar.getCustomView().findViewById(R.id.ivCreateNote).setOnClickListener(this);
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.login);
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
+     }
+
+     @Override protected void onPause() {
+          super.onPause();
+          overridePendingTransition(R.anim.slide_right, 0);
      }
 
      @Override protected void onResume() {
@@ -79,7 +87,7 @@ import com.ik.ggnote.utils.Utils;
       * 'Exit' form app
       */
      private void exit() {
-          Utils.showCustomToast(AStart.this, "Byeee", R.drawable.happy);
+          Utils.showCustomToast(AStart.this, "Byeee", R.drawable.book);
           moveTaskToBack(true);
      }
 
@@ -103,8 +111,21 @@ import com.ik.ggnote.utils.Utils;
 
      @Override public void onClick(View v) {
           switch (v.getId()) {
-               case R.id.ivCreateNote:
-                    login();
+               case R.id.ivRightOkButton:
+                    Animation anim = AnimationManager.load(R.anim.rotate_right);
+                    anim.setAnimationListener(new AnimationListener() {
+
+                         @Override public void onAnimationStart(Animation animation) {
+                         }
+
+                         @Override public void onAnimationRepeat(Animation animation) {
+                         }
+
+                         @Override public void onAnimationEnd(Animation animation) {
+                              login();
+                         }
+                    });
+                    v.startAnimation(anim);
                     break;
           }
 

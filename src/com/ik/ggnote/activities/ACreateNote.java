@@ -14,7 +14,6 @@ import org.apache.commons.lang3.time.DateUtils;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -88,20 +87,21 @@ import com.roomorama.caldroid.CaldroidFragment;
           ActiveRecord.currentNote.noteType = Global.NOTES.SIMPLE_STR;
 
           // Inflate your custom layout
-          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_create_notes, null);
+          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar, null);
 
           // Set up your ActionBar
           ActionBar actionBar = getSupportActionBar();
           // You customization
-          actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#98AFC7")));
+          actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.ab_background)));
 
-          actionBar.setIcon(R.drawable.left);
+          actionBar.setIcon(R.drawable.arrowleft);
           actionBar.setDisplayShowHomeEnabled(true);
           actionBar.setDisplayShowTitleEnabled(false);
           actionBar.setDisplayShowCustomEnabled(true);
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
-          actionBar.getCustomView().findViewById(R.id.ivCreateNote).setOnClickListener(this);
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.ok);
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
      }
 
      /**
@@ -309,7 +309,7 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      @Override public void onClick(View v) {
           switch (v.getId()) {
-               case R.id.ivCreateNote:
+               case R.id.ivRightOkButton:
                     // TODO : load from resources androidannootaiioton
                     Animation animation = AnimationManager.load(R.anim.rotate_right);
                     animation.setAnimationListener(new AnimationListener() {
@@ -323,7 +323,7 @@ import com.roomorama.caldroid.CaldroidFragment;
                               ibCreateNote();
                          }
                     });
-                    getSupportActionBar().getCustomView().findViewById(R.id.ivCreateNote).startAnimation(animation);
+                    getSupportActionBar().getCustomView().findViewById(R.id.ivRightOkButton).startAnimation(animation);
 
                     break;
           }

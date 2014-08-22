@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.ik.ggnote.R;
 import com.ik.ggnote.activities.AMyNotes;
@@ -30,6 +31,10 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
      @ViewById RelativeLayout filter;
      @ViewById RelativeLayout settings;
      @ViewById RelativeLayout logout;
+
+     @ViewById TextView       twAmoutFinished , twAmoutNotes;
+     private int              amountOfNotes;
+     private int              amountOfCompleted;
 
      /**
       * Default constructor
@@ -100,6 +105,11 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
           this.activity.logout();
      }
 
+     public void setUpAmountOfNotesAndCompleted(int notes, int completed) {
+          this.amountOfNotes = notes;
+          this.amountOfCompleted = completed;
+     }
+
      /**
       * Callback which will be invoked when menu is start close
       */
@@ -110,5 +120,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
       * Callback which will be invoked when menu is start open
       */
      @Override public void onOpen() {
+          twAmoutFinished.setText(String.valueOf(this.amountOfCompleted));
+          twAmoutNotes.setText(String.valueOf(this.amountOfNotes));
      }
 }

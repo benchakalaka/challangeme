@@ -1,5 +1,10 @@
 package com.ik.ggnote.activities;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.util.List;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -18,9 +23,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.daimajia.androidanimations.library.Techniques;
@@ -36,35 +41,37 @@ import com.ik.ggnote.colpicker.SaturationBar;
 import com.ik.ggnote.colpicker.SaturationBar.OnSaturationChangedListener;
 import com.ik.ggnote.constants.ActiveRecord;
 import com.ik.ggnote.custom.CDrawingView;
+import com.ik.ggnote.model.PathSerializable;
 import com.ik.ggnote.utils.Utils;
 import com.ik.ggnote.utils.Utils.AnimationManager;
 
 @EActivity ( R.layout.activity_drawview ) public class ADrawingView extends ActionBarActivity implements OnClickListener , OnColorChangedListener , OnOpacityChangedListener , OnSaturationChangedListener {
 
      // --------------------------------- VIEWS
-     @ViewById ImageView ivLock;
-     @ViewById ImageButton ibShapesCircle , ibShapesRectangle , ibShapesTriangle , ibShapesFreeDrawing , ibDrawText , ibShapesLine;
+     @ViewById ImageButton       ibShapesCircle , ibShapesRectangle , ibShapesTriangle , ibShapesFreeDrawing , ibDrawText , ibShapesLine;
 
-     @ViewById ImageButton ibColour1 , ibColour2 , ibColour3 , ibColour4 , ibColour5 , ibColour6 , ibColour7 , ibColour8 , ibColour9 , ibColour10 , ibColour11 , ibColour12 , ibColour13 , ibColour14 , ibColour15 , ibColour16 , ibColour17 , ibColorPicker;
-     @ViewById ImageButton ibSave , ibClearAll , ibRedo , ibUndo , ibThick , ibMedium , ibThin , ibEraser;
+     @ViewById ImageButton       ibColour1 , ibColour2 , ibColour3 , ibColour4 , ibColour5 , ibColour6 , ibColour7 , ibColour8 , ibColour9 , ibColour10 , ibColour11 , ibColour12 , ibColour13 , ibColour14 , ibColour15 , ibColour16 , ibColour17 , ibColorPicker;
+     @ViewById ImageButton       ibSave , ibClearAll , ibRedo , ibUndo , ibThick , ibMedium , ibThin , ibEraser;
 
-     @ViewById ImageButton ibBrushColours , ibDrawingSettings , ibShapes , ibBack;
+     @ViewById ImageButton       ibBrushColours , ibDrawingSettings , ibShapes;
 
-     @ViewById HorizontalScrollView hsvDrawingSettings , hsvBrushColour , hsvDrawShapes;
+     @ViewById ScrollView        svDrawingSettings , svBrushColour , svDrawShapes;
+
+     @ViewById ImageView         ivShapesDone , ivBrushColoursDone , ibDrawingSettingsDone;
 
      // canvas
-     @ViewById CDrawingView         cDrawingView;
+     @ViewById CDrawingView      cDrawingView;
 
      // colorpicker dialog
-     private Dialog                 dialogChangeColour;
+     private Dialog              dialogChangeColour;
      // dialog builder
-     private AlertDialog.Builder    builder;
+     private AlertDialog.Builder builder;
      // color picker view
-     private ColorPicker            picker;
+     private ColorPicker         picker;
      // indicates level of saturation and opacity in change color dialog
-     private TextView               twSaturationBar , twOpacityBar;
+     private TextView            twSaturationBar , twOpacityBar;
 
-     private int                    colorToSet;
+     private int                 colorToSet;
 
      @AfterViews void afterViews() {
           cDrawingView.setColor(Color.WHITE);
@@ -133,42 +140,52 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           ibColour17.setOnClickListener(this);
 
           // Inflate your custom layout
-          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_create_notes, null);
+          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar, null);
 
           // Set up your ActionBar
           ActionBar actionBar = getSupportActionBar();
           // You customization
-          actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#98AFC7")));
+          actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.ab_background)));
 
-          actionBar.setIcon(R.drawable.left);
+          actionBar.setIcon(R.drawable.arrowleft);
           actionBar.setDisplayShowHomeEnabled(true);
           actionBar.setDisplayShowTitleEnabled(false);
           actionBar.setDisplayShowCustomEnabled(true);
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
-          actionBar.getCustomView().findViewById(R.id.ivCreateNote).setOnClickListener(this);
-          ((TextView) actionBar.getCustomView().findViewById(R.id.tvTitle)).setText("Attach drawing");
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.attach);
+          ((TextView) actionBar.getCustomView().findViewById(R.id.text)).setText("Attach drawing");
+
+          try {
+               ObjectInputStream oin = new ObjectInputStream(new FileInputStream(new File(ActiveRecord.currentNote.pathToDrawing)));
+               @SuppressWarnings ( "unchecked" )
+               List <PathSerializable> paths = (List <PathSerializable>) oin.readObject();
+               oin.close();
+               cDrawingView.setPaths(paths);
+               cDrawingView.invalidate();
+               cDrawingView.setColor(Color.TRANSPARENT);
+          } catch (Exception e) {
+               e.printStackTrace();
+          }
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {
-          ibBack();
+          onBackClick();
           return super.onOptionsItemSelected(item);
      }
 
-     @Click void ibBack() {
+     private void onBackClick() {
           final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
-
           dialogBuilder.withButton1Text("Cancel").withButton2Text("Save").withIcon(R.drawable.scream).withEffect(Effectstype.Slit).withTitle("Drawing has not been saved.").withMessage("Do you want to save Drawing?").setButton1Click(new View.OnClickListener() {
                @Override public void onClick(View v) {
                     dialogBuilder.dismiss();
                     onBackPressed();
                }
           }).setButton2Click(new OnClickListener() {
-
                @Override public void onClick(View v) {
                     saveDrawing();
                }
-
           }).show();
      }
 
@@ -180,60 +197,55 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
                Utils.logw("File saved to " + filename);
                onBackPressed();
           } else {
-               Utils.showCustomToast(ADrawingView.this, "PROBLEMS", R.drawable.text);
+               Utils.showCustomToast(ADrawingView.this, "PROBLEMS", R.drawable.work);
           }
-
      }
 
      @Click void ibDrawingSettings() {
-          inverseHorizontalScrollViewVisibility(hsvDrawingSettings);
-          YoYo.with(Techniques.ZoomInDown).duration(700).playOn(hsvDrawingSettings);
-          hsvBrushColour.setVisibility(View.GONE);
-          hsvDrawShapes.setVisibility(View.GONE);
+          inverseHorizontalScrollViewVisibility(svDrawingSettings);
+          YoYo.with(Techniques.Landing).duration(700).playOn(svDrawingSettings);
+          svBrushColour.setVisibility(View.GONE);
+          svDrawShapes.setVisibility(View.GONE);
+          ivShapesDone.setVisibility(View.INVISIBLE);
+          ivBrushColoursDone.setVisibility(View.INVISIBLE);
+          ibDrawingSettingsDone.setVisibility(View.VISIBLE);
      }
 
      @Click void ibBrushColours() {
-          YoYo.with(Techniques.ZoomInDown).duration(700).playOn(hsvBrushColour);
-          inverseHorizontalScrollViewVisibility(hsvBrushColour);
-          hsvDrawingSettings.setVisibility(View.GONE);
-          hsvDrawShapes.setVisibility(View.GONE);
+          YoYo.with(Techniques.Landing).duration(700).playOn(svBrushColour);
+          inverseHorizontalScrollViewVisibility(svBrushColour);
+          svDrawingSettings.setVisibility(View.GONE);
+          svDrawShapes.setVisibility(View.GONE);
+
+          ivShapesDone.setVisibility(View.INVISIBLE);
+          ivBrushColoursDone.setVisibility(View.VISIBLE);
+          ibDrawingSettingsDone.setVisibility(View.INVISIBLE);
      }
 
      @Click void ibShapes() {
-          YoYo.with(Techniques.ZoomInDown).duration(700).playOn(hsvDrawShapes);
-          inverseHorizontalScrollViewVisibility(hsvDrawShapes);
-          hsvDrawingSettings.setVisibility(View.GONE);
-          hsvBrushColour.setVisibility(View.GONE);
+          YoYo.with(Techniques.Landing).duration(700).playOn(svDrawShapes);
+          inverseHorizontalScrollViewVisibility(svDrawShapes);
+          svDrawingSettings.setVisibility(View.GONE);
+          svBrushColour.setVisibility(View.GONE);
+          ivShapesDone.setVisibility(View.VISIBLE);
+          ivBrushColoursDone.setVisibility(View.INVISIBLE);
+          ibDrawingSettingsDone.setVisibility(View.INVISIBLE);
      }
 
-     private void inverseHorizontalScrollViewVisibility(HorizontalScrollView view) {
+     private void inverseHorizontalScrollViewVisibility(ScrollView view) {
           int visibility = view.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE;
           view.setVisibility(visibility);
-     }
-
-     @Click void ibSave() {
-
-     }
-
-     @Click void ivLock() {
-          final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
-
-          dialogBuilder.withButton1Text("Ok").withIcon(R.drawable.scream).withEffect(Effectstype.Slit).withTitle("GGNote").withMessage("This is read-only mode").setButton1Click(new View.OnClickListener() {
-               @Override public void onClick(View v) {
-                    dialogBuilder.dismiss();
-               }
-          }).show();
      }
 
      @Click void ibDrawText() {
           cDrawingView.disableEraserMode();
           ibDrawText.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          Utils.showCustomToast(ADrawingView.this, R.string.ihaveacc, R.drawable.text);
+          Utils.showCustomToast(ADrawingView.this, R.string.ihaveacc, R.drawable.work);
      }
 
      @Click void ibColorPicker() {
           ibColorPicker.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-          Utils.showCustomToast(ADrawingView.this, R.string.choose_custom_color, R.drawable.pen);
+          Utils.showCustomToast(ADrawingView.this, R.string.choose_custom_color, R.drawable.brush);
           try {
                picker.setOldCenterColor(cDrawingView.getCurrentColor());
                picker.setColor(cDrawingView.getCurrentColor());
@@ -246,13 +258,13 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
      @Click void ibClearAll() {
           builder = new Builder(ADrawingView.this);
           builder.setTitle(getResources().getString(R.string.clear_canvas));
-          builder.setMessage(getResources().getString(R.string.everything_will_be_clear)).setIcon(R.drawable.clear);
+          builder.setMessage(getResources().getString(R.string.everything_will_be_clear)).setIcon(R.drawable.blank);
           builder.setPositiveButton(getResources().getString(android.R.string.yes), new DialogInterface.OnClickListener() {
                @Override public void onClick(DialogInterface dialog, int which) {
                     cDrawingView.disableEraserMode();
                     cDrawingView.clearAll();
                     ibClearAll.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
-                    Utils.showCustomToast(ADrawingView.this, R.string.clear_drawing, R.drawable.clear);
+                    Utils.showCustomToast(ADrawingView.this, R.string.clear_drawing, R.drawable.blank);
                     dialog.dismiss();
                }
           });
@@ -267,25 +279,25 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
      @Click void ibEraser() {
           ibEraser.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.setEraserMode();
-          Utils.showCustomToast(ADrawingView.this, R.string.erase_mode_is_active, R.drawable.eraser);
+          Utils.showCustomToast(ADrawingView.this, R.string.erase_mode_is_active, R.drawable.erase);
      }
 
      @Click void ibThin() {
           ibThin.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.setBrushSize(15);
-          Utils.showCustomToast(ADrawingView.this, R.string.thick_brush, R.drawable.pencil_thin);
+          Utils.showCustomToast(ADrawingView.this, R.string.thick_brush, R.drawable.brush);
      }
 
      @Click void ibMedium() {
           ibMedium.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.setBrushSize(10);
-          Utils.showCustomToast(ADrawingView.this, R.string.medium_brush_size, R.drawable.pencil_medium);
+          Utils.showCustomToast(ADrawingView.this, R.string.medium_brush_size, R.drawable.brush);
      }
 
      @Click void ibThick() {
           ibThick.startAnimation(AnimationManager.load(R.anim.pump_bottom, 500));
           cDrawingView.setBrushSize(5);
-          Utils.showCustomToast(ADrawingView.this, R.string.thin_brush_size, R.drawable.pencil);
+          Utils.showCustomToast(ADrawingView.this, R.string.thin_brush_size, R.drawable.brush);
      }
 
      @Click void ibShapesRectangle() {
@@ -349,7 +361,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
 
      @Override public void onClick(View v) {
           switch (v.getId()) {
-               case R.id.ivCreateNote:
+               case R.id.ivRightOkButton:
                     saveDrawing();
                     return;
           }

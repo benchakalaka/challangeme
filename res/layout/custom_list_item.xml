@@ -20,7 +20,7 @@
 		android:layout_height="wrap_content"
 		android:layout_centerVertical="true"
 		android:layout_gravity="center_vertical"
-		android:layout_toLeftOf="@+id/ivDeleteNote"
+		android:layout_toLeftOf="@+id/ivDeleteOrCompleteNote"
 		android:layout_toRightOf="@+id/image"
 		android:lines="1"
 		android:maxLines="1"
@@ -37,6 +37,7 @@
 		android:layout_alignParentRight="true"
 		android:layout_centerVertical="true"
 		android:padding="5dp"
+		android:layout_margin="5dp"
 		android:background="@drawable/ok" />
 
 </RelativeLayout>

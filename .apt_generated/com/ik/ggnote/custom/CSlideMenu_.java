@@ -9,6 +9,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
 import org.androidannotations.api.view.HasViews;
@@ -68,10 +69,27 @@ public final class CSlideMenu_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        settings = ((RelativeLayout) hasViews.findViewById(id.settings));
-        notes = ((RelativeLayout) hasViews.findViewById(id.notes));
         filter = ((RelativeLayout) hasViews.findViewById(id.filter));
         logout = ((RelativeLayout) hasViews.findViewById(id.logout));
+        twAmoutFinished = ((TextView) hasViews.findViewById(id.twAmoutFinished));
+        notes = ((RelativeLayout) hasViews.findViewById(id.notes));
+        twAmoutNotes = ((TextView) hasViews.findViewById(id.twAmoutNotes));
+        settings = ((RelativeLayout) hasViews.findViewById(id.settings));
+        {
+            View view = hasViews.findViewById(id.settings);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        CSlideMenu_.this.settings();
+                    }
+
+                }
+                );
+            }
+        }
         {
             View view = hasViews.findViewById(id.filter);
             if (view!= null) {
@@ -96,21 +114,6 @@ public final class CSlideMenu_
                     @Override
                     public void onClick(View view) {
                         CSlideMenu_.this.notes();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.settings);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        CSlideMenu_.this.settings();
                     }
 
                 }

@@ -7,7 +7,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -87,20 +86,21 @@ import com.roomorama.caldroid.CaldroidFragment;
           googleMap.setOnMarkerClickListener(this);
 
           // Inflate your custom layout
-          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar_settings, null);
+          final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar, null);
 
           // Set up your ActionBar
           ActionBar actionBar = getSupportActionBar();
           // You customization
-          actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#98AFC7")));
+          actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.ab_background)));
 
-          actionBar.setIcon(R.drawable.left);
+          actionBar.setIcon(R.drawable.arrowleft);
           actionBar.setDisplayShowHomeEnabled(true);
           actionBar.setDisplayShowTitleEnabled(false);
           actionBar.setDisplayShowCustomEnabled(true);
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
-          actionBar.getCustomView().findViewById(R.id.ivSaveSettings).setOnClickListener(this);
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.attach);
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -319,7 +319,7 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      @Override public void onClick(View v) {
           switch (v.getId()) {
-               case R.id.ivSaveSettings:
+               case R.id.ivRightOkButton:
                     ibPinMyLocation(false);
                     break;
           }

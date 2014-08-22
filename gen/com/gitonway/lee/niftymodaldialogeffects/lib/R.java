@@ -19,10 +19,10 @@ public final class R {
 		public static final int dialog_padding = 0x7f080015;
 	}
 	public static final class drawable {
-		public static final int btn_press = 0x7f02005e;
-		public static final int btn_selector = 0x7f02005f;
-		public static final int btn_unpress = 0x7f020060;
-		public static final int dialog_bg = 0x7f020084;
+		public static final int btn_press = 0x7f020066;
+		public static final int btn_selector = 0x7f020067;
+		public static final int btn_unpress = 0x7f020068;
+		public static final int dialog_bg = 0x7f02008b;
 	}
 	public static final class id {
 		public static final int alertTitle = 0x7f0500b1;
@@ -39,7 +39,7 @@ public final class R {
 		public static final int topPanel = 0x7f0500af;
 	}
 	public static final class layout {
-		public static final int dialog_layout = 0x7f03002a;
+		public static final int dialog_layout = 0x7f030029;
 	}
 	public static final class style {
 		public static final int DialogWindowTitle = 0x7f0b008b;
