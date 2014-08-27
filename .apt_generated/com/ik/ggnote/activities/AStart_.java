@@ -12,8 +12,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
+import android.widget.TextView;
 import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
 import com.ik.ggnote.utils.AppSharedPreferences_;
@@ -79,7 +81,23 @@ public final class AStart_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
+        twResetPassword = ((TextView) hasViews.findViewById(id.twResetPassword));
         etPassword = ((EditText) hasViews.findViewById(id.etPassword));
+        {
+            View view = hasViews.findViewById(id.twResetPassword);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AStart_.this.twResetPassword();
+                    }
+
+                }
+                );
+            }
+        }
         afterViews();
     }
 

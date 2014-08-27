@@ -12,7 +12,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -20,12 +19,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
-import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
+import com.devspark.appmsg.AppMsg;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
 import com.google.android.gms.common.GooglePlayServicesClient.OnConnectionFailedListener;
@@ -34,16 +30,12 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.ik.ggnote.R;
-import com.ik.ggnote.constants.ActiveRecord;
-import com.ik.ggnote.model.ModelLocation;
 import com.ik.ggnote.utils.GPSTracker;
 import com.ik.ggnote.utils.Utils;
 import com.roomorama.caldroid.CaldroidFragment;
@@ -55,7 +47,7 @@ import com.roomorama.caldroid.CaldroidFragment;
  * @author Ihor Karpachev
  */
 
-@EActivity ( R.layout.activity_display_on_map ) public class ADisplayOnMap extends ActionBarActivity implements OnMarkerDragListener , OnCameraChangeListener , ConnectionCallbacks , OnConnectionFailedListener , OnMarkerClickListener , LocationListener , OnClickListener {
+@EActivity ( R.layout.activity_display_on_map ) public class ADisplayOnMap extends ActionBarActivity implements OnCameraChangeListener , ConnectionCallbacks , OnConnectionFailedListener , OnMarkerClickListener , LocationListener {
 
      // ---------------------------- VIEVS
 
@@ -78,19 +70,13 @@ import com.roomorama.caldroid.CaldroidFragment;
           googleMap.setMyLocationEnabled(true);
           // create location manager client
           locationClient = new LocationClient(this, this, this);
-          // set drag listener as this
-          googleMap.setOnMarkerDragListener(this);
           // set up geocoder
           geocoder = new Geocoder(this);
-          // set this as listener on marker click
-          googleMap.setOnMarkerClickListener(this);
-
           // Inflate your custom layout
           final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar, null);
-
           // Set up your ActionBar
           ActionBar actionBar = getSupportActionBar();
-          // You customization
+          // customization
           actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.ab_background)));
 
           actionBar.setIcon(R.drawable.arrowleft);
@@ -99,53 +85,12 @@ import com.roomorama.caldroid.CaldroidFragment;
           actionBar.setDisplayShowCustomEnabled(true);
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
-          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.ok);
-          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setVisibility(View.INVISIBLE);
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {
-          ibPinMyLocation(true);
-          return super.onOptionsItemSelected(item);
-     }
-
-     /**
-      * Save my location to current note
-      */
-     public void ibPinMyLocation(boolean askSave) {
-
-          if ( askSave ) {
-               final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
-
-               dialogBuilder.withButton1Text("Cancel").withButton2Text("Save").withIcon(R.drawable.scream).withEffect(Effectstype.Slit).withTitle("Location has not been saved.").withMessage("Do you want to save location?").setButton1Click(new View.OnClickListener() {
-                    @Override public void onClick(View v) {
-                         dialogBuilder.dismiss();
-                         onBackPressed();
-                    }
-               }).setButton2Click(new OnClickListener() {
-
-                    @Override public void onClick(View v) {
-                         saveLocation();
-                    }
-
-               }).show();
-          } else {
-               saveLocation();
-          }
-     }
-
-     private void saveLocation() {
-          ActiveRecord.currentNote.location = new ModelLocation(getApplicationContext());
-          ActiveRecord.currentNote.location.latitude = locationMarker.getPosition().latitude;
-          ActiveRecord.currentNote.location.longitude = locationMarker.getPosition().longitude;
-
-          try {
-               List <Address> result = geocoder.getFromLocation(locationMarker.getPosition().latitude, locationMarker.getPosition().longitude, 1);
-               ActiveRecord.currentNote.location.address = String.valueOf(GPSTracker.convertAddressToText(result.get(0)));
-          } catch (IOException e) {
-               e.printStackTrace();
-          }
-
           onBackPressed();
+          return super.onOptionsItemSelected(item);
      }
 
      /**
@@ -155,7 +100,9 @@ import com.roomorama.caldroid.CaldroidFragment;
       * @param zoom
       */
      private void animateCamera(LatLng position, float zoom) {
-          googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, zoom), 2000, null);
+          if ( null != position ) {
+               googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(position, zoom), 2000, null);
+          }
      }
 
      @Override public void onCameraChange(CameraPosition camera) {
@@ -172,17 +119,14 @@ import com.roomorama.caldroid.CaldroidFragment;
      }
 
      @Override public void onConnected(Bundle bundle) {
-          LatLng location = null;
-          Location loc = locationClient.getLastLocation();
-          if ( null == loc ) {
-               // TODO obtain location with help of location service
-               Utils.showCustomToast(this, "Cannot obtain current location", R.drawable.scream);
-               createMarkerWithLocation();
+          if ( null == ANoteDetails.note.location ) {
+               Utils.showStickyNotification(this, R.string.there_is_no_location, AppMsg.STYLE_INFO, 1000);
                return;
           }
+          LatLng location = null;
           try {
-               location = new LatLng(loc.getLatitude(), loc.getLongitude());
-               List <Address> result = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
+               location = new LatLng(ANoteDetails.note.location.latitude, ANoteDetails.note.location.longitude);
+               List <Address> result = geocoder.getFromLocation(ANoteDetails.note.location.latitude, ANoteDetails.note.location.longitude, 1);
 
                // animate to center of UK
                animateCamera(location, 12);
@@ -190,7 +134,7 @@ import com.roomorama.caldroid.CaldroidFragment;
                // createMarkerWithLocation();
           } catch (IOException e) {
                e.printStackTrace();
-               Utils.showCustomToast(ADisplayOnMap.this, "Problem obtain address   " + e.getMessage(), R.drawable.scream);
+               Utils.showStickyNotification(this, R.string.problem_obtaining_address, AppMsg.STYLE_ALERT, 1000);
                animateCamera(location, 12);
                createMarker(location, null);
           }
@@ -203,14 +147,11 @@ import com.roomorama.caldroid.CaldroidFragment;
           if ( null != address ) {
                markerOptions.title(String.valueOf(GPSTracker.convertAddressToText(address)));
           } else {
-               markerOptions.title("Unknown address");
+               markerOptions.title(getResources().getString(R.string.unknown_address));
           }
-          markerOptions.snippet("Drag me");
-
           // set up marker
           locationMarker = googleMap.addMarker(markerOptions);
-          locationMarker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
-          locationMarker.setDraggable(true);
+          locationMarker.setDraggable(false);
           locationMarker.showInfoWindow();
      }
 
@@ -234,95 +175,20 @@ import com.roomorama.caldroid.CaldroidFragment;
           locationClient.connect();
      }
 
-     private void createMarkerWithLocation() {
-          /* Use the LocationManager class to obtain GPS locations */
-          LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-          mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 300000, 40, this);
-
-          Location location = mlocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-          /* check both providers even for lastKnownLocation */
-          if ( location == null ) {
-               location = mlocManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-          }
-          if ( location != null ) {
-
-               double latitude = location.getLatitude();
-               double longitude = location.getLongitude();
-
-               LatLng currentLatLng = new LatLng(latitude, longitude);
-
-               if ( isConnected(this) ) {
-                    // List <Address> addresses = getInfos(latitude, longitude);
-                    String address = "address"; // addresses.get(0).getAddressLine(0);
-
-                    String city = "city";// addresses.get(0).getAddressLine(1);
-                    String country = "country";// addresses.get(0).getAddressLine(2);
-                    Toast.makeText(this, country + ", " + city + ", " + address, Toast.LENGTH_SHORT).show();
-
-                    Marker marker = googleMap.addMarker(new MarkerOptions().position(currentLatLng).title(city).snippet(address).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-               }
-          }
-     }
-
      public static boolean isConnected(Context context) {
           NetworkInfo ni = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
           return (ni != null && ni.isAvailable() && ni.isConnected());
      }
 
-     @Override public void onMarkerDrag(Marker marker) {
-          // ommit it
-     }
-
-     @Override public void onMarkerDragEnd(Marker marker) {
-          Utils.showCustomToast(this, "Marker: " + marker.getPosition().latitude, R.drawable.scream);
-     }
-
-     @Override public void onMarkerDragStart(Marker marker) {
-          Utils.showCustomToast(this, "Drag me somewhere", R.drawable.scream);
-
-          marker.setTitle("Drag me somewhere");
-          marker.hideInfoWindow();
-          marker.showInfoWindow();
-          /*
-           * try {
-           * List <Address> result = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
-           * if ( null != result && result.size() > 0 ) {
-           * marker.setTitle(String.valueOf(GPSTracker.convertAddressToText(result.get(0))));
-           * marker.hideInfoWindow();
-           * marker.showInfoWindow();
-           * }
-           * } catch (IOException e) {
-           * e.printStackTrace();
-           * }
-           */
-     }
-
      @Override public void onLocationChanged(Location location) {
-          // TODO Auto-generated method stub
-
      }
 
      @Override public void onProviderDisabled(String provider) {
-          // TODO Auto-generated method stub
-
      }
 
      @Override public void onProviderEnabled(String provider) {
-          // TODO Auto-generated method stub
-
      }
 
      @Override public void onStatusChanged(String provider, int status, Bundle extras) {
-          // TODO Auto-generated method stub
-
-     }
-
-     @Override public void onClick(View v) {
-          switch (v.getId()) {
-               case R.id.ivRightOkButton:
-                    ibPinMyLocation(false);
-                    break;
-          }
-
      }
 }

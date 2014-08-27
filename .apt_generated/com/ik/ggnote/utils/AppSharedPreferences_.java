@@ -27,6 +27,10 @@ public final class AppSharedPreferences_
         return new AppSharedPreferences_.AppSharedPreferencesEditor_(getSharedPreferences());
     }
 
+    public StringPrefField email() {
+        return stringField("email", "");
+    }
+
     public StringPrefField password() {
         return stringField("password", "");
     }
@@ -38,6 +42,10 @@ public final class AppSharedPreferences_
 
         AppSharedPreferencesEditor_(SharedPreferences sharedPreferences) {
             super(sharedPreferences);
+        }
+
+        public StringPrefEditorField<AppSharedPreferences_.AppSharedPreferencesEditor_> email() {
+            return stringField("email");
         }
 
         public StringPrefEditorField<AppSharedPreferences_.AppSharedPreferencesEditor_> password() {

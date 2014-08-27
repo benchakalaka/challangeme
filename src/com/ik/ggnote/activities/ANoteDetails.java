@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.devspark.appmsg.AppMsg;
 import com.ik.ggnote.R;
 import com.ik.ggnote.model.ModelNote;
 import com.ik.ggnote.utils.Utils;
@@ -25,16 +26,13 @@ import com.ik.ggnote.utils.Utils;
 
      public static ModelNote note;
      // =============================================== VIEWS
-     @ViewById TextView      twTime;
-     @ViewById TextView      twDescription;
+     @ViewById TextView      twTime , twNoteType , twDescription;
 
      @ViewById ImageButton   ibViewDraw;
      @ViewById ImageButton   ibViewPinOnMap;
      @ViewById ImageButton   ibViewPinPhoto;
 
-     @ViewById ImageView     ivViewDrawDone;
-     @ViewById ImageView     ivViewPinOnMapDone;
-     @ViewById ImageView     ivViewPinPhotoDone;
+     @ViewById ImageView     ivViewPinPhotoDone , ivNoteType , ivViewPinOnMapDone , ivViewDrawDone;
 
      // =============================================== VARIABLES
 
@@ -42,6 +40,8 @@ import com.ik.ggnote.utils.Utils;
      @AfterViews void afterViews() {
           twTime.setText(note.date);
           twDescription.setText(note.description);
+          twNoteType.setText(note.noteType);
+          ivNoteType.setBackgroundResource(Utils.getNoteImageIdFromNoteType(note.noteType));
           // Inflate your custom layout
           final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar, null);
 
@@ -75,6 +75,14 @@ import com.ik.ggnote.utils.Utils;
           displayDoneImages();
      }
 
+     @Click void ibViewPinOnMap() {
+          if ( null != note.location ) {
+               startActivity(new Intent(ANoteDetails.this, ADisplayOnMap_.class));
+          } else {
+               Utils.showStickyNotification(this, "R.string.there_is_no_location", AppMsg.STYLE_INFO, 1000);
+          }
+     }
+
      private void displayDoneImages() {
           if ( null != note ) {
                // display only if user set proper location
@@ -99,7 +107,7 @@ import com.ik.ggnote.utils.Utils;
           if ( !TextUtils.isEmpty(note.pathToDrawing) ) {
                startActivity(new Intent(ANoteDetails.this, ADisplayDrawing_.class));
           } else {
-               Utils.showCustomToast(ANoteDetails.this, "NETY Drawing", R.drawable.unsuccess);
+               Utils.showStickyNotification(this, "R.string.there_is_no_drawing", AppMsg.STYLE_INFO, 1000);
           }
      }
 
@@ -107,7 +115,7 @@ import com.ik.ggnote.utils.Utils;
           if ( !TextUtils.isEmpty(note.pathToPhoto) ) {
                startActivity(new Intent(ANoteDetails.this, ADisplayPhoto_.class));
           } else {
-               Utils.showCustomToast(ANoteDetails.this, "NETY photo", R.drawable.unsuccess);
+               Utils.showStickyNotification(this, "R.string.there_is_no_photo", AppMsg.STYLE_INFO, 1000);
           }
      }
 }

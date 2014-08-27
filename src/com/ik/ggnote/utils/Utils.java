@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.devspark.appmsg.AppMsg;
+import com.devspark.appmsg.AppMsg.Style;
 import com.ik.ggnote.R;
 import com.ik.ggnote.constants.ActiveRecord;
 import com.ik.ggnote.constants.Global;
@@ -95,6 +97,36 @@ public class Utils {
           });
      }
 
+     public static void showStickyNotification(final Activity act, final String message, final Style style, final int duration) {
+          act.runOnUiThread(new Runnable() {
+
+               @Override public void run() {
+                    try {
+                         AppMsg app = AppMsg.makeText(act, message, style);
+                         app.setDuration(duration);
+                         app.show();
+                    } catch (Exception e) {
+                         e.printStackTrace();
+                    }
+               }
+          });
+     }
+
+     public static void showStickyNotification(final Activity act, final int messageId, final Style style, final int duration) {
+          act.runOnUiThread(new Runnable() {
+
+               @Override public void run() {
+                    try {
+                         AppMsg app = AppMsg.makeText(act, act.getResources().getString(messageId), style);
+                         app.setDuration(duration);
+                         app.show();
+                    } catch (Exception e) {
+                         e.printStackTrace();
+                    }
+               }
+          });
+     }
+
      /**
       * Show short toast on UI thread
       * 
@@ -159,56 +191,44 @@ public class Utils {
           });
      }
 
-     public static void showCustomToast(final Activity activity, final String message, final int imageResourcesId) {
-          activity.runOnUiThread(new Runnable() {
-
-               @Override public void run() {
-                    try {
-                         View layout = activity.getLayoutInflater().inflate(R.layout.custom_toast, (ViewGroup) activity.findViewById(R.id.toast_layout_root));
-
-                         ImageView image = ((ImageView) layout.findViewById(R.id.toast_image_view));
-                         TextView text = (TextView) layout.findViewById(R.id.toast_text_view);
-
-                         text.setText(message);
-                         image.setImageResource(imageResourcesId);
-
-                         Toast toast = new Toast(activity.getApplicationContext());
-
-                         toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-                         toast.setDuration(Toast.LENGTH_SHORT);
-                         toast.setView(layout);
-
-                         toast.show();
-                         // text.startAnimation(AnimationManager.load(android.R.anim.slide_in_left));
-                    } catch (Exception e) {
-                         e.printStackTrace();
-                         Utils.showToast(activity.getApplicationContext(), message, true);
-                    }
-               }
-          });
-     }
-
+     /*
+      * public static void showCustomToast(final Activity activity, final String message, final int imageResourcesId) {
+      * activity.runOnUiThread(new Runnable() {
+      * @Override public void run() {
+      * try {
+      * View layout = activity.getLayoutInflater().inflate(R.layout.custom_toast, (ViewGroup) activity.findViewById(R.id.toast_layout_root));
+      * ImageView image = ((ImageView) layout.findViewById(R.id.toast_image_view));
+      * TextView text = (TextView) layout.findViewById(R.id.toast_text_view);
+      * text.setText(message);
+      * image.setImageResource(imageResourcesId);
+      * Toast toast = new Toast(activity.getApplicationContext());
+      * toast.setGravity(Gravity.TOP | Gravity.LEFT, 10, 10);
+      * toast.setDuration(Toast.LENGTH_SHORT);
+      * toast.setView(layout);
+      * toast.show();
+      * layout.startAnimation(AnimationManager.load(android.R.anim.slide_out_right));
+      * } catch (Exception e) {
+      * e.printStackTrace();
+      * Utils.showToast(activity.getApplicationContext(), message, true);
+      * }
+      * }
+      * });
+      * }
+      */
      public static void showCustomToast(final Activity activity, final int messageResourcesId, final int imageResourcesId) {
-
           activity.runOnUiThread(new Runnable() {
-
                @Override public void run() {
                     try {
                          View layout = activity.getLayoutInflater().inflate(R.layout.custom_toast, (ViewGroup) activity.findViewById(R.id.toast_layout_root));
-
                          ImageView image = ((ImageView) layout.findViewById(R.id.toast_image_view));
                          TextView text = (TextView) layout.findViewById(R.id.toast_text_view);
                          text.setText(activity.getResources().getString(messageResourcesId));
                          image.setImageResource(imageResourcesId);
-
                          Toast toast = new Toast(activity.getApplicationContext());
-
                          toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                          toast.setDuration(Toast.LENGTH_SHORT);
                          toast.setView(layout);
-
                          toast.show();
-                         // text.startAnimation(AnimationManager.load(android.R.anim.slide_in_left));
                     } catch (Exception e) {
                          e.printStackTrace();
                     }

@@ -12,9 +12,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
 import com.ik.ggnote.utils.AppSharedPreferences_;
@@ -80,9 +82,27 @@ public final class ASettings_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        rbDontAskPassword = ((RadioButton) hasViews.findViewById(id.rbDontAskPassword));
-        rbAskPassword = ((RadioButton) hasViews.findViewById(id.rbAskPassword));
+        rlChangePass = ((RelativeLayout) hasViews.findViewById(id.rlChangePass));
+        rlNotesOrder = ((RelativeLayout) hasViews.findViewById(id.rlNotesOrder));
         etPassword = ((EditText) hasViews.findViewById(id.etPassword));
+        rbAskPassword = ((RadioButton) hasViews.findViewById(id.rbAskPassword));
+        rlNotifications = ((RelativeLayout) hasViews.findViewById(id.rlNotifications));
+        rbDontAskPassword = ((RadioButton) hasViews.findViewById(id.rbDontAskPassword));
+        {
+            View view = hasViews.findViewById(id.rlChangePass);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ASettings_.this.rlChangePass();
+                    }
+
+                }
+                );
+            }
+        }
         afterViews();
     }
 

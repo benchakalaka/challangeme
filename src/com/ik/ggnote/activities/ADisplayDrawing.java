@@ -20,11 +20,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
-import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
+import com.devspark.appmsg.AppMsg;
 import com.ik.ggnote.R;
 import com.ik.ggnote.custom.CDrawingView;
 import com.ik.ggnote.model.PathSerializable;
+import com.ik.ggnote.utils.Utils;
 
 @EActivity ( R.layout.activity_display_drawing ) public class ADisplayDrawing extends ActionBarActivity {
 
@@ -63,17 +63,11 @@ import com.ik.ggnote.model.PathSerializable;
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setVisibility(View.INVISIBLE);
-          ((TextView) actionBar.getCustomView().findViewById(R.id.text)).setText("Attached drawing");
+          ((TextView) actionBar.getCustomView().findViewById(R.id.text)).setText(R.string.attached_drawing);
      }
 
      @Click void ivLock() {
-          final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
-
-          dialogBuilder.withButton1Text("Ok").withIcon(R.drawable.scream).withEffect(Effectstype.Slit).withTitle("GGNote").withMessage("You cannot modify this note").setButton1Click(new View.OnClickListener() {
-               @Override public void onClick(View v) {
-                    dialogBuilder.dismiss();
-               }
-          }).show();
+          Utils.showStickyNotification(ADisplayDrawing.this, R.string.drawing_is_locked, AppMsg.STYLE_INFO, 1000);
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {

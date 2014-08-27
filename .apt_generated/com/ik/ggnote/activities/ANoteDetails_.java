@@ -80,14 +80,31 @@ public final class ANoteDetails_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ivViewPinPhotoDone = ((ImageView) hasViews.findViewById(id.ivViewPinPhotoDone));
+        ivNoteType = ((ImageView) hasViews.findViewById(id.ivNoteType));
+        ibViewPinPhoto = ((ImageButton) hasViews.findViewById(id.ibViewPinPhoto));
         ivViewDrawDone = ((ImageView) hasViews.findViewById(id.ivViewDrawDone));
         ibViewDraw = ((ImageButton) hasViews.findViewById(id.ibViewDraw));
-        twTime = ((TextView) hasViews.findViewById(id.twTime));
         ibViewPinOnMap = ((ImageButton) hasViews.findViewById(id.ibViewPinOnMap));
         ivViewPinOnMapDone = ((ImageView) hasViews.findViewById(id.ivViewPinOnMapDone));
-        ibViewPinPhoto = ((ImageButton) hasViews.findViewById(id.ibViewPinPhoto));
         twDescription = ((TextView) hasViews.findViewById(id.twDescription));
+        twNoteType = ((TextView) hasViews.findViewById(id.twNoteType));
+        twTime = ((TextView) hasViews.findViewById(id.twTime));
+        ivViewPinPhotoDone = ((ImageView) hasViews.findViewById(id.ivViewPinPhotoDone));
+        {
+            View view = hasViews.findViewById(id.ibViewPinPhoto);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ANoteDetails_.this.ibViewPinPhoto();
+                    }
+
+                }
+                );
+            }
+        }
         {
             View view = hasViews.findViewById(id.ibViewDraw);
             if (view!= null) {
@@ -104,14 +121,14 @@ public final class ANoteDetails_
             }
         }
         {
-            View view = hasViews.findViewById(id.ibViewPinPhoto);
+            View view = hasViews.findViewById(id.ibViewPinOnMap);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ANoteDetails_.this.ibViewPinPhoto();
+                        ANoteDetails_.this.ibViewPinOnMap();
                     }
 
                 }

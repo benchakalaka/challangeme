@@ -40,8 +40,8 @@ import com.ik.ggnote.R;
 import com.ik.ggnote.constants.Global;
 import com.ik.ggnote.custom.CListViewItem;
 import com.ik.ggnote.custom.CListViewItem_;
-import com.ik.ggnote.custom.CSlideMenu;
-import com.ik.ggnote.custom.CSlideMenu_;
+import com.ik.ggnote.custom.CSlideMenuNotes;
+import com.ik.ggnote.custom.CSlideMenuNotes_;
 import com.ik.ggnote.model.ModelNote;
 import com.ik.ggnote.utils.DatabaseUtils;
 import com.ik.ggnote.utils.Utils;
@@ -58,8 +58,8 @@ import com.roomorama.caldroid.CaldroidFragment;
      private List <ModelNote>                             myNotes;
      private CaldroidFragment                             calendar;
      private final Bundle                                 bundle               = new Bundle();
-     private Date                                         currentDate;
-     private CSlideMenu                                   menu;
+     private static Date                                  currentDate          = new Date();
+     private CSlideMenuNotes                              menu;
      private static boolean                               loadCompleted        = true;
 
      // Setup listener
@@ -82,9 +82,8 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      // =================================================== METHODS
      @AfterViews void afterViews() {
-          currentDate = new Date();
 
-          menu = CSlideMenu_.build(this);
+          menu = CSlideMenuNotes_.build(this);
           setUpAmountOfCompletedAndAciveNotes();
 
           // configure persistant bundle for displaying calendar view
@@ -109,6 +108,13 @@ import com.roomorama.caldroid.CaldroidFragment;
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
      }
 
+     /**
+      * Listener on back press, show dialog - logout
+      */
+     @Override public void onBackPressed() {
+          logout();
+     }
+
      public void setUpAmountOfCompletedAndAciveNotes() {
           String dateNowInStringFormat = Utils.formatDate(currentDate, DatabaseUtils.DATE_PATTERN_YYYY_MM_DD);
           int amountOfNotes = DatabaseUtils.getAllNotesCompletedByDate(dateNowInStringFormat, false).size();
@@ -120,6 +126,7 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      @Override protected void onResume() {
           super.onResume();
+          menu.setSelectedNotesItem();
           setUpCurrentDate(currentDate);
           loadNotesAndCreateViews(currentDate, loadCompleted);
           Animation anim = AnimationManager.load(R.anim.fade_in);
@@ -132,7 +139,7 @@ import com.roomorama.caldroid.CaldroidFragment;
                twCompleted.startAnimation(anim);
           } else {
                ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText("Completed");
-               twCompleted.setTextColor(Color.BLACK);
+               twCompleted.setTextColor(Color.WHITE);
                twCompleted.setBackgroundColor(getResources().getColor(R.color.ab_background));
                twMyNotes.setBackgroundColor(Color.TRANSPARENT);
                twMyNotes.startAnimation(anim);
@@ -167,12 +174,14 @@ import com.roomorama.caldroid.CaldroidFragment;
                ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText("Notes");
                YoYo.with(Techniques.FlipInX).duration(500).playOn(getSupportActionBar().getCustomView().findViewById(R.id.text));
                twMyNotes.setTextColor(Color.BLACK);
+               twCompleted.setTextColor(Color.WHITE);
                twMyNotes.setBackgroundColor(getResources().getColor(R.color.ab_background));
                twCompleted.setBackgroundColor(Color.TRANSPARENT);
                YoYo.with(Techniques.ZoomIn).duration(300).playOn(twMyNotes);
           } else {
                ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText("Completed");
                YoYo.with(Techniques.FlipInX).duration(500).playOn(getSupportActionBar().getCustomView().findViewById(R.id.text));
+               twMyNotes.setTextColor(Color.WHITE);
                twCompleted.setTextColor(Color.BLACK);
                twCompleted.setBackgroundColor(getResources().getColor(R.color.ab_background));
                twMyNotes.setBackgroundColor(Color.TRANSPARENT);
@@ -181,7 +190,6 @@ import com.roomorama.caldroid.CaldroidFragment;
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {
-          Utils.logw("rabotalo");
           if ( menu.getMenu().isMenuShowing() ) {
                menu.getMenu().showContent();
           } else {
@@ -332,7 +340,7 @@ import com.roomorama.caldroid.CaldroidFragment;
      public void logout() {
           final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
 
-          dialogBuilder.withButton1Text("Ok").withButton2Text("Cancel").withIcon(R.drawable.scream).withEffect(Effectstype.Slit).withTitle("Welcome to GGNote").withMessage("Do you really want logout?").setButton1Click(new View.OnClickListener() {
+          dialogBuilder.withButton1Text("Ok").withButton2Text("Cancel").withIcon(R.drawable.book).withEffect(Effectstype.Slit).withTitle("Welcome to GGNote").withMessage("Do you really want logout?").setButton1Click(new View.OnClickListener() {
                @Override public void onClick(View v) {
                     startActivity(new Intent(AMyNotes.this, AStart_.class));
                     dialogBuilder.dismiss();
@@ -349,7 +357,7 @@ import com.roomorama.caldroid.CaldroidFragment;
           switch (v.getId()) {
                case R.id.ivRightOkButton:
                     // TODO : load from resources androidannootaiioton
-                    Animation animation = AnimationManager.load(R.anim.rotate_right);
+                    Animation animation = AnimationManager.load(R.anim.bounce);
                     animation.setAnimationListener(new AnimationListener() {
                          @Override public void onAnimationStart(Animation animation) {
                          }

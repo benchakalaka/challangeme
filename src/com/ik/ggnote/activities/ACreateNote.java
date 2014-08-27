@@ -13,6 +13,7 @@ import org.androidannotations.annotations.ViewById;
 import org.apache.commons.lang3.time.DateUtils;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -34,7 +35,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
+import com.devspark.appmsg.AppMsg;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.ik.ggnote.R;
 import com.ik.ggnote.constants.ActiveRecord;
@@ -57,7 +58,10 @@ import com.roomorama.caldroid.CaldroidFragment;
      // ===================================================================================== VARIABLES
      private CaldroidFragment                             calendar;
      private final Bundle                                 bundle               = new Bundle();
-     private Date                                         currentDate;
+     // set up current date
+     private static Date                                  currentDate          = new Date();
+     // displaying progress
+     private ProgressDialog                               progressDialog;
 
      // Setup listener
      public final com.roomorama.caldroid.CaldroidListener onDateChangeListener = new com.roomorama.caldroid.CaldroidListener() {
@@ -80,7 +84,7 @@ import com.roomorama.caldroid.CaldroidFragment;
      // ======================================================================================= METHODS
      @AfterViews void afterViews() {
           // configure persistant bundle for displaying calendar view
-          bundle.putString(com.roomorama.caldroid.CaldroidFragment.DIALOG_TITLE, "Select date");
+          bundle.putString(com.roomorama.caldroid.CaldroidFragment.DIALOG_TITLE, getResources().getString(R.string.select_date));
           bundle.putBoolean(CaldroidFragment.ENABLE_CLICK_ON_DISABLED_DATES, false);
           // create note object
           ActiveRecord.currentNote = new ModelNote(getApplicationContext());
@@ -102,6 +106,10 @@ import com.roomorama.caldroid.CaldroidFragment;
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.ok);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
+
+          progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
+          progressDialog.setMessage("Please wait....");
+          progressDialog.setCancelable(true);
      }
 
      /**
@@ -135,10 +143,40 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      @Override protected void onResume() {
           super.onResume();
-          // set up current date
-          currentDate = new Date();
           setUpCurrentDate(currentDate);
           displayDoneImages();
+          playButtonAnimations();
+     }
+
+     private void playButtonAnimations() {
+          try {
+               // TODO: load from resources
+               Animation anim1 = AnimationManager.load(R.anim.bounce);
+               Animation anim2 = AnimationManager.load(R.anim.bounce);
+               Animation anim3 = AnimationManager.load(R.anim.bounce);
+               Animation anim4 = AnimationManager.load(R.anim.bounce);
+
+               anim1.setStartOffset(100);
+               anim2.setStartOffset(200);
+               anim3.setStartOffset(300);
+               anim4.setStartOffset(400);
+
+               anim1.setDuration(800);
+               anim2.setDuration(800);
+               anim3.setDuration(800);
+               anim4.setDuration(800);
+
+               ibDraw.startAnimation(anim1);
+               ibPinOnMap.startAnimation(anim2);
+               ibPinPhoto.startAnimation(anim3);
+               ibNoteType.startAnimation(anim4);
+               // YoYo.with(Techniques.SlideInLeft).delay(400).duration(500).playOn(ibNoteType);
+               // YoYo.with(Techniques.SlideInLeft).delay(600).duration(500).playOn(ibPinPhoto);
+               // YoYo.with(Techniques.SlideInLeft).delay(800).duration(500).playOn(ibPinOnMap);
+               // YoYo.with(Techniques.SlideInLeft).delay(1000).duration(500).playOn(ibDraw);
+          } catch (Exception ex) {
+               ex.printStackTrace();
+          }
      }
 
      private void displayDoneImages() {
@@ -171,7 +209,9 @@ import com.roomorama.caldroid.CaldroidFragment;
       * Select location and pin to note
       */
      @Click void ibPinOnMap() {
+          progressDialog.show();
           startActivity(new Intent(this, AMap_.class));
+          progressDialog.dismiss();
      }
 
      private void setUpCurrentDate(Date dateToSetUp) {
@@ -200,14 +240,9 @@ import com.roomorama.caldroid.CaldroidFragment;
           // save note
           ActiveRecord.currentNote.save();
 
-          final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
+          Utils.showCustomToast(ACreateNote.this, R.string.note_has_been_created, R.drawable.book);
 
-          dialogBuilder.withButton1Text("Ok").withIcon(R.drawable.scream).withEffect(Effectstype.Slit).withTitle("Success").withMessage("Note has been created successfully.").setButton1Click(new View.OnClickListener() {
-               @Override public void onClick(View v) {
-                    dialogBuilder.dismiss();
-                    startActivity(new Intent(ACreateNote.this, AMyNotes_.class));
-               }
-          }).show();
+          startActivity(new Intent(ACreateNote.this, AMyNotes_.class));
      }
 
      @OnActivityResult ( Global.CAPTURE_CAMERA_PHOTO ) void onResult(int resultCode, Intent data) {
@@ -215,13 +250,14 @@ import com.roomorama.caldroid.CaldroidFragment;
                try {
                     File photo = new File(ActiveRecord.currentNote.pathToPhoto);
                     if ( (null != photo) && (photo.length() != 0) ) {
-                         Utils.showCustomToast(this, R.string.success, R.drawable.triangle);
+                         Utils.showCustomToast(this, R.string.photo_saved, R.drawable.ok);
                     } else {
-                         Utils.showCustomToast(this, R.string.failed, R.drawable.triangle);
+                         Utils.showCustomToast(this, R.string.photo_saving_failed, R.drawable.warning);
                     }
                } catch (Exception ex) {
                     ex.printStackTrace();
-                    Utils.showCustomToast(ACreateNote.this, "Ne sozdalos' photo", R.drawable.unsuccess);
+                    Utils.showStickyNotification(this, R.string.file_cannot_be_created, AppMsg.STYLE_ALERT, 2000);
+
                     ActiveRecord.currentNote.pathToPhoto = "";
                }
           } else {
@@ -251,11 +287,12 @@ import com.roomorama.caldroid.CaldroidFragment;
                     cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
                     activity.startActivityForResult(cameraIntent, Global.CAPTURE_CAMERA_PHOTO);
                } else {
-                    Utils.showCustomToast(ACreateNote.this, R.string.password, R.drawable.settings);
+                    Utils.showStickyNotification(this, R.string.file_cannot_be_created, AppMsg.STYLE_ALERT, 1000);
                }
           } catch (Exception e) {
                Utils.logw(e.getMessage());
-               Utils.showCustomToast(activity, R.string.failed, R.drawable.triangle);
+               Utils.showStickyNotification(this, R.string.sd_card_is_busy, AppMsg.STYLE_ALERT, 1000);
+               ActiveRecord.currentNote.pathToPhoto = "";
           }
      }
 
@@ -311,7 +348,7 @@ import com.roomorama.caldroid.CaldroidFragment;
           switch (v.getId()) {
                case R.id.ivRightOkButton:
                     // TODO : load from resources androidannootaiioton
-                    Animation animation = AnimationManager.load(R.anim.rotate_right);
+                    Animation animation = AnimationManager.load(R.anim.bounce);
                     animation.setAnimationListener(new AnimationListener() {
                          @Override public void onAnimationStart(Animation animation) {
                          }

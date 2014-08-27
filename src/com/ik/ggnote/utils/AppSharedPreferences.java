@@ -7,4 +7,7 @@ import org.androidannotations.annotations.sharedpreferences.SharedPref;
      // user password
      @DefaultString ( "" ) String password();
 
+     // user email
+     @DefaultString ( "" ) String email();
+
 }

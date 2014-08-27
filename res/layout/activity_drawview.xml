@@ -97,8 +97,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_above="@+id/llBottomMenu"
-		android:layout_alignParentRight="true"
-		android:visibility="gone" >
+		android:layout_alignParentRight="true" >
 
 		<LinearLayout
 			android:layout_width="wrap_content"
@@ -441,7 +440,6 @@
 		android:clipChildren="false"
 		android:orientation="horizontal" >
 
-		
 		<RelativeLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -453,8 +451,8 @@
 				android:id="@+id/ibBrushColours"
 				android:layout_width="70dp"
 				android:layout_height="70dp"
-				android:scaleType="fitXY"
 				android:background="@drawable/brush_color"
+				android:scaleType="fitXY"
 				android:src="@drawable/button_bg" />
 
 			<ImageView
@@ -462,11 +460,10 @@
 				android:layout_width="30dp"
 				android:layout_height="30dp"
 				android:layout_alignParentTop="true"
-				android:visibility="invisible"
 				android:layout_alignRight="@+id/ibBrushColours"
 				android:src="@drawable/done" />
 		</RelativeLayout>
-		
+
 		<RelativeLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
@@ -478,8 +475,8 @@
 				android:id="@+id/ibDrawingSettings"
 				android:layout_width="70dp"
 				android:layout_height="70dp"
-				android:scaleType="fitXY"
 				android:background="@drawable/drawing"
+				android:scaleType="fitXY"
 				android:src="@drawable/button_bg" />
 
 			<ImageView
@@ -488,17 +485,14 @@
 				android:layout_height="30dp"
 				android:layout_alignParentTop="true"
 				android:layout_alignRight="@+id/ibDrawingSettings"
-				android:visibility="invisible"
-				android:src="@drawable/done" />
+				android:src="@drawable/done"
+				android:visibility="invisible" />
 		</RelativeLayout>
-
-		
 
 		<RelativeLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_margin="10dp"
-			
 			android:layout_weight="1"
 			android:gravity="center" >
 
@@ -506,19 +500,19 @@
 				android:id="@+id/ibShapes"
 				android:layout_width="70dp"
 				android:layout_height="70dp"
-				android:scaleType="fitXY"
 				android:background="@drawable/button_bg"
 				android:padding="10dp"
+				android:scaleType="fitXY"
 				android:src="@drawable/shapes" />
 
 			<ImageView
 				android:id="@+id/ivShapesDone"
 				android:layout_width="30dp"
 				android:layout_height="30dp"
-				android:visibility="invisible"
 				android:layout_alignParentTop="true"
 				android:layout_alignRight="@+id/ibShapes"
-				android:src="@drawable/done" />
+				android:src="@drawable/done"
+				android:visibility="invisible" />
 		</RelativeLayout>
 	</LinearLayout>
 

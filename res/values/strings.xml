@@ -9,10 +9,8 @@
 		<item>Reminder</item>
 		<item>Work</item>
 	</string-array>
-	
-	<string name="help">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
-	
 
+	<string name="help">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
 	<string name="app_name">GGNote</string>
 	<string name="hint">hint</string>
 	<string name="failed">failed</string>
@@ -58,8 +56,53 @@
 	<string name="free_drawing">Free drawing</string>
 	<string name="undo">Undo</string>
 	<string name="redo">Redo</string>
-	<string name="szcx1"></string>
-	<string name="sase1"></string>
-	<string name="szcbtr1"></string>
+	<string name="resetPassword"><u>Forgotten password</u></string>
+	<string name="changePassword">Change password</string>
+	<string name="changeNotesOrder">Notes order</string>
+	<string name="notifications">Notifications</string>
+	<string name="settings">Settings</string>
+	<string name="newPass">New password</string>
+	<string name="oldPass">Old password</string>
+	<string name="newEmail">New email</string>
+	<string name="note_has_been_created">Note has been created successfully</string>
+	<string name="good_bye">Good bye</string>
+	<string name="drawing_has_been_saved">Drawing has been saved</string>
+	<string name="location_has_been_saved">Posiotion has been saved</string>
+	<string name="photo_saved">Photo has been successfully saved</string>
+	<string name="photo_saving_failed">Failed to save photo</string>
+	<string name="cannot_save_drawing">Cannot save drawing</string>
+	<string name="select_date">Select date</string>
+	<string name="file_cannot_be_created">File cannot be created</string>
+	<string name="sd_card_is_busy">File cannot be created, probably SDCard is not available</string>
+	<string name="attached_drawing">Attached drawing</string>
+	<string name="drawing_is_locked">Drawing is locked</string>
+	<string name="there_is_no_location">There is no pinned location</string>
+	<string name="problem_obtaining_address">Problem obtain address</string>
+	<string name="unknown_address">Unknown address</string>
+	<string name="save">Save</string>
+	<string name="drawing_has_not_been_saved">Drawing has not been saved.</string>
+	<string name="save_drawing">Do you want to save Drawing?</string>
+	<string name="location_has_not_been_saved">Location has not been saved</string>
+	<string name="do_you_want_to_save_location">Do you want to save location?</string>
+	<string name="drag_me">Drag me</string>
+	<string name="drawing_settings">Drawing settings</string>
+	<string name="brush_color">Brush colors</string>
+	<string name="shapes">Shapes</string>
+	<string name="drag_me_to_any_position">Drag marker to any position you like</string>
+
+	<!-- STUBS -->
+	<string name="sdsaeras">1</string>
+	<string name="sdewras">1</string>
+	<string name="sdsdfas">1</string>
+	<string name="sdfvdas">1</string>
+	<string name="sdsdfasdas">1</string>
+	<string name="sdxasdcvas">1</string>
+	<string name="sdsasdasaeras">1</string>
+	<string name="sdewraasds">1</string>
+	<string name="sdasdfvdas">1</string>
+	<string name="sdsdf213as">1</string>
+	<string name="sdxc1321vas">1</string>
+	<string name="sds543aeras">1</string>
+	<string name="sdewrarthgs">1</string>
 
 </resources>

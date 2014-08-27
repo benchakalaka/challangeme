@@ -24,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.devspark.appmsg.AppMsg;
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.google.android.gms.common.ConnectionResult;
@@ -36,7 +37,6 @@ import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -45,6 +45,7 @@ import com.ik.ggnote.R;
 import com.ik.ggnote.constants.ActiveRecord;
 import com.ik.ggnote.model.ModelLocation;
 import com.ik.ggnote.utils.GPSTracker;
+import com.ik.ggnote.utils.ReverseGeocoding;
 import com.ik.ggnote.utils.Utils;
 import com.roomorama.caldroid.CaldroidFragment;
 
@@ -116,7 +117,8 @@ import com.roomorama.caldroid.CaldroidFragment;
           if ( askSave ) {
                final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
 
-               dialogBuilder.withButton1Text("Cancel").withButton2Text("Save").withIcon(R.drawable.scream).withEffect(Effectstype.Slit).withTitle("Location has not been saved.").withMessage("Do you want to save location?").setButton1Click(new View.OnClickListener() {
+               dialogBuilder.withButton1Text(getResources().getString(android.R.string.cancel)).withButton2Text(getResources().getString(R.string.save)).withIcon(R.drawable.marker).withEffect(Effectstype.Slit).withTitle(getResources()
+                         .getString(R.string.location_has_not_been_saved)).withMessage(getResources().getString(R.string.do_you_want_to_save_location)).setButton1Click(new View.OnClickListener() {
                     @Override public void onClick(View v) {
                          dialogBuilder.dismiss();
                          onBackPressed();
@@ -145,6 +147,7 @@ import com.roomorama.caldroid.CaldroidFragment;
                e.printStackTrace();
           }
 
+          Utils.showCustomToast(this, R.string.location_has_been_saved, R.drawable.ok);
           onBackPressed();
      }
 
@@ -176,7 +179,8 @@ import com.roomorama.caldroid.CaldroidFragment;
           Location loc = locationClient.getLastLocation();
           if ( null == loc ) {
                // TODO obtain location with help of location service
-               Utils.showCustomToast(this, "Cannot obtain current location", R.drawable.scream);
+               // Utils.showCustomToast(this, "Cannot obtain current location", R.drawable.warning);
+               Utils.showStickyNotification(this, R.string.problem_obtaining_address, AppMsg.STYLE_INFO, 1000);
                createMarkerWithLocation();
                return;
           }
@@ -190,7 +194,7 @@ import com.roomorama.caldroid.CaldroidFragment;
                // createMarkerWithLocation();
           } catch (IOException e) {
                e.printStackTrace();
-               Utils.showCustomToast(AMap.this, "Problem obtain address   " + e.getMessage(), R.drawable.scream);
+               Utils.showStickyNotification(this, R.string.problem_obtaining_address, AppMsg.STYLE_INFO, 1000);
                animateCamera(location, 12);
                createMarker(location, null);
           }
@@ -203,13 +207,13 @@ import com.roomorama.caldroid.CaldroidFragment;
           if ( null != address ) {
                markerOptions.title(String.valueOf(GPSTracker.convertAddressToText(address)));
           } else {
-               markerOptions.title("Unknown address");
+               markerOptions.title(getResources().getString(R.string.unknown_address));
           }
-          markerOptions.snippet("Drag me");
+          markerOptions.snippet(getResources().getString(R.string.drag_me));
 
           // set up marker
           locationMarker = googleMap.addMarker(markerOptions);
-          locationMarker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
+          // locationMarker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
           locationMarker.setDraggable(true);
           locationMarker.showInfoWindow();
      }
@@ -259,7 +263,7 @@ import com.roomorama.caldroid.CaldroidFragment;
                     String country = "country";// addresses.get(0).getAddressLine(2);
                     Toast.makeText(this, country + ", " + city + ", " + address, Toast.LENGTH_SHORT).show();
 
-                    Marker marker = googleMap.addMarker(new MarkerOptions().position(currentLatLng).title(city).snippet(address).icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+                    Marker marker = googleMap.addMarker(new MarkerOptions().position(currentLatLng).title(city).snippet(address));
                }
           }
      }
@@ -274,41 +278,38 @@ import com.roomorama.caldroid.CaldroidFragment;
      }
 
      @Override public void onMarkerDragEnd(Marker marker) {
-          Utils.showCustomToast(this, "Marker: " + marker.getPosition().latitude, R.drawable.scream);
+          Utils.showStickyNotification(this, "Marker LATITUDE: " + marker.getPosition().latitude, AppMsg.STYLE_INFO, 1000);
+
+          try {
+               List <Address> result = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
+               if ( null != result && result.size() > 0 ) {
+                    marker.setTitle(String.valueOf(GPSTracker.convertAddressToText(result.get(0))));
+                    marker.hideInfoWindow();
+                    marker.showInfoWindow();
+               }
+          } catch (IOException e) {
+               e.printStackTrace();
+               ReverseGeocoding rg = new ReverseGeocoding();
+               rg.getAddress(String.valueOf(marker.getPosition().latitude), String.valueOf(marker.getPosition().longitude));
+               marker.setTitle(rg.getCity());
+               marker.hideInfoWindow();
+               marker.showInfoWindow();
+          }
+
      }
 
      @Override public void onMarkerDragStart(Marker marker) {
-          Utils.showCustomToast(this, "Drag me somewhere", R.drawable.scream);
-
-          marker.setTitle("Drag me somewhere");
+          Utils.showStickyNotification(this, R.string.drag_me_to_any_position, AppMsg.STYLE_INFO, 1000);
           marker.hideInfoWindow();
-          marker.showInfoWindow();
-          /*
-           * try {
-           * List <Address> result = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
-           * if ( null != result && result.size() > 0 ) {
-           * marker.setTitle(String.valueOf(GPSTracker.convertAddressToText(result.get(0))));
-           * marker.hideInfoWindow();
-           * marker.showInfoWindow();
-           * }
-           * } catch (IOException e) {
-           * e.printStackTrace();
-           * }
-           */
      }
 
      @Override public void onLocationChanged(Location location) {
-          // TODO Auto-generated method stub
-
      }
 
      @Override public void onProviderDisabled(String provider) {
-          // TODO Auto-generated method stub
-
      }
 
      @Override public void onProviderEnabled(String provider) {
-          // TODO Auto-generated method stub
 
      }
 

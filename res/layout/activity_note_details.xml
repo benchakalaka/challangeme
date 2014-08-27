@@ -6,22 +6,72 @@
 	android:clipChildren="false" >
 
 	<TextView
-		android:id="@+id/twDescription"
+		android:id="@+id/twTime"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		
+		android:layout_alignParentTop="true"
+		android:layout_marginTop="5dp"
+		android:background="@drawable/transparent_inside_and_white_round_border"
+		android:gravity="center"
+		android:layout_centerHorizontal="true"
+		android:padding="5dp"
+		android:text="asdasdasdasd"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:textColor="@android:color/white"
+		android:textStyle="italic|bold" />
+
+	<ImageView
+		android:id="@+id/ivNoteType"
+		android:layout_width="30dp"
+		android:layout_height="30dp"
+		android:layout_above="@+id/scrollView1"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:layout_marginTop="5dp"
+		android:background="@drawable/reminder"
+		android:text="asdasdasdasd"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:textColor="@android:color/white"
+		android:textStyle="italic|bold" />
+
+	<TextView
+		android:id="@+id/twNoteType"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/scrollView1"
+		android:layout_alignParentLeft="true"
+		android:background="@drawable/transparent_inside_and_white_round_border"
+		android:gravity="center"
+		android:padding="5dp"
+		android:text="Reminder"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:textColor="@android:color/white"
+		android:textStyle="italic|bold" />
+
+	<ScrollView
+		android:id="@+id/scrollView1"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_above="@+id/llBottomMenuDetails"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
-		android:layout_alignParentTop="true"
-		android:layout_margin="10dp"
+		android:layout_below="@+id/twTime"
+		android:layout_margin="5dp"
 		android:background="@drawable/transparent_inside_and_white_border"
-		android:gravity="center"
-		android:padding="4dp"
-		android:text="asdaasdvfsdasdasd"
-		android:textAppearance="?android:attr/textAppearanceLarge"
-		android:textColor="@android:color/white"
-		android:textStyle="italic|bold"
-		android:typeface="monospace" />
+		android:padding="4dp" >
+
+		<TextView
+			android:id="@+id/twDescription"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:gravity="center"
+			android:text="asdaasdvfsdasdasd"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textColor="@android:color/white"
+			android:textStyle="italic|bold"
+			android:typeface="monospace" />
+	</ScrollView>
 
 	<LinearLayout
 		android:id="@+id/llBottomMenuDetails"
@@ -45,8 +95,8 @@
 				android:id="@+id/ibViewDraw"
 				android:layout_width="70dp"
 				android:layout_height="70dp"
-				android:scaleType="fitXY"
 				android:background="@drawable/button_bg"
+				android:scaleType="fitXY"
 				android:src="@drawable/drawing"
 				android:textColor="@android:color/white" />
 
@@ -72,8 +122,8 @@
 				android:id="@+id/ibViewPinOnMap"
 				android:layout_width="70dp"
 				android:layout_height="70dp"
-				android:scaleType="fitXY"
 				android:background="@drawable/button_bg"
+				android:scaleType="fitXY"
 				android:src="@drawable/marker"
 				android:textColor="@android:color/white" />
 
@@ -98,8 +148,8 @@
 				android:id="@+id/ibViewPinPhoto"
 				android:layout_width="70dp"
 				android:layout_height="70dp"
-				android:scaleType="fitXY"
 				android:background="@drawable/button_bg"
+				android:scaleType="fitXY"
 				android:src="@drawable/camera"
 				android:textColor="@android:color/white" />
 
@@ -113,20 +163,5 @@
 				android:visibility="invisible" />
 		</RelativeLayout>
 	</LinearLayout>
-
-	<TextView
-		android:id="@+id/twTime"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_alignParentTop="true"
-		android:layout_centerHorizontal="true"
-		android:layout_margin="15dp"
-		android:background="@drawable/transparent_inside_and_white_round_border"
-		android:gravity="center"
-		android:padding="10dp"
-		android:text="asdasdasdasd"
-		android:textAppearance="?android:attr/textAppearanceSmall"
-		android:textColor="@android:color/white"
-		android:textStyle="italic|bold" />
 
 </RelativeLayout>

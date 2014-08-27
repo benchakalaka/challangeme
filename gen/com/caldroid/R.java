@@ -8,47 +8,47 @@ package com.caldroid;
 
 public final class R {
 	public static final class color {
-		public static final int caldroid_black = 0x7f070014;
-		public static final int caldroid_darker_gray = 0x7f070018;
-		public static final int caldroid_gray = 0x7f070017;
-		public static final int caldroid_holo_blue_dark = 0x7f07001a;
-		public static final int caldroid_holo_blue_light = 0x7f070019;
-		public static final int caldroid_lighter_gray = 0x7f070016;
-		public static final int caldroid_sky_blue = 0x7f07001b;
-		public static final int caldroid_transparent = 0x7f070015;
-		public static final int caldroid_white = 0x7f070013;
+		public static final int caldroid_black = 0x7f050017;
+		public static final int caldroid_darker_gray = 0x7f05001b;
+		public static final int caldroid_gray = 0x7f05001a;
+		public static final int caldroid_holo_blue_dark = 0x7f05001d;
+		public static final int caldroid_holo_blue_light = 0x7f05001c;
+		public static final int caldroid_lighter_gray = 0x7f050019;
+		public static final int caldroid_sky_blue = 0x7f05001e;
+		public static final int caldroid_transparent = 0x7f050018;
+		public static final int caldroid_white = 0x7f050016;
 	}
 	public static final class drawable {
-		public static final int calendar_next_arrow = 0x7f02006b;
-		public static final int calendar_prev_arrow = 0x7f02006c;
-		public static final int cell_bg = 0x7f02006e;
-		public static final int disable_cell = 0x7f02008c;
-		public static final int ic_launcher = 0x7f020093;
-		public static final int left_arrow = 0x7f020099;
-		public static final int red_border = 0x7f0200a9;
-		public static final int red_border_gray_bg = 0x7f0200aa;
-		public static final int right_arrow = 0x7f0200ad;
+		public static final int calendar_next_arrow = 0x7f02006c;
+		public static final int calendar_prev_arrow = 0x7f02006d;
+		public static final int cell_bg = 0x7f02006f;
+		public static final int disable_cell = 0x7f02008e;
+		public static final int ic_launcher = 0x7f020095;
+		public static final int left_arrow = 0x7f02009c;
+		public static final int red_border = 0x7f0200ab;
+		public static final int red_border_gray_bg = 0x7f0200ac;
+		public static final int right_arrow = 0x7f0200ae;
 	}
 	public static final class id {
-		public static final int calendar_gridview = 0x7f0500a3;
-		public static final int calendar_left_arrow = 0x7f050099;
-		public static final int calendar_month_year_textview = 0x7f05009a;
-		public static final int calendar_right_arrow = 0x7f05009b;
-		public static final int calendar_title_view = 0x7f050098;
-		public static final int calendar_tv = 0x7f0500a2;
-		public static final int months_infinite_pager = 0x7f05009d;
-		public static final int weekday_gridview = 0x7f05009c;
+		public static final int calendar_gridview = 0x7f0800b0;
+		public static final int calendar_left_arrow = 0x7f0800a5;
+		public static final int calendar_month_year_textview = 0x7f0800a6;
+		public static final int calendar_right_arrow = 0x7f0800a7;
+		public static final int calendar_title_view = 0x7f0800a4;
+		public static final int calendar_tv = 0x7f0800af;
+		public static final int months_infinite_pager = 0x7f0800a9;
+		public static final int weekday_gridview = 0x7f0800a8;
 	}
 	public static final class layout {
-		public static final int calendar_view = 0x7f030023;
-		public static final int date_cell = 0x7f030026;
-		public static final int date_grid_fragment = 0x7f030027;
+		public static final int calendar_view = 0x7f030024;
+		public static final int date_cell = 0x7f030027;
+		public static final int date_grid_fragment = 0x7f030028;
 	}
 	public static final class string {
-		public static final int app_name = 0x7f0a0026;
+		public static final int app_name = 0x7f060000;
 	}
 	public static final class style {
-		public static final int AppBaseTheme = 0x7f0b008f;
-		public static final int AppTheme = 0x7f0b0090;
+		public static final int AppBaseTheme = 0x7f070000;
+		public static final int AppTheme = 0x7f070001;
 	}
 }

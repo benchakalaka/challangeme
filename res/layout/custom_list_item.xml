@@ -3,16 +3,21 @@
 	android:layout_width="fill_parent"
 	android:layout_height="70dp"
 	android:layout_margin="5dp"
-	android:background="@drawable/transparent_inside_and_white_border"
+	android:background="@drawable/transparent_inside_and_white_border" 
 	android:orientation="vertical" >
 
-	<ImageView
-		android:id="@+id/image"
-		android:layout_width="50dp"
-		android:layout_height="50dp"
-		android:layout_alignParentLeft="true"
-		android:layout_centerVertical="true"
-		android:background="#0000FF" />
+	<RelativeLayout
+		android:id="@+id/rlImage"
+		android:layout_width="60dp"
+		android:layout_height="60dp" >
+
+		<ImageView
+			android:id="@+id/image"
+			android:layout_width="60dp"
+			android:layout_height="60dp"
+			android:layout_alignParentLeft="true"
+			android:layout_centerVertical="true" />
+	</RelativeLayout>
 
 	<TextView
 		android:id="@+id/text"
@@ -20,8 +25,9 @@
 		android:layout_height="wrap_content"
 		android:layout_centerVertical="true"
 		android:layout_gravity="center_vertical"
-		android:layout_toLeftOf="@+id/ivDeleteOrCompleteNote"
-		android:layout_toRightOf="@+id/image"
+		android:layout_toLeftOf="@+id/imageAttached"
+		android:layout_toRightOf="@+id/rlImage"
+		android:gravity="center_horizontal"
 		android:lines="1"
 		android:maxLines="1"
 		android:singleLine="true"
@@ -29,15 +35,25 @@
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:textColor="@android:color/white"
 		android:textStyle="italic" />
-
+	
 	<ImageView
-		android:id="@+id/ivDeleteOrCompleteNote"
+		android:id="@+id/ivDeleteOrOpenNoteDetailRightButton"
 		android:layout_width="40dp"
 		android:layout_height="40dp"
 		android:layout_alignParentRight="true"
 		android:layout_centerVertical="true"
-		android:padding="5dp"
 		android:layout_margin="5dp"
-		android:background="@drawable/ok" />
+		android:background="@drawable/arrow_right"
+		android:padding="5dp" />
+
+	<ImageView
+		android:id="@+id/imageAttached"
+		android:layout_width="40dp"
+		android:layout_height="40dp"
+		android:layout_alignBottom="@+id/rlImage"
+		android:layout_alignTop="@+id/ivDeleteOrOpenNoteDetailRightButton"
+		android:layout_toLeftOf="@+id/ivDeleteOrOpenNoteDetailRightButton"
+		android:src="@drawable/attach"
+		android:visibility="invisible" />
 
 </RelativeLayout>

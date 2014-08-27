@@ -81,27 +81,27 @@ public final class ACreateNote_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ivDrawDone = ((ImageView) hasViews.findViewById(id.ivDrawDone));
-        ivPinPhotoDone = ((ImageView) hasViews.findViewById(id.ivPinPhotoDone));
-        ivNextDay = ((ImageView) hasViews.findViewById(id.ivNextDay));
         ibPinPhoto = ((ImageButton) hasViews.findViewById(id.ibPinPhoto));
-        ibDraw = ((ImageButton) hasViews.findViewById(id.ibDraw));
-        ibPinOnMap = ((ImageButton) hasViews.findViewById(id.ibPinOnMap));
-        etDescription = ((EditText) hasViews.findViewById(id.etDescription));
         ivPrevDay = ((ImageView) hasViews.findViewById(id.ivPrevDay));
         ivPinOnMapDone = ((ImageView) hasViews.findViewById(id.ivPinOnMapDone));
-        ibNoteType = ((ImageButton) hasViews.findViewById(id.ibNoteType));
         twDate = ((TextView) hasViews.findViewById(id.twDate));
         ibNoteTypeDone = ((ImageView) hasViews.findViewById(id.ibNoteTypeDone));
+        ibDraw = ((ImageButton) hasViews.findViewById(id.ibDraw));
+        ibPinOnMap = ((ImageButton) hasViews.findViewById(id.ibPinOnMap));
+        ivPinPhotoDone = ((ImageView) hasViews.findViewById(id.ivPinPhotoDone));
+        ibNoteType = ((ImageButton) hasViews.findViewById(id.ibNoteType));
+        ivNextDay = ((ImageView) hasViews.findViewById(id.ivNextDay));
+        etDescription = ((EditText) hasViews.findViewById(id.etDescription));
+        ivDrawDone = ((ImageView) hasViews.findViewById(id.ivDrawDone));
         {
-            View view = hasViews.findViewById(id.ibNoteType);
+            View view = hasViews.findViewById(id.ibDraw);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ACreateNote_.this.ibNoteType();
+                        ACreateNote_.this.ibDraw();
                     }
 
                 }
@@ -124,14 +124,14 @@ public final class ACreateNote_
             }
         }
         {
-            View view = hasViews.findViewById(id.ibPinPhoto);
+            View view = hasViews.findViewById(id.twDate);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ACreateNote_.this.ibPinPhoto();
+                        ACreateNote_.this.twDate();
                     }
 
                 }
@@ -139,14 +139,14 @@ public final class ACreateNote_
             }
         }
         {
-            View view = hasViews.findViewById(id.ibPinOnMap);
+            View view = hasViews.findViewById(id.ibNoteType);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ACreateNote_.this.ibPinOnMap();
+                        ACreateNote_.this.ibNoteType();
                     }
 
                 }
@@ -169,14 +169,14 @@ public final class ACreateNote_
             }
         }
         {
-            View view = hasViews.findViewById(id.twDate);
+            View view = hasViews.findViewById(id.ibPinOnMap);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ACreateNote_.this.twDate();
+                        ACreateNote_.this.ibPinOnMap();
                     }
 
                 }
@@ -184,14 +184,14 @@ public final class ACreateNote_
             }
         }
         {
-            View view = hasViews.findViewById(id.ibDraw);
+            View view = hasViews.findViewById(id.ibPinPhoto);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ACreateNote_.this.ibDraw();
+                        ACreateNote_.this.ibPinPhoto();
                     }
 
                 }
