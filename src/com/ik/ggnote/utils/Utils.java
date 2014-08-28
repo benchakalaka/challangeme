@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.devspark.appmsg.AppMsg.Style;
 import com.ik.ggnote.R;
 import com.ik.ggnote.constants.ActiveRecord;
 import com.ik.ggnote.constants.Global;
+import com.ik.ggnote.model.ModelNote;
 
 public class Utils {
      private final static SimpleDateFormat dateFormat = new SimpleDateFormat();
@@ -382,6 +384,21 @@ public class Utils {
           // WORK IMAGE
           if ( noteType.equals(Global.NOTES.WORK_STR) ) { return R.id.rbWork; }
           return -1;
+     }
+
+     public static int calculateAttachmentsAmount(ModelNote note) {
+          int amount = 0;
+          if ( null != note.location ) {
+               amount += 1;
+          }
+          if ( !TextUtils.isEmpty(note.pathToDrawing) ) {
+               amount += 1;
+          }
+          if ( !TextUtils.isEmpty(note.pathToPhoto) ) {
+               amount += 1;
+          }
+          return amount;
+
      }
 
 }

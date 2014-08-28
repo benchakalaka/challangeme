@@ -47,7 +47,7 @@
 					android:ellipsize="end"
 					android:gravity="center"
 					android:singleLine="true"
-					android:text="Type of notes" />
+					android:text="@string/type_of_note" />
 			</RelativeLayout>
 
 			<View
@@ -79,7 +79,7 @@
 					android:layout_height="wrap_content"
 					android:checked="true"
 					android:tag="Simple"
-					android:text="Simple"
+					android:text="@string/simple_note_type"
 					android:textColor="@android:color/white" />
 
 				<RadioButton
@@ -87,7 +87,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:tag="Event"
-					android:text="Event"
+					android:text="@string/event_note_type"
 					android:textColor="@android:color/white" />
 
 				<RadioButton
@@ -95,7 +95,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:tag="Urgent"
-					android:text="Urgent"
+					android:text="@string/urgent_note_type"
 					android:textColor="@android:color/white" />
 
 				<RadioButton
@@ -103,7 +103,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:tag="Reminder"
-					android:text="Reminder"
+					android:text="@string/reminder_note_type"
 					android:textColor="@android:color/white" />
 
 				<RadioButton
@@ -111,7 +111,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:tag="Work"
-					android:text="Work"
+					android:text="@string/work_note_type"
 					android:textColor="@android:color/white" />
 			</RadioGroup>
 
@@ -124,9 +124,9 @@
 
 				<ImageView
 					android:id="@+id/ivNoteType"
-					android:layout_centerInParent="true"
 					android:layout_width="80dp"
 					android:layout_height="80dp"
+					android:layout_centerInParent="true"
 					android:background="@drawable/simple" />
 			</RelativeLayout>
 		</LinearLayout>
@@ -147,14 +147,14 @@
 				style="@style/dialog_btn"
 				android:layout_marginLeft="10dp"
 				android:layout_marginRight="5dp"
-				android:text="OK" />
+				android:text="@android:string/ok" />
 
 			<Button
 				android:id="@+id/buttonCancel"
 				style="@style/dialog_btn"
 				android:layout_marginLeft="5dp"
 				android:layout_marginRight="10dp"
-				android:text="Cancle" />
+				android:text="@string/cancel" />
 		</LinearLayout>
 	</LinearLayout>
 

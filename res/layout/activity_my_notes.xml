@@ -90,7 +90,7 @@
 				android:background="@drawable/transparent_inside_and_white_round_border"
 				android:gravity="center"
 				android:padding="10dp"
-				android:text="Notes"
+				android:text="@string/my_notes"
 				android:textAppearance="?android:attr/textAppearanceLarge"
 				android:textColor="@android:color/white" />
 
@@ -99,7 +99,7 @@
 				android:layout_height="match_parent"
 				android:background="@android:color/white" />
 
-			<TextView
+			<TextView 
 				android:id="@+id/twCompleted"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
 				android:layout_weight="1"
 				android:gravity="center"
 				android:padding="10dp"
-				android:text="Completed"
+				android:text="@string/completed"
 				android:textAppearance="?android:attr/textAppearanceLarge"
 				android:textColor="@android:color/white" />
 		</LinearLayout>
@@ -125,7 +125,6 @@
 		android:gravity="center"
 		android:padding="2dp"
 		android:textStyle="bold"
-		android:text="2"
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:textColor="@android:color/white" />
 
@@ -139,7 +138,6 @@
 		android:clipChildren="false"
 		android:gravity="center"
 		android:padding="2dp"
-		android:text="2"
 		android:textStyle="bold"
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:textColor="@android:color/white" />

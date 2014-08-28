@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.EditText;
@@ -42,6 +43,7 @@ import com.kristijandraca.backgroundmaillibrary.BackgroundMail;
 
      // ============================================= METHODS
      @AfterViews void afterViews() {
+          getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
           // set up GLOBAL context
           ActiveRecord.context = getApplicationContext();
           // Inflate your custom layout
@@ -60,9 +62,10 @@ import com.kristijandraca.backgroundmaillibrary.BackgroundMail;
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.login);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
+          ((TextView) actionBar.getCustomView().findViewById(R.id.text)).setText(R.string.app_name);
 
           progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
-          progressDialog.setMessage("Please wait....");
+          progressDialog.setMessage(getResources().getString(R.string.please_wait));
           progressDialog.setCancelable(true);
      }
 
@@ -101,6 +104,12 @@ import com.kristijandraca.backgroundmaillibrary.BackgroundMail;
 
                dialogBuilder.show();
           }
+
+          if ( appPref.askPassword().get() ) {
+               etPassword.setText(appPref.password().get());
+               Utils.showStickyNotification(AStart.this, R.string.password_filled_automatically, AppMsg.STYLE_INFO, 2000);
+          }
+
      }
 
      @Click void twResetPassword() {

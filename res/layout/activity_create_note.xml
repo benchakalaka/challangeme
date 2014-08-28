@@ -62,7 +62,6 @@
 		android:ems="10"
 		android:gravity="center"
 		android:padding="20dp"
-		android:text="sd"
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:textColor="@android:color/white"
 		android:typeface="monospace" >
@@ -75,7 +74,6 @@
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
-		android:layout_margin="10dp"
 		android:clipChildren="false"
 		android:orientation="horizontal" >
 

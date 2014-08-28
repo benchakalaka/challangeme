@@ -1,5 +1,6 @@
 package com.ik.ggnote.utils;
 
+import org.androidannotations.annotations.sharedpreferences.DefaultBoolean;
 import org.androidannotations.annotations.sharedpreferences.DefaultString;
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
@@ -9,5 +10,8 @@ import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
      // user email
      @DefaultString ( "" ) String email();
+
+     // ask password
+     @DefaultBoolean ( true ) boolean askPassword();
 
 }

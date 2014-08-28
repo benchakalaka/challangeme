@@ -37,6 +37,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.ik.ggnote.R;
+import com.ik.ggnote.constants.ActiveRecord;
 import com.ik.ggnote.constants.Global;
 import com.ik.ggnote.custom.CListViewItem;
 import com.ik.ggnote.custom.CListViewItem_;
@@ -82,12 +83,11 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      // =================================================== METHODS
      @AfterViews void afterViews() {
-
           menu = CSlideMenuNotes_.build(this);
           setUpAmountOfCompletedAndAciveNotes();
 
           // configure persistant bundle for displaying calendar view
-          bundle.putString(com.roomorama.caldroid.CaldroidFragment.DIALOG_TITLE, "Select date");
+          bundle.putString(com.roomorama.caldroid.CaldroidFragment.DIALOG_TITLE, getResources().getString(R.string.select_date));
           bundle.putBoolean(CaldroidFragment.ENABLE_CLICK_ON_DISABLED_DATES, false);
 
           // Inflate your custom layout
@@ -104,7 +104,7 @@ import com.roomorama.caldroid.CaldroidFragment;
           actionBar.setDisplayShowCustomEnabled(true);
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
-          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.add_note);
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.plus);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
      }
 
@@ -132,13 +132,13 @@ import com.roomorama.caldroid.CaldroidFragment;
           Animation anim = AnimationManager.load(R.anim.fade_in);
           anim.setDuration(200);
           if ( loadCompleted ) {
-               ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText("My notes");
+               ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText(R.string.my_notes);
                twMyNotes.setTextColor(Color.BLACK);
                twMyNotes.setBackgroundColor(getResources().getColor(R.color.ab_background));
                twCompleted.setBackgroundColor(Color.TRANSPARENT);
                twCompleted.startAnimation(anim);
           } else {
-               ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText("Completed");
+               ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText(R.string.completed);
                twCompleted.setTextColor(Color.WHITE);
                twCompleted.setBackgroundColor(getResources().getColor(R.color.ab_background));
                twMyNotes.setBackgroundColor(Color.TRANSPARENT);
@@ -171,7 +171,7 @@ import com.roomorama.caldroid.CaldroidFragment;
           loadCompleted = !loadCompleted;
           // My Notes selected
           if ( loadCompleted ) {
-               ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText("Notes");
+               ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText(R.string.my_notes);
                YoYo.with(Techniques.FlipInX).duration(500).playOn(getSupportActionBar().getCustomView().findViewById(R.id.text));
                twMyNotes.setTextColor(Color.BLACK);
                twCompleted.setTextColor(Color.WHITE);
@@ -179,7 +179,7 @@ import com.roomorama.caldroid.CaldroidFragment;
                twCompleted.setBackgroundColor(Color.TRANSPARENT);
                YoYo.with(Techniques.ZoomIn).duration(300).playOn(twMyNotes);
           } else {
-               ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText("Completed");
+               ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText(R.string.completed);
                YoYo.with(Techniques.FlipInX).duration(500).playOn(getSupportActionBar().getCustomView().findViewById(R.id.text));
                twMyNotes.setTextColor(Color.WHITE);
                twCompleted.setTextColor(Color.BLACK);
@@ -301,7 +301,6 @@ import com.roomorama.caldroid.CaldroidFragment;
                Animation animation = AnimationManager.load(R.anim.bounce);
                animation.setStartOffset(i * 150);
                llMyNotes.getChildAt(i).startAnimation(animation);
-
           }
      }
 
@@ -340,17 +339,18 @@ import com.roomorama.caldroid.CaldroidFragment;
      public void logout() {
           final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
 
-          dialogBuilder.withButton1Text("Ok").withButton2Text("Cancel").withIcon(R.drawable.book).withEffect(Effectstype.Slit).withTitle("Welcome to GGNote").withMessage("Do you really want logout?").setButton1Click(new View.OnClickListener() {
-               @Override public void onClick(View v) {
-                    startActivity(new Intent(AMyNotes.this, AStart_.class));
-                    dialogBuilder.dismiss();
-               }
-          }).setButton2Click(new OnClickListener() {
+          dialogBuilder.withButton1Text(getResources().getString(android.R.string.ok)).withButton2Text(getResources().getString(R.string.cancel)).withIcon(R.drawable.book).withEffect(Effectstype.Slit).withTitle(getResources().getString(R.string.logout))
+                    .withMessage(getResources().getString(R.string.do_you_really_want_logout)).setButton1Click(new View.OnClickListener() {
+                         @Override public void onClick(View v) {
+                              startActivity(new Intent(AMyNotes.this, AStart_.class));
+                              dialogBuilder.dismiss();
+                         }
+                    }).setButton2Click(new OnClickListener() {
 
-               @Override public void onClick(View v) {
-                    dialogBuilder.dismiss();
-               }
-          }).show();
+                         @Override public void onClick(View v) {
+                              dialogBuilder.dismiss();
+                         }
+                    }).show();
      }
 
      @Override public void onClick(View v) {
@@ -366,11 +366,13 @@ import com.roomorama.caldroid.CaldroidFragment;
                          }
 
                          @Override public void onAnimationEnd(Animation animation) {
+                              // create note object
+                              ActiveRecord.currentNote = new ModelNote(getApplicationContext());
+                              ActiveRecord.currentNote.noteType = Global.NOTES.SIMPLE_STR;
                               startActivity(new Intent(AMyNotes.this, ACreateNote_.class));
                          }
                     });
                     getSupportActionBar().getCustomView().findViewById(R.id.ivRightOkButton).startAnimation(animation);
-
                     break;
           }
      }

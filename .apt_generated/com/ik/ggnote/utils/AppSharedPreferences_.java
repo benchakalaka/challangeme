@@ -7,6 +7,8 @@ package com.ik.ggnote.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import org.androidannotations.api.sharedpreferences.BooleanPrefEditorField;
+import org.androidannotations.api.sharedpreferences.BooleanPrefField;
 import org.androidannotations.api.sharedpreferences.EditorHelper;
 import org.androidannotations.api.sharedpreferences.SharedPreferencesHelper;
 import org.androidannotations.api.sharedpreferences.StringPrefEditorField;
@@ -27,6 +29,10 @@ public final class AppSharedPreferences_
         return new AppSharedPreferences_.AppSharedPreferencesEditor_(getSharedPreferences());
     }
 
+    public BooleanPrefField askPassword() {
+        return booleanField("askPassword", true);
+    }
+
     public StringPrefField email() {
         return stringField("email", "");
     }
@@ -42,6 +48,10 @@ public final class AppSharedPreferences_
 
         AppSharedPreferencesEditor_(SharedPreferences sharedPreferences) {
             super(sharedPreferences);
+        }
+
+        public BooleanPrefEditorField<AppSharedPreferences_.AppSharedPreferencesEditor_> askPassword() {
+            return booleanField("askPassword");
         }
 
         public StringPrefEditorField<AppSharedPreferences_.AppSharedPreferencesEditor_> email() {

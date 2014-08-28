@@ -9,33 +9,16 @@
 		android:id="@+id/twPass"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_alignLeft="@+id/etPassword"
-		android:text="@string/password"
+		android:text="@string/do_you_want_to_be_asked_password"
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:textColor="@android:color/white" />
 
-	<EditText
-		android:id="@+id/etPassword"
-		android:layout_width="wrap_content"
-		android:layout_height="50dp"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentRight="true"
-		android:layout_below="@+id/twPass"
-		android:layout_margin="10dp"
-		android:background="@drawable/transparent_inside_and_white_border"
-		android:ems="10"
-		android:hint="@string/hint"
-		android:inputType="textPassword"
-		android:padding="3dp"
-		android:textColor="@android:color/white" >
-	</EditText>
-
 	<RadioGroup
-		android:id="@+id/radioGroup1"
+		android:id="@+id/rgAskPass"
+		android:layout_below="@+id/twPass"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_below="@+id/etPassword"
-		android:layout_margin="10dp"
+		android:layout_margin="5dp"
 		android:background="@drawable/transparent_inside_and_white_border" >
 
 		<RadioButton
@@ -43,20 +26,22 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:checked="true"
-			android:text="Ask password" />
+			android:text="@string/yes"
+			android:textColor="@android:color/white" />
 
 		<RadioButton
 			android:id="@+id/rbDontAskPassword"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Do not ask password" />
+			android:text="@string/no"
+			android:textColor="@android:color/white" />
 	</RadioGroup>
 
 	<RelativeLayout
 		android:id="@+id/rlChangePass"
 		android:layout_width="fill_parent"
 		android:layout_height="70dp"
-		android:layout_below="@+id/radioGroup1"
+		android:layout_below="@+id/rgAskPass"
 		android:layout_margin="5dp"
 		android:background="@drawable/transparent_inside_and_white_border"
 		android:orientation="vertical" >

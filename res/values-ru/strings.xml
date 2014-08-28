@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string-array name="array_notes_types">
+		<item>Отображать все</item>
+		<item>Простая</item>
+		<item>Событие</item>
+		<item>Важная</item>
+		<item>Напоминание</item>
+		<item>Работа</item>
+	</string-array>
+
+	<string name="help">Помощь.</string>
+	<string name="app_name">GGNote</string>
+	<string name="hint_password">Пароль</string>
+	<string name="failed">Неудача</string>
+	<string name="clear_canvas">Очистить полотно?</string>
+	<string name="everything_will_be_clear">Весь ваш рисунок будет очищен.</string>
+	<string name="choose_color_saturation_opacity">Выберите ваш цвет/насыщеность</string>
+
+	<!-- Login screen -->
+	<string name="login">Логин</string>
+	<string name="password">Пароль</string>
+	<!-- Login screen -->
+
+
+	<!-- Menu screen -->
+	<string name="create_note">Создать записку</string>
+	<string name="my_notes">Мои записки</string>
+	<!-- Menu screen -->
+
+
+	<!-- Add note screen -->
+	<string name="note_type">Выберите тип записки</string>
+
+	<!-- Add note screen -->
+
+	<string name="success">Успех!</string>
+	<string name="color_changed">Цвет изменен</string>
+	<string name="choose_custom_color">Выберите свой цвет</string>
+	<string name="clear_drawing">Рисунок был очищен</string>
+	<string name="erase_mode_is_active">Стираска включена</string>
+	<string name="thick_brush">Размер кисти - большой</string>
+	<string name="medium_brush_size">Размер кисти - средний</string>
+	<string name="thin_brush_size">Размер кисти - маленький</string>
+	<string name="draw_rectangle">Нарисуйте прямоугольник</string>
+	<string name="draw_circle">Нарисуйте круг</string>
+	<string name="draw_line">Нарисуйте линию</string>
+	<string name="draw_triangle">Нарисуйте триугольник</string>
+	<string name="free_drawing">Свободное рисование</string>
+	<string name="attached_photo">Прикрепленное фото</string>
+	<string name="undo">Назад</string>
+	<string name="redo">Вперед</string>
+	<string name="resetPassword"><u>Забыли пароль?</u></string>
+	<string name="changePassword">Изменить пароль</string>
+	<string name="changeNotesOrder">Порядок записок</string>
+	<string name="notifications">Нотификация</string>
+	<string name="settings">Настройки</string>
+	<string name="newPass">Новый пароль</string>
+	<string name="oldPass">Старый пароль</string>
+	<string name="newEmail">Новая почта</string>
+	<string name="note_has_been_created">Записка успешно создана</string>
+	<string name="good_bye">Досвидания</string>
+	<string name="drawing_has_been_saved">Рисунок был сохранен</string>
+	<string name="location_has_been_saved">Позиция была сохранена</string>
+	<string name="photo_saved">Фото было успешно сохранено</string>
+	<string name="photo_saving_failed">Ошибка сохранения фото</string>
+	<string name="cannot_save_drawing">Не могу сохранить рисунок</string>
+	<string name="select_date">Выберите дату</string>
+	<string name="file_cannot_be_created">Файл не был создан</string>
+	<string name="sd_card_is_busy">Файл не мождет быть создан, веротяно SDCard недоступна</string>
+	<string name="attached_drawing">Прикрепленный рисунок</string>
+	<string name="drawing_is_locked">Рисование заблокировано</string>
+	<string name="there_is_no_location">Позиция не прикреплена</string>
+	<string name="problem_obtaining_address">Возникла проблема при получения позиции</string>
+	<string name="unknown_address">Адресс неизвестен</string>
+	<string name="save">Сохранить</string>
+	<string name="drawing_has_not_been_saved">Рисование не было сохранено</string>
+	<string name="save_drawing">Хотите ли вы сохранить рисунок?</string>
+	<string name="location_has_not_been_saved">Позиция не была сохранена</string>
+	<string name="do_you_want_to_save_location">Хотите ли вы сохранить позицию?</string>
+	<string name="drag_me">Перетащи меня</string>
+	<string name="drawing_settings">Настройки рисования</string>
+	<string name="brush_color">Цвета кисти</string>
+	<string name="shapes">Фигуры</string>
+	<string name="drag_me_to_any_position">Перетащи маркер куда необходимо</string>
+	<string name="note_detail">Детили записки</string>
+	<string name="there_is_no_drawing">Рисунок не прикреплен</string>
+	<string name="there_is_no_photo">Фотография не прикреплена</string>
+	<string name="please_wait">Подождите пожалуйста....</string>
+	<string name="completed">Выполненые</string>
+	<string name="add_note">Добавить записку</string>
+	<string name="filter">Фильтр</string>
+	<string name="logout">Выйти</string>
+	<string name="simple_note_type">Обычая</string>
+	<string name="event_note_type">Событие</string>
+	<string name="urgent_note_type">Срочное</string>
+	<string name="reminder_note_type">Напоминание</string>
+	<string name="work_note_type">Работа</string>
+	<string name="do_you_want_to_delete_item">Вы действительно хотите удалить эту записку?</string>
+	<string name="note_will_be_deleted">Записка будет удалена полностью.</string>
+	<string name="cancel">Отмена</string>
+	<string name="do_you_want_to_complete_item">Хотите ли вы выполнить записку?</string>
+	<string name="completeing_item">Выполнение записки</string>
+	<string name="attached_position">Прикрепленная позиция</string>
+	<string name="type_of_note">Тип записки</string>
+	<string name="do_you_really_want_logout">Вы действительно хотите выйти?</string>
+	<string name="do_you_want_to_be_asked_password">Заполнять пароль автоматически?</string>
+	<string name="yes">Да</string>
+	<string name="no">Нет</string>
+	<string name="password_filled_automatically">Пароль заполнен автоматически</string>
+	<string name="pick_color">Выберите цвет из паллеты</string>
+	<string name="opacity_level">Уровень прозрачности</string>
+	<string name="saturation_level">Уровень насыщенности</string>
+	<string name="you_have_attachments">У вас есть %s Вложение(я)</string>
+
+</resources>

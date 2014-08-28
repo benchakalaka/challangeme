@@ -57,7 +57,7 @@ import com.ik.ggnote.utils.Utils;
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setVisibility(View.INVISIBLE);
-          ((TextView) actionBar.getCustomView().findViewById(R.id.text)).setText("Note detail");
+          ((TextView) actionBar.getCustomView().findViewById(R.id.text)).setText(R.string.note_detail);
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -79,7 +79,7 @@ import com.ik.ggnote.utils.Utils;
           if ( null != note.location ) {
                startActivity(new Intent(ANoteDetails.this, ADisplayOnMap_.class));
           } else {
-               Utils.showStickyNotification(this, "R.string.there_is_no_location", AppMsg.STYLE_INFO, 1000);
+               Utils.showStickyNotification(this, R.string.there_is_no_location, AppMsg.STYLE_INFO, 1000);
           }
      }
 
@@ -107,7 +107,7 @@ import com.ik.ggnote.utils.Utils;
           if ( !TextUtils.isEmpty(note.pathToDrawing) ) {
                startActivity(new Intent(ANoteDetails.this, ADisplayDrawing_.class));
           } else {
-               Utils.showStickyNotification(this, "R.string.there_is_no_drawing", AppMsg.STYLE_INFO, 1000);
+               Utils.showStickyNotification(this, R.string.there_is_no_drawing, AppMsg.STYLE_INFO, 1000);
           }
      }
 
@@ -115,7 +115,7 @@ import com.ik.ggnote.utils.Utils;
           if ( !TextUtils.isEmpty(note.pathToPhoto) ) {
                startActivity(new Intent(ANoteDetails.this, ADisplayPhoto_.class));
           } else {
-               Utils.showStickyNotification(this, "R.string.there_is_no_photo", AppMsg.STYLE_INFO, 1000);
+               Utils.showStickyNotification(this, R.string.there_is_no_photo, AppMsg.STYLE_INFO, 1000);
           }
      }
 }

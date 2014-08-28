@@ -15,7 +15,7 @@
 		android:layout_margin="10dp"
 		android:background="@drawable/transparent_inside_and_white_border"
 		android:ems="10"
-		android:hint="@string/hint"
+		android:hint="@string/hint_password"
 		android:inputType="textPassword"
 		android:padding="3dp"
 		android:textColor="@android:color/white" >

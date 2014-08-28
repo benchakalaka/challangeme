@@ -54,6 +54,19 @@
 		android:layout_alignTop="@+id/ivDeleteOrOpenNoteDetailRightButton"
 		android:layout_toLeftOf="@+id/ivDeleteOrOpenNoteDetailRightButton"
 		android:src="@drawable/attach"
-		android:visibility="invisible" />
+		android:visibility="visible" />
+
+	<TextView
+		android:id="@+id/twAmountAttached"
+		android:layout_width="30dp"
+		android:layout_height="30dp"
+		android:layout_alignParentBottom="true"
+		android:layout_toRightOf="@+id/text"
+		android:background="@drawable/white_circle"
+		android:gravity="center"
+		android:src="@drawable/attach"
+		android:text="2"
+		android:textColor="@android:color/black"
+		android:visibility="visible" />
 
 </RelativeLayout>

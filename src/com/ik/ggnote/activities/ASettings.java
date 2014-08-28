@@ -18,38 +18,27 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.devspark.appmsg.AppMsg;
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.ik.ggnote.R;
-import com.ik.ggnote.custom.CSlideMenuSettings;
-import com.ik.ggnote.custom.CSlideMenuSettings_;
 import com.ik.ggnote.utils.AppSharedPreferences_;
 import com.ik.ggnote.utils.Utils;
 
 @EActivity ( R.layout.activity_settings ) public class ASettings extends ActionBarActivity implements OnClickListener {
 
      // ============================================= VIEWS
-     @ViewById EditText          etPassword;
      @ViewById RadioButton       rbAskPassword , rbDontAskPassword;
 
      @ViewById RelativeLayout    rlNotifications , rlNotesOrder , rlChangePass;
 
      // ============================================= VARIABLES
      @Pref AppSharedPreferences_ appPref;
-     // slide menu
-     private CSlideMenuSettings  menu;
 
      // ============================================= METHODS
      @AfterViews void afterViews() {
-
-          menu = CSlideMenuSettings_.build(this);
-          menu.setSelectedSettingsItem();
-
-          if ( !TextUtils.isEmpty(appPref.password().get()) ) {
-               etPassword.setText(appPref.password().get());
-          }
 
           // Inflate your custom layout
           final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar, null);
@@ -59,29 +48,38 @@ import com.ik.ggnote.utils.Utils;
           // You customization
           actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.ab_background)));
 
-          actionBar.setIcon(R.drawable.menu);
+          actionBar.setIcon(R.drawable.arrowleft);
           actionBar.setDisplayShowHomeEnabled(true);
           actionBar.setDisplayShowTitleEnabled(false);
           actionBar.setDisplayShowCustomEnabled(true);
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setVisibility(View.INVISIBLE);
+          ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText(R.string.settings);
+          boolean isChecked = appPref.askPassword().getOr(true);
+          if ( !isChecked ) {
+               rbDontAskPassword.setChecked(true);
+          }
+          rbAskPassword.setChecked(isChecked);
+          rbAskPassword.setOnClickListener(this);
+          rbDontAskPassword.setOnClickListener(this);
      }
 
      public void logout() {
           final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
 
-          dialogBuilder.withButton1Text("Ok").withButton2Text("Cancel").withIcon(R.drawable.book).withEffect(Effectstype.Slit).withTitle("Welcome to GGNote").withMessage("Do you really want logout?").setButton1Click(new View.OnClickListener() {
-               @Override public void onClick(View v) {
-                    startActivity(new Intent(ASettings.this, AStart_.class));
-                    dialogBuilder.dismiss();
-               }
-          }).setButton2Click(new OnClickListener() {
+          dialogBuilder.withButton1Text(getResources().getString(android.R.string.ok)).withButton2Text(getResources().getString(R.string.cancel)).withIcon(R.drawable.book).withEffect(Effectstype.Slit).withTitle(getResources().getString(R.string.logout))
+                    .withMessage(getResources().getString(R.string.do_you_really_want_logout)).setButton1Click(new View.OnClickListener() {
+                         @Override public void onClick(View v) {
+                              startActivity(new Intent(ASettings.this, AStart_.class));
+                              dialogBuilder.dismiss();
+                         }
+                    }).setButton2Click(new OnClickListener() {
 
-               @Override public void onClick(View v) {
-                    dialogBuilder.dismiss();
-               }
-          }).show();
+                         @Override public void onClick(View v) {
+                              dialogBuilder.dismiss();
+                         }
+                    }).show();
      }
 
      @Click void rlChangePass() {
@@ -132,28 +130,12 @@ import com.ik.ggnote.utils.Utils;
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {
-          if ( menu.getMenu().isMenuShowing() ) {
-               menu.getMenu().showContent();
-          } else {
-               menu.getMenu().showMenu();
-          }
+          onBackPressed();
           return super.onOptionsItemSelected(item);
      }
 
      @Override public void onClick(View v) {
-          switch (v.getId()) {
-               case R.id.ivRightOkButton:
-                    if ( !TextUtils.isEmpty(etPassword.getText().toString()) ) {
-                         appPref.edit().password().put(etPassword.getText().toString()).apply();
-                         Utils.showStickyNotification(ASettings.this, "R.string.Saved settings!", AppMsg.STYLE_CONFIRM, 1000);
-                         // go to main menu
-                         onBackPressed();
-                    } else {
-                         Utils.showStickyNotification(ASettings.this, "R.string.fileds cannot be empty!", AppMsg.STYLE_INFO, 1000);
-
-                    }
-
-                    break;
-          }
+          Utils.logw("Ask password == " + rbAskPassword.isChecked());
+          appPref.edit().askPassword().put(rbAskPassword.isChecked()).apply();
      }
 }

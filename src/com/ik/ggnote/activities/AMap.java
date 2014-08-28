@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.devspark.appmsg.AppMsg;
@@ -102,6 +103,7 @@ import com.roomorama.caldroid.CaldroidFragment;
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.attach);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
+          ((TextView) actionBar.getCustomView().findViewById(R.id.text)).setText(R.string.attached_position);
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -136,18 +138,20 @@ import com.roomorama.caldroid.CaldroidFragment;
      }
 
      private void saveLocation() {
-          ActiveRecord.currentNote.location = new ModelLocation(getApplicationContext());
-          ActiveRecord.currentNote.location.latitude = locationMarker.getPosition().latitude;
-          ActiveRecord.currentNote.location.longitude = locationMarker.getPosition().longitude;
+          if ( null != locationMarker ) {
+               ActiveRecord.currentNote.location = new ModelLocation(getApplicationContext());
+               ActiveRecord.currentNote.location.latitude = locationMarker.getPosition().latitude;
+               ActiveRecord.currentNote.location.longitude = locationMarker.getPosition().longitude;
 
-          try {
-               List <Address> result = geocoder.getFromLocation(locationMarker.getPosition().latitude, locationMarker.getPosition().longitude, 1);
-               ActiveRecord.currentNote.location.address = String.valueOf(GPSTracker.convertAddressToText(result.get(0)));
-          } catch (IOException e) {
-               e.printStackTrace();
+               try {
+                    List <Address> result = geocoder.getFromLocation(locationMarker.getPosition().latitude, locationMarker.getPosition().longitude, 1);
+                    ActiveRecord.currentNote.location.address = String.valueOf(GPSTracker.convertAddressToText(result.get(0)));
+               } catch (IOException e) {
+                    e.printStackTrace();
+               }
+
+               Utils.showCustomToast(this, R.string.location_has_been_saved, R.drawable.ok);
           }
-
-          Utils.showCustomToast(this, R.string.location_has_been_saved, R.drawable.ok);
           onBackPressed();
      }
 

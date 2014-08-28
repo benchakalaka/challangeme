@@ -10,19 +10,14 @@
 		<item>Work</item>
 	</string-array>
 
-	<string name="help">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+	<string name="help">Help</string>
+	<string name="hint_password">password goes here</string>
 	<string name="app_name">GGNote</string>
 	<string name="hint">hint</string>
 	<string name="failed">failed</string>
 	<string name="clear_canvas">clear_canvas</string>
 	<string name="everything_will_be_clear">everything_will_be_clear</string>
 	<string name="choose_color_saturation_opacity">Choose color/saturation value/opacity/saturation</string>
-
-	<!-- Start screen -->
-	<string name="iamnew">I am new here</string>
-	<string name="ihaveacc">I have an account</string>
-	<!-- Start screen -->
-
 
 	<!-- Login screen -->
 	<string name="login">Login</string>
@@ -75,6 +70,7 @@
 	<string name="file_cannot_be_created">File cannot be created</string>
 	<string name="sd_card_is_busy">File cannot be created, probably SDCard is not available</string>
 	<string name="attached_drawing">Attached drawing</string>
+	<string name="attached_photo">Attached photo</string>
 	<string name="drawing_is_locked">Drawing is locked</string>
 	<string name="there_is_no_location">There is no pinned location</string>
 	<string name="problem_obtaining_address">Problem obtain address</string>
@@ -89,20 +85,50 @@
 	<string name="brush_color">Brush colors</string>
 	<string name="shapes">Shapes</string>
 	<string name="drag_me_to_any_position">Drag marker to any position you like</string>
+	<string name="note_detail">Note detail</string>
+	<string name="there_is_no_drawing">There is no pinned drawing</string>
+	<string name="there_is_no_photo">There is no pinned photo</string>
+	<string name="please_wait">Please wait....</string>
+	<string name="completed">Completed</string>
+	<string name="add_note">Add note</string>
+	<string name="filter">Filter</string>
+	<string name="logout">logout</string>
+	<string name="simple_note_type">Simple</string>
+	<string name="event_note_type">Event</string>
+	<string name="urgent_note_type">Urgent</string>
+	<string name="reminder_note_type">Reminder</string>
+	<string name="work_note_type">Work</string>
+	<string name="do_you_want_to_delete_item">Do you want to delete this item?</string>
+	<string name="note_will_be_deleted">Note will be deleted completely.</string>
+	<string name="cancel">Cancel</string>
+	<string name="do_you_want_to_complete_item">Do you want to complete this item?</string>
+	<string name="completeing_item">Completeing item</string>
+	<string name="attached_position">Atached position</string>
+	<string name="type_of_note">Type of notes</string>
+	<string name="do_you_really_want_logout">Do you really want logout?</string>
+	<string name="do_you_want_to_be_asked_password">Fill password automatically?</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string> 
+	<string name="password_filled_automatically">Password filled automatically</string>
+	<string name="pick_color">Pick color from palette</string>
+	<string name="opacity_level">Opacity level</string>
+	<string name="saturation_level">Saturation level</string>
+	<string name="you_have_attachments">You have %s attachemnt(s)</string>
 
 	<!-- STUBS -->
-	<string name="sdsaeras">1</string>
-	<string name="sdewras">1</string>
-	<string name="sdsdfas">1</string>
-	<string name="sdfvdas">1</string>
-	<string name="sdsdfasdas">1</string>
-	<string name="sdxasdcvas">1</string>
-	<string name="sdsasdasaeras">1</string>
-	<string name="sdewraasds">1</string>
-	<string name="sdasdfvdas">1</string>
-	<string name="sdsdf213as">1</string>
-	<string name="sdxc1321vas">1</string>
-	<string name="sds543aeras">1</string>
-	<string name="sdewrarthgs">1</string>
+
+	
+	
+	<string name="frsdfg">Twww</string>
+	<string name="frsdfsadfg">Twww</string>
+	<string name="fsdrg">Twww</string>
+	<string name="frre">Twww</string>
+	<string name="frrtyg">Twww</string>
+	<string name="frsgerwg">Twww</string>
+	<string name="frwerfdsg">Twww</string>
+	<string name="fwergfdrg">Twww</string>
+	<string name="frsdfsew32g">Twww</string>
+	<string name="frwert32g">Twww</string>
+	<string name="frgsdfg324">Twww</string>
 
 </resources>

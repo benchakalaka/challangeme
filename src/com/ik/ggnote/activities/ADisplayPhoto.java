@@ -45,7 +45,7 @@ import com.ik.ggnote.custom.CDrawingView;
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setVisibility(View.INVISIBLE);
 
-          ((TextView) actionBar.getCustomView().findViewById(R.id.text)).setText("Attached photo");
+          ((TextView) actionBar.getCustomView().findViewById(R.id.text)).setText(R.string.attached_photo);
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {

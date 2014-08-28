@@ -69,44 +69,14 @@ public final class CSlideMenuNotes_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        settings = ((RelativeLayout) hasViews.findViewById(id.settings));
-        filter = ((RelativeLayout) hasViews.findViewById(id.filter));
-        twAmoutFinished = ((TextView) hasViews.findViewById(id.twAmoutFinished));
-        logout = ((RelativeLayout) hasViews.findViewById(id.logout));
-        notes = ((RelativeLayout) hasViews.findViewById(id.notes));
-        twNotes = ((TextView) hasViews.findViewById(id.twNotes));
-        twAmoutNotes = ((TextView) hasViews.findViewById(id.twAmoutNotes));
         twSettings = ((TextView) hasViews.findViewById(id.twSettings));
-        {
-            View view = hasViews.findViewById(id.notes);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        CSlideMenuNotes_.this.notes();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.logout);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        CSlideMenuNotes_.this.logout();
-                    }
-
-                }
-                );
-            }
-        }
+        filter = ((RelativeLayout) hasViews.findViewById(id.filter));
+        settings = ((RelativeLayout) hasViews.findViewById(id.settings));
+        twNotes = ((TextView) hasViews.findViewById(id.twNotes));
+        logout = ((RelativeLayout) hasViews.findViewById(id.logout));
+        twAmoutFinished = ((TextView) hasViews.findViewById(id.twAmoutFinished));
+        twAmoutNotes = ((TextView) hasViews.findViewById(id.twAmoutNotes));
+        notes = ((RelativeLayout) hasViews.findViewById(id.notes));
         {
             View view = hasViews.findViewById(id.settings);
             if (view!= null) {
@@ -123,6 +93,21 @@ public final class CSlideMenuNotes_
             }
         }
         {
+            View view = hasViews.findViewById(id.notes);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        CSlideMenuNotes_.this.notes();
+                    }
+
+                }
+                );
+            }
+        }
+        {
             View view = hasViews.findViewById(id.filter);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
@@ -131,6 +116,21 @@ public final class CSlideMenuNotes_
                     @Override
                     public void onClick(View view) {
                         CSlideMenuNotes_.this.filter();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.logout);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        CSlideMenuNotes_.this.logout();
                     }
 
                 }

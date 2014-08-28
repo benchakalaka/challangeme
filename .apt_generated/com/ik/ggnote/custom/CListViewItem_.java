@@ -70,10 +70,26 @@ public final class CListViewItem_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        image = ((ImageView) hasViews.findViewById(id.image));
         imageAttached = ((ImageView) hasViews.findViewById(id.imageAttached));
         text = ((TextView) hasViews.findViewById(id.text));
+        image = ((ImageView) hasViews.findViewById(id.image));
+        twAmountAttached = ((TextView) hasViews.findViewById(id.twAmountAttached));
         ivDeleteOrOpenNoteDetailRightButton = ((ImageView) hasViews.findViewById(id.ivDeleteOrOpenNoteDetailRightButton));
+        {
+            View view = hasViews.findViewById(id.imageAttached);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        CListViewItem_.this.imageAttached();
+                    }
+
+                }
+                );
+            }
+        }
         {
             View view = hasViews.findViewById(id.ivDeleteOrOpenNoteDetailRightButton);
             if (view!= null) {

@@ -14,7 +14,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import com.ik.ggnote.R.id;
@@ -82,11 +81,10 @@ public final class ASettings_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        rlChangePass = ((RelativeLayout) hasViews.findViewById(id.rlChangePass));
-        rlNotesOrder = ((RelativeLayout) hasViews.findViewById(id.rlNotesOrder));
-        etPassword = ((EditText) hasViews.findViewById(id.etPassword));
-        rbAskPassword = ((RadioButton) hasViews.findViewById(id.rbAskPassword));
         rlNotifications = ((RelativeLayout) hasViews.findViewById(id.rlNotifications));
+        rlChangePass = ((RelativeLayout) hasViews.findViewById(id.rlChangePass));
+        rbAskPassword = ((RadioButton) hasViews.findViewById(id.rbAskPassword));
+        rlNotesOrder = ((RelativeLayout) hasViews.findViewById(id.rlNotesOrder));
         rbDontAskPassword = ((RadioButton) hasViews.findViewById(id.rbDontAskPassword));
         {
             View view = hasViews.findViewById(id.rlChangePass);

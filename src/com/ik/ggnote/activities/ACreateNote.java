@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.EditText;
@@ -40,7 +41,6 @@ import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.ik.ggnote.R;
 import com.ik.ggnote.constants.ActiveRecord;
 import com.ik.ggnote.constants.Global;
-import com.ik.ggnote.model.ModelNote;
 import com.ik.ggnote.utils.DatabaseUtils;
 import com.ik.ggnote.utils.Utils;
 import com.ik.ggnote.utils.Utils.AnimationManager;
@@ -83,12 +83,11 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      // ======================================================================================= METHODS
      @AfterViews void afterViews() {
+          getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+
           // configure persistant bundle for displaying calendar view
           bundle.putString(com.roomorama.caldroid.CaldroidFragment.DIALOG_TITLE, getResources().getString(R.string.select_date));
           bundle.putBoolean(CaldroidFragment.ENABLE_CLICK_ON_DISABLED_DATES, false);
-          // create note object
-          ActiveRecord.currentNote = new ModelNote(getApplicationContext());
-          ActiveRecord.currentNote.noteType = Global.NOTES.SIMPLE_STR;
 
           // Inflate your custom layout
           final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar, null);
@@ -106,9 +105,10 @@ import com.roomorama.caldroid.CaldroidFragment;
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.ok);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
+          ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText(R.string.add_note);
 
           progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
-          progressDialog.setMessage("Please wait....");
+          progressDialog.setMessage(getResources().getString(R.string.please_wait));
           progressDialog.setCancelable(true);
      }
 
@@ -339,10 +339,12 @@ import com.roomorama.caldroid.CaldroidFragment;
           dialogBuilder.show();
      }
 
-     @Override protected void onPause() {
-          super.onPause();
-          overridePendingTransition(R.anim.slide_right, 0);
-     }
+     /*
+      * @Override protected void onPause() {
+      * super.onPause();
+      * overridePendingTransition(R.anim.slide_right, 0);
+      * }
+      */
 
      @Override public void onClick(View v) {
           switch (v.getId()) {
