@@ -23,7 +23,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.devspark.appmsg.AppMsg;
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
@@ -46,7 +45,6 @@ import com.ik.ggnote.R;
 import com.ik.ggnote.constants.ActiveRecord;
 import com.ik.ggnote.model.ModelLocation;
 import com.ik.ggnote.utils.GPSTracker;
-import com.ik.ggnote.utils.ReverseGeocoding;
 import com.ik.ggnote.utils.Utils;
 import com.roomorama.caldroid.CaldroidFragment;
 
@@ -72,6 +70,8 @@ import com.roomorama.caldroid.CaldroidFragment;
      private Geocoder               geocoder;
      // marker
      private Marker                 locationMarker;
+     // saving dialog
+     private NiftyDialogBuilder     dialogBuilder;
 
      @AfterViews void afterViews() {
           // obtaining map object
@@ -103,7 +103,8 @@ import com.roomorama.caldroid.CaldroidFragment;
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.attach);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
-          ((TextView) actionBar.getCustomView().findViewById(R.id.text)).setText(R.string.attached_position);
+          ((TextView) actionBar.getCustomView().findViewById(R.id.text1)).setText(R.string.attached_position);
+          dialogBuilder = new NiftyDialogBuilder(this);
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -117,8 +118,6 @@ import com.roomorama.caldroid.CaldroidFragment;
      public void ibPinMyLocation(boolean askSave) {
 
           if ( askSave ) {
-               final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
-
                dialogBuilder.withButton1Text(getResources().getString(android.R.string.cancel)).withButton2Text(getResources().getString(R.string.save)).withIcon(R.drawable.marker).withEffect(Effectstype.Slit).withTitle(getResources()
                          .getString(R.string.location_has_not_been_saved)).withMessage(getResources().getString(R.string.do_you_want_to_save_location)).setButton1Click(new View.OnClickListener() {
                     @Override public void onClick(View v) {
@@ -179,28 +178,45 @@ import com.roomorama.caldroid.CaldroidFragment;
      }
 
      @Override public void onConnected(Bundle bundle) {
-          LatLng location = null;
-          Location loc = locationClient.getLastLocation();
-          if ( null == loc ) {
-               // TODO obtain location with help of location service
-               // Utils.showCustomToast(this, "Cannot obtain current location", R.drawable.warning);
-               Utils.showStickyNotification(this, R.string.problem_obtaining_address, AppMsg.STYLE_INFO, 1000);
-               createMarkerWithLocation();
-               return;
-          }
-          try {
-               location = new LatLng(loc.getLatitude(), loc.getLongitude());
-               List <Address> result = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
+          // user already pinned location, display marker
+          if ( null != ActiveRecord.currentNote.location ) {
+               LatLng location = new LatLng(ActiveRecord.currentNote.location.latitude, ActiveRecord.currentNote.location.longitude);
+               // animate to center of location
+               animateCamera(location, 12);
 
-               // animate to center of UK
-               animateCamera(location, 12);
-               createMarker(location, result.get(0));
-               // createMarkerWithLocation();
-          } catch (IOException e) {
-               e.printStackTrace();
-               Utils.showStickyNotification(this, R.string.problem_obtaining_address, AppMsg.STYLE_INFO, 1000);
-               animateCamera(location, 12);
-               createMarker(location, null);
+               List <Address> result;
+               try {
+                    result = geocoder.getFromLocation(ActiveRecord.currentNote.location.latitude, ActiveRecord.currentNote.location.longitude, 1);
+                    createMarker(location, result.get(0));
+               } catch (IOException e) {
+                    e.printStackTrace();
+                    createMarker(location, null);
+               }
+
+          } else {
+
+               LatLng location = null;
+               Location loc = locationClient.getLastLocation();
+               if ( null == loc ) {
+                    // TODO obtain location with help of location service
+                    // Utils.showCustomToast(this, "Cannot obtain current location", R.drawable.warning);
+                    Utils.showStickyNotification(this, R.string.problem_obtaining_address, AppMsg.STYLE_INFO, 1000);
+                    createMarkerWithLocation();
+                    return;
+               }
+               try {
+                    location = new LatLng(loc.getLatitude(), loc.getLongitude());
+                    List <Address> result = geocoder.getFromLocation(loc.getLatitude(), loc.getLongitude(), 1);
+
+                    // animate to center of UK
+                    animateCamera(location, 12);
+                    createMarker(location, result.get(0));
+               } catch (IOException e) {
+                    e.printStackTrace();
+                    Utils.showStickyNotification(this, R.string.problem_obtaining_address, AppMsg.STYLE_INFO, 1000);
+                    animateCamera(location, 12);
+                    createMarker(location, null);
+               }
           }
      }
 
@@ -232,6 +248,7 @@ import com.roomorama.caldroid.CaldroidFragment;
      @Override protected void onPause() {
           super.onPause();
           locationClient.disconnect();
+          dialogBuilder.dismiss();
      }
 
      /**
@@ -260,14 +277,9 @@ import com.roomorama.caldroid.CaldroidFragment;
                LatLng currentLatLng = new LatLng(latitude, longitude);
 
                if ( isConnected(this) ) {
-                    // List <Address> addresses = getInfos(latitude, longitude);
-                    String address = "address"; // addresses.get(0).getAddressLine(0);
+                    locationMarker = googleMap.addMarker(new MarkerOptions().position(currentLatLng).title(getResources().getString(R.string.you_are_here)).snippet(getResources().getString(R.string.drag_me)));
+                    locationMarker.setDraggable(true);
 
-                    String city = "city";// addresses.get(0).getAddressLine(1);
-                    String country = "country";// addresses.get(0).getAddressLine(2);
-                    Toast.makeText(this, country + ", " + city + ", " + address, Toast.LENGTH_SHORT).show();
-
-                    Marker marker = googleMap.addMarker(new MarkerOptions().position(currentLatLng).title(city).snippet(address));
                }
           }
      }
@@ -282,7 +294,7 @@ import com.roomorama.caldroid.CaldroidFragment;
      }
 
      @Override public void onMarkerDragEnd(Marker marker) {
-          Utils.showStickyNotification(this, "Marker LATITUDE: " + marker.getPosition().latitude, AppMsg.STYLE_INFO, 1000);
+          Utils.showStickyNotification(this, R.string.position_has_been_changed, AppMsg.STYLE_CONFIRM, 1000);
 
           try {
                List <Address> result = geocoder.getFromLocation(marker.getPosition().latitude, marker.getPosition().longitude, 1);
@@ -293,13 +305,10 @@ import com.roomorama.caldroid.CaldroidFragment;
                }
           } catch (IOException e) {
                e.printStackTrace();
-               ReverseGeocoding rg = new ReverseGeocoding();
-               rg.getAddress(String.valueOf(marker.getPosition().latitude), String.valueOf(marker.getPosition().longitude));
-               marker.setTitle(rg.getCity());
+               marker.setTitle(getResources().getString(R.string.unknown_address));
                marker.hideInfoWindow();
                marker.showInfoWindow();
           }
-
      }
 
      @Override public void onMarkerDragStart(Marker marker) {

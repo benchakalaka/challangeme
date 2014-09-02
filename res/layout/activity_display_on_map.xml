@@ -8,10 +8,110 @@
 		android:id="@+id/googleMap"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
+		android:layout_above="@+id/llBottomMapMenu"
 		class="com.google.android.gms.maps.SupportMapFragment" />
 
 	<View
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:background="@android:color/transparent" />
+
+	<LinearLayout
+		android:id="@+id/llBottomMapMenuDescritption"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_above="@+id/llBottomMapMenu"
+		android:layout_margin="4dp"
+		android:background="@color/buttons_selected_color_filter"
+		android:orientation="vertical"
+		android:visibility="gone" >
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal" >
+
+			<ImageView
+				android:id="@+id/ivRouteType"
+				android:layout_width="60dp"
+				android:layout_height="60dp"
+				android:layout_weight="1" />
+
+			<TextView
+				android:id="@+id/twDistance"
+				android:layout_width="wrap_content"
+				android:layout_height="match_parent"
+				android:layout_gravity="center_vertical"
+				android:layout_weight="1"
+				android:gravity="center_vertical"
+				android:padding="3dp"
+				android:text="dist"
+				android:textColor="@android:color/white" />
+
+			<ImageView
+				android:id="@+id/ivCloseRouteInfo"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:src="@drawable/delete" />
+		</LinearLayout>
+
+		<TextView
+			android:id="@+id/twStartAddress"
+			android:padding="4dp"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1" />
+
+		<TextView
+			android:id="@+id/twEndAddress"
+			android:padding="4dp"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:textColor="#009933" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/llBottomMapMenu"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:background="@color/ab_background"
+		android:orientation="horizontal" >
+
+		<ImageView
+			android:id="@+id/ivBike"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:layout_weight="1"
+			android:src="@drawable/bike" />
+
+		<ImageView
+			android:id="@+id/ivCar"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:layout_margin="3dp"
+			android:layout_weight="1"
+			android:paddingBottom="3dp"
+			android:src="@drawable/car" />
+
+		<ImageView
+			android:id="@+id/ivWalking"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:layout_margin="3dp"
+			android:layout_weight="1"
+			android:paddingBottom="3dp"
+			android:src="@drawable/walking" />
+
+		<ImageView
+			android:id="@+id/ivMap"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:layout_margin="3dp"
+			android:layout_weight="1"
+			android:paddingBottom="3dp"
+			android:src="@drawable/map" />
+	</LinearLayout>
+
 </RelativeLayout>

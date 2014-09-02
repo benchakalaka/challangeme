@@ -56,7 +56,7 @@
 			android:background="@drawable/key" />
 
 		<TextView
-			android:id="@+id/text"
+			android:id="@+id/text1"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:layout_centerVertical="true"
@@ -79,7 +79,7 @@
 			android:layout_alignParentRight="true"
 			android:layout_centerVertical="true"
 			android:layout_margin="5dp"
-			android:background="@drawable/arrow_right"
+			android:background="@drawable/arrowright"
 			android:padding="5dp" />
 	</RelativeLayout>
 
@@ -102,7 +102,7 @@
 			android:background="@drawable/list" />
 
 		<TextView
-			android:id="@+id/textNotesOrder"
+			android:id="@+id/text3"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:layout_centerVertical="true"
@@ -125,7 +125,7 @@
 			android:layout_alignParentRight="true"
 			android:layout_centerVertical="true"
 			android:layout_margin="5dp"
-			android:background="@drawable/arrow_right"
+			android:background="@drawable/arrowright"
 			android:padding="5dp" />
 	</RelativeLayout>
 
@@ -171,7 +171,7 @@
 			android:layout_alignParentRight="true"
 			android:layout_centerVertical="true"
 			android:layout_margin="5dp"
-			android:background="@drawable/arrow_right"
+			android:background="@drawable/arrowright"
 			android:padding="5dp" />
 	</RelativeLayout>
 

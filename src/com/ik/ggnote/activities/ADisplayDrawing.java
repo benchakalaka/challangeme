@@ -63,7 +63,7 @@ import com.ik.ggnote.utils.Utils;
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setVisibility(View.INVISIBLE);
-          ((TextView) actionBar.getCustomView().findViewById(R.id.text)).setText(R.string.attached_drawing);
+          ((TextView) actionBar.getCustomView().findViewById(R.id.text1)).setText(R.string.attached_drawing);
      }
 
      @Click void ivLock() {

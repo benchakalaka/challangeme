@@ -78,17 +78,6 @@
 				android:padding="5dp"
 				android:scaleType="fitXY"
 				android:src="@drawable/free_drawing" />
-
-			<ImageButton
-				android:id="@+id/ibDrawText"
-				android:layout_width="60dp"
-				android:layout_height="60dp"
-				android:layout_margin="4dp"
-				android:background="@drawable/transparent_inside_and_white_border"
-				android:contentDescription="@null"
-				android:padding="5dp"
-				android:scaleType="centerInside"
-				android:src="@drawable/ok" />
 		</LinearLayout>
 	</ScrollView>
 
@@ -435,7 +424,6 @@
 				android:layout_width="60dp"
 				android:layout_height="60dp"
 				android:layout_margin="4dp"
-				android:background="@drawable/transparent_inside_and_white_border"
 				android:contentDescription="@null"
 				android:padding="5dp"
 				android:scaleType="fitXY"

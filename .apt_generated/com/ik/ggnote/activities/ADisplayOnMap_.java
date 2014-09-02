@@ -9,11 +9,20 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import com.google.android.gms.maps.model.LatLng;
+import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
+import org.androidannotations.api.BackgroundExecutor;
 import org.androidannotations.api.SdkVersionHelper;
 import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
@@ -25,6 +34,7 @@ public final class ADisplayOnMap_
 {
 
     private final OnViewChangedNotifier onViewChangedNotifier_ = new OnViewChangedNotifier();
+    private Handler handler_ = new Handler(Looper.getMainLooper());
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,7 +85,138 @@ public final class ADisplayOnMap_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
+        ivBike = ((ImageView) hasViews.findViewById(id.ivBike));
+        ivMap = ((ImageView) hasViews.findViewById(id.ivMap));
+        twDistance = ((TextView) hasViews.findViewById(id.twDistance));
+        ivWalking = ((ImageView) hasViews.findViewById(id.ivWalking));
+        ivCloseRouteInfo = ((ImageView) hasViews.findViewById(id.ivCloseRouteInfo));
+        twEndAddress = ((TextView) hasViews.findViewById(id.twEndAddress));
+        llBottomMapMenuDescritption = ((LinearLayout) hasViews.findViewById(id.llBottomMapMenuDescritption));
+        ivRouteType = ((ImageView) hasViews.findViewById(id.ivRouteType));
+        twStartAddress = ((TextView) hasViews.findViewById(id.twStartAddress));
+        ivCar = ((ImageView) hasViews.findViewById(id.ivCar));
+        {
+            View view = hasViews.findViewById(id.ivMap);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADisplayOnMap_.this.ivMap();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivWalking);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADisplayOnMap_.this.ivWalking();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivBike);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADisplayOnMap_.this.ivBike();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivCloseRouteInfo);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADisplayOnMap_.this.ivCloseRouteInfo();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivCar);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADisplayOnMap_.this.ivCar();
+                    }
+
+                }
+                );
+            }
+        }
         afterViews();
+    }
+
+    @Override
+    public void showProgressDialog() {
+        handler_.post(new Runnable() {
+
+
+            @Override
+            public void run() {
+                ADisplayOnMap_.super.showProgressDialog();
+            }
+
+        }
+        );
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        handler_.post(new Runnable() {
+
+
+            @Override
+            public void run() {
+                ADisplayOnMap_.super.hideProgressDialog();
+            }
+
+        }
+        );
+    }
+
+    @Override
+    public void drawPathToDestination(final String directionMode, final LatLng myLocation, final LatLng destination) {
+        BackgroundExecutor.execute(new BackgroundExecutor.Task("", 0, "") {
+
+
+            @Override
+            public void execute() {
+                try {
+                    ADisplayOnMap_.super.drawPathToDestination(directionMode, myLocation, destination);
+                } catch (Throwable e) {
+                    Thread.getDefaultUncaughtExceptionHandler().uncaughtException(Thread.currentThread(), e);
+                }
+            }
+
+        }
+        );
     }
 
     public static class IntentBuilder_ {

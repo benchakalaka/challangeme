@@ -78,8 +78,8 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:checked="true"
-					android:tag="word"
-					android:text="By word"
+					android:tag="word" 
+					android:text="@string/by_word"
 					android:textColor="@android:color/white" />
 
 				<RadioButton
@@ -87,7 +87,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:tag="type"
-					android:text="By type"
+					android:text="@string/by_type"
 					android:textColor="@android:color/white" />
 			</RadioGroup>
 
@@ -120,7 +120,6 @@
 					android:layout_alignParentLeft="true"
 					android:layout_alignParentRight="true"
 					android:layout_centerVertical="true"
-					android:entries="@array/array_notes_types"
 					android:layout_margin="4dp"
 					android:background="@drawable/button_bg"
 					android:visibility="gone" />
@@ -134,7 +133,7 @@
 					android:layout_alignRight="@+id/spinnerByType"
 					android:visibility="gone"
 					android:layout_alignTop="@+id/spinnerByType"
-					android:src="@drawable/arrow_down" />
+					android:src="@drawable/arrowdown" />
 				
 			</RelativeLayout>
 		</LinearLayout>

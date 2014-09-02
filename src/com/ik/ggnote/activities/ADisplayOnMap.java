@@ -1,15 +1,18 @@
 package com.ik.ggnote.activities;
 
-import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+import org.w3c.dom.Document;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.net.ConnectivityManager;
@@ -20,7 +23,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.devspark.appmsg.AppMsg;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient.ConnectionCallbacks;
@@ -30,13 +38,15 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.ik.ggnote.R;
-import com.ik.ggnote.utils.GPSTracker;
+import com.ik.ggnote.utils.GMapV2Direction;
 import com.ik.ggnote.utils.Utils;
 import com.roomorama.caldroid.CaldroidFragment;
 
@@ -47,9 +57,12 @@ import com.roomorama.caldroid.CaldroidFragment;
  * @author Ihor Karpachev
  */
 
-@EActivity ( R.layout.activity_display_on_map ) public class ADisplayOnMap extends ActionBarActivity implements OnCameraChangeListener , ConnectionCallbacks , OnConnectionFailedListener , OnMarkerClickListener , LocationListener {
+@EActivity ( R.layout.activity_display_on_map ) public class ADisplayOnMap extends ActionBarActivity implements OnMarkerDragListener , OnCameraChangeListener , ConnectionCallbacks , OnConnectionFailedListener , OnMarkerClickListener , LocationListener {
 
      // ---------------------------- VIEVS
+     @ViewById ImageView            ivBike , ivCar , ivWalking , ivMap , ivRouteType , ivCloseRouteInfo;
+     @ViewById TextView             twDistance , twStartAddress , twEndAddress;
+     @ViewById LinearLayout         llBottomMapMenuDescritption;
 
      // ---------------------------- VARIABLES
      // Google map instance
@@ -58,20 +71,21 @@ import com.roomorama.caldroid.CaldroidFragment;
      public static CaldroidFragment dialogCaldroidFragment = new CaldroidFragment();
      // Location client
      private LocationClient         locationClient;
-     // geocoder to represents address to human readable string
-     private Geocoder               geocoder;
      // marker
      private Marker                 locationMarker;
+     // for displaying path on gmap
+     private final GMapV2Direction  routeDrawer            = new GMapV2Direction();
+     // display progress
+     ProgressDialog                 progress;
 
      @AfterViews void afterViews() {
           // obtaining map object
           googleMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.googleMap)).getMap();
+          googleMap.setOnMarkerDragListener(this);
           // enable my location button
           googleMap.setMyLocationEnabled(true);
           // create location manager client
           locationClient = new LocationClient(this, this, this);
-          // set up geocoder
-          geocoder = new Geocoder(this);
           // Inflate your custom layout
           final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar, null);
           // Set up your ActionBar
@@ -86,11 +100,129 @@ import com.roomorama.caldroid.CaldroidFragment;
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setVisibility(View.INVISIBLE);
+          ((TextView) actionBar.getCustomView().findViewById(R.id.text1)).setText(R.string.pinned_position);
+
+          // set listener which will repaint image to some color during click
+          ivBike.setOnTouchListener(Utils.touchListener);
+          ivCar.setOnTouchListener(Utils.touchListener);
+          ivWalking.setOnTouchListener(Utils.touchListener);
+          ivMap.setOnTouchListener(Utils.touchListener);
+
+          // preapare progress dialog
+          progress = new ProgressDialog(this);
+          progress.setMessage(getResources().getString(R.string.loading));
+          progress.setCancelable(true);
+     }
+
+     @Click void ivCloseRouteInfo() {
+          YoYo.with(Techniques.FlipOutX).duration(1200).playOn(llBottomMapMenuDescritption);
+     }
+
+     @Click void ivMap() {
+
+          if ( googleMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL ) {
+               googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+               Utils.showStickyNotification(ADisplayOnMap.this, R.string.map_type_terrain, AppMsg.STYLE_CONFIRM, 1500);
+               return;
+          }
+
+          if ( googleMap.getMapType() == GoogleMap.MAP_TYPE_TERRAIN ) {
+               googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+               Utils.showStickyNotification(ADisplayOnMap.this, R.string.map_type_satellite, AppMsg.STYLE_CONFIRM, 1500);
+               return;
+          }
+
+          if ( googleMap.getMapType() == GoogleMap.MAP_TYPE_SATELLITE ) {
+               googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+               Utils.showStickyNotification(ADisplayOnMap.this, R.string.map_type_normal, AppMsg.STYLE_CONFIRM, 1500);
+               return;
+          }
+     }
+
+     @Click void ivBike() {
+          ivRouteType.setImageResource(R.drawable.bike);
+          Utils.showStickyNotification(ADisplayOnMap.this, R.string.route_type_bike, AppMsg.STYLE_CONFIRM, 1500);
+          drawPathToDestination(GMapV2Direction.MODE_BICYCLING, new LatLng(googleMap.getMyLocation().getLatitude(), googleMap.getMyLocation().getLongitude()), new LatLng(locationMarker.getPosition().latitude, locationMarker.getPosition().longitude));
+     }
+
+     @Click void ivCar() {
+          ivRouteType.setImageResource(R.drawable.car);
+          Utils.showStickyNotification(ADisplayOnMap.this, R.string.route_type_car, AppMsg.STYLE_CONFIRM, 1500);
+          drawPathToDestination(GMapV2Direction.MODE_DRIVING, new LatLng(googleMap.getMyLocation().getLatitude(), googleMap.getMyLocation().getLongitude()), new LatLng(locationMarker.getPosition().latitude, locationMarker.getPosition().longitude));
+     }
+
+     @Click void ivWalking() {
+          ivRouteType.setImageResource(R.drawable.walking);
+          Utils.showStickyNotification(ADisplayOnMap.this, R.string.route_type_walking, AppMsg.STYLE_CONFIRM, 1500);
+          drawPathToDestination(GMapV2Direction.MODE_WALKING, new LatLng(googleMap.getMyLocation().getLatitude(), googleMap.getMyLocation().getLongitude()), new LatLng(locationMarker.getPosition().latitude, locationMarker.getPosition().longitude));
+     }
+
+     private void saveLocation() {
+          if ( null != locationMarker ) {
+               ANoteDetails.note.location.latitude = locationMarker.getPosition().latitude;
+               ANoteDetails.note.location.longitude = locationMarker.getPosition().longitude;
+               ANoteDetails.note.location.address = getResources().getString(R.string.unknown_address);
+               Utils.showCustomToast(this, R.string.location_has_been_saved, R.drawable.ok);
+          }
+          onBackPressed();
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {
-          onBackPressed();
+          saveLocation();
           return super.onOptionsItemSelected(item);
+     }
+
+     @Background void drawPathToDestination(String directionMode, LatLng myLocation, LatLng destination) {
+          showProgressDialog();
+          Document doc = routeDrawer.getDocument(myLocation, destination, directionMode);
+          int duration = routeDrawer.getDurationValue(doc);
+          final String distance = routeDrawer.getDistanceText(doc);
+          final String start_address = routeDrawer.getStartAddress(doc);
+          final String end_address = routeDrawer.getEndAddress(doc);
+
+          ArrayList <LatLng> directionPoint = routeDrawer.getDirection(doc);
+          final PolylineOptions rectLine = new PolylineOptions().width(10).color(getResources().getColor(R.color.route_first_color));
+          final PolylineOptions rectLine2 = new PolylineOptions().width(7).color(getResources().getColor(R.color.route_second_color));
+
+          for ( int i = 0; i < directionPoint.size(); i++ ) {
+               rectLine.add(directionPoint.get(i));
+               rectLine2.add(directionPoint.get(i));
+          }
+
+          ADisplayOnMap.this.runOnUiThread(new Runnable() {
+
+               @Override public void run() {
+
+                    googleMap.clear();
+
+                    createMarker(new LatLng(locationMarker.getPosition().latitude, locationMarker.getPosition().longitude));
+
+                    // white line
+                    googleMap.addPolyline(rectLine);
+                    // smaller blue line
+                    googleMap.addPolyline(rectLine2);
+
+                    twDistance.setText(distance);
+                    twStartAddress.setText("Start address: " + start_address);
+                    twEndAddress.setText("End address: " + end_address);
+                    hideProgressDialog();
+                    llBottomMapMenuDescritption.setVisibility(View.VISIBLE);
+                    YoYo.with(Techniques.FlipOutX).duration(1200).playOn(llBottomMapMenuDescritption);
+               }
+          });
+
+     }
+
+     @UiThread void showProgressDialog() {
+          if ( null != progress && !progress.isShowing() ) {
+               progress.show();
+          }
+     }
+
+     @UiThread void hideProgressDialog() {
+          if ( null != progress && progress.isShowing() ) {
+               progress.dismiss();
+          }
      }
 
      /**
@@ -123,35 +255,21 @@ import com.roomorama.caldroid.CaldroidFragment;
                Utils.showStickyNotification(this, R.string.there_is_no_location, AppMsg.STYLE_INFO, 1000);
                return;
           }
-          LatLng location = null;
-          try {
-               location = new LatLng(ANoteDetails.note.location.latitude, ANoteDetails.note.location.longitude);
-               List <Address> result = geocoder.getFromLocation(ANoteDetails.note.location.latitude, ANoteDetails.note.location.longitude, 1);
-
-               // animate to center of UK
-               animateCamera(location, 12);
-               createMarker(location, result.get(0));
-               // createMarkerWithLocation();
-          } catch (IOException e) {
-               e.printStackTrace();
-               Utils.showStickyNotification(this, R.string.problem_obtaining_address, AppMsg.STYLE_ALERT, 1000);
-               animateCamera(location, 12);
-               createMarker(location, null);
-          }
+          if ( null != locationMarker ) { return; }
+          LatLng location = new LatLng(ANoteDetails.note.location.latitude, ANoteDetails.note.location.longitude);
+          // animate to center of UK
+          animateCamera(location, 12);
+          createMarker(location);
      }
 
-     private void createMarker(LatLng position, Address address) {
+     private void createMarker(LatLng position) {
           // set up marker options
           MarkerOptions markerOptions = new MarkerOptions();
           markerOptions.position(position);
-          if ( null != address ) {
-               markerOptions.title(String.valueOf(GPSTracker.convertAddressToText(address)));
-          } else {
-               markerOptions.title(getResources().getString(R.string.unknown_address));
-          }
+          markerOptions.title(getResources().getString(R.string.unknown_address));
           // set up marker
           locationMarker = googleMap.addMarker(markerOptions);
-          locationMarker.setDraggable(false);
+          locationMarker.setDraggable(true);
           locationMarker.showInfoWindow();
      }
 
@@ -190,5 +308,25 @@ import com.roomorama.caldroid.CaldroidFragment;
      }
 
      @Override public void onStatusChanged(String provider, int status, Bundle extras) {
+     }
+
+     @Override public void onMarkerDrag(Marker arg0) {
+
+     }
+
+     @Override public void onMarkerDragEnd(Marker marker) {
+          Utils.showStickyNotification(this, R.string.position_has_been_changed, AppMsg.STYLE_CONFIRM, 1000);
+          googleMap.clear();
+          createMarker(new LatLng(marker.getPosition().latitude, marker.getPosition().longitude));
+          locationMarker.setTitle(getResources().getString(R.string.unknown_address));
+          locationMarker.hideInfoWindow();
+          locationMarker.showInfoWindow();
+          locationMarker.setTitle(getResources().getString(R.string.unknown_address));
+          locationMarker.hideInfoWindow();
+          locationMarker.showInfoWindow();
+     }
+
+     @Override public void onMarkerDragStart(Marker arg0) {
+
      }
 }

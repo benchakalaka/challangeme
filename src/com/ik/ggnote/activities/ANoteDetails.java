@@ -13,7 +13,6 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,12 +26,7 @@ import com.ik.ggnote.utils.Utils;
      public static ModelNote note;
      // =============================================== VIEWS
      @ViewById TextView      twTime , twNoteType , twDescription;
-
-     @ViewById ImageButton   ibViewDraw;
-     @ViewById ImageButton   ibViewPinOnMap;
-     @ViewById ImageButton   ibViewPinPhoto;
-
-     @ViewById ImageView     ivViewPinPhotoDone , ivNoteType , ivViewPinOnMapDone , ivViewDrawDone;
+     @ViewById ImageView     ibViewPinPhoto , ibViewPinOnMap , ibViewDraw , ivViewPinPhotoDone , ivNoteType , ivViewPinOnMapDone , ivViewDrawDone;
 
      // =============================================== VARIABLES
 
@@ -57,7 +51,12 @@ import com.ik.ggnote.utils.Utils;
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setVisibility(View.INVISIBLE);
-          ((TextView) actionBar.getCustomView().findViewById(R.id.text)).setText(R.string.note_detail);
+          ((TextView) actionBar.getCustomView().findViewById(R.id.text1)).setText(R.string.note_detail);
+
+          ibViewPinPhoto.setOnTouchListener(Utils.touchListener);
+          ibViewPinOnMap.setOnTouchListener(Utils.touchListener);
+          ibViewDraw.setOnTouchListener(Utils.touchListener);
+
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {

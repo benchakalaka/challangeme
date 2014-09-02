@@ -32,7 +32,7 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
 
      // ============================================== VIEWS
      // image on left hand side
-     @ViewById public ImageView image , imageAttached;
+     @ViewById public ImageView image;
      // description of the current note
      @ViewById public TextView  text , twAmountAttached;
      // delete note iv
@@ -58,10 +58,11 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
           if ( isInDeletedMode ) {
                ivDeleteOrOpenNoteDetailRightButton.setBackgroundResource(R.drawable.delete);
           }
+          ivDeleteOrOpenNoteDetailRightButton.setOnTouchListener(Utils.touchListener);
      }
 
-     @Click void imageAttached() {
-          imageAttached.startAnimation(AnimationManager.load(R.anim.fade_in));
+     @Click void twAmountAttached() {
+          twAmountAttached.startAnimation(AnimationManager.load(R.anim.fade_in));
           String attachments = getResources().getString(R.string.you_have_attachments);
 
           Utils.showStickyNotification((Activity) this.context, String.format(attachments, Utils.calculateAttachmentsAmount(note)), AppMsg.STYLE_INFO, 1000);
@@ -87,7 +88,6 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
                twAmountAttached.setText(String.valueOf(amount));
 
                visibility = (0 == amount) ? View.INVISIBLE : View.VISIBLE;
-               imageAttached.setVisibility(visibility);
                twAmountAttached.setVisibility(visibility);
           } else {
                Utils.logw("CListViewItem :: setNote : note == null");
@@ -102,8 +102,15 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
 
                final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(context);
 
-               dialogBuilder.withButton1Text(getResources().getString(android.R.string.ok)).withButton2Text(getResources().getString(R.string.cancel)).withIcon(R.drawable.book).withEffect(Effectstype.Slit).withTitle(getResources().getString(R.string.completeing_item))
-                         .withMessage(getResources().getString(R.string.do_you_want_to_complete_item)).setButton1Click(new View.OnClickListener() {
+               dialogBuilder.withButton1Text(getResources().getString(R.string.cancel)).withButton2Text(getResources().getString(android.R.string.ok)).withIcon(R.drawable.book).withEffect(Effectstype.Slit).withTitle(getResources().getString(R.string.completeing_item))
+                         .withMessage(getResources().getString(R.string.do_you_want_to_complete_item)).setButton1Click(new OnClickListener() {
+
+                              @Override public void onClick(View v) {
+                                   dialogBuilder.dismiss();
+                              }
+                         }).setButton2Click(
+
+                         new View.OnClickListener() {
                               @Override public void onClick(View v) {
                                    YoYo.with(Techniques.FlipOutY).duration(700).withListener(new AnimatorListener() {
 
@@ -124,11 +131,6 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
                                         @Override public void onAnimationCancel(Animator arg0) {
                                         }
                                    }).playOn(CListViewItem.this);
-                                   dialogBuilder.dismiss();
-                              }
-                         }).setButton2Click(new OnClickListener() {
-
-                              @Override public void onClick(View v) {
                                    dialogBuilder.dismiss();
                               }
                          }).show();
@@ -180,8 +182,7 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
           if ( isInDeletedMode ) {
                deleteNote();
           } else {
-               ANoteDetails.note = note;
-               context.startActivity(new Intent(context, ANoteDetails_.class));
+               completeItem();
           }
      }
 
@@ -189,11 +190,9 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
       * Handle click on list item
       */
      @Override public void onClick(View v) {
-          if ( isInDeletedMode ) {
-               ANoteDetails.note = note;
-               context.startActivity(new Intent(context, ANoteDetails_.class));
-          } else {
-               completeItem();
-          }
+          v.startAnimation(AnimationManager.load(R.anim.fade_in));
+          ANoteDetails.note = note;
+          context.startActivity(new Intent(context, ANoteDetails_.class));
+
      }
 }

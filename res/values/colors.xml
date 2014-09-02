@@ -7,4 +7,10 @@
 	<color name="slide_menu_divider_color">#ffffff</color>
 	<color name="ab_background">#3EA055</color>
 	
+	<color name="route_first_color">#ffffff</color>
+	<color name="route_second_color">#5CE6E6</color>
+	<color name="buttons_selected_color_filter">#FF6600</color>
+	
+	
+	
 </resources>

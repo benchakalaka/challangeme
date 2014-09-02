@@ -55,7 +55,7 @@ import com.ik.ggnote.utils.Utils;
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setVisibility(View.INVISIBLE);
-          ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText(R.string.settings);
+          ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text1)).setText(R.string.settings);
           boolean isChecked = appPref.askPassword().getOr(true);
           if ( !isChecked ) {
                rbDontAskPassword.setChecked(true);
@@ -137,5 +137,10 @@ import com.ik.ggnote.utils.Utils;
      @Override public void onClick(View v) {
           Utils.logw("Ask password == " + rbAskPassword.isChecked());
           appPref.edit().askPassword().put(rbAskPassword.isChecked()).apply();
+     }
+
+     @Click void rlNotesOrder() {
+          startActivity(new Intent(ASettings.this, ANotesOrder_.class));
+
      }
 }

@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.ik.ggnote.R.id;
@@ -81,63 +80,18 @@ public final class ACreateNote_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        etDescription = ((EditText) hasViews.findViewById(id.etDescription));
-        ibPinOnMap = ((ImageButton) hasViews.findViewById(id.ibPinOnMap));
-        ivNextDay = ((ImageView) hasViews.findViewById(id.ivNextDay));
-        twDate = ((TextView) hasViews.findViewById(id.twDate));
+        ibPinOnMap = ((ImageView) hasViews.findViewById(id.ibPinOnMap));
+        ivPrevDay = ((ImageView) hasViews.findViewById(id.ivPrevDay));
         ivDrawDone = ((ImageView) hasViews.findViewById(id.ivDrawDone));
         ivPinPhotoDone = ((ImageView) hasViews.findViewById(id.ivPinPhotoDone));
-        ibNoteType = ((ImageButton) hasViews.findViewById(id.ibNoteType));
-        ibDraw = ((ImageButton) hasViews.findViewById(id.ibDraw));
-        ibNoteTypeDone = ((ImageView) hasViews.findViewById(id.ibNoteTypeDone));
-        ibPinPhoto = ((ImageButton) hasViews.findViewById(id.ibPinPhoto));
+        ivNextDay = ((ImageView) hasViews.findViewById(id.ivNextDay));
+        etDescription = ((EditText) hasViews.findViewById(id.etDescription));
+        ibDraw = ((ImageView) hasViews.findViewById(id.ibDraw));
         ivPinOnMapDone = ((ImageView) hasViews.findViewById(id.ivPinOnMapDone));
-        ivPrevDay = ((ImageView) hasViews.findViewById(id.ivPrevDay));
-        {
-            View view = hasViews.findViewById(id.ivPrevDay);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ACreateNote_.this.ivPrevDay();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibPinOnMap);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ACreateNote_.this.ibPinOnMap();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibDraw);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ACreateNote_.this.ibDraw();
-                    }
-
-                }
-                );
-            }
-        }
+        ibNoteType = ((ImageView) hasViews.findViewById(id.ibNoteType));
+        ibPinPhoto = ((ImageView) hasViews.findViewById(id.ibPinPhoto));
+        ibNoteTypeDone = ((ImageView) hasViews.findViewById(id.ibNoteTypeDone));
+        twDate = ((TextView) hasViews.findViewById(id.twDate));
         {
             View view = hasViews.findViewById(id.ivNextDay);
             if (view!= null) {
@@ -147,6 +101,21 @@ public final class ACreateNote_
                     @Override
                     public void onClick(View view) {
                         ACreateNote_.this.ivNextDay();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivPrevDay);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ACreateNote_.this.ivPrevDay();
                     }
 
                 }
@@ -192,6 +161,36 @@ public final class ACreateNote_
                     @Override
                     public void onClick(View view) {
                         ACreateNote_.this.ibNoteType();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibPinOnMap);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ACreateNote_.this.ibPinOnMap();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibDraw);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ACreateNote_.this.ibDraw();
                     }
 
                 }

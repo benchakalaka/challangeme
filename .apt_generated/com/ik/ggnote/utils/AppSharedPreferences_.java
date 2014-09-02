@@ -10,6 +10,8 @@ import android.content.SharedPreferences;
 import org.androidannotations.api.sharedpreferences.BooleanPrefEditorField;
 import org.androidannotations.api.sharedpreferences.BooleanPrefField;
 import org.androidannotations.api.sharedpreferences.EditorHelper;
+import org.androidannotations.api.sharedpreferences.IntPrefEditorField;
+import org.androidannotations.api.sharedpreferences.IntPrefField;
 import org.androidannotations.api.sharedpreferences.SharedPreferencesHelper;
 import org.androidannotations.api.sharedpreferences.StringPrefEditorField;
 import org.androidannotations.api.sharedpreferences.StringPrefField;
@@ -37,6 +39,26 @@ public final class AppSharedPreferences_
         return stringField("email", "");
     }
 
+    public IntPrefField orderNumberEvent() {
+        return intField("orderNumberEvent", 1);
+    }
+
+    public IntPrefField orderNumberReminder() {
+        return intField("orderNumberReminder", 3);
+    }
+
+    public IntPrefField orderNumberSimple() {
+        return intField("orderNumberSimple", 0);
+    }
+
+    public IntPrefField orderNumberUrgent() {
+        return intField("orderNumberUrgent", 2);
+    }
+
+    public IntPrefField orderNumberWork() {
+        return intField("orderNumberWork", 4);
+    }
+
     public StringPrefField password() {
         return stringField("password", "");
     }
@@ -56,6 +78,26 @@ public final class AppSharedPreferences_
 
         public StringPrefEditorField<AppSharedPreferences_.AppSharedPreferencesEditor_> email() {
             return stringField("email");
+        }
+
+        public IntPrefEditorField<AppSharedPreferences_.AppSharedPreferencesEditor_> orderNumberEvent() {
+            return intField("orderNumberEvent");
+        }
+
+        public IntPrefEditorField<AppSharedPreferences_.AppSharedPreferencesEditor_> orderNumberReminder() {
+            return intField("orderNumberReminder");
+        }
+
+        public IntPrefEditorField<AppSharedPreferences_.AppSharedPreferencesEditor_> orderNumberSimple() {
+            return intField("orderNumberSimple");
+        }
+
+        public IntPrefEditorField<AppSharedPreferences_.AppSharedPreferencesEditor_> orderNumberUrgent() {
+            return intField("orderNumberUrgent");
+        }
+
+        public IntPrefEditorField<AppSharedPreferences_.AppSharedPreferencesEditor_> orderNumberWork() {
+            return intField("orderNumberWork");
         }
 
         public StringPrefEditorField<AppSharedPreferences_.AppSharedPreferencesEditor_> password() {

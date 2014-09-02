@@ -3,7 +3,7 @@
 	android:layout_width="fill_parent"
 	android:layout_height="70dp"
 	android:layout_margin="5dp"
-	android:background="@drawable/transparent_inside_and_white_border" 
+	android:background="@drawable/transparent_inside_and_white_border"
 	android:orientation="vertical" >
 
 	<RelativeLayout
@@ -17,6 +17,19 @@
 			android:layout_height="60dp"
 			android:layout_alignParentLeft="true"
 			android:layout_centerVertical="true" />
+
+		<TextView
+			android:id="@+id/twAmountAttached"
+			android:layout_width="30dp"
+			android:layout_height="30dp"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentTop="true"
+			android:background="@drawable/white_circle"
+			android:gravity="center"
+			android:src="@drawable/attach"
+			android:text="2"
+			android:textColor="@android:color/black"
+			android:visibility="visible" />
 	</RelativeLayout>
 
 	<TextView
@@ -35,7 +48,7 @@
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:textColor="@android:color/white"
 		android:textStyle="italic" />
-	
+
 	<ImageView
 		android:id="@+id/ivDeleteOrOpenNoteDetailRightButton"
 		android:layout_width="40dp"
@@ -43,30 +56,7 @@
 		android:layout_alignParentRight="true"
 		android:layout_centerVertical="true"
 		android:layout_margin="5dp"
-		android:background="@drawable/arrow_right"
+		android:src="@drawable/ok3"
 		android:padding="5dp" />
-
-	<ImageView
-		android:id="@+id/imageAttached"
-		android:layout_width="40dp"
-		android:layout_height="40dp"
-		android:layout_alignBottom="@+id/rlImage"
-		android:layout_alignTop="@+id/ivDeleteOrOpenNoteDetailRightButton"
-		android:layout_toLeftOf="@+id/ivDeleteOrOpenNoteDetailRightButton"
-		android:src="@drawable/attach"
-		android:visibility="visible" />
-
-	<TextView
-		android:id="@+id/twAmountAttached"
-		android:layout_width="30dp"
-		android:layout_height="30dp"
-		android:layout_alignParentBottom="true"
-		android:layout_toRightOf="@+id/text"
-		android:background="@drawable/white_circle"
-		android:gravity="center"
-		android:src="@drawable/attach"
-		android:text="2"
-		android:textColor="@android:color/black"
-		android:visibility="visible" />
 
 </RelativeLayout>

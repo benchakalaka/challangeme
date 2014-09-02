@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
+import com.ik.ggnote.utils.AppSharedPreferences_;
 import org.androidannotations.api.SdkVersionHelper;
 import org.androidannotations.api.view.HasViews;
 import org.androidannotations.api.view.OnViewChangedListener;
@@ -41,6 +42,7 @@ public final class AMyNotes_
     }
 
     private void init_(Bundle savedInstanceState) {
+        appPref = new AppSharedPreferences_(this);
         OnViewChangedNotifier.registerOnViewChangedListener(this);
     }
 
@@ -80,14 +82,14 @@ public final class AMyNotes_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        twAmoutFinished = ((TextView) hasViews.findViewById(id.twAmoutFinished));
-        twCompleted = ((TextView) hasViews.findViewById(id.twCompleted));
-        twAmoutNotes = ((TextView) hasViews.findViewById(id.twAmoutNotes));
-        twMyNotes = ((TextView) hasViews.findViewById(id.twMyNotes));
-        ivPrevDay = ((ImageView) hasViews.findViewById(id.ivPrevDay));
-        llMyNotes = ((LinearLayout) hasViews.findViewById(id.llMyNotes));
         ivNextDay = ((ImageView) hasViews.findViewById(id.ivNextDay));
         twDate = ((TextView) hasViews.findViewById(id.twDate));
+        llMyNotes = ((LinearLayout) hasViews.findViewById(id.llMyNotes));
+        ivPrevDay = ((ImageView) hasViews.findViewById(id.ivPrevDay));
+        twAmoutNotes = ((TextView) hasViews.findViewById(id.twAmoutNotes));
+        twCompleted = ((TextView) hasViews.findViewById(id.twCompleted));
+        twAmoutFinished = ((TextView) hasViews.findViewById(id.twAmoutFinished));
+        twMyNotes = ((TextView) hasViews.findViewById(id.twMyNotes));
         {
             View view = hasViews.findViewById(id.ivPrevDay);
             if (view!= null) {
@@ -97,6 +99,36 @@ public final class AMyNotes_
                     @Override
                     public void onClick(View view) {
                         AMyNotes_.this.ivPrevDay();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.twCompleted);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AMyNotes_.this.twCompleted();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivNextDay);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AMyNotes_.this.ivNextDay();
                     }
 
                 }
@@ -127,36 +159,6 @@ public final class AMyNotes_
                     @Override
                     public void onClick(View view) {
                         AMyNotes_.this.twDate();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ivNextDay);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        AMyNotes_.this.ivNextDay();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.twCompleted);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        AMyNotes_.this.twCompleted();
                     }
 
                 }

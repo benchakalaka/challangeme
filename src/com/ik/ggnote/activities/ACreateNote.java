@@ -1,8 +1,11 @@
 package com.ik.ggnote.activities;
 
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import org.androidannotations.annotations.AfterViews;
@@ -27,30 +30,30 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.devspark.appmsg.AppMsg;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.ik.ggnote.R;
 import com.ik.ggnote.constants.ActiveRecord;
 import com.ik.ggnote.constants.Global;
+import com.ik.ggnote.model.ModelNote;
 import com.ik.ggnote.utils.DatabaseUtils;
 import com.ik.ggnote.utils.Utils;
 import com.ik.ggnote.utils.Utils.AnimationManager;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.roomorama.caldroid.CaldroidFragment;
 
 @EActivity ( R.layout.activity_create_note ) public class ACreateNote extends ActionBarActivity implements OnClickListener {
      // ===================================================================================== VIEWS
-     @ViewById ImageButton                                ibDraw , ibPinOnMap , ibPinPhoto , ibNoteType;
-
-     @ViewById ImageView                                  ibNoteTypeDone , ivDrawDone , ivPrevDay , ivNextDay , ivPinOnMapDone , ivPinPhotoDone;
+     @ViewById ImageView                                  ibDraw , ibPinOnMap , ibPinPhoto , ibNoteType , ibNoteTypeDone , ivDrawDone , ivPrevDay , ivNextDay , ivPinOnMapDone , ivPinPhotoDone;
 
      @ViewById EditText                                   etDescription;
      @ViewById TextView                                   twDate;
@@ -105,39 +108,72 @@ import com.roomorama.caldroid.CaldroidFragment;
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.ok);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
-          ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text)).setText(R.string.add_note);
+          ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text1)).setText(R.string.add_note);
 
           progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
           progressDialog.setMessage(getResources().getString(R.string.please_wait));
           progressDialog.setCancelable(true);
+
+          ibDraw.setOnTouchListener(Utils.touchListener);
+          ibPinOnMap.setOnTouchListener(Utils.touchListener);
+          ibPinPhoto.setOnTouchListener(Utils.touchListener);
+          ibNoteType.setOnTouchListener(Utils.touchListener);
      }
 
      /**
       * Change date
       */
      @Click void twDate() {
-          calendar = new CaldroidFragment();
-          calendar.setCaldroidListener(onDateChangeListener);
-          calendar.setArguments(bundle);
-          // highlight dates in calendar with blue color
-          calendar.show(getSupportFragmentManager(), Global.TAG);
+          YoYo.with(Techniques.BounceIn).duration(1000).withListener(new AnimatorListener() {
+
+               @Override public void onAnimationStart(Animator arg0) {
+               }
+
+               @Override public void onAnimationRepeat(Animator arg0) {
+               }
+
+               @Override public void onAnimationEnd(Animator arg0) {
+                    List <ModelNote> notes = DatabaseUtils.getAllNotes();
+                    HashMap <Date, Integer> datesToHighligt = new HashMap <Date, Integer>();
+                    if ( null != notes && !notes.isEmpty() ) {
+                         calendar = new CaldroidFragment();
+                         calendar.setCaldroidListener(onDateChangeListener);
+                         calendar.setArguments(bundle);
+                         for ( ModelNote note : notes ) {
+                              try {
+                                   Date key = DateUtils.parseDate(note.date, DatabaseUtils.DATE_PATTERN_YYYY_MM_DD_HH_MM_SS);
+                                   datesToHighligt.put(key, R.color.ab_background);
+                              } catch (ParseException e) {
+                                   e.printStackTrace();
+                              }
+                         }
+                         calendar.setBackgroundResourceForDates(datesToHighligt);
+                    }
+                    // highlight dates in calendar with blue color
+                    calendar.show(getSupportFragmentManager(), Global.TAG);
+               }
+
+               @Override public void onAnimationCancel(Animator arg0) {
+               }
+          }).playOn(twDate);
      }
 
      @Click void ivPrevDay() {
           ivPrevDay.startAnimation(AnimationManager.load(R.anim.fade_in));
-          twDate.startAnimation(AnimationManager.load(R.anim.rotate_right));
+          twDate.startAnimation(AnimationManager.load(R.anim.rotate));
           currentDate = DateUtils.addDays(currentDate, -1);
           setUpCurrentDate(currentDate);
      }
 
      @Click void ivNextDay() {
           ivNextDay.startAnimation(AnimationManager.load(R.anim.fade_in));
-          twDate.startAnimation(AnimationManager.load(R.anim.rotate_left));
+          twDate.startAnimation(AnimationManager.load(R.anim.rotate));
           currentDate = DateUtils.addDays(currentDate, 1);
           setUpCurrentDate(currentDate);
      }
 
      @Click void ibPinPhoto() {
+          ibPinPhoto.startAnimation(AnimationManager.load(R.anim.fade_in));
           captureCameraPhoto(this);
      }
 
@@ -150,30 +186,10 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      private void playButtonAnimations() {
           try {
-               // TODO: load from resources
-               Animation anim1 = AnimationManager.load(R.anim.bounce);
-               Animation anim2 = AnimationManager.load(R.anim.bounce);
-               Animation anim3 = AnimationManager.load(R.anim.bounce);
-               Animation anim4 = AnimationManager.load(R.anim.bounce);
-
-               anim1.setStartOffset(100);
-               anim2.setStartOffset(200);
-               anim3.setStartOffset(300);
-               anim4.setStartOffset(400);
-
-               anim1.setDuration(800);
-               anim2.setDuration(800);
-               anim3.setDuration(800);
-               anim4.setDuration(800);
-
-               ibDraw.startAnimation(anim1);
-               ibPinOnMap.startAnimation(anim2);
-               ibPinPhoto.startAnimation(anim3);
-               ibNoteType.startAnimation(anim4);
-               // YoYo.with(Techniques.SlideInLeft).delay(400).duration(500).playOn(ibNoteType);
-               // YoYo.with(Techniques.SlideInLeft).delay(600).duration(500).playOn(ibPinPhoto);
-               // YoYo.with(Techniques.SlideInLeft).delay(800).duration(500).playOn(ibPinOnMap);
-               // YoYo.with(Techniques.SlideInLeft).delay(1000).duration(500).playOn(ibDraw);
+               YoYo.with(Techniques.Landing).delay(400).duration(700).playOn(ibNoteType);
+               YoYo.with(Techniques.Landing).delay(500).duration(700).playOn(ibPinPhoto);
+               YoYo.with(Techniques.Landing).delay(600).duration(700).playOn(ibPinOnMap);
+               YoYo.with(Techniques.Landing).delay(700).duration(700).playOn(ibDraw);
           } catch (Exception ex) {
                ex.printStackTrace();
           }
@@ -202,6 +218,7 @@ import com.roomorama.caldroid.CaldroidFragment;
       * Draw and pin drawing to note
       */
      @Click void ibDraw() {
+          ibDraw.startAnimation(AnimationManager.load(R.anim.fade_in));
           startActivity(new Intent(this, ADrawingView_.class));
      }
 
@@ -209,6 +226,7 @@ import com.roomorama.caldroid.CaldroidFragment;
       * Select location and pin to note
       */
      @Click void ibPinOnMap() {
+          ibPinOnMap.startAnimation(AnimationManager.load(R.anim.fade_in));
           progressDialog.show();
           startActivity(new Intent(this, AMap_.class));
           progressDialog.dismiss();
@@ -297,10 +315,12 @@ import com.roomorama.caldroid.CaldroidFragment;
      }
 
      @Click void ibNoteType() {
+          ibNoteType.startAnimation(AnimationManager.load(R.anim.fade_in));
           showNoteTypePopup();
      }
 
      private void showNoteTypePopup() {
+
           final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
           dialogBuilder.setContentView(R.layout.dialog_type_of_note);
 
@@ -349,20 +369,21 @@ import com.roomorama.caldroid.CaldroidFragment;
      @Override public void onClick(View v) {
           switch (v.getId()) {
                case R.id.ivRightOkButton:
-                    // TODO : load from resources androidannootaiioton
-                    Animation animation = AnimationManager.load(R.anim.bounce);
-                    animation.setAnimationListener(new AnimationListener() {
-                         @Override public void onAnimationStart(Animation animation) {
+                    YoYo.with(Techniques.BounceIn).duration(500).withListener(new AnimatorListener() {
+
+                         @Override public void onAnimationStart(Animator arg0) {
                          }
 
-                         @Override public void onAnimationRepeat(Animation animation) {
+                         @Override public void onAnimationRepeat(Animator arg0) {
                          }
 
-                         @Override public void onAnimationEnd(Animation animation) {
+                         @Override public void onAnimationEnd(Animator arg0) {
                               ibCreateNote();
                          }
-                    });
-                    getSupportActionBar().getCustomView().findViewById(R.id.ivRightOkButton).startAnimation(animation);
+
+                         @Override public void onAnimationCancel(Animator arg0) {
+                         }
+                    }).playOn(v);
 
                     break;
           }

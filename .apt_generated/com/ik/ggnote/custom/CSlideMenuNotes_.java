@@ -69,29 +69,14 @@ public final class CSlideMenuNotes_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        twSettings = ((TextView) hasViews.findViewById(id.twSettings));
+        logout = ((RelativeLayout) hasViews.findViewById(id.logout));
+        twNotes = ((TextView) hasViews.findViewById(id.twNotes));
         filter = ((RelativeLayout) hasViews.findViewById(id.filter));
         settings = ((RelativeLayout) hasViews.findViewById(id.settings));
-        twNotes = ((TextView) hasViews.findViewById(id.twNotes));
-        logout = ((RelativeLayout) hasViews.findViewById(id.logout));
-        twAmoutFinished = ((TextView) hasViews.findViewById(id.twAmoutFinished));
+        twSettings = ((TextView) hasViews.findViewById(id.twSettings));
         twAmoutNotes = ((TextView) hasViews.findViewById(id.twAmoutNotes));
         notes = ((RelativeLayout) hasViews.findViewById(id.notes));
-        {
-            View view = hasViews.findViewById(id.settings);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        CSlideMenuNotes_.this.settings();
-                    }
-
-                }
-                );
-            }
-        }
+        twAmoutFinished = ((TextView) hasViews.findViewById(id.twAmoutFinished));
         {
             View view = hasViews.findViewById(id.notes);
             if (view!= null) {
@@ -131,6 +116,21 @@ public final class CSlideMenuNotes_
                     @Override
                     public void onClick(View view) {
                         CSlideMenuNotes_.this.logout();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.settings);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        CSlideMenuNotes_.this.settings();
                     }
 
                 }

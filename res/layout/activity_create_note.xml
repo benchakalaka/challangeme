@@ -70,10 +70,11 @@
 	<LinearLayout
 		android:id="@+id/llBottomMenu"
 		android:layout_width="match_parent"
-		android:layout_height="100dp"
+		android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
+		android:background="@color/ab_background"
 		android:clipChildren="false"
 		android:orientation="horizontal" >
 
@@ -83,13 +84,14 @@
 			android:layout_weight="1"
 			android:gravity="center" >
 
-			<ImageButton
+			<ImageView
 				android:id="@+id/ibDraw"
 				android:layout_width="70dp"
 				android:layout_height="70dp"
-				android:background="@drawable/drawing"
+				android:layout_margin="10dp"
+				android:paddingBottom="3dp"
 				android:scaleType="fitXY"
-				android:src="@drawable/button_bg"
+				android:src="@drawable/drawing"
 				android:textColor="@android:color/white" />
 
 			<ImageView
@@ -108,11 +110,12 @@
 			android:layout_weight="1"
 			android:gravity="center" >
 
-			<ImageButton
+			<ImageView
 				android:id="@+id/ibPinOnMap"
 				android:layout_width="70dp"
 				android:layout_height="70dp"
-				android:background="@drawable/button_bg"
+				android:layout_margin="10dp"
+				android:paddingBottom="3dp"
 				android:scaleType="fitXY"
 				android:src="@drawable/marker"
 				android:textColor="@android:color/white" />
@@ -133,13 +136,14 @@
 			android:layout_weight="1"
 			android:gravity="center" >
 
-			<ImageButton
+			<ImageView
 				android:id="@+id/ibPinPhoto"
 				android:layout_width="70dp"
 				android:layout_height="70dp"
-				android:background="@drawable/camera"
+				android:layout_margin="10dp"
+				android:paddingBottom="3dp"
 				android:scaleType="fitXY"
-				android:src="@drawable/button_bg" />
+				android:src="@drawable/camera" />
 
 			<ImageView
 				android:id="@+id/ivPinPhotoDone"
@@ -157,11 +161,12 @@
 			android:layout_weight="1"
 			android:gravity="center" >
 
-			<ImageButton
+			<ImageView
 				android:id="@+id/ibNoteType"
 				android:layout_width="70dp"
 				android:layout_height="70dp"
-				android:background="@drawable/button_bg"
+				android:layout_margin="10dp"
+				android:paddingBottom="3dp"
 				android:scaleType="fitXY"
 				android:src="@drawable/priority" />
 

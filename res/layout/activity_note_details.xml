@@ -76,26 +76,24 @@
 	<LinearLayout
 		android:id="@+id/llBottomMenuDetails"
 		android:layout_width="match_parent"
-		android:layout_height="100dp"
+		android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true"
+		android:background="@color/ab_background"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
-		android:layout_margin="10dp"
 		android:clipChildren="false"
 		android:orientation="horizontal" >
 
 		<RelativeLayout
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_margin="15dp"
+			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:gravity="center" >
 
-			<ImageButton
+			<ImageView
 				android:id="@+id/ibViewDraw"
-				android:layout_width="70dp"
-				android:layout_height="70dp"
-				android:background="@drawable/button_bg"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
 				android:scaleType="fitXY"
 				android:src="@drawable/drawing"
 				android:textColor="@android:color/white" />
@@ -113,16 +111,14 @@
 
 		<RelativeLayout
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_margin="15dp"
+			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:gravity="center" >
 
-			<ImageButton
+			<ImageView
 				android:id="@+id/ibViewPinOnMap"
-				android:layout_width="70dp"
-				android:layout_height="70dp"
-				android:background="@drawable/button_bg"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
 				android:scaleType="fitXY"
 				android:src="@drawable/marker"
 				android:textColor="@android:color/white" />
@@ -139,16 +135,14 @@
 
 		<RelativeLayout
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_margin="15dp"
+			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:gravity="center" >
 
-			<ImageButton
+			<ImageView
 				android:id="@+id/ibViewPinPhoto"
-				android:layout_width="70dp"
-				android:layout_height="70dp"
-				android:background="@drawable/button_bg"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
 				android:scaleType="fitXY"
 				android:src="@drawable/camera"
 				android:textColor="@android:color/white" />

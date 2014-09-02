@@ -15,8 +15,8 @@
 	<string name="app_name">GGNote</string>
 	<string name="hint">hint</string>
 	<string name="failed">failed</string>
-	<string name="clear_canvas">clear_canvas</string>
-	<string name="everything_will_be_clear">everything_will_be_clear</string>
+	<string name="clear_canvas">Clear canvas</string>
+	<string name="everything_will_be_clear">All drawing will be cleared!</string>
 	<string name="choose_color_saturation_opacity">Choose color/saturation value/opacity/saturation</string>
 
 	<!-- Login screen -->
@@ -92,7 +92,7 @@
 	<string name="completed">Completed</string>
 	<string name="add_note">Add note</string>
 	<string name="filter">Filter</string>
-	<string name="logout">logout</string>
+	<string name="logout">Logout</string>
 	<string name="simple_note_type">Simple</string>
 	<string name="event_note_type">Event</string>
 	<string name="urgent_note_type">Urgent</string>
@@ -106,27 +106,37 @@
 	<string name="attached_position">Atached position</string>
 	<string name="type_of_note">Type of notes</string>
 	<string name="do_you_really_want_logout">Do you really want logout?</string>
+	<string name="do_you_really_want_clear_canvas">Do you really want clear canvas?</string>
 	<string name="do_you_want_to_be_asked_password">Fill password automatically?</string>
 	<string name="yes">Yes</string>
-	<string name="no">No</string> 
+	<string name="no">No</string>
 	<string name="password_filled_automatically">Password filled automatically</string>
 	<string name="pick_color">Pick color from palette</string>
 	<string name="opacity_level">Opacity level</string>
 	<string name="saturation_level">Saturation level</string>
 	<string name="you_have_attachments">You have %s attachemnt(s)</string>
+	<string name="you_are_here">You are here</string>
+	<string name="by_word">By word</string>
+	<string name="by_type">By type</string>
+	<string name="change_notes_order">Notes order</string>
+	<string name="is_last_item">Item is last</string>
+	<string name="is_first_item">Item is first</string>
+	<string name="this_type_will_be_displayed_first">This note type will be displayed first</string>
+	<string name="this_type_will_be_displayed_second">This note type will be displayed second</string>
+	<string name="this_type_will_be_displayed_third">This note type will be displayed third</string>
+	<string name="this_type_will_be_displayed_fourth">This note type will be displayed fourth</string>
+	<string name="this_type_will_be_displayed_fifth">This note type will be displayed fifth</string>
+	<string name="pinned_position">Pinned position</string>
+	<string name="position_has_been_changed">Position has been changed</string>
+	<string name="map_type_terrain">Map type - terrain</string>
+	<string name="map_type_satellite">Map type - satellite</string>
+	<string name="map_type_normal">Map type - normal</string>
+	<string name="route_type_walking">Walking route</string>
+	<string name="route_type_car">Car route</string>
+	<string name="route_type_bike">Bike route</string>
 
 	<!-- STUBS -->
-
 	
-	
-	<string name="frsdfg">Twww</string>
-	<string name="frsdfsadfg">Twww</string>
-	<string name="fsdrg">Twww</string>
-	<string name="frre">Twww</string>
-	<string name="frrtyg">Twww</string>
-	<string name="frsgerwg">Twww</string>
-	<string name="frwerfdsg">Twww</string>
-	<string name="fwergfdrg">Twww</string>
 	<string name="frsdfsew32g">Twww</string>
 	<string name="frwert32g">Twww</string>
 	<string name="frgsdfg324">Twww</string>

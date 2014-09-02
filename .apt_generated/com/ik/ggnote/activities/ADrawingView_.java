@@ -81,57 +81,56 @@ public final class ADrawingView_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ibShapesCircle = ((ImageButton) hasViews.findViewById(id.ibShapesCircle));
-        ibColour4 = ((ImageButton) hasViews.findViewById(id.ibColour4));
-        svBrushColour = ((ScrollView) hasViews.findViewById(id.svBrushColour));
-        ibMedium = ((ImageButton) hasViews.findViewById(id.ibMedium));
-        svDrawingSettings = ((ScrollView) hasViews.findViewById(id.svDrawingSettings));
-        svDrawShapes = ((ScrollView) hasViews.findViewById(id.svDrawShapes));
-        ivBrushColoursDone = ((ImageView) hasViews.findViewById(id.ivBrushColoursDone));
-        ibColour9 = ((ImageButton) hasViews.findViewById(id.ibColour9));
+        ibColour14 = ((ImageButton) hasViews.findViewById(id.ibColour14));
+        ibColour6 = ((ImageButton) hasViews.findViewById(id.ibColour6));
+        ibColour15 = ((ImageButton) hasViews.findViewById(id.ibColour15));
+        ibDrawingSettings = ((ImageButton) hasViews.findViewById(id.ibDrawingSettings));
+        ibShapesFreeDrawing = ((ImageButton) hasViews.findViewById(id.ibShapesFreeDrawing));
+        ibColour12 = ((ImageButton) hasViews.findViewById(id.ibColour12));
         ibColour10 = ((ImageButton) hasViews.findViewById(id.ibColour10));
         ibThin = ((ImageButton) hasViews.findViewById(id.ibThin));
-        ibColour8 = ((ImageButton) hasViews.findViewById(id.ibColour8));
-        ibRedo = ((ImageButton) hasViews.findViewById(id.ibRedo));
-        ibColour14 = ((ImageButton) hasViews.findViewById(id.ibColour14));
-        ibShapesTriangle = ((ImageButton) hasViews.findViewById(id.ibShapesTriangle));
-        ibDrawText = ((ImageButton) hasViews.findViewById(id.ibDrawText));
-        ibDrawingSettingsDone = ((ImageView) hasViews.findViewById(id.ibDrawingSettingsDone));
-        ibColour12 = ((ImageButton) hasViews.findViewById(id.ibColour12));
-        ibColour13 = ((ImageButton) hasViews.findViewById(id.ibColour13));
-        ibColour11 = ((ImageButton) hasViews.findViewById(id.ibColour11));
-        ibColour7 = ((ImageButton) hasViews.findViewById(id.ibColour7));
-        ibClearAll = ((ImageButton) hasViews.findViewById(id.ibClearAll));
-        ibColour3 = ((ImageButton) hasViews.findViewById(id.ibColour3));
-        ibColour2 = ((ImageButton) hasViews.findViewById(id.ibColour2));
-        ibColour17 = ((ImageButton) hasViews.findViewById(id.ibColour17));
-        ibShapesLine = ((ImageButton) hasViews.findViewById(id.ibShapesLine));
-        cDrawingView = ((CDrawingView) hasViews.findViewById(id.cDrawingView));
-        ibColorPicker = ((ImageButton) hasViews.findViewById(id.ibColorPicker));
-        ibColour15 = ((ImageButton) hasViews.findViewById(id.ibColour15));
-        ibColour5 = ((ImageButton) hasViews.findViewById(id.ibColour5));
-        ibColour16 = ((ImageButton) hasViews.findViewById(id.ibColour16));
-        ibDrawingSettings = ((ImageButton) hasViews.findViewById(id.ibDrawingSettings));
-        ibShapes = ((ImageButton) hasViews.findViewById(id.ibShapes));
-        ibShapesFreeDrawing = ((ImageButton) hasViews.findViewById(id.ibShapesFreeDrawing));
-        ibThick = ((ImageButton) hasViews.findViewById(id.ibThick));
-        ivColorAndShape = ((ImageView) hasViews.findViewById(id.ivColorAndShape));
-        ibBrushColours = ((ImageButton) hasViews.findViewById(id.ibBrushColours));
-        ibEraser = ((ImageButton) hasViews.findViewById(id.ibEraser));
         ibUndo = ((ImageButton) hasViews.findViewById(id.ibUndo));
-        ivShapesDone = ((ImageView) hasViews.findViewById(id.ivShapesDone));
-        ibColour1 = ((ImageButton) hasViews.findViewById(id.ibColour1));
+        ibEraser = ((ImageButton) hasViews.findViewById(id.ibEraser));
+        ivColorAndShape = ((ImageView) hasViews.findViewById(id.ivColorAndShape));
+        svBrushColour = ((ScrollView) hasViews.findViewById(id.svBrushColour));
+        ibClearAll = ((ImageButton) hasViews.findViewById(id.ibClearAll));
         ibShapesRectangle = ((ImageButton) hasViews.findViewById(id.ibShapesRectangle));
-        ibColour6 = ((ImageButton) hasViews.findViewById(id.ibColour6));
+        ibColour4 = ((ImageButton) hasViews.findViewById(id.ibColour4));
+        ibColour7 = ((ImageButton) hasViews.findViewById(id.ibColour7));
+        cDrawingView = ((CDrawingView) hasViews.findViewById(id.cDrawingView));
+        ibThick = ((ImageButton) hasViews.findViewById(id.ibThick));
+        ibColour13 = ((ImageButton) hasViews.findViewById(id.ibColour13));
+        ibColorPicker = ((ImageButton) hasViews.findViewById(id.ibColorPicker));
+        ibMedium = ((ImageButton) hasViews.findViewById(id.ibMedium));
+        svDrawShapes = ((ScrollView) hasViews.findViewById(id.svDrawShapes));
+        ibColour1 = ((ImageButton) hasViews.findViewById(id.ibColour1));
+        ibColour3 = ((ImageButton) hasViews.findViewById(id.ibColour3));
+        ivBrushColoursDone = ((ImageView) hasViews.findViewById(id.ivBrushColoursDone));
+        ibColour9 = ((ImageButton) hasViews.findViewById(id.ibColour9));
+        ibBrushColours = ((ImageButton) hasViews.findViewById(id.ibBrushColours));
+        ibRedo = ((ImageButton) hasViews.findViewById(id.ibRedo));
+        ibShapesTriangle = ((ImageButton) hasViews.findViewById(id.ibShapesTriangle));
+        ibColour8 = ((ImageButton) hasViews.findViewById(id.ibColour8));
+        svDrawingSettings = ((ScrollView) hasViews.findViewById(id.svDrawingSettings));
+        ibShapesLine = ((ImageButton) hasViews.findViewById(id.ibShapesLine));
+        ibColour16 = ((ImageButton) hasViews.findViewById(id.ibColour16));
+        ivShapesDone = ((ImageView) hasViews.findViewById(id.ivShapesDone));
+        ibColour2 = ((ImageButton) hasViews.findViewById(id.ibColour2));
+        ibColour5 = ((ImageButton) hasViews.findViewById(id.ibColour5));
+        ibColour17 = ((ImageButton) hasViews.findViewById(id.ibColour17));
+        ibColour11 = ((ImageButton) hasViews.findViewById(id.ibColour11));
+        ibShapes = ((ImageButton) hasViews.findViewById(id.ibShapes));
+        ibDrawingSettingsDone = ((ImageView) hasViews.findViewById(id.ibDrawingSettingsDone));
+        ibShapesCircle = ((ImageButton) hasViews.findViewById(id.ibShapesCircle));
         {
-            View view = hasViews.findViewById(id.ibThick);
+            View view = hasViews.findViewById(id.ibShapesTriangle);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ADrawingView_.this.ibThick();
+                        ADrawingView_.this.ibShapesTriangle();
                     }
 
                 }
@@ -139,14 +138,14 @@ public final class ADrawingView_
             }
         }
         {
-            View view = hasViews.findViewById(id.ibShapesFreeDrawing);
+            View view = hasViews.findViewById(id.ibRedo);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ADrawingView_.this.ibShapesFreeDrawing();
+                        ADrawingView_.this.ibRedo();
                     }
 
                 }
@@ -154,14 +153,29 @@ public final class ADrawingView_
             }
         }
         {
-            View view = hasViews.findViewById(id.ibShapesLine);
+            View view = hasViews.findViewById(id.ibShapesRectangle);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ADrawingView_.this.ibShapesLine();
+                        ADrawingView_.this.ibShapesRectangle();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibBrushColours);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADrawingView_.this.ibBrushColours();
                     }
 
                 }
@@ -184,6 +198,66 @@ public final class ADrawingView_
             }
         }
         {
+            View view = hasViews.findViewById(id.ibThick);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADrawingView_.this.ibThick();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibUndo);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADrawingView_.this.ibUndo();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibShapesFreeDrawing);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADrawingView_.this.ibShapesFreeDrawing();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibEraser);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADrawingView_.this.ibEraser();
+                    }
+
+                }
+                );
+            }
+        }
+        {
             View view = hasViews.findViewById(id.ibShapesCircle);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
@@ -199,14 +273,14 @@ public final class ADrawingView_
             }
         }
         {
-            View view = hasViews.findViewById(id.ibDrawText);
+            View view = hasViews.findViewById(id.ibDrawingSettings);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ADrawingView_.this.ibDrawText();
+                        ADrawingView_.this.ibDrawingSettings();
                     }
 
                 }
@@ -244,111 +318,6 @@ public final class ADrawingView_
             }
         }
         {
-            View view = hasViews.findViewById(id.ibBrushColours);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADrawingView_.this.ibBrushColours();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibEraser);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADrawingView_.this.ibEraser();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibShapesTriangle);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADrawingView_.this.ibShapesTriangle();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibShapesRectangle);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADrawingView_.this.ibShapesRectangle();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibDrawingSettings);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADrawingView_.this.ibDrawingSettings();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibUndo);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADrawingView_.this.ibUndo();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibRedo);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADrawingView_.this.ibRedo();
-                    }
-
-                }
-                );
-            }
-        }
-        {
             View view = hasViews.findViewById(id.ibColorPicker);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
@@ -357,6 +326,21 @@ public final class ADrawingView_
                     @Override
                     public void onClick(View view) {
                         ADrawingView_.this.ibColorPicker();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibShapesLine);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADrawingView_.this.ibShapesLine();
                     }
 
                 }

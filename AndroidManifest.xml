@@ -121,6 +121,13 @@
 			android:screenOrientation="portrait"
 			android:theme="@style/Theme.AppCompat.Light" >
 		</activity>
+		
+		<activity
+			android:name="com.ik.ggnote.activities.ANotesOrder_"
+			android:label="@string/app_name"
+			android:screenOrientation="portrait"
+			android:theme="@style/Theme.AppCompat.Light" >
+		</activity>
 	</application>
 
 </manifest>

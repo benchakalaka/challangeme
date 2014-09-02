@@ -17,11 +17,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.devspark.appmsg.AppMsg;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.ik.ggnote.R;
@@ -30,6 +30,8 @@ import com.ik.ggnote.utils.AppSharedPreferences_;
 import com.ik.ggnote.utils.Utils;
 import com.ik.ggnote.utils.Utils.AnimationManager;
 import com.kristijandraca.backgroundmaillibrary.BackgroundMail;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.Animator.AnimatorListener;
 
 @EActivity ( R.layout.activity_start ) public class AStart extends ActionBarActivity implements OnClickListener {
 
@@ -62,7 +64,7 @@ import com.kristijandraca.backgroundmaillibrary.BackgroundMail;
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.login);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
-          ((TextView) actionBar.getCustomView().findViewById(R.id.text)).setText(R.string.app_name);
+          ((TextView) actionBar.getCustomView().findViewById(R.id.text1)).setText(R.string.app_name);
 
           progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
           progressDialog.setMessage(getResources().getString(R.string.please_wait));
@@ -113,7 +115,7 @@ import com.kristijandraca.backgroundmaillibrary.BackgroundMail;
      }
 
      @Click void twResetPassword() {
-          twResetPassword.startAnimation(AnimationManager.load(R.anim.rotate_right));
+          twResetPassword.startAnimation(AnimationManager.load(R.anim.rotate));
           BackgroundMail bm = new BackgroundMail(this);
           bm.setGmailUserName("benchakalaka@gmail.com");
           bm.setGmailPassword("rhtyltktr260690ben");
@@ -162,20 +164,23 @@ import com.kristijandraca.backgroundmaillibrary.BackgroundMail;
      @Override public void onClick(View v) {
           switch (v.getId()) {
                case R.id.ivRightOkButton:
-                    Animation anim = AnimationManager.load(R.anim.bounce);
-                    anim.setAnimationListener(new AnimationListener() {
 
-                         @Override public void onAnimationStart(Animation animation) {
+                    YoYo.with(Techniques.BounceIn).duration(500).withListener(new AnimatorListener() {
+
+                         @Override public void onAnimationStart(Animator arg0) {
                          }
 
-                         @Override public void onAnimationRepeat(Animation animation) {
+                         @Override public void onAnimationRepeat(Animator arg0) {
                          }
 
-                         @Override public void onAnimationEnd(Animation animation) {
+                         @Override public void onAnimationEnd(Animator arg0) {
                               login();
                          }
-                    });
-                    v.startAnimation(anim);
+
+                         @Override public void onAnimationCancel(Animator arg0) {
+                         }
+                    }).playOn(v);
+
                     break;
           }
 

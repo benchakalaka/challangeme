@@ -7,11 +7,17 @@ import java.util.Date;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -28,7 +34,30 @@ import com.ik.ggnote.constants.Global;
 import com.ik.ggnote.model.ModelNote;
 
 public class Utils {
-     private final static SimpleDateFormat dateFormat = new SimpleDateFormat();
+
+     private final static SimpleDateFormat dateFormat    = new SimpleDateFormat();
+
+     public static OnTouchListener         touchListener = new OnTouchListener() {
+
+                                                              @Override public boolean onTouch(View v, MotionEvent event) {
+                                                                   if ( event.getAction() == MotionEvent.ACTION_DOWN ) {
+                                                                        Drawable myIcon = ((ImageView) v).getDrawable(); // ActiveRecord.context.getResources().getDrawable(R.drawable.bike);
+
+                                                                        ColorFilter filter = new LightingColorFilter(ActiveRecord.context.getResources().getColor(R.color.buttons_selected_color_filter), ActiveRecord.context.getResources()
+                                                                                  .getColor(R.color.buttons_selected_color_filter));
+                                                                        myIcon.setColorFilter(filter);
+                                                                        ((ImageView) v).setImageDrawable(myIcon);
+                                                                   }
+
+                                                                   if ( event.getAction() == MotionEvent.ACTION_UP ) {
+                                                                        Drawable myIcon = ((ImageView) v).getDrawable();
+                                                                        ColorFilter filter = new LightingColorFilter(Color.WHITE, Color.WHITE);
+                                                                        myIcon.setColorFilter(filter);
+                                                                        ((ImageView) v).setImageDrawable(myIcon);
+                                                                   }
+                                                                   return false;
+                                                              }
+                                                         };
 
      /**
       * @param monthNumber

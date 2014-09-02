@@ -10,10 +10,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
@@ -49,30 +46,31 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
 @EActivity ( R.layout.activity_drawview ) public class ADrawingView extends ActionBarActivity implements OnClickListener , OnColorChangedListener , OnOpacityChangedListener , OnSaturationChangedListener {
 
      // --------------------------------- VIEWS
-     @ViewById ImageButton       ibShapesCircle , ibShapesRectangle , ibShapesTriangle , ibShapesFreeDrawing , ibDrawText , ibShapesLine;
+     @ViewById ImageButton      ibShapesCircle , ibShapesRectangle , ibShapesTriangle , ibShapesFreeDrawing , ibShapesLine;
 
-     @ViewById ImageButton       ibColour1 , ibColour2 , ibColour3 , ibColour4 , ibColour5 , ibColour6 , ibColour7 , ibColour8 , ibColour9 , ibColour10 , ibColour11 , ibColour12 , ibColour13 , ibColour14 , ibColour15 , ibColour16 , ibColour17 , ibColorPicker;
-     @ViewById ImageButton       ibClearAll , ibRedo , ibUndo , ibThick , ibMedium , ibThin , ibEraser;
+     @ViewById ImageButton      ibColour1 , ibColour2 , ibColour3 , ibColour4 , ibColour5 , ibColour6 , ibColour7 , ibColour8 , ibColour9 , ibColour10 , ibColour11 , ibColour12 , ibColour13 , ibColour14 , ibColour15 , ibColour16 , ibColour17 , ibColorPicker;
+     @ViewById ImageButton      ibClearAll , ibRedo , ibUndo , ibThick , ibMedium , ibThin , ibEraser;
 
-     @ViewById ImageButton       ibBrushColours , ibDrawingSettings , ibShapes;
+     @ViewById ImageButton      ibBrushColours , ibDrawingSettings , ibShapes;
 
-     @ViewById ScrollView        svDrawingSettings , svBrushColour , svDrawShapes;
+     @ViewById ScrollView       svDrawingSettings , svBrushColour , svDrawShapes;
 
-     @ViewById ImageView         ivShapesDone , ivBrushColoursDone , ibDrawingSettingsDone , ivColorAndShape;
+     @ViewById ImageView        ivShapesDone , ivBrushColoursDone , ibDrawingSettingsDone , ivColorAndShape;
 
      // canvas
-     @ViewById CDrawingView      cDrawingView;
+     @ViewById CDrawingView     cDrawingView;
 
      // colorpicker dialog
-     private Dialog              dialogChangeColour;
-     // dialog builder
-     private AlertDialog.Builder builder;
+     private Dialog             dialogChangeColour;
      // color picker view
-     private ColorPicker         picker;
+     private ColorPicker        picker;
      // indicates level of saturation and opacity in change color dialog
-     private TextView            twSaturationBar , twOpacityBar;
+     private TextView           twSaturationBar , twOpacityBar;
 
-     private int                 colorToSet;
+     private int                colorToSet;
+
+     // Saving dialog
+     private NiftyDialogBuilder dialogBuilder;
 
      @AfterViews void afterViews() {
           cDrawingView.setBrushSize(5);
@@ -154,7 +152,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.attach);
-          ((TextView) actionBar.getCustomView().findViewById(R.id.text)).setText(R.string.attached_drawing);
+          ((TextView) actionBar.getCustomView().findViewById(R.id.text1)).setText(R.string.attached_drawing);
 
           try {
                if ( null != ActiveRecord.currentNote.pathToDrawing ) {
@@ -170,6 +168,14 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           } catch (Exception e) {
                e.printStackTrace();
           }
+
+          dialogBuilder = new NiftyDialogBuilder(this);
+     }
+
+     @Override protected void onPause() {
+          super.onPause();
+          dialogBuilder.dismiss();
+
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -178,7 +184,6 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
      }
 
      private void onBackClick() {
-          final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
           dialogBuilder.withButton1Text(getResources().getString(android.R.string.cancel)).withButton2Text(getResources().getString(R.string.save)).withIcon(R.drawable.warning).withEffect(Effectstype.Slit).withTitle(getResources().getString(R.string.drawing_has_not_been_saved))
                     .withMessage(getResources().getString(R.string.save_drawing)).setButton1Click(new View.OnClickListener() {
                          @Override public void onClick(View v) {
@@ -243,14 +248,9 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           view.setVisibility(visibility);
      }
 
-     @Click void ibDrawText() {
-          cDrawingView.disableEraserMode();
-          ibDrawText.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
-     }
-
      @Click void ibColorPicker() {
           ibColorPicker.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
-          Utils.showStickyNotification(ADrawingView.this, R.string.choose_custom_color, AppMsg.STYLE_ALERT, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.choose_custom_color, AppMsg.STYLE_CONFIRM, 1000);
           try {
                picker.setOldCenterColor(cDrawingView.getCurrentColor());
                picker.setColor(cDrawingView.getCurrentColor());
@@ -261,24 +261,22 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
      }
 
      @Click void ibClearAll() {
-          builder = new Builder(ADrawingView.this);
-          builder.setTitle(getResources().getString(R.string.clear_canvas));
-          builder.setMessage(getResources().getString(R.string.everything_will_be_clear)).setIcon(R.drawable.blank);
-          builder.setPositiveButton(getResources().getString(android.R.string.yes), new DialogInterface.OnClickListener() {
-               @Override public void onClick(DialogInterface dialog, int which) {
+
+          dialogBuilder.withButton1Text(getResources().getString(android.R.string.cancel)).withButton2Text(getResources().getString(android.R.string.yes)).withIcon(R.drawable.warning).withEffect(Effectstype.Slit).withTitle(getResources()
+                    .getString(R.string.everything_will_be_clear)).withMessage(getResources().getString(R.string.do_you_really_want_clear_canvas)).setButton1Click(new View.OnClickListener() {
+               @Override public void onClick(View v) {
+                    dialogBuilder.dismiss();
+               }
+          }).setButton2Click(new OnClickListener() {
+               @Override public void onClick(View v) {
                     cDrawingView.disableEraserMode();
                     cDrawingView.clearAll();
                     ibClearAll.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
-                    Utils.showStickyNotification(ADrawingView.this, R.string.clear_canvas, AppMsg.STYLE_ALERT, 1000);
-                    dialog.dismiss();
+                    Utils.showStickyNotification(ADrawingView.this, R.string.clear_canvas, AppMsg.STYLE_CONFIRM, 1000);
+                    dialogBuilder.dismiss();
                }
-          });
-          builder.setNegativeButton(getResources().getString(android.R.string.no), new DialogInterface.OnClickListener() {
-               @Override public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-               }
-          });
-          builder.create().show();
+          }).show();
+
      }
 
      @Click void ibEraser() {
@@ -377,7 +375,12 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           }
           cDrawingView.disableEraserMode();
           int color = Color.parseColor(v.getTag().toString());
-          ivColorAndShape.setBackgroundColor(color);
+          // if color white -> image become invisible, becouse it's white as well, so display black background and white image
+          if ( color == Color.WHITE ) {
+               ivColorAndShape.setBackgroundColor(Color.TRANSPARENT);
+          } else {
+               ivColorAndShape.setBackgroundColor(color);
+          }
           cDrawingView.setColor(color);
           v.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
           unselectAllColorButtons();

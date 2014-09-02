@@ -113,5 +113,25 @@
 	<string name="opacity_level">Уровень прозрачности</string>
 	<string name="saturation_level">Уровень насыщенности</string>
 	<string name="you_have_attachments">У вас есть %s Вложение(я)</string>
+	<string name="you_are_here">Вы тут</string>
+	<string name="by_word">По слову</string>
+	<string name="by_type">По типу</string>
+	<string name="change_notes_order">Порядок записок</string>
+	<string name="is_last_item">Уже на последнем месте</string>
+	<string name="is_first_item">Уже на первом месте</string>
+	<string name="this_type_will_be_displayed_first">Этот тип будет отображаться в списке первым</string>
+	<string name="this_type_will_be_displayed_second">Этот тип будет отображаться в списке вторым</string>
+	<string name="this_type_will_be_displayed_third">Этот тип будет отображаться в списке третьим</string>
+	<string name="this_type_will_be_displayed_fourth">Этот тип будет отображаться в списке четвертым</string>
+	<string name="this_type_will_be_displayed_fifth">Этот тип будет отображаться в списке пятым</string>
+	<string name="do_you_really_want_clear_canvas">Вы действительно хотите очистить рисунок?</string>
+	<string name="pinned_position">Прикрепленная позиция</string>
+	<string name="position_has_been_changed">Позиция изменена</string>
+	<string name="map_type_terrain">Тип карты - местность</string>
+	<string name="map_type_satellite">Тип карты - спутник</string>
+	<string name="map_type_normal">Тип карты - нормальный</string>
+	<string name="route_type_walking">Путь пешком</string>
+	<string name="route_type_car">Путь на машине</string>
+	<string name="route_type_bike">Путь на велосипеде</string>
 
 </resources>
