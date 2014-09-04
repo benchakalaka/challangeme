@@ -3,6 +3,7 @@ package com.ik.ggnote.activities;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -45,13 +46,17 @@ import com.ik.ggnote.constants.ActiveRecord;
 import com.ik.ggnote.constants.Global;
 import com.ik.ggnote.model.ModelNote;
 import com.ik.ggnote.utils.DatabaseUtils;
+import com.ik.ggnote.utils.ReminderManager;
 import com.ik.ggnote.utils.Utils;
 import com.ik.ggnote.utils.Utils.AnimationManager;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.roomorama.caldroid.CaldroidFragment;
+import com.sleepbot.datetimepicker.time.RadialPickerLayout;
+import com.sleepbot.datetimepicker.time.TimePickerDialog;
+import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
 
-@EActivity ( R.layout.activity_create_note ) public class ACreateNote extends ActionBarActivity implements OnClickListener {
+@EActivity ( R.layout.activity_create_note ) public class ACreateNote extends ActionBarActivity implements OnClickListener , OnTimeSetListener {
      // ===================================================================================== VIEWS
      @ViewById ImageView                                  ibDraw , ibPinOnMap , ibPinPhoto , ibNoteType , ibNoteTypeDone , ivDrawDone , ivPrevDay , ivNextDay , ivPinOnMapDone , ivPinPhotoDone;
 
@@ -65,7 +70,10 @@ import com.roomorama.caldroid.CaldroidFragment;
      private static Date                                  currentDate          = new Date();
      // displaying progress
      private ProgressDialog                               progressDialog;
-
+     // dialog type of note
+     private NiftyDialogBuilder                           dialogBuilder;
+     // alarm manager
+     private ReminderManager                              alarm;
      // Setup listener
      public final com.roomorama.caldroid.CaldroidListener onDateChangeListener = new com.roomorama.caldroid.CaldroidListener() {
                                                                                     @Override public void onSelectDate(final Date date, View view) {
@@ -106,8 +114,9 @@ import com.roomorama.caldroid.CaldroidFragment;
           actionBar.setDisplayShowCustomEnabled(true);
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
-          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.ok);
+          ((ImageView) actionBar.getCustomView().findViewById(R.id.ivRightOkButton)).setImageResource(R.drawable.ok);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnTouchListener(Utils.touchListener);
           ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text1)).setText(R.string.add_note);
 
           progressDialog = new ProgressDialog(this, ProgressDialog.STYLE_SPINNER);
@@ -118,6 +127,9 @@ import com.roomorama.caldroid.CaldroidFragment;
           ibPinOnMap.setOnTouchListener(Utils.touchListener);
           ibPinPhoto.setOnTouchListener(Utils.touchListener);
           ibNoteType.setOnTouchListener(Utils.touchListener);
+
+          dialogBuilder = new NiftyDialogBuilder(this);
+          dialogBuilder.setContentView(R.layout.dialog_type_of_note);
      }
 
      /**
@@ -135,8 +147,9 @@ import com.roomorama.caldroid.CaldroidFragment;
                @Override public void onAnimationEnd(Animator arg0) {
                     List <ModelNote> notes = DatabaseUtils.getAllNotes();
                     HashMap <Date, Integer> datesToHighligt = new HashMap <Date, Integer>();
+                    calendar = new CaldroidFragment();
                     if ( null != notes && !notes.isEmpty() ) {
-                         calendar = new CaldroidFragment();
+
                          calendar.setCaldroidListener(onDateChangeListener);
                          calendar.setArguments(bundle);
                          for ( ModelNote note : notes ) {
@@ -218,7 +231,7 @@ import com.roomorama.caldroid.CaldroidFragment;
       * Draw and pin drawing to note
       */
      @Click void ibDraw() {
-          ibDraw.startAnimation(AnimationManager.load(R.anim.fade_in));
+          // ibDraw.startAnimation(AnimationManager.load(R.anim.fade_in));
           startActivity(new Intent(this, ADrawingView_.class));
      }
 
@@ -226,7 +239,7 @@ import com.roomorama.caldroid.CaldroidFragment;
       * Select location and pin to note
       */
      @Click void ibPinOnMap() {
-          ibPinOnMap.startAnimation(AnimationManager.load(R.anim.fade_in));
+          // ibPinOnMap.startAnimation(AnimationManager.load(R.anim.fade_in));
           progressDialog.show();
           startActivity(new Intent(this, AMap_.class));
           progressDialog.dismiss();
@@ -260,7 +273,23 @@ import com.roomorama.caldroid.CaldroidFragment;
 
           Utils.showCustomToast(ACreateNote.this, R.string.note_has_been_created, R.drawable.book);
 
+          createNotification(ActiveRecord.currentNote);
+
           startActivity(new Intent(ACreateNote.this, AMyNotes_.class));
+     }
+
+     private void createNotification(ModelNote noteToSet) {
+          if ( !TextUtils.isEmpty(noteToSet.alarmString) ) {
+               if ( null == alarm ) {
+                    alarm = new ReminderManager();
+               }
+               Calendar calendar = Calendar.getInstance();
+               calendar.set(Calendar.HOUR_OF_DAY, noteToSet.alarmHour);
+               calendar.set(Calendar.MINUTE, noteToSet.alarmMinute);
+               if ( alarm != null ) {
+                    alarm.setOnetimeTimer(this, calendar.getTimeInMillis(), noteToSet.getId().intValue(), 0);
+               }
+          }
      }
 
      @OnActivityResult ( Global.CAPTURE_CAMERA_PHOTO ) void onResult(int resultCode, Intent data) {
@@ -315,15 +344,11 @@ import com.roomorama.caldroid.CaldroidFragment;
      }
 
      @Click void ibNoteType() {
-          ibNoteType.startAnimation(AnimationManager.load(R.anim.fade_in));
+          // ibNoteType.startAnimation(AnimationManager.load(R.anim.fade_in));
           showNoteTypePopup();
      }
 
      private void showNoteTypePopup() {
-
-          final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
-          dialogBuilder.setContentView(R.layout.dialog_type_of_note);
-
           int imageId = Utils.getNoteImageIdFromNoteType(ActiveRecord.currentNote.noteType);
           int buttonId = Utils.getRadioButtonIdFromNoteType(ActiveRecord.currentNote.noteType);
           if ( imageId != -1 ) {
@@ -356,37 +381,41 @@ import com.roomorama.caldroid.CaldroidFragment;
                }
           });
 
+          dialogBuilder.findViewById(R.id.buttonAlarm).setOnClickListener(new OnClickListener() {
+
+               @Override public void onClick(View v) {
+                    Calendar calendar = Calendar.getInstance();
+
+                    final TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(ACreateNote.this, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false, false);
+
+                    timePickerDialog.setVibrate(true);
+                    timePickerDialog.setCloseOnSingleTapMinute(false);
+                    timePickerDialog.show(getSupportFragmentManager(), getString(R.string.app_name));
+               }
+          });
+
           dialogBuilder.show();
      }
 
-     /*
-      * @Override protected void onPause() {
-      * super.onPause();
-      * overridePendingTransition(R.anim.slide_right, 0);
-      * }
-      */
+     @Override protected void onPause() {
+          super.onPause();
+          overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+     }
 
      @Override public void onClick(View v) {
           switch (v.getId()) {
                case R.id.ivRightOkButton:
-                    YoYo.with(Techniques.BounceIn).duration(500).withListener(new AnimatorListener() {
-
-                         @Override public void onAnimationStart(Animator arg0) {
-                         }
-
-                         @Override public void onAnimationRepeat(Animator arg0) {
-                         }
-
-                         @Override public void onAnimationEnd(Animator arg0) {
-                              ibCreateNote();
-                         }
-
-                         @Override public void onAnimationCancel(Animator arg0) {
-                         }
-                    }).playOn(v);
-
+                    ibCreateNote();
                     break;
           }
 
+     }
+
+     @Override public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
+          ActiveRecord.currentNote.alarmHour = hourOfDay;
+          ActiveRecord.currentNote.alarmMinute = minute;
+          ActiveRecord.currentNote.alarmString = hourOfDay + ":" + ((minute < 10) ? ("0" + minute) : minute);
+
+          ((TextView) dialogBuilder.findViewById(R.id.buttonAlarm)).setText(ActiveRecord.currentNote.alarmString);
      }
 }

@@ -26,6 +26,7 @@ import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.ik.ggnote.R;
 import com.ik.ggnote.utils.AppSharedPreferences_;
 import com.ik.ggnote.utils.Utils;
+import com.ik.ggnote.utils.Utils.AnimationManager;
 
 @EActivity ( R.layout.activity_settings ) public class ASettings extends ActionBarActivity implements OnClickListener {
 
@@ -126,7 +127,7 @@ import com.ik.ggnote.utils.Utils;
 
      @Override protected void onPause() {
           super.onPause();
-          overridePendingTransition(R.anim.slide_right, 0);
+          overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -140,7 +141,13 @@ import com.ik.ggnote.utils.Utils;
      }
 
      @Click void rlNotesOrder() {
+          rlNotesOrder.startAnimation(AnimationManager.load(R.anim.abc_fade_in));
           startActivity(new Intent(ASettings.this, ANotesOrder_.class));
-
      }
+
+     @Click void rlNotifications() {
+          rlNotifications.startAnimation(AnimationManager.load(R.anim.abc_fade_in));
+          startActivity(new Intent(ASettings.this, ANotificationSettings_.class));
+     }
+
 }

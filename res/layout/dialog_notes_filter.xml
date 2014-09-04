@@ -9,7 +9,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_centerInParent="true"
-		android:background="@drawable/dialog_bg"
+		android:background="@color/ab_background"
 		android:clickable="false"
 		android:orientation="vertical"
 		android:visibility="visible" >
@@ -47,7 +47,7 @@
 					android:ellipsize="end"
 					android:gravity="center"
 					android:singleLine="true"
-					android:text="Filter/Search" />
+					android:text="Filter" />
 			</RelativeLayout>
 
 			<View
@@ -65,76 +65,32 @@
 			android:layout_weight="1"
 			android:orientation="horizontal" >
 
-			<RadioGroup
-				android:id="@+id/rgFilterType"
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:layout_margin="10dp"
-				android:layout_weight="1"
-				android:background="@drawable/transparent_inside_and_white_border" >
-
-				<RadioButton
-					android:id="@+id/rbByWord"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:checked="true"
-					android:tag="word" 
-					android:text="@string/by_word"
-					android:textColor="@android:color/white" />
-
-				<RadioButton
-					android:id="@+id/rbByType"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:tag="type"
-					android:text="@string/by_type"
-					android:textColor="@android:color/white" />
-			</RadioGroup>
-
 			<RelativeLayout
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:layout_margin="10dp"
-				android:layout_weight="1"
-				android:background="@drawable/transparent_inside_and_white_border" >
-
-				<EditText
-					android:id="@+id/etByWord"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_alignParentLeft="true"
-					android:layout_alignParentRight="true"
-					android:padding="5dp"
-					android:maxLines="1"
-					android:textColor="@android:color/white"
-					android:layout_centerVertical="true"
-					android:layout_margin="4dp"
-					android:background="@drawable/transparent_inside_and_white_border" >
-				</EditText>
+				android:layout_weight="1" >
 
 				<Spinner
 					android:id="@+id/spinnerByType"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:padding="5dp"
 					android:layout_alignParentLeft="true"
 					android:layout_alignParentRight="true"
 					android:layout_centerVertical="true"
 					android:layout_margin="4dp"
 					android:background="@drawable/button_bg"
-					android:visibility="gone" />
+					android:padding="5dp" />
 
 				<ImageView
 					android:id="@+id/ivExpandFilter"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_alignBottom="@+id/spinnerByType"
-					android:padding="3dp"
 					android:layout_alignRight="@+id/spinnerByType"
-					android:visibility="gone"
 					android:layout_alignTop="@+id/spinnerByType"
+					android:padding="3dp"
 					android:src="@drawable/arrowdown" />
-				
 			</RelativeLayout>
 		</LinearLayout>
 
@@ -151,16 +107,24 @@
 
 			<Button
 				android:id="@+id/buttonOk"
-				style="@style/dialog_btn"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
 				android:layout_marginLeft="10dp"
-				android:layout_marginRight="5dp"
+				android:layout_marginRight="10dp"
+				android:layout_weight="1"
+				android:layout_marginBottom="5dp"
+				android:background="#77000000"
 				android:text="OK" />
 
 			<Button
 				android:id="@+id/buttonCancel"
-				style="@style/dialog_btn"
-				android:layout_marginLeft="5dp"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="10dp"
 				android:layout_marginRight="10dp"
+				android:layout_weight="1"
+				android:layout_marginBottom="5dp"
+				android:background="#77000000"
 				android:text="Cancle" />
 		</LinearLayout>
 	</LinearLayout>

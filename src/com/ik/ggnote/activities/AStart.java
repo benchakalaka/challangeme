@@ -73,7 +73,7 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
 
      @Override protected void onPause() {
           super.onPause();
-          overridePendingTransition(R.anim.slide_right, 0);
+          overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
      }
 
      @Override protected void onResume() {

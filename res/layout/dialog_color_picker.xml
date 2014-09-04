@@ -3,7 +3,7 @@
 	android:id="@+id/ssss"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:background="@drawable/dialog_bg" >
+	android:background="@color/ab_background" >
 
 	<LinearLayout
 		android:layout_width="fill_parent"
@@ -32,7 +32,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
-			android:background="@drawable/btn_press" />
+			android:background="@drawable/transparent_inside_and_white_round_border" />
 
 		<LinearLayout
 			android:layout_width="fill_parent"
@@ -85,9 +85,9 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:padding="10dp"
-				android:textColor="@android:color/white"
 				android:text="@string/saturation_level"
 				android:textAppearance="?android:attr/textAppearanceSmall"
+				android:textColor="@android:color/white"
 				android:textStyle="italic|bold" />
 
 			<TextView
@@ -99,7 +99,7 @@
 				android:textAppearance="?android:attr/textAppearanceSmall"
 				android:textColor="@android:color/white"
 				android:textStyle="bold" />
-		</LinearLayout> 
+		</LinearLayout>
 
 		<LinearLayout
 			android:layout_width="fill_parent"
@@ -124,22 +124,26 @@
 
 			<Button
 				android:id="@+id/buttonOk"
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_margin="5dp"
+				android:layout_marginBottom="5dp"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
 				android:layout_weight="1"
-				android:background="@drawable/btn_selector"
+				android:background="#77000000"
 				android:orientation="horizontal"
 				android:text="@android:string/ok" >
 			</Button>
 
 			<Button
 				android:id="@+id/buttonCancel"
-				android:layout_width="wrap_content"
+				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_margin="5dp"
+				android:layout_marginBottom="5dp"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
 				android:layout_weight="1"
-				android:background="@drawable/btn_selector"
+				android:background="#77000000"
 				android:orientation="horizontal"
 				android:text="@string/cancel" >
 			</Button>

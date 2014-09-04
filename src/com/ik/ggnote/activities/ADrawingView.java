@@ -51,11 +51,9 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
      @ViewById ImageButton      ibColour1 , ibColour2 , ibColour3 , ibColour4 , ibColour5 , ibColour6 , ibColour7 , ibColour8 , ibColour9 , ibColour10 , ibColour11 , ibColour12 , ibColour13 , ibColour14 , ibColour15 , ibColour16 , ibColour17 , ibColorPicker;
      @ViewById ImageButton      ibClearAll , ibRedo , ibUndo , ibThick , ibMedium , ibThin , ibEraser;
 
-     @ViewById ImageButton      ibBrushColours , ibDrawingSettings , ibShapes;
-
      @ViewById ScrollView       svDrawingSettings , svBrushColour , svDrawShapes;
 
-     @ViewById ImageView        ivShapesDone , ivBrushColoursDone , ibDrawingSettingsDone , ivColorAndShape;
+     @ViewById ImageView        ibBrushColours , ibDrawingSettings , ibShapes , ivShapesDone , ivBrushColoursDone , ibDrawingSettingsDone , ivColorAndShape;
 
      // canvas
      @ViewById CDrawingView     cDrawingView;
@@ -151,7 +149,8 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
-          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.attach);
+          ((ImageView) actionBar.getCustomView().findViewById(R.id.ivRightOkButton)).setImageResource(R.drawable.ok);
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnTouchListener(Utils.touchListener);
           ((TextView) actionBar.getCustomView().findViewById(R.id.text1)).setText(R.string.attached_drawing);
 
           try {
@@ -170,12 +169,16 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           }
 
           dialogBuilder = new NiftyDialogBuilder(this);
+
+          ibBrushColours.setOnTouchListener(Utils.touchListener);
+          ibDrawingSettings.setOnTouchListener(Utils.touchListener);
+          ibShapes.setOnTouchListener(Utils.touchListener);
      }
 
      @Override protected void onPause() {
           super.onPause();
           dialogBuilder.dismiss();
-
+          overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {
@@ -269,6 +272,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
                }
           }).setButton2Click(new OnClickListener() {
                @Override public void onClick(View v) {
+                    ivColorAndShape.setImageResource(R.drawable.free_drawing);
                     cDrawingView.disableEraserMode();
                     cDrawingView.clearAll();
                     ibClearAll.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
@@ -276,12 +280,13 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
                     dialogBuilder.dismiss();
                }
           }).show();
-
      }
 
      @Click void ibEraser() {
           ibEraser.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
           cDrawingView.setEraserMode();
+          ivColorAndShape.setBackgroundColor(Color.TRANSPARENT);
+          ivColorAndShape.setImageResource(R.drawable.erase);
           Utils.showStickyNotification(ADrawingView.this, R.string.erase_mode_is_active, AppMsg.STYLE_CONFIRM, 1000);
      }
 
@@ -346,13 +351,14 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
      @Click void ibUndo() {
           ibUndo.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
           cDrawingView.redo();
-          Utils.showStickyNotification(ADrawingView.this, R.string.undo, AppMsg.STYLE_CONFIRM, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.redo, AppMsg.STYLE_CONFIRM, 1000);
      }
 
      @Click void ibRedo() {
           ibRedo.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
           cDrawingView.undo();
-          Utils.showStickyNotification(ADrawingView.this, R.string.redo, AppMsg.STYLE_CONFIRM, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.undo, AppMsg.STYLE_CONFIRM, 1000);
+
      }
 
      @Override public void onColorChanged(int color) {

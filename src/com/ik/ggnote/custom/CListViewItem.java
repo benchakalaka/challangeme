@@ -9,6 +9,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -56,7 +58,7 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
      @AfterViews void afterViews() {
           setUpNote();
           if ( isInDeletedMode ) {
-               ivDeleteOrOpenNoteDetailRightButton.setBackgroundResource(R.drawable.delete);
+               ivDeleteOrOpenNoteDetailRightButton.setImageResource(R.drawable.delete);
           }
           ivDeleteOrOpenNoteDetailRightButton.setOnTouchListener(Utils.touchListener);
      }
@@ -100,40 +102,41 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
      public void completeItem() {
           if ( null != note ) {
 
-               final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(context);
+               // final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(context);
+               //
+               // dialogBuilder.withButton1Text(getResources().getString(R.string.cancel)).withButton2Text(getResources().getString(android.R.string.ok)).withIcon(R.drawable.book).withEffect(Effectstype.Slit).withTitle(getResources().getString(R.string.completeing_item))
+               // .withMessage(getResources().getString(R.string.do_you_want_to_complete_item)).setButton1Click(new OnClickListener() {
+               //
+               // @Override public void onClick(View v) {
+               // dialogBuilder.dismiss();
+               // }
+               // }).setButton2Click(
+               //
+               // new View.OnClickListener() {
+               // @Override public void onClick(View v) {
+               YoYo.with(Techniques.FlipOutY).duration(700).withListener(new AnimatorListener() {
 
-               dialogBuilder.withButton1Text(getResources().getString(R.string.cancel)).withButton2Text(getResources().getString(android.R.string.ok)).withIcon(R.drawable.book).withEffect(Effectstype.Slit).withTitle(getResources().getString(R.string.completeing_item))
-                         .withMessage(getResources().getString(R.string.do_you_want_to_complete_item)).setButton1Click(new OnClickListener() {
+                    @Override public void onAnimationStart(Animator arg0) {
+                    }
 
-                              @Override public void onClick(View v) {
-                                   dialogBuilder.dismiss();
-                              }
-                         }).setButton2Click(
+                    @Override public void onAnimationRepeat(Animator arg0) {
+                    }
 
-                         new View.OnClickListener() {
-                              @Override public void onClick(View v) {
-                                   YoYo.with(Techniques.FlipOutY).duration(700).withListener(new AnimatorListener() {
+                    @Override public void onAnimationEnd(Animator arg0) {
+                         // item go to completed list
+                         note.isCompleted = true;
+                         note.save();
+                         setVisibility(View.GONE);
+                         ((AMyNotes) context).setUpAmountOfCompletedAndAciveNotes();
+                         ((AMyNotes) context).animateTwCompleted();
+                    }
 
-                                        @Override public void onAnimationStart(Animator arg0) {
-                                        }
-
-                                        @Override public void onAnimationRepeat(Animator arg0) {
-                                        }
-
-                                        @Override public void onAnimationEnd(Animator arg0) {
-                                             // item go to completed list
-                                             note.isCompleted = true;
-                                             note.save();
-                                             setVisibility(View.GONE);
-                                             ((AMyNotes) context).setUpAmountOfCompletedAndAciveNotes();
-                                        }
-
-                                        @Override public void onAnimationCancel(Animator arg0) {
-                                        }
-                                   }).playOn(CListViewItem.this);
-                                   dialogBuilder.dismiss();
-                              }
-                         }).show();
+                    @Override public void onAnimationCancel(Animator arg0) {
+                    }
+               }).playOn(CListViewItem.this);
+               // dialogBuilder.dismiss();
+               // }
+               // }).show();
           }
      }
 
@@ -151,24 +154,26 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
                               }
                          }).setButton2Click(new OnClickListener() {
                               @Override public void onClick(View v) {
-                                   YoYo.with(Techniques.RollOut).duration(700).withListener(new AnimatorListener() {
 
-                                        @Override public void onAnimationStart(Animator arg0) {
+                                   Animation anim = AnimationManager.load(R.anim.abc_fade_out);
+
+                                   anim.setAnimationListener(new AnimationListener() {
+
+                                        @Override public void onAnimationStart(Animation animation) {
                                              dialogBuilder.dismiss();
                                         }
 
-                                        @Override public void onAnimationRepeat(Animator arg0) {
+                                        @Override public void onAnimationRepeat(Animation animation) {
                                         }
 
-                                        @Override public void onAnimationEnd(Animator arg0) {
+                                        @Override public void onAnimationEnd(Animation animation) {
                                              note.delete();
                                              setVisibility(View.GONE);
                                              ((AMyNotes) context).setUpAmountOfCompletedAndAciveNotes();
+                                             ((AMyNotes) context).animateTwCompleted();
                                         }
-
-                                        @Override public void onAnimationCancel(Animator arg0) {
-                                        }
-                                   }).playOn(CListViewItem.this);
+                                   });
+                                   CListViewItem.this.startAnimation(anim);
                               }
                          }).show();
 

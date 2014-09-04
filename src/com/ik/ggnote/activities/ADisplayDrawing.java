@@ -66,6 +66,11 @@ import com.ik.ggnote.utils.Utils;
           ((TextView) actionBar.getCustomView().findViewById(R.id.text1)).setText(R.string.attached_drawing);
      }
 
+     @Override protected void onPause() {
+          super.onPause();
+          overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+     }
+
      @Click void ivLock() {
           Utils.showStickyNotification(ADisplayDrawing.this, R.string.drawing_is_locked, AppMsg.STYLE_INFO, 1000);
      }

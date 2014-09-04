@@ -27,8 +27,13 @@ import com.ik.ggnote.custom.CDrawingView;
      @ViewById CDrawingView cDisplayDrawingView;
 
      @AfterViews void afterViews() {
-          Drawable d = Drawable.createFromPath(ANoteDetails.note.pathToPhoto);
-          ivPhoto.setBackgroundDrawable(d);
+          try {
+               Drawable d = Drawable.createFromPath(ANoteDetails.note.pathToPhoto);
+               ivPhoto.setBackgroundDrawable(d);
+          } catch (Exception ex) {
+               ex.printStackTrace();
+               onBackPressed();
+          }
           // Inflate your custom layout
           final ViewGroup actionBarLayout = (ViewGroup) getLayoutInflater().inflate(R.layout.action_bar, null);
 
@@ -51,7 +56,11 @@ import com.ik.ggnote.custom.CDrawingView;
      @Override public boolean onOptionsItemSelected(MenuItem item) {
           onBackPressed();
           return super.onOptionsItemSelected(item);
+     }
 
+     @Override protected void onPause() {
+          super.onPause();
+          overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
      }
 
 }

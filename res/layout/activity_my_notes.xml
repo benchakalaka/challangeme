@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:clipChildren="true"
 	android:background="@drawable/bg" >
 
 	<RelativeLayout
@@ -11,7 +12,7 @@
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
 		android:layout_margin="3dp"
-		android:background="@drawable/transparent_inside_and_white_border" >
+		android:background="@drawable/transparent_inside_and_white_round_border" >
 
 		<ImageView
 			android:id="@+id/ivPrevDay"
@@ -46,12 +47,30 @@
 			android:src="@drawable/arrowright" />
 	</RelativeLayout>
 
+	<EditText
+		android:id="@+id/etSearch"
+		android:layout_width="match_parent"
+		android:layout_height="50dp"
+		android:layout_below="@+id/rlCurrentDate"
+		android:layout_toLeftOf="@+id/ivFilter"
+		android:drawableLeft="@android:drawable/ic_menu_search"
+		android:ems="10" />
+
+	<ImageView
+		android:id="@+id/ivFilter"
+		android:layout_width="50dp"
+		android:layout_height="50dp"
+		android:layout_alignBottom="@+id/etSearch"
+		android:layout_alignParentRight="true"
+		android:layout_below="@+id/rlCurrentDate"
+		android:src="@drawable/filter" />
+
 	<ScrollView
 		android:id="@+id/scrollView1"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_above="@+id/rlBottomMenu"
-		android:layout_below="@+id/rlCurrentDate"
+		android:layout_below="@+id/etSearch"
 		android:layout_margin="5dp" >
 
 		<LinearLayout
@@ -69,15 +88,16 @@
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
+		android:clipChildren="true"
 		android:layout_margin="5dp"
 		android:background="@drawable/transparent_inside_and_white_round_border"
-		android:clipChildren="false" >
+		 >
 
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:background="@drawable/transparent_inside_and_white_round_border"
-			android:clipChildren="false" >
+			android:clipChildren="true" >
 
 			<TextView
 				android:id="@+id/twMyNotes"
@@ -85,30 +105,32 @@
 				android:layout_height="wrap_content"
 				android:layout_alignParentTop="true"
 				android:layout_centerHorizontal="true"
+				android:layout_margin="5dp"
+				android:padding="6dp"
+				android:background="@color/ab_background"
 				android:layout_gravity="center"
 				android:layout_weight="1"
-				android:background="@drawable/transparent_inside_and_white_round_border"
 				android:gravity="center"
-				android:padding="10dp"
 				android:text="@string/my_notes"
 				android:textAppearance="?android:attr/textAppearanceLarge"
 				android:textColor="@android:color/white" />
 
 			<ImageView
-				android:layout_width="2dp"
+				android:layout_width="1dp"
 				android:layout_height="match_parent"
 				android:background="@android:color/white" />
 
-			<TextView 
+			<TextView
 				android:id="@+id/twCompleted"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:layout_alignParentTop="true"
 				android:layout_centerHorizontal="true"
+					android:layout_margin="5dp"
+				android:padding="6dp"
 				android:layout_gravity="center"
 				android:layout_weight="1"
 				android:gravity="center"
-				android:padding="10dp"
 				android:text="@string/completed"
 				android:textAppearance="?android:attr/textAppearanceLarge"
 				android:textColor="@android:color/white" />
@@ -124,9 +146,9 @@
 		android:background="@drawable/circle_green"
 		android:gravity="center"
 		android:padding="2dp"
-		android:textStyle="bold"
 		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:textColor="@android:color/white" />
+		android:textColor="@android:color/white"
+		android:textStyle="bold" />
 
 	<TextView
 		android:id="@+id/twAmoutNotes"
@@ -138,8 +160,8 @@
 		android:clipChildren="false"
 		android:gravity="center"
 		android:padding="2dp"
-		android:textStyle="bold"
 		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:textColor="@android:color/white" />
+		android:textColor="@android:color/white"
+		android:textStyle="bold" />
 
 </RelativeLayout>

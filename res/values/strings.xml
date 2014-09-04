@@ -134,11 +134,22 @@
 	<string name="route_type_walking">Walking route</string>
 	<string name="route_type_car">Car route</string>
 	<string name="route_type_bike">Bike route</string>
+	<string name="alarm_not_set">Alarm not set</string>
+	<string name="displays_created_time">Date and time, when note has been created</string>
+	<string name="do_you_want_to_set_alarm">Do you want to set alarm?</string>
+	<string name="set_alarm">Set alarm</string>
+	<string name="vibrate">Vibrate on alarm</string>
+	<string name="display_message">Display message in notification bar</string>
+	<string name="jenote_reminder">JENote remind</string>
 
 	<!-- STUBS -->
-	
-	<string name="frsdfsew32g">Twww</string>
-	<string name="frwert32g">Twww</string>
-	<string name="frgsdfg324">Twww</string>
+	<string name="frwert3dasfg2g">Twww</string>
+	<string name="frgdfgsdfg324">Twww</string>
+	<string name="frsdfdfgsew32g">Twww</string>
+	<string name="frdf21wert32g">Twww</string>
+	<string name="frg12sdfg324">Twww</string>
+	<string name="frsdf3sew32g">Twww</string>
+	<string name="frwerdsft32g">Twww</string>
+	<string name="fr23gsdfg324">Twww</string>
 
 </resources>

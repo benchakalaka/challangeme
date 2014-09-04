@@ -9,7 +9,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:layout_centerInParent="true"
-		android:background="@drawable/dialog_bg"
+		android:background="@color/ab_background"
 		android:clickable="false"
 		android:orientation="vertical"
 		android:visibility="visible" >
@@ -149,9 +149,12 @@
 
 			<Button
 				android:id="@+id/buttonOk"
-				style="@style/dialog_btn"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginBottom="5dp"
 				android:layout_marginLeft="10dp"
 				android:layout_marginRight="10dp"
+				android:background="#77000000"
 				android:text="@android:string/ok" />
 		</LinearLayout>
 	</LinearLayout>

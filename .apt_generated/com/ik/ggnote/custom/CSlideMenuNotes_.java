@@ -69,14 +69,28 @@ public final class CSlideMenuNotes_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        logout = ((RelativeLayout) hasViews.findViewById(id.logout));
         twNotes = ((TextView) hasViews.findViewById(id.twNotes));
-        filter = ((RelativeLayout) hasViews.findViewById(id.filter));
         settings = ((RelativeLayout) hasViews.findViewById(id.settings));
-        twSettings = ((TextView) hasViews.findViewById(id.twSettings));
         twAmoutNotes = ((TextView) hasViews.findViewById(id.twAmoutNotes));
-        notes = ((RelativeLayout) hasViews.findViewById(id.notes));
         twAmoutFinished = ((TextView) hasViews.findViewById(id.twAmoutFinished));
+        twSettings = ((TextView) hasViews.findViewById(id.twSettings));
+        notes = ((RelativeLayout) hasViews.findViewById(id.notes));
+        logout = ((RelativeLayout) hasViews.findViewById(id.logout));
+        {
+            View view = hasViews.findViewById(id.settings);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        CSlideMenuNotes_.this.settings();
+                    }
+
+                }
+                );
+            }
+        }
         {
             View view = hasViews.findViewById(id.notes);
             if (view!= null) {
@@ -93,21 +107,6 @@ public final class CSlideMenuNotes_
             }
         }
         {
-            View view = hasViews.findViewById(id.filter);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        CSlideMenuNotes_.this.filter();
-                    }
-
-                }
-                );
-            }
-        }
-        {
             View view = hasViews.findViewById(id.logout);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
@@ -116,21 +115,6 @@ public final class CSlideMenuNotes_
                     @Override
                     public void onClick(View view) {
                         CSlideMenuNotes_.this.logout();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.settings);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        CSlideMenuNotes_.this.settings();
                     }
 
                 }

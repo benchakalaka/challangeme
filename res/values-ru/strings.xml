@@ -133,5 +133,12 @@
 	<string name="route_type_walking">Путь пешком</string>
 	<string name="route_type_car">Путь на машине</string>
 	<string name="route_type_bike">Путь на велосипеде</string>
+	<string name="alarm_not_set">Время не установлено</string>
+	<string name="displays_created_time">Дата и время, когда записка была создана</string>
+	<string name="do_you_want_to_set_alarm">Вы хотите установить напоминание?</string>
+	<string name="set_alarm">Установить время</string>
+	<string name="vibrate">Вибрировать при нотификации</string>
+	<string name="display_message">Отображать текст сообщения при нотификации</string>
+	<string name="jenote_reminder">JENote напоминание</string>
 
 </resources>

@@ -76,6 +76,11 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
           ivWorkDown.setOnClickListener(this);
      }
 
+     @Override protected void onPause() {
+          super.onPause();
+          overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+     }
+
      @Click void rl1() {
           YoYo.with(Techniques.BounceIn).duration(1000).playOn(rl1);
           Utils.showStickyNotification(ANotesOrder.this, R.string.this_type_will_be_displayed_first, AppMsg.STYLE_CONFIRM, 1500);

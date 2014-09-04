@@ -29,7 +29,6 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
 
      // load views
      @ViewById RelativeLayout notes;
-     @ViewById RelativeLayout filter;
      @ViewById RelativeLayout settings;
      @ViewById RelativeLayout logout;
 
@@ -94,15 +93,6 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
      @Click void notes() {
           notes.startAnimation(AnimationManager.load(android.R.anim.fade_out));
           this.activity.onOptionsItemSelected(null);
-     }
-
-     /**
-      * Redo operation for drawing
-      */
-     @Click void filter() {
-          filter.startAnimation(AnimationManager.load(android.R.anim.fade_out));
-          this.activity.ivFilter();
-          menu.showContent();
      }
 
      /**

@@ -7,6 +7,7 @@ package com.ik.ggnote.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import org.androidannotations.api.sharedpreferences.BooleanPrefEditorField;
 import org.androidannotations.api.sharedpreferences.BooleanPrefField;
 import org.androidannotations.api.sharedpreferences.EditorHelper;
@@ -23,7 +24,7 @@ public final class AppSharedPreferences_
     private Context context_;
 
     public AppSharedPreferences_(Context context) {
-        super(context.getSharedPreferences("AppSharedPreferences", 0));
+        super(PreferenceManager.getDefaultSharedPreferences(context));
         this.context_ = context;
     }
 
@@ -33,6 +34,10 @@ public final class AppSharedPreferences_
 
     public BooleanPrefField askPassword() {
         return booleanField("askPassword", true);
+    }
+
+    public BooleanPrefField displayMessageText() {
+        return booleanField("displayMessageText", true);
     }
 
     public StringPrefField email() {
@@ -63,6 +68,10 @@ public final class AppSharedPreferences_
         return stringField("password", "");
     }
 
+    public BooleanPrefField vibrateOnNotification() {
+        return booleanField("vibrateOnNotification", true);
+    }
+
     public final static class AppSharedPreferencesEditor_
         extends EditorHelper<AppSharedPreferences_.AppSharedPreferencesEditor_>
     {
@@ -74,6 +83,10 @@ public final class AppSharedPreferences_
 
         public BooleanPrefEditorField<AppSharedPreferences_.AppSharedPreferencesEditor_> askPassword() {
             return booleanField("askPassword");
+        }
+
+        public BooleanPrefEditorField<AppSharedPreferences_.AppSharedPreferencesEditor_> displayMessageText() {
+            return booleanField("displayMessageText");
         }
 
         public StringPrefEditorField<AppSharedPreferences_.AppSharedPreferencesEditor_> email() {
@@ -102,6 +115,10 @@ public final class AppSharedPreferences_
 
         public StringPrefEditorField<AppSharedPreferences_.AppSharedPreferencesEditor_> password() {
             return stringField("password");
+        }
+
+        public BooleanPrefEditorField<AppSharedPreferences_.AppSharedPreferencesEditor_> vibrateOnNotification() {
+            return booleanField("vibrateOnNotification");
         }
 
     }

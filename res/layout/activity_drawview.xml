@@ -367,8 +367,8 @@
 				android:background="@drawable/transparent_inside_and_white_border"
 				android:contentDescription="@null"
 				android:padding="5dp"
-				android:scaleType="fitXY"
-				android:src="@drawable/brush" />
+				android:scaleType="fitXY" 
+				android:src="@drawable/medium" />
 
 			<ImageButton
 				android:id="@+id/ibThick"
@@ -379,7 +379,7 @@
 				android:contentDescription="@null"
 				android:padding="5dp"
 				android:scaleType="fitXY"
-				android:src="@drawable/brush" />
+				android:src="@drawable/small" />
 
 			<ImageButton
 				android:id="@+id/ibRedo"
@@ -436,28 +436,26 @@
 	<LinearLayout
 		android:id="@+id/llBottomMenu"
 		android:layout_width="match_parent"
-		android:layout_height="100dp"
+		android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true"
 		android:layout_alignParentLeft="true"
 		android:layout_alignParentRight="true"
-		android:layout_margin="10dp"
+		android:background="@color/ab_background"
 		android:clipChildren="false"
 		android:orientation="horizontal" >
 
 		<RelativeLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_margin="10dp"
 			android:layout_weight="1"
 			android:gravity="center" >
 
-			<ImageButton
+			<ImageView
 				android:id="@+id/ibBrushColours"
-				android:layout_width="70dp"
-				android:layout_height="70dp"
-				android:background="@drawable/brush_color"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
 				android:scaleType="fitXY"
-				android:src="@drawable/button_bg" />
+				android:src="@drawable/brush_color" />
 
 			<ImageView
 				android:id="@+id/ivBrushColoursDone"
@@ -471,41 +469,13 @@
 		<RelativeLayout
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_margin="10dp"
 			android:layout_weight="1"
 			android:gravity="center" >
-
-			<ImageButton
-				android:id="@+id/ibDrawingSettings"
-				android:layout_width="70dp"
-				android:layout_height="70dp"
-				android:background="@drawable/drawing"
-				android:scaleType="fitXY"
-				android:src="@drawable/button_bg" />
 
 			<ImageView
-				android:id="@+id/ibDrawingSettingsDone"
-				android:layout_width="30dp"
-				android:layout_height="30dp"
-				android:layout_alignParentTop="true"
-				android:layout_alignRight="@+id/ibDrawingSettings"
-				android:src="@drawable/done"
-				android:visibility="invisible" />
-		</RelativeLayout>
-
-		<RelativeLayout
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_margin="10dp"
-			android:layout_weight="1"
-			android:gravity="center" >
-
-			<ImageButton
 				android:id="@+id/ibShapes"
-				android:layout_width="70dp"
-				android:layout_height="70dp"
-				android:background="@drawable/button_bg"
-				android:padding="10dp"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
 				android:scaleType="fitXY"
 				android:src="@drawable/shapes" />
 
@@ -515,6 +485,29 @@
 				android:layout_height="30dp"
 				android:layout_alignParentTop="true"
 				android:layout_alignRight="@+id/ibShapes"
+				android:src="@drawable/done"
+				android:visibility="invisible" />
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center" >
+
+			<ImageView
+				android:id="@+id/ibDrawingSettings"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:scaleType="fitXY"
+				android:src="@drawable/edt" />
+
+			<ImageView
+				android:id="@+id/ibDrawingSettingsDone"
+				android:layout_width="30dp"
+				android:layout_height="30dp"
+				android:layout_alignParentTop="true"
+				android:layout_alignRight="@+id/ibDrawingSettings"
 				android:src="@drawable/done"
 				android:visibility="invisible" />
 		</RelativeLayout>

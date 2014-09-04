@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -25,13 +26,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -59,7 +59,8 @@ import com.roomorama.caldroid.CaldroidFragment;
      // =================================================== VIEWS
      @ViewById LinearLayout                               llMyNotes;
      @ViewById TextView                                   twDate , twMyNotes , twCompleted , twAmoutNotes , twAmoutFinished;
-     @ViewById ImageView                                  ivPrevDay , ivNextDay;
+     @ViewById ImageView                                  ivPrevDay , ivNextDay , ivFilter;
+     @ViewById EditText                                   etSearch;
 
      // =================================================== VARIABLES
      private List <ModelNote>                             myNotes;
@@ -88,9 +89,11 @@ import com.roomorama.caldroid.CaldroidFragment;
                                                                                     }
                                                                                };
      private String[]                                     ORDERE_NOTES_ARRAY;
+     ArrayAdapter <String>                                adapter;
 
      // =================================================== METHODS
      @AfterViews void afterViews() {
+          getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
           menu = CSlideMenuNotes_.build(this);
           setUpAmountOfCompletedAndAciveNotes();
 
@@ -112,8 +115,43 @@ import com.roomorama.caldroid.CaldroidFragment;
           actionBar.setDisplayShowCustomEnabled(true);
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
-          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setBackgroundResource(R.drawable.plus);
+
+          ((ImageView) actionBar.getCustomView().findViewById(R.id.ivRightOkButton)).setImageResource(R.drawable.plus);
+          actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnTouchListener(Utils.touchListener);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
+
+          ivFilter.setOnTouchListener(Utils.touchListener);
+
+          adapter = new ArrayAdapter <String>(AMyNotes.this, R.layout.custom_spinner_item, getResources().getStringArray(R.array.array_notes_types));
+     }
+
+     @Click public void ivFilter() {
+          final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
+          dialogBuilder.setContentView(R.layout.dialog_notes_filter);
+          ((Spinner) dialogBuilder.findViewById(R.id.spinnerByType)).setAdapter(adapter);
+
+          dialogBuilder.findViewById(R.id.buttonOk).setOnClickListener(new OnClickListener() {
+
+               @Override public void onClick(View v) {
+
+                    String spinnerValue = ((Spinner) dialogBuilder.findViewById(R.id.spinnerByType)).getSelectedItem().toString();
+                    applyFilterByType(spinnerValue);
+                    dialogBuilder.dismiss();
+               }
+          });
+
+          dialogBuilder.findViewById(R.id.buttonCancel).setOnClickListener(new OnClickListener() {
+
+               @Override public void onClick(View v) {
+                    dialogBuilder.dismiss();
+               }
+          });
+
+          dialogBuilder.show();
+     }
+
+     @AfterTextChange void etSearch() {
+          applyFilterByWord(etSearch.getText().toString());
      }
 
      /**
@@ -200,7 +238,7 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      @Override protected void onPause() {
           super.onPause();
-          overridePendingTransition(R.anim.slide_left, 0);
+          overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
      }
 
      @Click void twMyNotes() {
@@ -264,8 +302,8 @@ import com.roomorama.caldroid.CaldroidFragment;
                @Override public void onAnimationEnd(Animator arg0) {
                     List <ModelNote> notes = DatabaseUtils.getAllNotes();
                     HashMap <Date, Integer> datesToHighligt = new HashMap <Date, Integer>();
+                    calendar = new CaldroidFragment();
                     if ( null != notes && !notes.isEmpty() ) {
-                         calendar = new CaldroidFragment();
                          calendar.setCaldroidListener(onDateChangeListener);
                          calendar.setArguments(bundle);
                          for ( ModelNote note : notes ) {
@@ -309,64 +347,6 @@ import com.roomorama.caldroid.CaldroidFragment;
      }
 
      /**
-      * Filter by name of note
-      */
-     public void ivFilter() {
-
-          final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
-          dialogBuilder.setContentView(R.layout.dialog_notes_filter);
-          dialogBuilder.show();
-
-          ((RadioGroup) dialogBuilder.findViewById(R.id.rgFilterType)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-               @Override public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    switch (checkedId) {
-                         case R.id.rbByWord:
-                              dialogBuilder.findViewById(R.id.etByWord).setVisibility(View.VISIBLE);
-                              dialogBuilder.findViewById(R.id.spinnerByType).setVisibility(View.GONE);
-                              dialogBuilder.findViewById(R.id.ivExpandFilter).setVisibility(View.GONE);
-                              break;
-
-                         case R.id.rbByType:
-                              dialogBuilder.findViewById(R.id.ivExpandFilter).setVisibility(View.VISIBLE);
-                              dialogBuilder.findViewById(R.id.spinnerByType).setVisibility(View.VISIBLE);
-                              ArrayAdapter <String> adapter = new ArrayAdapter <String>(AMyNotes.this, R.layout.custom_spinner_item, getResources().getStringArray(R.array.array_notes_types));
-                              ((Spinner) dialogBuilder.findViewById(R.id.spinnerByType)).setAdapter(adapter);
-                              dialogBuilder.findViewById(R.id.etByWord).setVisibility(View.GONE);
-                              break;
-                    }
-               }
-          });
-
-          dialogBuilder.findViewById(R.id.buttonOk).setOnClickListener(new OnClickListener() {
-
-               @Override public void onClick(View v) {
-                    switch (((RadioGroup) dialogBuilder.findViewById(R.id.rgFilterType)).getCheckedRadioButtonId()) {
-                         case R.id.rbByWord:
-                              String word = ((EditText) dialogBuilder.findViewById(R.id.etByWord)).getText().toString();
-                              applyFilterByWord(word);
-                              break;
-
-                         case R.id.rbByType:
-                              String spinnerValue = ((Spinner) dialogBuilder.findViewById(R.id.spinnerByType)).getSelectedItem().toString();
-                              applyFilterByType(spinnerValue);
-                              break;
-                    }
-
-                    dialogBuilder.dismiss();
-               }
-          });
-
-          dialogBuilder.findViewById(R.id.buttonCancel).setOnClickListener(new OnClickListener() {
-
-               @Override public void onClick(View v) {
-                    dialogBuilder.dismiss();
-               }
-          });
-
-     }
-
-     /**
       * Load notes from database
       * 
       * @param loadCompleted
@@ -385,7 +365,7 @@ import com.roomorama.caldroid.CaldroidFragment;
           }
           for ( int i = 0; i < llMyNotes.getChildCount(); i++ ) {
                Animation animation = AnimationManager.load(R.anim.bounce);
-               animation.setStartOffset(i * 150);
+               animation.setStartOffset(i * 100);
                llMyNotes.getChildAt(i).startAnimation(animation);
           }
      }
@@ -442,25 +422,9 @@ import com.roomorama.caldroid.CaldroidFragment;
      @Override public void onClick(View v) {
           switch (v.getId()) {
                case R.id.ivRightOkButton:
-                    YoYo.with(Techniques.BounceIn).duration(500).withListener(new AnimatorListener() {
-
-                         @Override public void onAnimationStart(Animator arg0) {
-                         }
-
-                         @Override public void onAnimationRepeat(Animator arg0) {
-                         }
-
-                         @Override public void onAnimationEnd(Animator arg0) {
-                              // create note object
-                              ActiveRecord.currentNote = new ModelNote(getApplicationContext());
-                              ActiveRecord.currentNote.noteType = Global.NOTES.SIMPLE_STR;
-                              startActivity(new Intent(AMyNotes.this, ACreateNote_.class));
-                         }
-
-                         @Override public void onAnimationCancel(Animator arg0) {
-                         }
-                    }).playOn(v);
-
+                    ActiveRecord.currentNote = new ModelNote(getApplicationContext());
+                    ActiveRecord.currentNote.noteType = Global.NOTES.SIMPLE_STR;
+                    startActivity(new Intent(AMyNotes.this, ACreateNote_.class));
                     break;
           }
      }
@@ -476,9 +440,14 @@ import com.roomorama.caldroid.CaldroidFragment;
                field.setAccessible(true);
                return field.getInt(object);
           } catch (Exception e) {
+               e.printStackTrace();
                // TODO: handle exception
           }
           return 0;
      }
 
+     public void animateTwCompleted() {
+          Animation animZoomIn = AnimationManager.load(R.anim.rotate);
+          twCompleted.startAnimation(animZoomIn);
+     }
 }

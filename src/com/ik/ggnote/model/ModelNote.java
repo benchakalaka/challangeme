@@ -20,6 +20,12 @@ public class ModelNote extends SugarRecord <ModelNote> {
      public String        noteType;
      // is item mark as completed
      public boolean       isCompleted;
+     // alarm time hour
+     public int           alarmHour;
+     // alarm time minute
+     public int           alarmMinute;
+     // string representation of time
+     public String        alarmString;
 
      /**
       * Default constructor

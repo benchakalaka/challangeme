@@ -40,6 +40,7 @@ import com.google.android.gms.maps.GoogleMap.OnCameraChangeListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -48,6 +49,8 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.ik.ggnote.R;
 import com.ik.ggnote.utils.GMapV2Direction;
 import com.ik.ggnote.utils.Utils;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.roomorama.caldroid.CaldroidFragment;
 
 /**
@@ -60,23 +63,57 @@ import com.roomorama.caldroid.CaldroidFragment;
 @EActivity ( R.layout.activity_display_on_map ) public class ADisplayOnMap extends ActionBarActivity implements OnMarkerDragListener , OnCameraChangeListener , ConnectionCallbacks , OnConnectionFailedListener , OnMarkerClickListener , LocationListener {
 
      // ---------------------------- VIEVS
-     @ViewById ImageView            ivBike , ivCar , ivWalking , ivMap , ivRouteType , ivCloseRouteInfo;
-     @ViewById TextView             twDistance , twStartAddress , twEndAddress;
-     @ViewById LinearLayout         llBottomMapMenuDescritption;
+     @ViewById ImageView                                ivBike , ivCar , ivWalking , ivMap , ivRouteType , ivCloseRouteInfo;
+     @ViewById TextView                                 twDistance , twStartAddress , twEndAddress , twDuration;
+     @ViewById LinearLayout                             llBottomMapMenuDescritption;
 
      // ---------------------------- VARIABLES
      // Google map instance
-     public GoogleMap               googleMap;
+     public GoogleMap                                   googleMap;
      // Calendar view
-     public static CaldroidFragment dialogCaldroidFragment = new CaldroidFragment();
+     public static CaldroidFragment                     dialogCaldroidFragment             = new CaldroidFragment();
      // Location client
-     private LocationClient         locationClient;
+     private LocationClient                             locationClient;
      // marker
-     private Marker                 locationMarker;
+     private Marker                                     locationMarker , currentLocation;
      // for displaying path on gmap
-     private final GMapV2Direction  routeDrawer            = new GMapV2Direction();
+     private final GMapV2Direction                      routeDrawer                        = new GMapV2Direction();
      // display progress
-     ProgressDialog                 progress;
+     ProgressDialog                                     progress;
+
+     AnimatorListener                                   animationListenerInvisibleInTheEnd = new AnimatorListener() {
+
+                                                                                                @Override public void onAnimationStart(Animator arg0) {
+                                                                                                     // TODO Auto-generated method stub
+
+                                                                                                }
+
+                                                                                                @Override public void onAnimationRepeat(Animator arg0) {
+                                                                                                     // TODO Auto-generated method stub
+
+                                                                                                }
+
+                                                                                                @Override public void onAnimationEnd(Animator arg0) {
+                                                                                                     llBottomMapMenuDescritption.setVisibility(View.GONE);
+                                                                                                }
+
+                                                                                                @Override public void onAnimationCancel(Animator arg0) {
+                                                                                                     // TODO Auto-generated method stub
+
+                                                                                                }
+                                                                                           };
+
+     private final GoogleMap.OnMyLocationChangeListener myLocationChangeListener           = new GoogleMap.OnMyLocationChangeListener() {
+
+                                                                                                @Override public void onMyLocationChange(Location location) {
+                                                                                                     if ( null != currentLocation ) {
+                                                                                                          currentLocation.remove();
+                                                                                                     }
+                                                                                                     LatLng loc = new LatLng(location.getLatitude(), location.getLongitude());
+                                                                                                     currentLocation = googleMap.addMarker(new MarkerOptions().position(loc).icon(BitmapDescriptorFactory.fromResource(R.drawable.start_position)));
+                                                                                                     currentLocation.showInfoWindow();
+                                                                                                }
+                                                                                           };
 
      @AfterViews void afterViews() {
           // obtaining map object
@@ -84,6 +121,9 @@ import com.roomorama.caldroid.CaldroidFragment;
           googleMap.setOnMarkerDragListener(this);
           // enable my location button
           googleMap.setMyLocationEnabled(true);
+
+          googleMap.setOnMyLocationChangeListener(myLocationChangeListener);
+
           // create location manager client
           locationClient = new LocationClient(this, this, this);
           // Inflate your custom layout
@@ -115,7 +155,7 @@ import com.roomorama.caldroid.CaldroidFragment;
      }
 
      @Click void ivCloseRouteInfo() {
-          YoYo.with(Techniques.FlipOutX).duration(1200).playOn(llBottomMapMenuDescritption);
+          YoYo.with(Techniques.FlipOutX).duration(1200).withListener(animationListenerInvisibleInTheEnd).playOn(llBottomMapMenuDescritption);
      }
 
      @Click void ivMap() {
@@ -175,7 +215,7 @@ import com.roomorama.caldroid.CaldroidFragment;
      @Background void drawPathToDestination(String directionMode, LatLng myLocation, LatLng destination) {
           showProgressDialog();
           Document doc = routeDrawer.getDocument(myLocation, destination, directionMode);
-          int duration = routeDrawer.getDurationValue(doc);
+          final String durationText = routeDrawer.getDurationText(doc);
           final String distance = routeDrawer.getDistanceText(doc);
           final String start_address = routeDrawer.getStartAddress(doc);
           final String end_address = routeDrawer.getEndAddress(doc);
@@ -202,12 +242,14 @@ import com.roomorama.caldroid.CaldroidFragment;
                     // smaller blue line
                     googleMap.addPolyline(rectLine2);
 
+                    llBottomMapMenuDescritption.setVisibility(View.VISIBLE);
+                    YoYo.with(Techniques.FlipInX).duration(1200).playOn(llBottomMapMenuDescritption);
+
                     twDistance.setText(distance);
                     twStartAddress.setText("Start address: " + start_address);
                     twEndAddress.setText("End address: " + end_address);
+                    twDuration.setText(durationText);
                     hideProgressDialog();
-                    llBottomMapMenuDescritption.setVisibility(View.VISIBLE);
-                    YoYo.with(Techniques.FlipOutX).duration(1200).playOn(llBottomMapMenuDescritption);
                }
           });
 
@@ -257,16 +299,18 @@ import com.roomorama.caldroid.CaldroidFragment;
           }
           if ( null != locationMarker ) { return; }
           LatLng location = new LatLng(ANoteDetails.note.location.latitude, ANoteDetails.note.location.longitude);
+
           // animate to center of UK
           animateCamera(location, 12);
           createMarker(location);
+
      }
 
      private void createMarker(LatLng position) {
           // set up marker options
           MarkerOptions markerOptions = new MarkerOptions();
           markerOptions.position(position);
-          markerOptions.title(getResources().getString(R.string.unknown_address));
+          markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.note_position));
           // set up marker
           locationMarker = googleMap.addMarker(markerOptions);
           locationMarker.setDraggable(true);
@@ -283,6 +327,7 @@ import com.roomorama.caldroid.CaldroidFragment;
      @Override protected void onPause() {
           super.onPause();
           locationClient.disconnect();
+          overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
      }
 
      /**
@@ -318,12 +363,10 @@ import com.roomorama.caldroid.CaldroidFragment;
           Utils.showStickyNotification(this, R.string.position_has_been_changed, AppMsg.STYLE_CONFIRM, 1000);
           googleMap.clear();
           createMarker(new LatLng(marker.getPosition().latitude, marker.getPosition().longitude));
-          locationMarker.setTitle(getResources().getString(R.string.unknown_address));
-          locationMarker.hideInfoWindow();
-          locationMarker.showInfoWindow();
-          locationMarker.setTitle(getResources().getString(R.string.unknown_address));
-          locationMarker.hideInfoWindow();
-          locationMarker.showInfoWindow();
+          if ( llBottomMapMenuDescritption.getVisibility() != View.GONE ) {
+               llBottomMapMenuDescritption.setVisibility(View.VISIBLE);
+               YoYo.with(Techniques.FlipOutX).duration(1200).withListener(animationListenerInvisibleInTheEnd).playOn(llBottomMapMenuDescritption);
+          }
      }
 
      @Override public void onMarkerDragStart(Marker arg0) {

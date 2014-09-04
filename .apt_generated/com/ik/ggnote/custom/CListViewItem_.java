@@ -71,24 +71,9 @@ public final class CListViewItem_
     @Override
     public void onViewChanged(HasViews hasViews) {
         twAmountAttached = ((TextView) hasViews.findViewById(id.twAmountAttached));
-        ivDeleteOrOpenNoteDetailRightButton = ((ImageView) hasViews.findViewById(id.ivDeleteOrOpenNoteDetailRightButton));
-        text = ((TextView) hasViews.findViewById(id.text));
         image = ((ImageView) hasViews.findViewById(id.image));
-        {
-            View view = hasViews.findViewById(id.ivDeleteOrOpenNoteDetailRightButton);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        CListViewItem_.this.ivDeleteOrOpenNoteDetailRightButton();
-                    }
-
-                }
-                );
-            }
-        }
+        text = ((TextView) hasViews.findViewById(id.text));
+        ivDeleteOrOpenNoteDetailRightButton = ((ImageView) hasViews.findViewById(id.ivDeleteOrOpenNoteDetailRightButton));
         {
             View view = hasViews.findViewById(id.twAmountAttached);
             if (view!= null) {
@@ -98,6 +83,21 @@ public final class CListViewItem_
                     @Override
                     public void onClick(View view) {
                         CListViewItem_.this.twAmountAttached();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivDeleteOrOpenNoteDetailRightButton);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        CListViewItem_.this.ivDeleteOrOpenNoteDetailRightButton();
                     }
 
                 }

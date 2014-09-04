@@ -81,11 +81,26 @@ public final class ASettings_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        rlNotesOrder = ((RelativeLayout) hasViews.findViewById(id.rlNotesOrder));
         rlChangePass = ((RelativeLayout) hasViews.findViewById(id.rlChangePass));
-        rlNotifications = ((RelativeLayout) hasViews.findViewById(id.rlNotifications));
-        rbAskPassword = ((RadioButton) hasViews.findViewById(id.rbAskPassword));
         rbDontAskPassword = ((RadioButton) hasViews.findViewById(id.rbDontAskPassword));
+        rlNotesOrder = ((RelativeLayout) hasViews.findViewById(id.rlNotesOrder));
+        rbAskPassword = ((RadioButton) hasViews.findViewById(id.rbAskPassword));
+        rlNotifications = ((RelativeLayout) hasViews.findViewById(id.rlNotifications));
+        {
+            View view = hasViews.findViewById(id.rlNotifications);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ASettings_.this.rlNotifications();
+                    }
+
+                }
+                );
+            }
+        }
         {
             View view = hasViews.findViewById(id.rlNotesOrder);
             if (view!= null) {

@@ -85,55 +85,26 @@ public final class ADisplayOnMap_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ivBike = ((ImageView) hasViews.findViewById(id.ivBike));
-        ivMap = ((ImageView) hasViews.findViewById(id.ivMap));
         twDistance = ((TextView) hasViews.findViewById(id.twDistance));
-        ivWalking = ((ImageView) hasViews.findViewById(id.ivWalking));
-        ivCloseRouteInfo = ((ImageView) hasViews.findViewById(id.ivCloseRouteInfo));
-        twEndAddress = ((TextView) hasViews.findViewById(id.twEndAddress));
+        ivMap = ((ImageView) hasViews.findViewById(id.ivMap));
+        ivBike = ((ImageView) hasViews.findViewById(id.ivBike));
         llBottomMapMenuDescritption = ((LinearLayout) hasViews.findViewById(id.llBottomMapMenuDescritption));
-        ivRouteType = ((ImageView) hasViews.findViewById(id.ivRouteType));
+        twDuration = ((TextView) hasViews.findViewById(id.twDuration));
+        twEndAddress = ((TextView) hasViews.findViewById(id.twEndAddress));
+        ivCloseRouteInfo = ((ImageView) hasViews.findViewById(id.ivCloseRouteInfo));
         twStartAddress = ((TextView) hasViews.findViewById(id.twStartAddress));
+        ivRouteType = ((ImageView) hasViews.findViewById(id.ivRouteType));
+        ivWalking = ((ImageView) hasViews.findViewById(id.ivWalking));
         ivCar = ((ImageView) hasViews.findViewById(id.ivCar));
         {
-            View view = hasViews.findViewById(id.ivMap);
+            View view = hasViews.findViewById(id.ivCar);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ADisplayOnMap_.this.ivMap();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ivWalking);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADisplayOnMap_.this.ivWalking();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ivBike);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADisplayOnMap_.this.ivBike();
+                        ADisplayOnMap_.this.ivCar();
                     }
 
                 }
@@ -156,14 +127,44 @@ public final class ADisplayOnMap_
             }
         }
         {
-            View view = hasViews.findViewById(id.ivCar);
+            View view = hasViews.findViewById(id.ivMap);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ADisplayOnMap_.this.ivCar();
+                        ADisplayOnMap_.this.ivMap();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivBike);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADisplayOnMap_.this.ivBike();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivWalking);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADisplayOnMap_.this.ivWalking();
                     }
 
                 }
@@ -174,20 +175,6 @@ public final class ADisplayOnMap_
     }
 
     @Override
-    public void showProgressDialog() {
-        handler_.post(new Runnable() {
-
-
-            @Override
-            public void run() {
-                ADisplayOnMap_.super.showProgressDialog();
-            }
-
-        }
-        );
-    }
-
-    @Override
     public void hideProgressDialog() {
         handler_.post(new Runnable() {
 
@@ -195,6 +182,20 @@ public final class ADisplayOnMap_
             @Override
             public void run() {
                 ADisplayOnMap_.super.hideProgressDialog();
+            }
+
+        }
+        );
+    }
+
+    @Override
+    public void showProgressDialog() {
+        handler_.post(new Runnable() {
+
+
+            @Override
+            public void run() {
+                ADisplayOnMap_.super.showProgressDialog();
             }
 
         }

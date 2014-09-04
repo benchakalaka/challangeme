@@ -13,8 +13,8 @@
 
 		<ImageView
 			android:id="@+id/image"
-			android:layout_width="60dp"
-			android:layout_height="60dp"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
 			android:layout_alignParentLeft="true"
 			android:layout_centerVertical="true" />
 
@@ -26,8 +26,6 @@
 			android:layout_alignParentTop="true"
 			android:background="@drawable/white_circle"
 			android:gravity="center"
-			android:src="@drawable/attach"
-			android:text="2"
 			android:textColor="@android:color/black"
 			android:visibility="visible" />
 	</RelativeLayout>
@@ -44,7 +42,6 @@
 		android:lines="1"
 		android:maxLines="1"
 		android:singleLine="true"
-		android:text="sad"
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:textColor="@android:color/white"
 		android:textStyle="italic" />
@@ -56,7 +53,7 @@
 		android:layout_alignParentRight="true"
 		android:layout_centerVertical="true"
 		android:layout_margin="5dp"
-		android:src="@drawable/ok3"
-		android:padding="5dp" />
+		android:padding="5dp"
+		android:src="@drawable/ok3" />
 
 </RelativeLayout>

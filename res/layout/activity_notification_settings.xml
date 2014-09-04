@@ -1,0 +1,97 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/ll"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@drawable/bg" >
+
+	<LinearLayout
+		android:id="@+id/llRoot"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical"
+		tools:context="${packageName}.${activityClass}" >
+
+		<RelativeLayout
+			android:layout_width="fill_parent"
+			android:layout_height="70dp"
+			android:layout_margin="5dp"
+			android:background="@drawable/transparent_inside_and_white_border"
+			android:orientation="vertical" >
+
+			<ImageView
+				android:id="@+id/image"
+				android:layout_width="60dp"
+				android:layout_height="60dp"
+				android:layout_alignParentLeft="true"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="5dp"
+				android:background="@drawable/vibrate" />
+
+			<TextView
+				android:id="@+id/text1"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:layout_gravity="center_vertical"
+				android:layout_toLeftOf="@+id/cbVibrate"
+				android:layout_toRightOf="@+id/image"
+				android:gravity="center_horizontal"
+				android:lines="1"
+				android:maxLines="1"
+				android:singleLine="true"
+				android:text="@string/vibrate"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:textColor="@android:color/white"
+				android:textStyle="bold" />
+
+			<CheckBox
+				android:id="@+id/cbVibrate"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:layout_alignBaseline="@+id/text1"
+				android:layout_alignParentRight="true"
+				android:button="@drawable/checkbox_selector" />
+		</RelativeLayout>
+
+		<RelativeLayout
+			android:layout_width="fill_parent"
+			android:layout_height="70dp"
+			android:layout_margin="5dp"
+			android:background="@drawable/transparent_inside_and_white_border"
+			android:orientation="vertical" >
+
+			<ImageView
+				android:id="@+id/image2"
+				android:layout_width="60dp"
+				android:layout_height="60dp"
+				android:layout_alignParentLeft="true"
+				android:layout_centerVertical="true"
+				android:layout_marginLeft="5dp"
+				android:background="@drawable/locked" />
+
+			<TextView
+				android:id="@+id/text2"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_centerVertical="true"
+				android:layout_gravity="center_vertical"
+				android:layout_toLeftOf="@+id/cbDisplayMessage"
+				android:layout_toRightOf="@+id/image2"
+				android:gravity="center_horizontal"
+				android:text="@string/display_message"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:textColor="@android:color/white"
+				android:textStyle="bold" />
+
+			<CheckBox
+				android:id="@+id/cbDisplayMessage"
+				android:layout_width="50dp"
+				android:layout_height="50dp"
+				android:layout_alignBaseline="@+id/text2"
+				android:layout_alignParentRight="true"
+				android:button="@drawable/checkbox_selector" />
+		</RelativeLayout>
+	</LinearLayout>
+
+</LinearLayout>

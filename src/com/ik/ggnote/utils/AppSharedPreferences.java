@@ -5,7 +5,7 @@ import org.androidannotations.annotations.sharedpreferences.DefaultInt;
 import org.androidannotations.annotations.sharedpreferences.DefaultString;
 import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
-@SharedPref ( value = SharedPref.Scope.UNIQUE ) public interface AppSharedPreferences {
+@SharedPref ( value = SharedPref.Scope.APPLICATION_DEFAULT ) public interface AppSharedPreferences {
      // user password
      @DefaultString ( "" ) String password();
 
@@ -29,4 +29,10 @@ import org.androidannotations.annotations.sharedpreferences.SharedPref;
 
      // default postion of work
      @DefaultInt ( 4 ) int orderNumberWork();
+
+     // display text of jenote in notification bar
+     @DefaultBoolean ( true ) boolean displayMessageText();
+
+     // vibrate on notification alarm
+     @DefaultBoolean ( true ) boolean vibrateOnNotification();
 }
