@@ -5,43 +5,11 @@
 	android:background="@drawable/bg"
 	tools:context="${packageName}.${activityClass}" >
 
-	<TextView
-		android:id="@+id/twPass"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="@string/do_you_want_to_be_asked_password"
-		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:textColor="@android:color/white" />
-
-	<RadioGroup
-		android:id="@+id/rgAskPass"
-		android:layout_below="@+id/twPass"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_margin="5dp"
-		android:background="@drawable/transparent_inside_and_white_border" >
-
-		<RadioButton
-			android:id="@+id/rbAskPassword"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:checked="true"
-			android:text="@string/yes"
-			android:textColor="@android:color/white" />
-
-		<RadioButton
-			android:id="@+id/rbDontAskPassword"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="@string/no"
-			android:textColor="@android:color/white" />
-	</RadioGroup>
-
 	<RelativeLayout
-		android:id="@+id/rlChangePass"
+		android:id="@+id/rlChangeEmail"
 		android:layout_width="fill_parent"
 		android:layout_height="70dp"
-		android:layout_below="@+id/rgAskPass"
+		android:layout_alignParentTop="true"
 		android:layout_margin="5dp"
 		android:background="@drawable/transparent_inside_and_white_border"
 		android:orientation="vertical" >
@@ -53,7 +21,7 @@
 			android:layout_alignParentLeft="true"
 			android:layout_centerVertical="true"
 			android:layout_marginLeft="5dp"
-			android:background="@drawable/key" />
+			android:background="@drawable/email" />
 
 		<TextView
 			android:id="@+id/text1"
@@ -67,7 +35,7 @@
 			android:lines="1"
 			android:maxLines="1"
 			android:singleLine="true"
-			android:text="@string/changePassword"
+			android:text="@string/change_email"
 			android:textAppearance="?android:attr/textAppearanceLarge"
 			android:textColor="@android:color/white"
 			android:textStyle="bold" />
@@ -87,7 +55,7 @@
 		android:id="@+id/rlNotesOrder"
 		android:layout_width="fill_parent"
 		android:layout_height="70dp"
-		android:layout_below="@+id/rlChangePass"
+		android:layout_below="@+id/rlChangeEmail"
 		android:layout_margin="5dp"
 		android:background="@drawable/transparent_inside_and_white_border"
 		android:orientation="vertical" >
@@ -166,6 +134,52 @@
 
 		<ImageView
 			android:id="@+id/ivNotifications"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:layout_alignParentRight="true"
+			android:layout_centerVertical="true"
+			android:layout_margin="5dp"
+			android:background="@drawable/arrowright"
+			android:padding="5dp" />
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:id="@+id/rlChangePass"
+		android:layout_width="fill_parent"
+		android:layout_height="70dp"
+		android:layout_below="@+id/rlNotifications"
+		android:layout_margin="5dp"
+		android:background="@drawable/transparent_inside_and_white_border"
+		android:orientation="vertical" >
+
+		<ImageView
+			android:id="@+id/image2"
+			android:layout_width="60dp"
+			android:layout_height="60dp"
+			android:layout_alignParentLeft="true"
+			android:layout_centerVertical="true"
+			android:layout_marginLeft="5dp"
+			android:background="@drawable/key" />
+
+		<TextView
+			android:id="@+id/text2"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_centerVertical="true"
+			android:layout_gravity="center_vertical"
+			android:layout_toLeftOf="@+id/ivDeleteOrOpenNoteDetailRightButton2"
+			android:layout_toRightOf="@+id/image2"
+			android:gravity="center_horizontal"
+			android:lines="1"
+			android:maxLines="1"
+			android:singleLine="true"
+			android:text="@string/password"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:textColor="@android:color/white"
+			android:textStyle="bold" />
+
+		<ImageView
+			android:id="@+id/ivDeleteOrOpenNoteDetailRightButton2"
 			android:layout_width="40dp"
 			android:layout_height="40dp"
 			android:layout_alignParentRight="true"

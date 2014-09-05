@@ -10,13 +10,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -85,16 +82,29 @@ public final class AMyNotes_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ivFilter = ((ImageView) hasViews.findViewById(id.ivFilter));
-        twAmoutFinished = ((TextView) hasViews.findViewById(id.twAmoutFinished));
-        ivPrevDay = ((ImageView) hasViews.findViewById(id.ivPrevDay));
-        llMyNotes = ((LinearLayout) hasViews.findViewById(id.llMyNotes));
-        etSearch = ((EditText) hasViews.findViewById(id.etSearch));
-        ivNextDay = ((ImageView) hasViews.findViewById(id.ivNextDay));
-        twCompleted = ((TextView) hasViews.findViewById(id.twCompleted));
-        twAmoutNotes = ((TextView) hasViews.findViewById(id.twAmoutNotes));
-        twDate = ((TextView) hasViews.findViewById(id.twDate));
         twMyNotes = ((TextView) hasViews.findViewById(id.twMyNotes));
+        llMyNotes = ((LinearLayout) hasViews.findViewById(id.llMyNotes));
+        twDate = ((TextView) hasViews.findViewById(id.twDate));
+        ivPrevDay = ((ImageView) hasViews.findViewById(id.ivPrevDay));
+        twCompleted = ((TextView) hasViews.findViewById(id.twCompleted));
+        ivNextDay = ((ImageView) hasViews.findViewById(id.ivNextDay));
+        twAmoutNotes = ((TextView) hasViews.findViewById(id.twAmoutNotes));
+        twAmoutFinished = ((TextView) hasViews.findViewById(id.twAmoutFinished));
+        {
+            View view = hasViews.findViewById(id.twCompleted);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AMyNotes_.this.twCompleted();
+                    }
+
+                }
+                );
+            }
+        }
         {
             View view = hasViews.findViewById(id.ivPrevDay);
             if (view!= null) {
@@ -126,6 +136,21 @@ public final class AMyNotes_
             }
         }
         {
+            View view = hasViews.findViewById(id.twMyNotes);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AMyNotes_.this.twMyNotes();
+                    }
+
+                }
+                );
+            }
+        }
+        {
             View view = hasViews.findViewById(id.ivFilter);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
@@ -149,59 +174,6 @@ public final class AMyNotes_
                     @Override
                     public void onClick(View view) {
                         AMyNotes_.this.ivNextDay();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.twMyNotes);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        AMyNotes_.this.twMyNotes();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.twCompleted);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        AMyNotes_.this.twCompleted();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            final TextView view = ((TextView) hasViews.findViewById(id.etSearch));
-            if (view!= null) {
-                view.addTextChangedListener(new TextWatcher() {
-
-
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        AMyNotes_.this.etSearch();
                     }
 
                 }

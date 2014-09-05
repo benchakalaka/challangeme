@@ -14,7 +14,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
@@ -81,11 +80,25 @@ public final class ASettings_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        rlChangePass = ((RelativeLayout) hasViews.findViewById(id.rlChangePass));
-        rbDontAskPassword = ((RadioButton) hasViews.findViewById(id.rbDontAskPassword));
         rlNotesOrder = ((RelativeLayout) hasViews.findViewById(id.rlNotesOrder));
-        rbAskPassword = ((RadioButton) hasViews.findViewById(id.rbAskPassword));
+        rlChangeEmail = ((RelativeLayout) hasViews.findViewById(id.rlChangeEmail));
+        rlChangePass = ((RelativeLayout) hasViews.findViewById(id.rlChangePass));
         rlNotifications = ((RelativeLayout) hasViews.findViewById(id.rlNotifications));
+        {
+            View view = hasViews.findViewById(id.rlChangePass);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ASettings_.this.rlChangePass();
+                    }
+
+                }
+                );
+            }
+        }
         {
             View view = hasViews.findViewById(id.rlNotifications);
             if (view!= null) {
@@ -102,6 +115,21 @@ public final class ASettings_
             }
         }
         {
+            View view = hasViews.findViewById(id.rlChangeEmail);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ASettings_.this.rlChangeEmail();
+                    }
+
+                }
+                );
+            }
+        }
+        {
             View view = hasViews.findViewById(id.rlNotesOrder);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
@@ -110,21 +138,6 @@ public final class ASettings_
                     @Override
                     public void onClick(View view) {
                         ASettings_.this.rlNotesOrder();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.rlChangePass);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ASettings_.this.rlChangePass();
                     }
 
                 }

@@ -54,6 +54,6 @@
 		android:layout_centerVertical="true"
 		android:layout_margin="5dp"
 		android:padding="5dp"
-		android:src="@drawable/ok3" />
+		android:src="@drawable/ok" />
 
 </RelativeLayout>

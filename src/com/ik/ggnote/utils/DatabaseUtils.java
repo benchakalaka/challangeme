@@ -39,4 +39,20 @@ public class DatabaseUtils {
      public static List <ModelNote> getAllNotes() {
           return ModelNote.findWithQuery(ModelNote.class, "SELECT * FROM MODEL_NOTE;");
      }
+
+     /**
+      * Select all records from ModelNote table
+      * example yearMonth_YYYY_MM_DD = 2014/05/05, date = 2014/05/23 12:23:13,
+      */
+     public static List <ModelNote> getAllNotesOrderedByDatesAsc() {
+          return ModelNote.findWithQuery(ModelNote.class, "SELECT * FROM MODEL_NOTE ORDERED BY date ASC;");
+     }
+
+     /**
+      * Select all records from ModelNote table
+      * example yearMonth_YYYY_MM_DD = 2014/05/05, date = 2014/05/23 12:23:13,
+      */
+     public static List <ModelNote> getAllNotesOrderedByDatesDesc() {
+          return ModelNote.findWithQuery(ModelNote.class, "SELECT * FROM MODEL_NOTE ORDERED BY date DESC;");
+     }
 }

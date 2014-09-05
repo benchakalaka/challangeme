@@ -3,6 +3,7 @@ package com.ik.ggnote.utils;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,9 +11,12 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -156,6 +160,38 @@ public class Utils {
                     }
                }
           });
+     }
+
+     /**
+      * Makes a substring of a string bold.
+      * 
+      * @param text
+      *             Full text
+      * @param textToBold
+      *             Text you want to make bold
+      * @return String with bold substring
+      */
+
+     public static SpannableStringBuilder makeSectionOfTextBold(String text, String textToBold) {
+          SpannableStringBuilder builder = new SpannableStringBuilder();
+          if ( textToBold.length() > 0 && !textToBold.trim().equals("") ) {
+               // for counting start/end indexes
+               String testText = text.toLowerCase(Locale.getDefault());
+               String testTextToBold = textToBold.toLowerCase(Locale.getDefault());
+               int startingIndex = testText.indexOf(testTextToBold);
+               int endingIndex = startingIndex + testTextToBold.length();
+
+               // for counting start/end indexes
+               if ( startingIndex < 0 || endingIndex < 0 ) {
+                    return builder.append(text);
+               } else if ( startingIndex >= 0 && endingIndex >= 0 ) {
+                    builder.append(text);
+                    builder.setSpan(new StyleSpan(Typeface.BOLD), startingIndex, endingIndex, 0);
+               }
+          } else {
+               return builder.append(text);
+          }
+          return builder;
      }
 
      /**

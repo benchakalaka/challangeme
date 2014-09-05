@@ -35,7 +35,7 @@
 					android:layout_centerVertical="true"
 					android:layout_margin="8dip"
 					android:scaleType="centerInside"
-					android:src="@drawable/settings" />
+					android:src="@drawable/email" />
 
 				<TextView
 					android:id="@+id/alertTitle"
@@ -47,7 +47,7 @@
 					android:ellipsize="end"
 					android:gravity="center"
 					android:singleLine="true"
-					android:text="@string/changePassword" />
+					android:text="@string/newEmail" />
 			</RelativeLayout>
 
 			<View
@@ -72,65 +72,12 @@
 				android:background="@drawable/transparent_inside_and_white_border" >
 
 				<TextView
-					android:id="@+id/twOldPass"
-					style="@style/DialogWindowTitle"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_alignParentLeft="true"
-					android:layout_alignParentTop="true"
-					android:layout_marginLeft="8dip"
-					android:ellipsize="end"
-					android:singleLine="true"
-					android:text="@string/oldPass" />
-
-				<EditText
-					android:id="@+id/etOldPassword"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_alignParentLeft="true"
-					android:layout_alignParentRight="true"
-					android:layout_below="@+id/twOldPass"
-					android:layout_margin="4dp"
-					android:background="@drawable/transparent_inside_and_white_border"
-					android:inputType="textPassword"
-					android:maxLines="1"
-					android:padding="5dp"
-					android:textColor="@android:color/white" >
-				</EditText>
-
-				<TextView
-					android:id="@+id/twNewPass"
-					style="@style/DialogWindowTitle"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_alignParentLeft="true"
-					android:layout_below="@+id/etOldPassword"
-					android:layout_marginLeft="8dip"
-					android:ellipsize="end"
-					android:singleLine="true"
-					android:text="@string/newPass" />
-
-				<EditText
-					android:id="@+id/etNewPassword"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_alignParentLeft="true"
-					android:layout_alignParentRight="true"
-					android:layout_below="@+id/twNewPass"
-					android:layout_margin="4dp"
-					android:background="@drawable/transparent_inside_and_white_border"
-					android:inputType="textPassword"
-					android:maxLines="1"
-					android:padding="5dp"
-					android:textColor="@android:color/white" />
-
-				<TextView
 					android:id="@+id/twEmail"
 					style="@style/DialogWindowTitle"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
+					android:layout_alignParentTop="true"
 					android:layout_alignParentLeft="true"
-					android:layout_below="@+id/etNewPassword"
 					android:layout_marginLeft="8dip"
 					android:ellipsize="end"
 					android:singleLine="true"
@@ -161,17 +108,17 @@
 
 		<LinearLayout
 			android:layout_width="match_parent"
-			android:orientation="horizontal"
-			android:layout_height="wrap_content" >
+			android:layout_height="wrap_content"
+			android:orientation="horizontal" >
 
 			<Button
 				android:id="@+id/buttonOk"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_weight="1"
+				android:layout_marginBottom="5dp"
 				android:layout_marginLeft="10dp"
 				android:layout_marginRight="10dp"
-				android:layout_marginBottom="5dp"
+				android:layout_weight="1"
 				android:background="#77000000"
 				android:text="@android:string/ok" />
 
@@ -179,10 +126,10 @@
 				android:id="@+id/buttonCancel"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_weight="1"
 				android:layout_marginBottom="5dp"
 				android:layout_marginLeft="10dp"
 				android:layout_marginRight="10dp"
+				android:layout_weight="1"
 				android:background="#77000000"
 				android:text="@string/cancel" />
 		</LinearLayout>

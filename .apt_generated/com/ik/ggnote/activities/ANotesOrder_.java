@@ -82,36 +82,36 @@ public final class ANotesOrder_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ivReminderDown = ((ImageView) hasViews.findViewById(id.ivReminderDown));
         ivEventDown = ((ImageView) hasViews.findViewById(id.ivEventDown));
-        ivUrgentUp = ((ImageView) hasViews.findViewById(id.ivUrgentUp));
-        ivReminderUp = ((ImageView) hasViews.findViewById(id.ivReminderUp));
-        llRoot = ((LinearLayout) hasViews.findViewById(id.llRoot));
-        rlUrgent = ((RelativeLayout) hasViews.findViewById(id.rlUrgent));
         ivEventUp = ((ImageView) hasViews.findViewById(id.ivEventUp));
-        rlEvent = ((RelativeLayout) hasViews.findViewById(id.rlEvent));
+        rlUrgent = ((RelativeLayout) hasViews.findViewById(id.rlUrgent));
         rl5 = ((RelativeLayout) hasViews.findViewById(id.rl5));
+        rl1 = ((RelativeLayout) hasViews.findViewById(id.rl1));
+        ivWorkUp = ((ImageView) hasViews.findViewById(id.ivWorkUp));
+        rl3 = ((RelativeLayout) hasViews.findViewById(id.rl3));
+        ivUrgentUp = ((ImageView) hasViews.findViewById(id.ivUrgentUp));
+        ivUrgentDown = ((ImageView) hasViews.findViewById(id.ivUrgentDown));
         ivSimpleUp = ((ImageView) hasViews.findViewById(id.ivSimpleUp));
+        rl4 = ((RelativeLayout) hasViews.findViewById(id.rl4));
+        rl2 = ((RelativeLayout) hasViews.findViewById(id.rl2));
         rlWork = ((RelativeLayout) hasViews.findViewById(id.rlWork));
         ivSimpleDown = ((ImageView) hasViews.findViewById(id.ivSimpleDown));
-        ivUrgentDown = ((ImageView) hasViews.findViewById(id.ivUrgentDown));
-        ivWorkUp = ((ImageView) hasViews.findViewById(id.ivWorkUp));
-        rlSimple = ((RelativeLayout) hasViews.findViewById(id.rlSimple));
-        rl1 = ((RelativeLayout) hasViews.findViewById(id.rl1));
-        rl3 = ((RelativeLayout) hasViews.findViewById(id.rl3));
-        rl4 = ((RelativeLayout) hasViews.findViewById(id.rl4));
-        ivWorkDown = ((ImageView) hasViews.findViewById(id.ivWorkDown));
-        rl2 = ((RelativeLayout) hasViews.findViewById(id.rl2));
+        ivReminderUp = ((ImageView) hasViews.findViewById(id.ivReminderUp));
+        ivReminderDown = ((ImageView) hasViews.findViewById(id.ivReminderDown));
+        llRoot = ((LinearLayout) hasViews.findViewById(id.llRoot));
         rlReminder = ((RelativeLayout) hasViews.findViewById(id.rlReminder));
+        ivWorkDown = ((ImageView) hasViews.findViewById(id.ivWorkDown));
+        rlSimple = ((RelativeLayout) hasViews.findViewById(id.rlSimple));
+        rlEvent = ((RelativeLayout) hasViews.findViewById(id.rlEvent));
         {
-            View view = hasViews.findViewById(id.rl2);
+            View view = hasViews.findViewById(id.rl4);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ANotesOrder_.this.rl2();
+                        ANotesOrder_.this.rl4();
                     }
 
                 }
@@ -134,36 +134,6 @@ public final class ANotesOrder_
             }
         }
         {
-            View view = hasViews.findViewById(id.rl3);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ANotesOrder_.this.rl3();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.rl4);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ANotesOrder_.this.rl4();
-                    }
-
-                }
-                );
-            }
-        }
-        {
             View view = hasViews.findViewById(id.rl5);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
@@ -172,6 +142,36 @@ public final class ANotesOrder_
                     @Override
                     public void onClick(View view) {
                         ANotesOrder_.this.rl5();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.rl2);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ANotesOrder_.this.rl2();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.rl3);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ANotesOrder_.this.rl3();
                     }
 
                 }

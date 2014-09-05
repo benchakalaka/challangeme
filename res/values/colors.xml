@@ -9,8 +9,6 @@
 	
 	<color name="route_first_color">#ffffff</color>
 	<color name="route_second_color">#5CE6E6</color>
-	<color name="buttons_selected_color_filter">#FF6600</color>
-	
-	
+	<color name="buttons_selected_color_filter">#FF4400</color>
 	
 </resources>

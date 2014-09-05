@@ -79,8 +79,8 @@ public final class ANotificationSettings_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        cbVibrate = ((CheckBox) hasViews.findViewById(id.cbVibrate));
         cbDisplayMessage = ((CheckBox) hasViews.findViewById(id.cbDisplayMessage));
+        cbVibrate = ((CheckBox) hasViews.findViewById(id.cbVibrate));
         afterViews();
     }
 

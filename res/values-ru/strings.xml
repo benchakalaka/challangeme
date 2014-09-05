@@ -11,7 +11,7 @@
 	</string-array>
 
 	<string name="help">Помощь.</string>
-	<string name="app_name">GGNote</string>
+	<string name="app_name">jenote</string>
 	<string name="hint_password">Пароль</string>
 	<string name="failed">Неудача</string>
 	<string name="clear_canvas">Очистить полотно?</string>
@@ -54,7 +54,7 @@
 	<string name="resetPassword"><u>Забыли пароль?</u></string>
 	<string name="changePassword">Изменить пароль</string>
 	<string name="changeNotesOrder">Порядок записок</string>
-	<string name="notifications">Нотификация</string>
+	<string name="notifications">Уведомления</string>
 	<string name="settings">Настройки</string>
 	<string name="newPass">Новый пароль</string>
 	<string name="oldPass">Старый пароль</string>
@@ -137,8 +137,21 @@
 	<string name="displays_created_time">Дата и время, когда записка была создана</string>
 	<string name="do_you_want_to_set_alarm">Вы хотите установить напоминание?</string>
 	<string name="set_alarm">Установить время</string>
-	<string name="vibrate">Вибрировать при нотификации</string>
-	<string name="display_message">Отображать текст сообщения при нотификации</string>
-	<string name="jenote_reminder">JENote напоминание</string>
+	<string name="vibrate">Вибрировать при уведомлении</string>
+	<string name="display_message">Отображать текст сообщения при уведомлении</string>
+	<string name="jenote_reminder">jenote напоминание</string>
+	<string name="jenote_hasnot_been_saved">jenote не был сохранен</string>
+	<string name="do_you_want_to_save_jenote">Вы хотите сохранить jenote?</string>
+	<string name="change_email">Изменить эл. почту</string>
+	<string name="password_has_been_changed">Пароль изменен</string>
+	<string name="old_password_is_wrong">Пароль не верный</string>
+	<string name="field_cannot_be_empty">Поле не может быть пустое</string>
+	<string name="email_has_been_changed">Эл. почта была изменена</string>
+	<string name="search">Поиск</string>
+	<string name="filter_show_not_complete">Показывать не выполненые jenotes</string>
+	<string name="filter_show_complete">Показывать выполненые jenotes</string>
+	<string name="filter_show_all">Показывать все jenotes</string>
+	<string name="sort_by_dates_old_first">Сортировать по дате: сначала старые jenotes</string>
+	<string name="sort_by_dates_new_first">Сортировать по дате: сначала новые jenotes</string>
 
 </resources>

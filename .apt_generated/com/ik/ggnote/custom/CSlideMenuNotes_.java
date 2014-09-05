@@ -69,13 +69,14 @@ public final class CSlideMenuNotes_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        twNotes = ((TextView) hasViews.findViewById(id.twNotes));
+        logout = ((RelativeLayout) hasViews.findViewById(id.logout));
         settings = ((RelativeLayout) hasViews.findViewById(id.settings));
-        twAmoutNotes = ((TextView) hasViews.findViewById(id.twAmoutNotes));
         twAmoutFinished = ((TextView) hasViews.findViewById(id.twAmoutFinished));
         twSettings = ((TextView) hasViews.findViewById(id.twSettings));
+        twAmoutNotes = ((TextView) hasViews.findViewById(id.twAmoutNotes));
+        globalSearch = ((RelativeLayout) hasViews.findViewById(id.globalSearch));
         notes = ((RelativeLayout) hasViews.findViewById(id.notes));
-        logout = ((RelativeLayout) hasViews.findViewById(id.logout));
+        twNotes = ((TextView) hasViews.findViewById(id.twNotes));
         {
             View view = hasViews.findViewById(id.settings);
             if (view!= null) {
@@ -85,6 +86,21 @@ public final class CSlideMenuNotes_
                     @Override
                     public void onClick(View view) {
                         CSlideMenuNotes_.this.settings();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.globalSearch);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        CSlideMenuNotes_.this.globalSearch();
                     }
 
                 }

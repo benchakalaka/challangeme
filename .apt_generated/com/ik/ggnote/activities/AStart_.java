@@ -81,8 +81,8 @@ public final class AStart_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        twResetPassword = ((TextView) hasViews.findViewById(id.twResetPassword));
         etPassword = ((EditText) hasViews.findViewById(id.etPassword));
+        twResetPassword = ((TextView) hasViews.findViewById(id.twResetPassword));
         {
             View view = hasViews.findViewById(id.twResetPassword);
             if (view!= null) {

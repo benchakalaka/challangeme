@@ -13,6 +13,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ik.ggnote.R;
+import com.ik.ggnote.activities.AGlobalSearch_;
 import com.ik.ggnote.activities.AMyNotes;
 import com.ik.ggnote.activities.ASettings_;
 import com.ik.ggnote.utils.Utils.AnimationManager;
@@ -23,14 +24,12 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
 @EViewGroup ( R.layout.slide_menu_notes ) public class CSlideMenuNotes extends ScrollView implements OnOpenListener , OnCloseListener {
 
      // Parent activity
-     private final AMyNotes   activity;
+     private final AMyNotes activity;
      // Side slide menu
-     private SlidingMenu      menu;
+     private SlidingMenu    menu;
 
      // load views
-     @ViewById RelativeLayout notes;
-     @ViewById RelativeLayout settings;
-     @ViewById RelativeLayout logout;
+     @ViewById RelativeLayout logout , globalSearch , settings , notes;
 
      @ViewById TextView       twAmoutFinished , twAmoutNotes , twNotes , twSettings;
      private int              amountOfNotes;
@@ -64,18 +63,16 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
           menu.setOnCloseListener(this);
      }
 
+     @Click void globalSearch() {
+          notes.startAnimation(AnimationManager.load(android.R.anim.fade_out));
+          this.activity.startActivity(new Intent(this.activity, AGlobalSearch_.class));
+     }
+
      /**
       * Set selected item NOTES
       */
      public void setSelectedNotesItem() {
-          twNotes.setTextColor(Color.GREEN);
-     }
-
-     /**
-      * Set selected item Settings
-      */
-     public void setSelectedSettingsItem() {
-          twSettings.setTextColor(Color.GREEN);
+          twNotes.setTextColor(Color.parseColor("#FF6600"));
      }
 
      /**

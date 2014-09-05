@@ -85,47 +85,17 @@ public final class ADisplayOnMap_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        twDistance = ((TextView) hasViews.findViewById(id.twDistance));
-        ivMap = ((ImageView) hasViews.findViewById(id.ivMap));
-        ivBike = ((ImageView) hasViews.findViewById(id.ivBike));
-        llBottomMapMenuDescritption = ((LinearLayout) hasViews.findViewById(id.llBottomMapMenuDescritption));
         twDuration = ((TextView) hasViews.findViewById(id.twDuration));
-        twEndAddress = ((TextView) hasViews.findViewById(id.twEndAddress));
-        ivCloseRouteInfo = ((ImageView) hasViews.findViewById(id.ivCloseRouteInfo));
-        twStartAddress = ((TextView) hasViews.findViewById(id.twStartAddress));
+        llBottomMapMenuDescritption = ((LinearLayout) hasViews.findViewById(id.llBottomMapMenuDescritption));
         ivRouteType = ((ImageView) hasViews.findViewById(id.ivRouteType));
-        ivWalking = ((ImageView) hasViews.findViewById(id.ivWalking));
         ivCar = ((ImageView) hasViews.findViewById(id.ivCar));
-        {
-            View view = hasViews.findViewById(id.ivCar);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADisplayOnMap_.this.ivCar();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ivCloseRouteInfo);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADisplayOnMap_.this.ivCloseRouteInfo();
-                    }
-
-                }
-                );
-            }
-        }
+        ivCloseRouteInfo = ((ImageView) hasViews.findViewById(id.ivCloseRouteInfo));
+        ivBike = ((ImageView) hasViews.findViewById(id.ivBike));
+        ivMap = ((ImageView) hasViews.findViewById(id.ivMap));
+        twEndAddress = ((TextView) hasViews.findViewById(id.twEndAddress));
+        twStartAddress = ((TextView) hasViews.findViewById(id.twStartAddress));
+        twDistance = ((TextView) hasViews.findViewById(id.twDistance));
+        ivWalking = ((ImageView) hasViews.findViewById(id.ivWalking));
         {
             View view = hasViews.findViewById(id.ivMap);
             if (view!= null) {
@@ -135,6 +105,36 @@ public final class ADisplayOnMap_
                     @Override
                     public void onClick(View view) {
                         ADisplayOnMap_.this.ivMap();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivWalking);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADisplayOnMap_.this.ivWalking();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivCar);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADisplayOnMap_.this.ivCar();
                     }
 
                 }
@@ -157,14 +157,14 @@ public final class ADisplayOnMap_
             }
         }
         {
-            View view = hasViews.findViewById(id.ivWalking);
+            View view = hasViews.findViewById(id.ivCloseRouteInfo);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ADisplayOnMap_.this.ivWalking();
+                        ADisplayOnMap_.this.ivCloseRouteInfo();
                     }
 
                 }

@@ -104,6 +104,41 @@
 		</RelativeLayout>
 
 		<RelativeLayout
+			android:id="@+id/globalSearch"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content" >
+
+			<ImageView
+				android:id="@+id/ivGlobalSearch"
+				android:layout_width="50dip"
+				android:layout_height="50dip"
+				android:layout_margin="5dp"
+				android:contentDescription="@null"
+				android:padding="5dp"
+				android:src="@drawable/search" />
+
+			<TextView
+				android:id="@+id/twGlobalSearch"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentRight="true"
+				android:layout_alignParentTop="true"
+				android:layout_toRightOf="@+id/ivGlobalSearch"
+				android:padding="20dp"
+				android:text="@string/search"
+				android:textAppearance="?android:attr/textAppearanceMedium"
+				android:textColor="@android:color/white" />
+
+			<View
+				android:layout_width="fill_parent"
+				android:layout_height="1dp"
+				android:layout_alignParentBottom="true"
+				android:layout_marginLeft="10dp"
+				android:layout_marginRight="10dp"
+				android:background="@color/slide_menu_divider_color" />
+		</RelativeLayout>
+
+		<RelativeLayout
 			android:id="@+id/logout"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content" >

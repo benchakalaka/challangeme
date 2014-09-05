@@ -47,30 +47,12 @@
 			android:src="@drawable/arrowright" />
 	</RelativeLayout>
 
-	<EditText
-		android:id="@+id/etSearch"
-		android:layout_width="match_parent"
-		android:layout_height="50dp"
-		android:layout_below="@+id/rlCurrentDate"
-		android:layout_toLeftOf="@+id/ivFilter"
-		android:drawableLeft="@android:drawable/ic_menu_search"
-		android:ems="10" />
-
-	<ImageView
-		android:id="@+id/ivFilter"
-		android:layout_width="50dp"
-		android:layout_height="50dp"
-		android:layout_alignBottom="@+id/etSearch"
-		android:layout_alignParentRight="true"
-		android:layout_below="@+id/rlCurrentDate"
-		android:src="@drawable/filter" />
-
 	<ScrollView
 		android:id="@+id/scrollView1"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_above="@+id/rlBottomMenu"
-		android:layout_below="@+id/etSearch"
+		android:layout_below="@+id/rlCurrentDate"
 		android:layout_margin="5dp" >
 
 		<LinearLayout

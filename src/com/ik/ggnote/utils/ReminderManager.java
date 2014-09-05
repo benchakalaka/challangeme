@@ -42,8 +42,6 @@ public class ReminderManager extends BroadcastReceiver {
           if ( null != note ) {
                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-               boolean value = preferences.getBoolean("", false);
-
                ActiveRecord.context = context.getApplicationContext();
                ANoteDetails.note = note;
                Intent resultIntent = new Intent(context, ANoteDetails_.class);
@@ -57,24 +55,27 @@ public class ReminderManager extends BroadcastReceiver {
 
                NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
                mBuilder.setAutoCancel(true);
-               // notificationID allows you to update the notification later on.
-               mNotificationManager.notify(0, mBuilder.build());
+
+               boolean displayMessage = preferences.getBoolean("displayMessageText", true);
+               boolean vibrateOnNotification = preferences.getBoolean("vibrateOnNotification", true);
 
                // if display message in notification set in settings, display message
-               // if ( appPref.displayMessageText().get() ) {
-               // mBuilder.setContentText(note.description);
-               // } else {
-               // // display default message otherwise
-               mBuilder.setContentText(context.getString(R.string.jenote_reminder));
-               // }
+               if ( displayMessage ) {
+                    mBuilder.setContentText(note.description);
+               } else {
+                    // display default message otherwise
+                    mBuilder.setContentText(context.getResources().getString(R.string.jenote_reminder));
+               }
 
                // if settings saved as vibrate, vibrate for 1 sec
-               // if ( appPref.vibrateOnNotification().get() ) {
-               // Get instance of Vibrator from current Context
-               Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-               // Vibrate
-               v.vibrate(1000);
-               // }
+               if ( vibrateOnNotification ) {
+                    // Get instance of Vibrator from current Context
+                    Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                    // Vibrate
+                    v.vibrate(1000);
+               }
+               // notificationID allows you to update the notification later on.
+               mNotificationManager.notify(note.getId().intValue(), mBuilder.build());
           }
 
           // Release the lock

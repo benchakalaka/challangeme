@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import org.androidannotations.annotations.AfterTextChange;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
@@ -29,7 +28,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -59,8 +57,7 @@ import com.roomorama.caldroid.CaldroidFragment;
      // =================================================== VIEWS
      @ViewById LinearLayout                               llMyNotes;
      @ViewById TextView                                   twDate , twMyNotes , twCompleted , twAmoutNotes , twAmoutFinished;
-     @ViewById ImageView                                  ivPrevDay , ivNextDay , ivFilter;
-     @ViewById EditText                                   etSearch;
+     @ViewById ImageView                                  ivPrevDay , ivNextDay;
 
      // =================================================== VARIABLES
      private List <ModelNote>                             myNotes;
@@ -70,6 +67,8 @@ import com.roomorama.caldroid.CaldroidFragment;
      private CSlideMenuNotes                              menu;
      private static boolean                               loadCompleted        = true;
      @Pref AppSharedPreferences_                          appPref;
+     private String[]                                     ORDERE_NOTES_ARRAY;
+     ArrayAdapter <String>                                adapter;
 
      // Setup listener
      public final com.roomorama.caldroid.CaldroidListener onDateChangeListener = new com.roomorama.caldroid.CaldroidListener() {
@@ -88,8 +87,6 @@ import com.roomorama.caldroid.CaldroidFragment;
                                                                                     @Override public void onCaldroidViewCreated() {
                                                                                     }
                                                                                };
-     private String[]                                     ORDERE_NOTES_ARRAY;
-     ArrayAdapter <String>                                adapter;
 
      // =================================================== METHODS
      @AfterViews void afterViews() {
@@ -120,8 +117,6 @@ import com.roomorama.caldroid.CaldroidFragment;
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnTouchListener(Utils.touchListener);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setOnClickListener(this);
 
-          ivFilter.setOnTouchListener(Utils.touchListener);
-
           adapter = new ArrayAdapter <String>(AMyNotes.this, R.layout.custom_spinner_item, getResources().getStringArray(R.array.array_notes_types));
      }
 
@@ -148,10 +143,6 @@ import com.roomorama.caldroid.CaldroidFragment;
           });
 
           dialogBuilder.show();
-     }
-
-     @AfterTextChange void etSearch() {
-          applyFilterByWord(etSearch.getText().toString());
      }
 
      /**

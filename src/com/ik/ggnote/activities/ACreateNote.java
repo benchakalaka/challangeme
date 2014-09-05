@@ -40,6 +40,7 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 import com.devspark.appmsg.AppMsg;
+import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.ik.ggnote.R;
 import com.ik.ggnote.constants.ActiveRecord;
@@ -71,7 +72,7 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
      // displaying progress
      private ProgressDialog                               progressDialog;
      // dialog type of note
-     private NiftyDialogBuilder                           dialogBuilder;
+     private NiftyDialogBuilder                           dialogBuilder , dialogBuilderBackPress;
      // alarm manager
      private ReminderManager                              alarm;
      // Setup listener
@@ -130,6 +131,8 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
 
           dialogBuilder = new NiftyDialogBuilder(this);
           dialogBuilder.setContentView(R.layout.dialog_type_of_note);
+
+          dialogBuilderBackPress = new NiftyDialogBuilder(this);
      }
 
      /**
@@ -227,6 +230,46 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
           }
      }
 
+     private void askSaveJenote() {
+          boolean needToAsk = false;
+          if ( null != ActiveRecord.currentNote ) {
+               // display only if user set proper location
+               if ( null != ActiveRecord.currentNote.location ) {
+                    needToAsk = true;
+               }
+
+               if ( !TextUtils.isEmpty(ActiveRecord.currentNote.pathToDrawing) ) {
+                    needToAsk = true;
+               }
+
+               if ( !TextUtils.isEmpty(etDescription.getText().toString()) ) {
+                    needToAsk = true;
+               }
+
+               if ( !TextUtils.isEmpty(ActiveRecord.currentNote.pathToPhoto) ) {
+                    needToAsk = true;
+               }
+
+               if ( needToAsk ) {
+                    dialogBuilderBackPress.withButton1Text(getResources().getString(android.R.string.cancel)).withButton2Text(getResources().getString(R.string.save)).withIcon(R.drawable.jenote).withEffect(Effectstype.Slit).withTitle(getResources()
+                              .getString(R.string.jenote_hasnot_been_saved)).withMessage(getResources().getString(R.string.do_you_want_to_save_jenote)).setButton1Click(new View.OnClickListener() {
+                         @Override public void onClick(View v) {
+                              dialogBuilder.dismiss();
+                              startActivity(new Intent(ACreateNote.this, AMyNotes_.class));
+                         }
+                    }).setButton2Click(new OnClickListener() {
+
+                         @Override public void onClick(View v) {
+                              ibCreateNote();
+                         }
+
+                    }).show();
+               } else {
+                    startActivity(new Intent(this, AMyNotes_.class));
+               }
+          }
+     }
+
      /**
       * Draw and pin drawing to note
       */
@@ -250,7 +293,7 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {
-          startActivity(new Intent(this, AMyNotes_.class));
+          askSaveJenote();
           return super.onOptionsItemSelected(item);
      }
 
@@ -271,18 +314,20 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
           // save note
           ActiveRecord.currentNote.save();
 
-          Utils.showCustomToast(ACreateNote.this, R.string.note_has_been_created, R.drawable.book);
-
           createNotification(ActiveRecord.currentNote);
+
+          Utils.showCustomToast(ACreateNote.this, R.string.note_has_been_created, R.drawable.book);
 
           startActivity(new Intent(ACreateNote.this, AMyNotes_.class));
      }
 
      private void createNotification(ModelNote noteToSet) {
           if ( !TextUtils.isEmpty(noteToSet.alarmString) ) {
+
                if ( null == alarm ) {
                     alarm = new ReminderManager();
                }
+
                Calendar calendar = Calendar.getInstance();
                calendar.set(Calendar.HOUR_OF_DAY, noteToSet.alarmHour);
                calendar.set(Calendar.MINUTE, noteToSet.alarmMinute);
@@ -291,6 +336,16 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
                }
           }
      }
+
+     // private boolean isDateInPast(Date currDate, ModelNote noteToSet) {
+     // // get now time and date
+     // Date now = new Date();
+     // // if currentdate (IS NOT >) today then date in past, exit, not creating notification
+     // if ( currDate.after(now) ) { return false; }
+     //
+     // Utils.logw("ALARM IN PAST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+     // return true;
+     // }
 
      @OnActivityResult ( Global.CAPTURE_CAMERA_PHOTO ) void onResult(int resultCode, Intent data) {
           if ( resultCode == Activity.RESULT_OK ) {
@@ -344,7 +399,6 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
      }
 
      @Click void ibNoteType() {
-          // ibNoteType.startAnimation(AnimationManager.load(R.anim.fade_in));
           showNoteTypePopup();
      }
 
@@ -381,6 +435,7 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
                }
           });
 
+          // if ( !isDateInPast(currentDate, ActiveRecord.currentNote) ) {
           dialogBuilder.findViewById(R.id.buttonAlarm).setOnClickListener(new OnClickListener() {
 
                @Override public void onClick(View v) {
@@ -393,6 +448,9 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
                     timePickerDialog.show(getSupportFragmentManager(), getString(R.string.app_name));
                }
           });
+          // } else {
+          // dialogBuilder.findViewById(R.id.buttonAlarm).setEnabled(false);
+          // }
 
           dialogBuilder.show();
      }

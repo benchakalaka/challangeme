@@ -12,7 +12,7 @@
 
 	<string name="help">Help</string>
 	<string name="hint_password">password goes here</string>
-	<string name="app_name">GGNote</string>
+	<string name="app_name">jenote</string>
 	<string name="hint">hint</string>
 	<string name="failed">failed</string>
 	<string name="clear_canvas">Clear canvas</string>
@@ -138,18 +138,27 @@
 	<string name="displays_created_time">Date and time, when note has been created</string>
 	<string name="do_you_want_to_set_alarm">Do you want to set alarm?</string>
 	<string name="set_alarm">Set alarm</string>
-	<string name="vibrate">Vibrate on alarm</string>
+	<string name="vibrate">Vibrate on notification</string>
 	<string name="display_message">Display message in notification bar</string>
-	<string name="jenote_reminder">JENote remind</string>
+	<string name="jenote_reminder">jenote remind</string>
+	<string name="jenote_hasnot_been_saved">jenote has not been saved</string>
+	<string name="do_you_want_to_save_jenote">Do you want to save jenote?</string>
+	<string name="change_email">Change email</string>
+	<string name="password_has_been_changed">Password has been changed</string>
+	<string name="old_password_is_wrong">Old password is wrong</string>
+	<string name="field_cannot_be_empty">Field cannot be empty</string>
+	<string name="email_has_been_changed">Email has been changed</string>
+	<string name="search">Search</string>
+	<string name="filter_show_not_complete">Display not completed jenotes</string>
+	<string name="filter_show_complete">Display completed jenotes</string>
+	<string name="filter_show_all">Display all jenotes</string>
+	<string name="sort_by_dates_old_first">Sort by date: old jenotes first</string>
+	<string name="sort_by_dates_new_first">Sort by date: new jenotes first</string>
 
 	<!-- STUBS -->
-	<string name="frwert3dasfg2g">Twww</string>
-	<string name="frgdfgsdfg324">Twww</string>
-	<string name="frsdfdfgsew32g">Twww</string>
-	<string name="frdf21wert32g">Twww</string>
-	<string name="frg12sdfg324">Twww</string>
-	<string name="frsdf3sew32g">Twww</string>
-	<string name="frwerdsft32g">Twww</string>
-	<string name="fr23gsdfg324">Twww</string>
+	<string name="s2134dd">wwww</string>
+	<string name="ssadasdd">wwww</string>
+	<string name="s123dd">wwww</string>
+	<string name="sdasdd">wwww</string>
 
 </resources>
