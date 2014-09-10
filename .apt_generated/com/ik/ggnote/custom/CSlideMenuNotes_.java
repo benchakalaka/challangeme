@@ -69,29 +69,13 @@ public final class CSlideMenuNotes_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        logout = ((RelativeLayout) hasViews.findViewById(id.logout));
-        settings = ((RelativeLayout) hasViews.findViewById(id.settings));
-        twAmoutFinished = ((TextView) hasViews.findViewById(id.twAmoutFinished));
-        twSettings = ((TextView) hasViews.findViewById(id.twSettings));
-        twAmoutNotes = ((TextView) hasViews.findViewById(id.twAmoutNotes));
-        globalSearch = ((RelativeLayout) hasViews.findViewById(id.globalSearch));
-        notes = ((RelativeLayout) hasViews.findViewById(id.notes));
         twNotes = ((TextView) hasViews.findViewById(id.twNotes));
-        {
-            View view = hasViews.findViewById(id.settings);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        CSlideMenuNotes_.this.settings();
-                    }
-
-                }
-                );
-            }
-        }
+        twSettings = ((TextView) hasViews.findViewById(id.twSettings));
+        globalSearch = ((RelativeLayout) hasViews.findViewById(id.globalSearch));
+        settings = ((RelativeLayout) hasViews.findViewById(id.settings));
+        logout = ((RelativeLayout) hasViews.findViewById(id.logout));
+        notes = ((RelativeLayout) hasViews.findViewById(id.notes));
+        twAmoutNotes = ((TextView) hasViews.findViewById(id.twAmoutNotes));
         {
             View view = hasViews.findViewById(id.globalSearch);
             if (view!= null) {
@@ -116,6 +100,21 @@ public final class CSlideMenuNotes_
                     @Override
                     public void onClick(View view) {
                         CSlideMenuNotes_.this.notes();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.settings);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        CSlideMenuNotes_.this.settings();
                     }
 
                 }

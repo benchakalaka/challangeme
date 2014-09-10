@@ -35,7 +35,7 @@
 					android:layout_centerVertical="true"
 					android:layout_margin="8dip"
 					android:scaleType="centerInside"
-					android:src="@drawable/book" />
+					android:src="@drawable/jenote" />
 
 				<TextView
 					android:id="@+id/alertTitle"
@@ -80,7 +80,7 @@
 					android:layout_alignParentTop="true"
 					android:layout_marginLeft="8dip"
 					android:ellipsize="end"
-					android:text="Hello, it&apos;s seems like you are first time here, set up your password, settings will be remembered when you next time will launch GGNote" />
+					android:text="@string/first_time" />
 
 				<TextView
 					android:id="@+id/twPassword"

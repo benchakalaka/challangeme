@@ -9,7 +9,6 @@ public class ModelLocation extends SugarRecord <ModelLocation> {
      // ------------------------ FIELDS
      public double latitude;
      public double longitude;
-     public String address;
 
      /**
       * Default constructor

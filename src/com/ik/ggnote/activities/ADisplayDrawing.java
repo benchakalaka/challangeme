@@ -72,7 +72,7 @@ import com.ik.ggnote.utils.Utils;
      }
 
      @Click void ivLock() {
-          Utils.showStickyNotification(ADisplayDrawing.this, R.string.drawing_is_locked, AppMsg.STYLE_INFO, 1000);
+          Utils.showStickyNotification(ADisplayDrawing.this, R.string.drawing_is_locked, AppMsg.STYLE_INFO, 2000);
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {

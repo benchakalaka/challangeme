@@ -33,7 +33,7 @@ public final class AppSharedPreferences_
     }
 
     public BooleanPrefField askPassword() {
-        return booleanField("askPassword", true);
+        return booleanField("askPassword", false);
     }
 
     public BooleanPrefField displayMessageText() {

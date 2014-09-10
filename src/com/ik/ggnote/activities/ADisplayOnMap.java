@@ -201,7 +201,6 @@ import com.roomorama.caldroid.CaldroidFragment;
           if ( null != locationMarker ) {
                ANoteDetails.note.location.latitude = locationMarker.getPosition().latitude;
                ANoteDetails.note.location.longitude = locationMarker.getPosition().longitude;
-               ANoteDetails.note.location.address = getResources().getString(R.string.unknown_address);
                Utils.showCustomToast(this, R.string.location_has_been_saved, R.drawable.ok);
           }
           onBackPressed();
@@ -246,8 +245,8 @@ import com.roomorama.caldroid.CaldroidFragment;
                     YoYo.with(Techniques.FlipInX).duration(1200).playOn(llBottomMapMenuDescritption);
 
                     twDistance.setText(distance);
-                    twStartAddress.setText("Start address: " + start_address);
-                    twEndAddress.setText("End address: " + end_address);
+                    twStartAddress.setText(getResources().getString(R.string.start_addr) + start_address);
+                    twEndAddress.setText(getResources().getString(R.string.end_addr) + end_address);
                     twDuration.setText(durationText);
                     hideProgressDialog();
                }
@@ -294,7 +293,7 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      @Override public void onConnected(Bundle bundle) {
           if ( null == ANoteDetails.note.location ) {
-               Utils.showStickyNotification(this, R.string.there_is_no_location, AppMsg.STYLE_INFO, 1000);
+               Utils.showStickyNotification(this, R.string.there_is_no_location, AppMsg.STYLE_INFO, 1500);
                return;
           }
           if ( null != locationMarker ) { return; }
@@ -360,7 +359,7 @@ import com.roomorama.caldroid.CaldroidFragment;
      }
 
      @Override public void onMarkerDragEnd(Marker marker) {
-          Utils.showStickyNotification(this, R.string.position_has_been_changed, AppMsg.STYLE_CONFIRM, 1000);
+          Utils.showStickyNotification(this, R.string.position_has_been_changed, AppMsg.STYLE_CONFIRM, 1500);
           googleMap.clear();
           createMarker(new LatLng(marker.getPosition().latitude, marker.getPosition().longitude));
           if ( llBottomMapMenuDescritption.getVisibility() != View.GONE ) {

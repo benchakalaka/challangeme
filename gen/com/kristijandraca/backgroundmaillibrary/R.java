@@ -8,7 +8,7 @@ package com.kristijandraca.backgroundmaillibrary;
 
 public final class R {
 	public static final class drawable {
-		public static final int ic_launcher = 0x7f02009c;
+		public static final int ic_launcher = 0x7f02009a;
 	}
 	public static final class string {
 		public static final int app_name = 0x7f07001a;

@@ -77,7 +77,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           actionBar.setDisplayShowCustomEnabled(true);
           actionBar.setHomeButtonEnabled(true);
           actionBar.setCustomView(actionBarLayout);
-
+          ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text1)).setText(R.string.search);
           actionBar.getCustomView().findViewById(R.id.ivRightOkButton).setVisibility(View.INVISIBLE);
 
           ivFilter.setOnTouchListener(Utils.touchListener);
@@ -197,8 +197,21 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           });
 
           for ( ModelNote note : myNotes ) {
-               CGlobalSearchListViewItem item = CGlobalSearchListViewItem_.build(AGlobalSearch.this, note);
-               llMyNotes.addView(item);
+               CGlobalSearchListViewItem item = null;
+               if ( threeStateButtonImageId == R.drawable.ok48 && note.isCompleted == false ) {
+                    item = CGlobalSearchListViewItem_.build(this, note);
+               }
+
+               if ( threeStateButtonImageId == R.drawable.ok48selected && note.isCompleted == true ) {
+                    item = CGlobalSearchListViewItem_.build(this, note);
+               }
+
+               if ( threeStateButtonImageId == R.drawable.all ) {
+                    item = CGlobalSearchListViewItem_.build(this, note);
+               }
+               if ( null != item ) {
+                    llMyNotes.addView(item);
+               }
           }
           for ( int i = 0; i < llMyNotes.getChildCount(); i++ ) {
                Animation animation = AnimationManager.load(R.anim.bounce);
@@ -221,8 +234,21 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           });
 
           for ( ModelNote note : myNotes ) {
-               CGlobalSearchListViewItem item = CGlobalSearchListViewItem_.build(AGlobalSearch.this, note);
-               llMyNotes.addView(item);
+               CGlobalSearchListViewItem item = null;
+               if ( threeStateButtonImageId == R.drawable.ok48 && note.isCompleted == false ) {
+                    item = CGlobalSearchListViewItem_.build(this, note);
+               }
+
+               if ( threeStateButtonImageId == R.drawable.ok48selected && note.isCompleted == true ) {
+                    item = CGlobalSearchListViewItem_.build(this, note);
+               }
+
+               if ( threeStateButtonImageId == R.drawable.all ) {
+                    item = CGlobalSearchListViewItem_.build(this, note);
+               }
+               if ( null != item ) {
+                    llMyNotes.addView(item);
+               }
           }
           for ( int i = 0; i < llMyNotes.getChildCount(); i++ ) {
                Animation animation = AnimationManager.load(R.anim.bounce);
@@ -275,8 +301,21 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           llMyNotes.removeAllViews();
           for ( ModelNote note : myNotes ) {
                if ( note.description.contains(word) ) {
-                    CGlobalSearchListViewItem item = CGlobalSearchListViewItem_.build(this, note);
-                    llMyNotes.addView(item);
+                    CGlobalSearchListViewItem item = null;
+                    if ( threeStateButtonImageId == R.drawable.ok48 && note.isCompleted == false ) {
+                         item = CGlobalSearchListViewItem_.build(this, note);
+                    }
+
+                    if ( threeStateButtonImageId == R.drawable.ok48selected && note.isCompleted == true ) {
+                         item = CGlobalSearchListViewItem_.build(this, note);
+                    }
+
+                    if ( threeStateButtonImageId == R.drawable.all ) {
+                         item = CGlobalSearchListViewItem_.build(this, note);
+                    }
+                    if ( null != item ) {
+                         llMyNotes.addView(item);
+                    }
                }
           }
      }

@@ -35,7 +35,6 @@
 		android:allowClearUserData="false"
 		android:icon="@drawable/ic_launcher"
 		android:label="@string/app_name"
-		android:largeHeap="true"
 		android:theme="@style/AppTheme" >
 		<meta-data
 			android:name="VERSION"
@@ -45,7 +44,7 @@
 			android:value="true" />
 		<meta-data
 			android:name="DATABASE"
-			android:value="note9.db" />
+			android:value="note10.db" />
 		<meta-data
 			android:name="DOMAIN_PACKAGE_NAME"
 			android:value="com.ik.ggnote" />
@@ -142,7 +141,6 @@
 			android:screenOrientation="portrait"
 			android:theme="@style/Theme.AppCompat.Light" >
 		</activity>
-		
 		<activity
 			android:name="com.ik.ggnote.activities.AGlobalSearch_"
 			android:label="@string/app_name"

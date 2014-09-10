@@ -316,7 +316,7 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
 
           createNotification(ActiveRecord.currentNote);
 
-          Utils.showCustomToast(ACreateNote.this, R.string.note_has_been_created, R.drawable.book);
+          Utils.showCustomToast(ACreateNote.this, R.string.note_has_been_created, R.drawable.simple);
 
           startActivity(new Intent(ACreateNote.this, AMyNotes_.class));
      }
@@ -328,24 +328,25 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
                     alarm = new ReminderManager();
                }
 
-               Calendar calendar = Calendar.getInstance();
-               calendar.set(Calendar.HOUR_OF_DAY, noteToSet.alarmHour);
-               calendar.set(Calendar.MINUTE, noteToSet.alarmMinute);
-               if ( alarm != null ) {
-                    alarm.setOnetimeTimer(this, calendar.getTimeInMillis(), noteToSet.getId().intValue(), 0);
+               Calendar now = Calendar.getInstance();
+               Calendar alarmTime = (Calendar) now.clone();
+               try {
+                    Date date = DateUtils.parseDate(noteToSet.date, DatabaseUtils.DATE_PATTERN_YYYY_MM_DD_HH_MM_SS);
+                    date.setHours(noteToSet.alarmHour);
+                    date.setMinutes(noteToSet.alarmMinute);
+                    alarmTime.setTime(date);
+                    if ( alarmTime.compareTo(now) == 1 ) {
+                         alarm.setOnetimeTimer(this, alarmTime.getTimeInMillis(), noteToSet.getId().intValue(), 0);
+                    } else {
+                         Utils.showCustomToast(this, R.string.date_in_past_alarm_not_set, R.drawable.alarm);
+                    }
+               } catch (Exception e) {
+                    e.printStackTrace();
+                    Utils.showCustomToast(this, R.string.date_in_past_alarm_not_set, R.drawable.alarm);
                }
+
           }
      }
-
-     // private boolean isDateInPast(Date currDate, ModelNote noteToSet) {
-     // // get now time and date
-     // Date now = new Date();
-     // // if currentdate (IS NOT >) today then date in past, exit, not creating notification
-     // if ( currDate.after(now) ) { return false; }
-     //
-     // Utils.logw("ALARM IN PAST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-     // return true;
-     // }
 
      @OnActivityResult ( Global.CAPTURE_CAMERA_PHOTO ) void onResult(int resultCode, Intent data) {
           if ( resultCode == Activity.RESULT_OK ) {
@@ -389,11 +390,11 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
                     cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
                     activity.startActivityForResult(cameraIntent, Global.CAPTURE_CAMERA_PHOTO);
                } else {
-                    Utils.showStickyNotification(this, R.string.file_cannot_be_created, AppMsg.STYLE_ALERT, 1000);
+                    Utils.showStickyNotification(this, R.string.file_cannot_be_created, AppMsg.STYLE_ALERT, 2000);
                }
           } catch (Exception e) {
                Utils.logw(e.getMessage());
-               Utils.showStickyNotification(this, R.string.sd_card_is_busy, AppMsg.STYLE_ALERT, 1000);
+               Utils.showStickyNotification(this, R.string.sd_card_is_busy, AppMsg.STYLE_ALERT, 2000);
                ActiveRecord.currentNote.pathToPhoto = "";
           }
      }

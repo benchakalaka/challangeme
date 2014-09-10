@@ -27,7 +27,7 @@
 				android:layout_height="48dp"
 				android:layout_marginEnd="16dip"
 				android:layout_marginStart="16dip" >
-
+ 
 				<ImageView
 					android:id="@+id/icon"
 					android:layout_width="32dp"
@@ -47,7 +47,7 @@
 					android:ellipsize="end"
 					android:gravity="center"
 					android:singleLine="true"
-					android:text="Filter" />
+					android:text="@string/filter" />
 			</RelativeLayout>
 
 			<View
@@ -80,7 +80,7 @@
 					android:layout_centerVertical="true"
 					android:layout_margin="4dp"
 					android:background="@drawable/button_bg"
-					android:padding="5dp" />
+					android:padding="2dp" />
 
 				<ImageView
 					android:id="@+id/ivExpandFilter"
@@ -125,7 +125,7 @@
 				android:layout_weight="1"
 				android:layout_marginBottom="5dp"
 				android:background="#77000000"
-				android:text="Cancle" />
+				android:text="@string/cancel" />
 		</LinearLayout>
 	</LinearLayout>
 

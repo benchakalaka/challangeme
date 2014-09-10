@@ -367,7 +367,7 @@
 				android:background="@drawable/transparent_inside_and_white_border"
 				android:contentDescription="@null"
 				android:padding="5dp"
-				android:scaleType="fitXY" 
+				android:scaleType="fitXY"
 				android:src="@drawable/medium" />
 
 			<ImageButton
@@ -500,7 +500,7 @@
 				android:layout_width="50dp"
 				android:layout_height="50dp"
 				android:scaleType="fitXY"
-				android:src="@drawable/edt" />
+				android:src="@drawable/drawing" />
 
 			<ImageView
 				android:id="@+id/ibDrawingSettingsDone"

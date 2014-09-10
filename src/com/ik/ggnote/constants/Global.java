@@ -5,7 +5,7 @@ import java.io.File;
 import android.os.Environment;
 
 public class Global {
-     public static final String TAG                  = "GGNote";
+     public static final String TAG                  = "Jenote";
      public static final String UNKNOWN_STRING       = "";
      public static final double EMPTY_INT_VALUE      = -1;
      public static final float  EMPTY_FLOAT_VALUE    = -1;

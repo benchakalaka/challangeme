@@ -82,59 +82,14 @@ public final class AMyNotes_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
+        twAmoutNotes = ((TextView) hasViews.findViewById(id.twAmoutNotes));
         twMyNotes = ((TextView) hasViews.findViewById(id.twMyNotes));
-        llMyNotes = ((LinearLayout) hasViews.findViewById(id.llMyNotes));
-        twDate = ((TextView) hasViews.findViewById(id.twDate));
         ivPrevDay = ((ImageView) hasViews.findViewById(id.ivPrevDay));
         twCompleted = ((TextView) hasViews.findViewById(id.twCompleted));
-        ivNextDay = ((ImageView) hasViews.findViewById(id.ivNextDay));
-        twAmoutNotes = ((TextView) hasViews.findViewById(id.twAmoutNotes));
         twAmoutFinished = ((TextView) hasViews.findViewById(id.twAmoutFinished));
-        {
-            View view = hasViews.findViewById(id.twCompleted);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        AMyNotes_.this.twCompleted();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ivPrevDay);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        AMyNotes_.this.ivPrevDay();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.twDate);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        AMyNotes_.this.twDate();
-                    }
-
-                }
-                );
-            }
-        }
+        twDate = ((TextView) hasViews.findViewById(id.twDate));
+        ivNextDay = ((ImageView) hasViews.findViewById(id.ivNextDay));
+        llMyNotes = ((LinearLayout) hasViews.findViewById(id.llMyNotes));
         {
             View view = hasViews.findViewById(id.twMyNotes);
             if (view!= null) {
@@ -174,6 +129,51 @@ public final class AMyNotes_
                     @Override
                     public void onClick(View view) {
                         AMyNotes_.this.ivNextDay();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.twDate);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AMyNotes_.this.twDate();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivPrevDay);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AMyNotes_.this.ivPrevDay();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.twCompleted);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AMyNotes_.this.twCompleted();
                     }
 
                 }

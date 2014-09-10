@@ -69,7 +69,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
 
                     // case 1: new pass or old pass is empty string
                     if ( TextUtils.isEmpty(newEmail) ) {
-                         Utils.showStickyNotification(ASettings.this, R.string.field_cannot_be_empty, AppMsg.STYLE_INFO, 1000);
+                         Utils.showStickyNotification(ASettings.this, R.string.field_cannot_be_empty, AppMsg.STYLE_INFO, 1500);
                          return;
                     }
 

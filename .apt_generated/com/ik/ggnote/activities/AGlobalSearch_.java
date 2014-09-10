@@ -88,26 +88,11 @@ public final class AGlobalSearch_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ivTreeStateFilter = ((ImageView) hasViews.findViewById(id.ivTreeStateFilter));
-        cbSortByDate = ((CheckBox) hasViews.findViewById(id.cbSortByDate));
-        llMyNotes = ((LinearLayout) hasViews.findViewById(id.llMyNotes));
         etSearch = ((EditText) hasViews.findViewById(id.etSearch));
+        cbSortByDate = ((CheckBox) hasViews.findViewById(id.cbSortByDate));
+        ivTreeStateFilter = ((ImageView) hasViews.findViewById(id.ivTreeStateFilter));
         ivFilter = ((ImageView) hasViews.findViewById(id.ivFilter));
-        {
-            View view = hasViews.findViewById(id.ivFilter);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        AGlobalSearch_.this.ivFilter();
-                    }
-
-                }
-                );
-            }
-        }
+        llMyNotes = ((LinearLayout) hasViews.findViewById(id.llMyNotes));
         {
             View view = hasViews.findViewById(id.ivTreeStateFilter);
             if (view!= null) {
@@ -117,6 +102,21 @@ public final class AGlobalSearch_
                     @Override
                     public void onClick(View view) {
                         AGlobalSearch_.this.ivTreeStateFilter();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivFilter);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        AGlobalSearch_.this.ivFilter();
                     }
 
                 }

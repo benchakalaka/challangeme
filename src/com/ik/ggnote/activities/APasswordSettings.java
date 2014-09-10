@@ -1,6 +1,7 @@
 package com.ik.ggnote.activities;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.devspark.appmsg.AppMsg;
@@ -29,6 +31,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
      // ============================================= VIEWS
      @ViewById CheckBox          cbAskPassword;
      @ViewById EditText          etNewPassword , etOldPassword;
+     @ViewById RelativeLayout    rlAskPassword;
      // ============================================= VARIABLES
      @Pref AppSharedPreferences_ appPref;
 
@@ -51,8 +54,12 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
 
           ((ImageView) actionBar.getCustomView().findViewById(R.id.ivRightOkButton)).setOnClickListener(this);
           ((ImageView) actionBar.getCustomView().findViewById(R.id.ivRightOkButton)).setImageResource(R.drawable.ok);
-          ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text1)).setText(R.string.notifications);
+          ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text1)).setText(R.string.password);
           cbAskPassword.setChecked(appPref.askPassword().get());
+     }
+
+     @Click void rlAskPassword() {
+          cbAskPassword.performClick();
      }
 
      @Override protected void onPause() {

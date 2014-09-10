@@ -11,9 +11,8 @@
 	</string-array>
 
 	<string name="help">Help</string>
-	<string name="hint_password">password goes here</string>
-	<string name="app_name">jenote</string>
-	<string name="hint">hint</string>
+	<string name="hint_password">password</string>
+	<string name="app_name">jeNote</string>
 	<string name="failed">failed</string>
 	<string name="clear_canvas">Clear canvas</string>
 	<string name="everything_will_be_clear">All drawing will be cleared!</string>
@@ -26,13 +25,13 @@
 
 
 	<!-- Menu screen -->
-	<string name="create_note">Create note</string>
-	<string name="my_notes">My note</string>
+	<string name="create_note">Create jeNote</string>
+	<string name="my_notes">My jeNote</string>
 	<!-- Menu screen -->
 
 
 	<!-- Add note screen -->
-	<string name="note_type">Choose note type</string>
+	<string name="note_type">Choose jeNote type</string>
 
 	<!-- Add note screen -->
 
@@ -59,7 +58,7 @@
 	<string name="newPass">New password</string>
 	<string name="oldPass">Old password</string>
 	<string name="newEmail">New email</string>
-	<string name="note_has_been_created">Note has been created successfully</string>
+	<string name="note_has_been_created">jeNote has been created successfully</string>
 	<string name="good_bye">Good bye</string>
 	<string name="drawing_has_been_saved">Drawing has been saved</string>
 	<string name="location_has_been_saved">Posiotion has been saved</string>
@@ -85,12 +84,12 @@
 	<string name="brush_color">Brush colors</string>
 	<string name="shapes">Shapes</string>
 	<string name="drag_me_to_any_position">Drag marker to any position you like</string>
-	<string name="note_detail">Note detail</string>
+	<string name="note_detail">jeNote detail</string>
 	<string name="there_is_no_drawing">There is no pinned drawing</string>
 	<string name="there_is_no_photo">There is no pinned photo</string>
 	<string name="please_wait">Please wait....</string>
 	<string name="completed">Completed</string>
-	<string name="add_note">Add note</string>
+	<string name="add_note">Add jeNote</string>
 	<string name="filter">Filter</string>
 	<string name="logout">Logout</string>
 	<string name="simple_note_type">Simple</string>
@@ -98,13 +97,13 @@
 	<string name="urgent_note_type">Urgent</string>
 	<string name="reminder_note_type">Reminder</string>
 	<string name="work_note_type">Work</string>
-	<string name="do_you_want_to_delete_item">Do you want to delete this item?</string>
-	<string name="note_will_be_deleted">Note will be deleted completely.</string>
+	<string name="do_you_want_to_delete_item">Do you want to delete jeNote?</string>
+	<string name="note_will_be_deleted">jeNote will be deleted completely.</string>
 	<string name="cancel">Cancel</string>
-	<string name="do_you_want_to_complete_item">Do you want to complete this item?</string>
-	<string name="completeing_item">Completeing item</string>
+	<string name="do_you_want_to_complete_item">Do you want to complete jeNotes?</string>
+	<string name="completeing_item">Completeing jeNote</string>
 	<string name="attached_position">Atached position</string>
-	<string name="type_of_note">Type of notes</string>
+	<string name="type_of_note">Type of jeNote</string>
 	<string name="do_you_really_want_logout">Do you really want logout?</string>
 	<string name="do_you_really_want_clear_canvas">Do you really want clear canvas?</string>
 	<string name="do_you_want_to_be_asked_password">Fill password automatically?</string>
@@ -118,14 +117,14 @@
 	<string name="you_are_here">You are here</string>
 	<string name="by_word">By word</string>
 	<string name="by_type">By type</string>
-	<string name="change_notes_order">Notes order</string>
+	<string name="change_notes_order">jeNotes order</string>
 	<string name="is_last_item">Item is last</string>
 	<string name="is_first_item">Item is first</string>
-	<string name="this_type_will_be_displayed_first">This note type will be displayed first</string>
-	<string name="this_type_will_be_displayed_second">This note type will be displayed second</string>
-	<string name="this_type_will_be_displayed_third">This note type will be displayed third</string>
-	<string name="this_type_will_be_displayed_fourth">This note type will be displayed fourth</string>
-	<string name="this_type_will_be_displayed_fifth">This note type will be displayed fifth</string>
+	<string name="this_type_will_be_displayed_first">This jeNote will be displayed first</string>
+	<string name="this_type_will_be_displayed_second">This jeNote will be displayed second</string>
+	<string name="this_type_will_be_displayed_third">This jeNote will be displayed third</string>
+	<string name="this_type_will_be_displayed_fourth">This jeNote will be displayed fourth</string>
+	<string name="this_type_will_be_displayed_fifth">This jeNote will be displayed fifth</string>
 	<string name="pinned_position">Pinned position</string>
 	<string name="position_has_been_changed">Position has been changed</string>
 	<string name="map_type_terrain">Map type - terrain</string>
@@ -140,25 +139,27 @@
 	<string name="set_alarm">Set alarm</string>
 	<string name="vibrate">Vibrate on notification</string>
 	<string name="display_message">Display message in notification bar</string>
-	<string name="jenote_reminder">jenote remind</string>
-	<string name="jenote_hasnot_been_saved">jenote has not been saved</string>
-	<string name="do_you_want_to_save_jenote">Do you want to save jenote?</string>
+	<string name="jenote_reminder">jeNote reminder</string>
+	<string name="jenote_hasnot_been_saved">jeNote has not been saved</string>
+	<string name="do_you_want_to_save_jenote">Do you want to save jeNote?</string>
 	<string name="change_email">Change email</string>
 	<string name="password_has_been_changed">Password has been changed</string>
 	<string name="old_password_is_wrong">Old password is wrong</string>
 	<string name="field_cannot_be_empty">Field cannot be empty</string>
 	<string name="email_has_been_changed">Email has been changed</string>
 	<string name="search">Search</string>
-	<string name="filter_show_not_complete">Display not completed jenotes</string>
-	<string name="filter_show_complete">Display completed jenotes</string>
-	<string name="filter_show_all">Display all jenotes</string>
-	<string name="sort_by_dates_old_first">Sort by date: old jenotes first</string>
-	<string name="sort_by_dates_new_first">Sort by date: new jenotes first</string>
-
+	<string name="filter_show_not_complete">Display not completed jeNotes</string>
+	<string name="filter_show_complete">Display completed jeNotes</string>
+	<string name="filter_show_all">Display all jeNotes</string>
+	<string name="sort_by_dates_old_first">Sort by date: old jeNotes first</string>
+	<string name="sort_by_dates_new_first">Sort by date: new jeNotes first</string>
+	<string name="date_in_past_alarm_not_set">Date in past, alarm not set</string>
+	<string name="pass_email_cannot_be_empty">"Password/Email cannot be empty"</string>
+	<string name="pass_email_has_been_saved">Password and/or Email has been saved</string>
+	<string name="start_addr">Start address : </string>
+	<string name="end_addr">End address : </string>
+	<string name="wrong_pass">Wrong password</string>
+	<string name="first_time">Hello, it is seems like you are first time here, provide your password (email is necessary for recovering passowrd)</string>
 	<!-- STUBS -->
-	<string name="s2134dd">wwww</string>
-	<string name="ssadasdd">wwww</string>
-	<string name="s123dd">wwww</string>
-	<string name="sdasdd">wwww</string>
 
 </resources>

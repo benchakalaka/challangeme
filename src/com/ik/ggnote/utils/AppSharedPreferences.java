@@ -13,7 +13,7 @@ import org.androidannotations.annotations.sharedpreferences.SharedPref;
      @DefaultString ( "" ) String email();
 
      // ask password
-     @DefaultBoolean ( true ) boolean askPassword();
+     @DefaultBoolean ( false ) boolean askPassword();
 
      // default position for grouping simple
      @DefaultInt ( 0 ) int orderNumberSimple();

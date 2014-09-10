@@ -80,10 +80,40 @@ public final class ASettings_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
+        rlChangePass = ((RelativeLayout) hasViews.findViewById(id.rlChangePass));
         rlNotesOrder = ((RelativeLayout) hasViews.findViewById(id.rlNotesOrder));
         rlChangeEmail = ((RelativeLayout) hasViews.findViewById(id.rlChangeEmail));
-        rlChangePass = ((RelativeLayout) hasViews.findViewById(id.rlChangePass));
         rlNotifications = ((RelativeLayout) hasViews.findViewById(id.rlNotifications));
+        {
+            View view = hasViews.findViewById(id.rlNotesOrder);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ASettings_.this.rlNotesOrder();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.rlChangeEmail);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ASettings_.this.rlChangeEmail();
+                    }
+
+                }
+                );
+            }
+        }
         {
             View view = hasViews.findViewById(id.rlChangePass);
             if (view!= null) {
@@ -108,36 +138,6 @@ public final class ASettings_
                     @Override
                     public void onClick(View view) {
                         ASettings_.this.rlNotifications();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.rlChangeEmail);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ASettings_.this.rlChangeEmail();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.rlNotesOrder);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ASettings_.this.rlNotesOrder();
                     }
 
                 }

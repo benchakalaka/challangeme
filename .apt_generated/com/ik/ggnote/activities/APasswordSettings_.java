@@ -12,9 +12,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
 import com.ik.ggnote.utils.AppSharedPreferences_;
@@ -80,9 +82,25 @@ public final class APasswordSettings_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        etNewPassword = ((EditText) hasViews.findViewById(id.etNewPassword));
+        rlAskPassword = ((RelativeLayout) hasViews.findViewById(id.rlAskPassword));
         etOldPassword = ((EditText) hasViews.findViewById(id.etOldPassword));
+        etNewPassword = ((EditText) hasViews.findViewById(id.etNewPassword));
         cbAskPassword = ((CheckBox) hasViews.findViewById(id.cbAskPassword));
+        {
+            View view = hasViews.findViewById(id.rlAskPassword);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        APasswordSettings_.this.rlAskPassword();
+                    }
+
+                }
+                );
+            }
+        }
         afterViews();
     }
 

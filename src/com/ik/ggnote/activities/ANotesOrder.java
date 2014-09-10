@@ -140,7 +140,7 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
                YoYo.with(Techniques.Shake).duration(1000).withListener(new AnimatorListener() {
 
                     @Override public void onAnimationStart(Animator arg0) {
-                         Utils.showStickyNotification(ANotesOrder.this, R.string.is_last_item, AppMsg.STYLE_INFO, 1000);
+                         Utils.showStickyNotification(ANotesOrder.this, R.string.is_last_item, AppMsg.STYLE_INFO, 1500);
                     }
 
                     @Override public void onAnimationRepeat(Animator arg0) {
@@ -196,7 +196,7 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
                YoYo.with(Techniques.Shake).duration(1000).withListener(new AnimatorListener() {
 
                     @Override public void onAnimationStart(Animator arg0) {
-                         Utils.showStickyNotification(ANotesOrder.this, R.string.is_first_item, AppMsg.STYLE_INFO, 1000);
+                         Utils.showStickyNotification(ANotesOrder.this, R.string.is_first_item, AppMsg.STYLE_INFO, 1500);
                     }
 
                     @Override public void onAnimationRepeat(Animator arg0) {

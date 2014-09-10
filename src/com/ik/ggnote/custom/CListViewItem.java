@@ -91,8 +91,6 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
 
                visibility = (0 == amount) ? View.INVISIBLE : View.VISIBLE;
                twAmountAttached.setVisibility(visibility);
-          } else {
-               Utils.logw("CListViewItem :: setNote : note == null");
           }
      }
 

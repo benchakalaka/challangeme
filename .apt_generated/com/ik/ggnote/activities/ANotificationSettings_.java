@@ -12,8 +12,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.CheckBox;
+import android.widget.RelativeLayout;
 import com.ik.ggnote.R.id;
 import com.ik.ggnote.R.layout;
 import com.ik.ggnote.utils.AppSharedPreferences_;
@@ -79,8 +81,40 @@ public final class ANotificationSettings_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
+        rlVibrate = ((RelativeLayout) hasViews.findViewById(id.rlVibrate));
         cbDisplayMessage = ((CheckBox) hasViews.findViewById(id.cbDisplayMessage));
+        rlDisplayText = ((RelativeLayout) hasViews.findViewById(id.rlDisplayText));
         cbVibrate = ((CheckBox) hasViews.findViewById(id.cbVibrate));
+        {
+            View view = hasViews.findViewById(id.rlVibrate);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ANotificationSettings_.this.rlVibrate();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.rlDisplayText);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ANotificationSettings_.this.rlDisplayText();
+                    }
+
+                }
+                );
+            }
+        }
         afterViews();
     }
 

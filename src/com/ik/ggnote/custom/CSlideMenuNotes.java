@@ -31,7 +31,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
      // load views
      @ViewById RelativeLayout logout , globalSearch , settings , notes;
 
-     @ViewById TextView       twAmoutFinished , twAmoutNotes , twNotes , twSettings;
+     @ViewById TextView       twAmoutNotes , twNotes , twSettings;
      private int              amountOfNotes;
      private int              amountOfCompleted;
 
@@ -72,7 +72,7 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
       * Set selected item NOTES
       */
      public void setSelectedNotesItem() {
-          twNotes.setTextColor(Color.parseColor("#FF6600"));
+          twNotes.setTextColor(Color.parseColor("#8AC2FF"));
      }
 
      /**
@@ -123,7 +123,6 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu.OnOpenListener;
       * Callback which will be invoked when menu is start open
       */
      @Override public void onOpen() {
-          twAmoutFinished.setText(String.valueOf(this.amountOfCompleted));
-          twAmoutNotes.setText(String.valueOf(this.amountOfNotes));
+          twAmoutNotes.setText(String.valueOf(this.amountOfNotes + "/" + this.amountOfCompleted));
      }
 }

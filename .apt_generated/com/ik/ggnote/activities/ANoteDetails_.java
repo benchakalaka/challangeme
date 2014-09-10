@@ -80,46 +80,31 @@ public final class ANoteDetails_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        ibViewPinOnMap = ((ImageView) hasViews.findViewById(id.ibViewPinOnMap));
+        twNoteType = ((TextView) hasViews.findViewById(id.twNoteType));
         ivCloseInfo = ((ImageView) hasViews.findViewById(id.ivCloseInfo));
+        ibViewPinOnMap = ((ImageView) hasViews.findViewById(id.ibViewPinOnMap));
+        ivViewPinPhotoDone = ((ImageView) hasViews.findViewById(id.ivViewPinPhotoDone));
         ivNoteType = ((ImageView) hasViews.findViewById(id.ivNoteType));
-        ivViewDrawDone = ((ImageView) hasViews.findViewById(id.ivViewDrawDone));
-        ivCreatedDateAndTime = ((ImageView) hasViews.findViewById(id.ivCreatedDateAndTime));
-        ibViewPinPhoto = ((ImageView) hasViews.findViewById(id.ibViewPinPhoto));
-        ivViewPinOnMapDone = ((ImageView) hasViews.findViewById(id.ivViewPinOnMapDone));
-        twTime = ((TextView) hasViews.findViewById(id.twTime));
-        ibViewDraw = ((ImageView) hasViews.findViewById(id.ibViewDraw));
-        ivAlarm = ((ImageView) hasViews.findViewById(id.ivAlarm));
         ivInfo = ((ImageView) hasViews.findViewById(id.ivInfo));
         llBottomDescritption = ((LinearLayout) hasViews.findViewById(id.llBottomDescritption));
-        twDescription = ((TextView) hasViews.findViewById(id.twDescription));
-        twNoteType = ((TextView) hasViews.findViewById(id.twNoteType));
+        ivAlarm = ((ImageView) hasViews.findViewById(id.ivAlarm));
+        ivCreatedDateAndTime = ((ImageView) hasViews.findViewById(id.ivCreatedDateAndTime));
+        ivViewPinOnMapDone = ((ImageView) hasViews.findViewById(id.ivViewPinOnMapDone));
         twAlarm = ((TextView) hasViews.findViewById(id.twAlarm));
-        ivViewPinPhotoDone = ((ImageView) hasViews.findViewById(id.ivViewPinPhotoDone));
+        ibViewPinPhoto = ((ImageView) hasViews.findViewById(id.ibViewPinPhoto));
+        ibViewDraw = ((ImageView) hasViews.findViewById(id.ibViewDraw));
+        ivViewDrawDone = ((ImageView) hasViews.findViewById(id.ivViewDrawDone));
+        twTime = ((TextView) hasViews.findViewById(id.twTime));
+        twDescription = ((TextView) hasViews.findViewById(id.twDescription));
         {
-            View view = hasViews.findViewById(id.ibViewDraw);
+            View view = hasViews.findViewById(id.ibViewPinPhoto);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ANoteDetails_.this.ibViewDraw();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = hasViews.findViewById(id.ibViewPinOnMap);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ANoteDetails_.this.ibViewPinOnMap();
+                        ANoteDetails_.this.ibViewPinPhoto();
                     }
 
                 }
@@ -142,14 +127,29 @@ public final class ANoteDetails_
             }
         }
         {
-            View view = hasViews.findViewById(id.ibViewPinPhoto);
+            View view = hasViews.findViewById(id.ivCreatedDateAndTime);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ANoteDetails_.this.ibViewPinPhoto();
+                        ANoteDetails_.this.ivCreatedDateAndTime();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ibViewPinOnMap);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ANoteDetails_.this.ibViewPinOnMap();
                     }
 
                 }
@@ -187,14 +187,14 @@ public final class ANoteDetails_
             }
         }
         {
-            View view = hasViews.findViewById(id.ivCreatedDateAndTime);
+            View view = hasViews.findViewById(id.ibViewDraw);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        ANoteDetails_.this.ivCreatedDateAndTime();
+                        ANoteDetails_.this.ibViewDraw();
                     }
 
                 }

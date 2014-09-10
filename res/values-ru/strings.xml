@@ -2,16 +2,16 @@
 <resources>
 
 	<string-array name="array_notes_types">
-		<item>Отображать все</item>
-		<item>Простая</item>
-		<item>Событие</item>
-		<item>Важная</item>
-		<item>Напоминание</item>
-		<item>Работа</item>
+		<item>Display all</item>
+		<item>Simple</item>
+		<item>Event</item>
+		<item>Urgent</item>
+		<item>Reminder</item>
+		<item>Work</item>
 	</string-array>
 
 	<string name="help">Помощь.</string>
-	<string name="app_name">jenote</string>
+	<string name="app_name">jeNote</string>
 	<string name="hint_password">Пароль</string>
 	<string name="failed">Неудача</string>
 	<string name="clear_canvas">Очистить полотно?</string>
@@ -25,13 +25,13 @@
 
 
 	<!-- Menu screen -->
-	<string name="create_note">Создать записку</string>
-	<string name="my_notes">Мои записки</string>
+	<string name="create_note">Создать jeNote</string>
+	<string name="my_notes">Мои jeNotes</string>
 	<!-- Menu screen -->
 
 
 	<!-- Add note screen -->
-	<string name="note_type">Выберите тип записки</string>
+	<string name="note_type">Выберите тип jeNote</string>
 
 	<!-- Add note screen -->
 
@@ -39,7 +39,7 @@
 	<string name="color_changed">Цвет изменен</string>
 	<string name="choose_custom_color">Выберите свой цвет</string>
 	<string name="clear_drawing">Рисунок был очищен</string>
-	<string name="erase_mode_is_active">Стираска включена</string>
+	<string name="erase_mode_is_active">Стирачка включена</string>
 	<string name="thick_brush">Размер кисти - большой</string>
 	<string name="medium_brush_size">Размер кисти - средний</string>
 	<string name="thin_brush_size">Размер кисти - маленький</string>
@@ -49,17 +49,17 @@
 	<string name="draw_triangle">Нарисуйте триугольник</string>
 	<string name="free_drawing">Свободное рисование</string>
 	<string name="attached_photo">Прикрепленное фото</string>
-	<string name="undo">Назад</string>
-	<string name="redo">Вперед</string>
+	<string name="undo">Отменить последнее</string>
+	<string name="redo">Применить последнее</string>
 	<string name="resetPassword"><u>Забыли пароль?</u></string>
 	<string name="changePassword">Изменить пароль</string>
-	<string name="changeNotesOrder">Порядок записок</string>
+	<string name="changeNotesOrder">Порядок jeNotes</string>
 	<string name="notifications">Уведомления</string>
 	<string name="settings">Настройки</string>
 	<string name="newPass">Новый пароль</string>
 	<string name="oldPass">Старый пароль</string>
 	<string name="newEmail">Новая почта</string>
-	<string name="note_has_been_created">Записка успешно создана</string>
+	<string name="note_has_been_created">jeNote успешно создана</string>
 	<string name="good_bye">Досвидания</string>
 	<string name="drawing_has_been_saved">Рисунок был сохранен</string>
 	<string name="location_has_been_saved">Позиция была сохранена</string>
@@ -76,15 +76,15 @@
 	<string name="unknown_address">Адресс неизвестен</string>
 	<string name="save">Сохранить</string>
 	<string name="drawing_has_not_been_saved">Рисование не было сохранено</string>
-	<string name="save_drawing">Хотите ли вы сохранить рисунок?</string>
+	<string name="save_drawing">Хотите сохранить рисунок?</string>
 	<string name="location_has_not_been_saved">Позиция не была сохранена</string>
-	<string name="do_you_want_to_save_location">Хотите ли вы сохранить позицию?</string>
+	<string name="do_you_want_to_save_location">Хотите сохранить позицию?</string>
 	<string name="drag_me">Перетащи меня</string>
 	<string name="drawing_settings">Настройки рисования</string>
 	<string name="brush_color">Цвета кисти</string>
 	<string name="shapes">Фигуры</string>
-	<string name="drag_me_to_any_position">Перетащи маркер куда необходимо</string>
-	<string name="note_detail">Детили записки</string>
+	<string name="drag_me_to_any_position">Перетащи маркер</string>
+	<string name="note_detail">Детали jeNote</string>
 	<string name="there_is_no_drawing">Рисунок не прикреплен</string>
 	<string name="there_is_no_photo">Фотография не прикреплена</string>
 	<string name="please_wait">Подождите пожалуйста....</string>
@@ -92,66 +92,73 @@
 	<string name="add_note">Добавить записку</string>
 	<string name="filter">Фильтр</string>
 	<string name="logout">Выйти</string>
-	<string name="simple_note_type">Обычая</string>
-	<string name="event_note_type">Событие</string>
-	<string name="urgent_note_type">Срочное</string>
-	<string name="reminder_note_type">Напоминание</string>
-	<string name="work_note_type">Работа</string>
-	<string name="do_you_want_to_delete_item">Вы действительно хотите удалить эту записку?</string>
-	<string name="note_will_be_deleted">Записка будет удалена полностью.</string>
+	<string name="simple_note_type">Simple</string>
+	<string name="event_note_type">Event</string>
+	<string name="urgent_note_type">Urgent</string>
+	<string name="reminder_note_type">Reminder</string>
+	<string name="work_note_type">Work</string>
+	<string name="do_you_want_to_delete_item">Вы действительно хотите удалить jeNote?</string>
+	<string name="note_will_be_deleted">jeNote будет удалена полностью.</string>
 	<string name="cancel">Отмена</string>
-	<string name="do_you_want_to_complete_item">Хотите ли вы выполнить записку?</string>
-	<string name="completeing_item">Выполнение записки</string>
+	<string name="do_you_want_to_complete_item">Хотите завершить jeNotes?</string>
+	<string name="completeing_item">Выполнение jeNote</string>
 	<string name="attached_position">Прикрепленная позиция</string>
-	<string name="type_of_note">Тип записки</string>
-	<string name="do_you_really_want_logout">Вы действительно хотите выйти?</string>
+	<string name="type_of_note">Тип jeNote</string>
+	<string name="do_you_really_want_logout">Хотите выйти?</string>
 	<string name="do_you_want_to_be_asked_password">Заполнять пароль автоматически?</string>
 	<string name="yes">Да</string>
 	<string name="no">Нет</string>
 	<string name="password_filled_automatically">Пароль заполнен автоматически</string>
-	<string name="pick_color">Выберите цвет из паллеты</string>
+	<string name="pick_color">Выберите свой цвет</string>
 	<string name="opacity_level">Уровень прозрачности</string>
 	<string name="saturation_level">Уровень насыщенности</string>
-	<string name="you_have_attachments">У вас есть %s Вложение(я)</string>
+	<string name="you_have_attachments">У вас есть %s вложение(я)</string>
 	<string name="you_are_here">Вы тут</string>
 	<string name="by_word">По слову</string>
 	<string name="by_type">По типу</string>
-	<string name="change_notes_order">Порядок записок</string>
+	<string name="change_notes_order">Порядок jeNotes</string>
 	<string name="is_last_item">Уже на последнем месте</string>
 	<string name="is_first_item">Уже на первом месте</string>
-	<string name="this_type_will_be_displayed_first">Этот тип будет отображаться в списке первым</string>
-	<string name="this_type_will_be_displayed_second">Этот тип будет отображаться в списке вторым</string>
-	<string name="this_type_will_be_displayed_third">Этот тип будет отображаться в списке третьим</string>
-	<string name="this_type_will_be_displayed_fourth">Этот тип будет отображаться в списке четвертым</string>
-	<string name="this_type_will_be_displayed_fifth">Этот тип будет отображаться в списке пятым</string>
-	<string name="do_you_really_want_clear_canvas">Вы действительно хотите очистить рисунок?</string>
+	<string name="this_type_will_be_displayed_first">Этот jeNote будет отображаться в списке первым</string>
+	<string name="this_type_will_be_displayed_second">Этот jeNote будет отображаться в списке вторым</string>
+	<string name="this_type_will_be_displayed_third">Этот jeNotes будет отображаться в списке третьим</string>
+	<string name="this_type_will_be_displayed_fourth">Этот jeNotes будет отображаться в списке четвертым</string>
+	<string name="this_type_will_be_displayed_fifth">Этот jeNotes будет отображаться в списке пятым</string>
+	<string name="do_you_really_want_clear_canvas">Хотите очистить рисунок?</string>
 	<string name="pinned_position">Прикрепленная позиция</string>
 	<string name="position_has_been_changed">Позиция изменена</string>
-	<string name="map_type_terrain">Тип карты - местность</string>
-	<string name="map_type_satellite">Тип карты - спутник</string>
-	<string name="map_type_normal">Тип карты - нормальный</string>
+	<string name="map_type_terrain">Тип карты - terrain</string>
+	<string name="map_type_satellite">Тип карты - satelite</string>
+	<string name="map_type_normal">Тип карты - normal</string>
 	<string name="route_type_walking">Путь пешком</string>
 	<string name="route_type_car">Путь на машине</string>
 	<string name="route_type_bike">Путь на велосипеде</string>
-	<string name="alarm_not_set">Время не установлено</string>
-	<string name="displays_created_time">Дата и время, когда записка была создана</string>
-	<string name="do_you_want_to_set_alarm">Вы хотите установить напоминание?</string>
+	<string name="alarm_not_set">Напоминание</string>
+	<string name="displays_created_time">Дата и время, когда jeNotes была создана</string>
+	<string name="do_you_want_to_set_alarm">Установить напоминание?</string>
 	<string name="set_alarm">Установить время</string>
 	<string name="vibrate">Вибрировать при уведомлении</string>
-	<string name="display_message">Отображать текст сообщения при уведомлении</string>
-	<string name="jenote_reminder">jenote напоминание</string>
-	<string name="jenote_hasnot_been_saved">jenote не был сохранен</string>
-	<string name="do_you_want_to_save_jenote">Вы хотите сохранить jenote?</string>
+	<string name="display_message">Отображать текст jeNote при уведомлении</string>
+	<string name="jenote_reminder">jeNote напоминание</string>
+	<string name="jenote_hasnot_been_saved">jeNote не был сохранен</string>
+	<string name="do_you_want_to_save_jenote">Вы хотите сохранить jeNote?</string>
 	<string name="change_email">Изменить эл. почту</string>
 	<string name="password_has_been_changed">Пароль изменен</string>
 	<string name="old_password_is_wrong">Пароль не верный</string>
 	<string name="field_cannot_be_empty">Поле не может быть пустое</string>
 	<string name="email_has_been_changed">Эл. почта была изменена</string>
 	<string name="search">Поиск</string>
-	<string name="filter_show_not_complete">Показывать не выполненые jenotes</string>
-	<string name="filter_show_complete">Показывать выполненые jenotes</string>
-	<string name="filter_show_all">Показывать все jenotes</string>
-	<string name="sort_by_dates_old_first">Сортировать по дате: сначала старые jenotes</string>
-	<string name="sort_by_dates_new_first">Сортировать по дате: сначала новые jenotes</string>
+	<string name="filter_show_not_complete">Показывать не выполненые jeNotes</string>
+	<string name="filter_show_complete">Показывать выполненые jeNotes</string>
+	<string name="filter_show_all">Показывать все jeNotes</string>
+	<string name="sort_by_dates_old_first">Сортировать по дате: сначала старые jeNotes</string>
+	<string name="sort_by_dates_new_first">Сортировать по дате: сначала новые jeNotes</string>
+	<string name="date_in_past_alarm_not_set">Дата в прошлом, уведомление не было установлено</string>
+	<string name="pass_email_cannot_be_empty">"Пароль/Email не могут быть пустые"</string>
+	<string name="pass_email_has_been_saved">Пароль/Email успешно сохранены</string>
+	<string name="start_addr">Старт : </string>
+	<string name="end_addr">Пункт назначение : </string>
+	<string name="wrong_pass">Неверный пароль</string>
+	<string name="first_time">Привет, добро пожаловать в jeNote, заполни настройки и вперед (почта нужна для восстановления пароля).</string>
 
 </resources>

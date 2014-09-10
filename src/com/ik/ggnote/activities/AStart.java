@@ -9,6 +9,7 @@ import org.androidannotations.annotations.sharedpreferences.Pref;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
@@ -76,9 +77,9 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
           overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
      }
 
-     @Override protected void onResume() {
-          super.onResume();
-          etPassword.setText("p");
+     @Override protected void onPostCreate(Bundle savedInstanceState) {
+          // TODO Auto-generated method stub
+          super.onPostCreate(savedInstanceState);
           // check if flag rememberMe was set, fill fields with proper values
           if ( appPref.password().get().equals("") ) {
                final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
@@ -92,13 +93,13 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
 
                          // case 1: new pass or email is empty string
                          if ( TextUtils.isEmpty(newPass) || TextUtils.isEmpty(email) ) {
-                              Utils.showStickyNotification(AStart.this, "Password/Email cannot be empty", AppMsg.STYLE_INFO, 1000);
+                              Utils.showStickyNotification(AStart.this, R.string.pass_email_cannot_be_empty, AppMsg.STYLE_INFO, 1500);
                               return;
                          }
 
                          appPref.edit().password().put(newPass).apply();
                          appPref.edit().email().put(email).apply();
-                         Utils.showStickyNotification(AStart.this, "Password and Email has been saved", AppMsg.STYLE_CONFIRM, 1000);
+                         Utils.showStickyNotification(AStart.this, R.string.pass_email_has_been_saved, AppMsg.STYLE_CONFIRM, 1500);
 
                          dialogBuilder.dismiss();
                     }
@@ -106,7 +107,10 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
 
                dialogBuilder.show();
           }
+     }
 
+     @Override protected void onResume() {
+          super.onResume();
           if ( appPref.askPassword().get() ) {
                etPassword.setText(appPref.password().get());
                Utils.showStickyNotification(AStart.this, R.string.password_filled_automatically, AppMsg.STYLE_INFO, 2000);
@@ -119,8 +123,8 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
           BackgroundMail bm = new BackgroundMail(this);
           bm.setGmailUserName("benchakalaka@gmail.com");
           bm.setGmailPassword("rhtyltktr260690ben");
-          bm.setMailTo("benchakalaka@gmail.com");
-          bm.setFormSubject("GGNote support");
+          bm.setMailTo(appPref.email().get());
+          bm.setFormSubject("jeNote password notification");
           bm.setSendingMessage("Sending message to your email address");
           bm.setSendingMessageSuccess("Your message was sent successfully.");
           bm.setProcessVisibility(true);
@@ -137,7 +141,7 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
       * 'Exit' form app
       */
      private void exit() {
-          Utils.showCustomToast(this, R.string.good_bye, R.drawable.book);
+          Utils.showCustomToast(this, R.string.good_bye, R.drawable.jenote);
           moveTaskToBack(true);
      }
 
@@ -153,10 +157,10 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
                     // go to main menu, authentification successful
                     startActivity(new Intent(this, AMyNotes_.class));
                } else {
-                    Utils.showStickyNotification(this, "Wrong pass", AppMsg.STYLE_ALERT, 1000);
+                    Utils.showStickyNotification(this, R.string.wrong_pass, AppMsg.STYLE_ALERT, 2000);
                }
           } else {
-               Utils.showStickyNotification(this, "Filed cannot be empty", AppMsg.STYLE_INFO, 1000);
+               Utils.showStickyNotification(this, R.string.field_cannot_be_empty, AppMsg.STYLE_ALERT, 2000);
           }
           progressDialog.dismiss();
      }

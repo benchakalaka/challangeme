@@ -68,9 +68,9 @@ public final class CGlobalSearchListViewItem_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
+        twTime = ((TextView) hasViews.findViewById(id.twTime));
         text = ((TextView) hasViews.findViewById(id.text));
         image = ((ImageView) hasViews.findViewById(id.image));
-        twTime = ((TextView) hasViews.findViewById(id.twTime));
         ivCompleted = ((ImageView) hasViews.findViewById(id.ivCompleted));
         afterViews();
     }

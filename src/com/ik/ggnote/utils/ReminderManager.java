@@ -37,7 +37,7 @@ public class ReminderManager extends BroadcastReceiver {
           NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context);
 
           mBuilder.setContentTitle(context.getResources().getString(R.string.app_name));
-          mBuilder.setSmallIcon(R.drawable.ic_launcher);
+          mBuilder.setSmallIcon(R.drawable.jenote);
 
           if ( null != note ) {
                SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);

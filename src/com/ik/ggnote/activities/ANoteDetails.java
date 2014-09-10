@@ -1,11 +1,13 @@
 package com.ik.ggnote.activities;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.apache.commons.lang3.time.DateUtils;
 
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -28,6 +30,7 @@ import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 import com.ik.ggnote.R;
 import com.ik.ggnote.model.ModelNote;
+import com.ik.ggnote.utils.DatabaseUtils;
 import com.ik.ggnote.utils.ReminderManager;
 import com.ik.ggnote.utils.Utils;
 import com.nineoldandroids.animation.Animator;
@@ -116,7 +119,7 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
                          .withMessage(R.string.do_you_want_to_set_alarm).setButton1Click(new View.OnClickListener() {
                               @Override public void onClick(View v) {
                                    dialogBuilder.dismiss();
-                                   onBackPressed();
+
                               }
                          }).setButton2Click(new OnClickListener() {
 
@@ -136,7 +139,6 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
                          .withMessage(R.string.do_you_want_to_set_alarm).setButton1Click(new View.OnClickListener() {
                               @Override public void onClick(View v) {
                                    dialogBuilder.dismiss();
-                                   onBackPressed();
                               }
                          }).setButton2Click(new OnClickListener() {
 
@@ -156,7 +158,7 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
      }
 
      @Click void ivCreatedDateAndTime() {
-          Utils.showStickyNotification(this, R.string.displays_created_time, AppMsg.STYLE_INFO, 1000);
+          Utils.showStickyNotification(this, R.string.displays_created_time, AppMsg.STYLE_INFO, 1500);
      }
 
      @Click void ivInfo() {
@@ -169,7 +171,8 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
      }
 
      @Override public boolean onOptionsItemSelected(MenuItem item) {
-          startActivity(new Intent(ANoteDetails.this, AMyNotes_.class));
+          // startActivity(new Intent(ANoteDetails.this, AMyNotes_.class));
+          onBackPressed();
           return super.onOptionsItemSelected(item);
      }
 
@@ -187,7 +190,7 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
           if ( null != note.location ) {
                startActivity(new Intent(ANoteDetails.this, ADisplayOnMap_.class));
           } else {
-               Utils.showStickyNotification(this, R.string.there_is_no_location, AppMsg.STYLE_INFO, 1000);
+               Utils.showStickyNotification(this, R.string.there_is_no_location, AppMsg.STYLE_INFO, 1500);
           }
      }
 
@@ -215,7 +218,7 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
           if ( !TextUtils.isEmpty(note.pathToDrawing) ) {
                startActivity(new Intent(ANoteDetails.this, ADisplayDrawing_.class));
           } else {
-               Utils.showStickyNotification(this, R.string.there_is_no_drawing, AppMsg.STYLE_INFO, 1000);
+               Utils.showStickyNotification(this, R.string.there_is_no_drawing, AppMsg.STYLE_INFO, 1500);
           }
      }
 
@@ -223,7 +226,7 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
           if ( !TextUtils.isEmpty(note.pathToPhoto) ) {
                startActivity(new Intent(ANoteDetails.this, ADisplayPhoto_.class));
           } else {
-               Utils.showStickyNotification(this, R.string.there_is_no_photo, AppMsg.STYLE_INFO, 1000);
+               Utils.showStickyNotification(this, R.string.there_is_no_photo, AppMsg.STYLE_INFO, 1500);
           }
      }
 
@@ -238,12 +241,21 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog.OnTimeSetListener;
                alarm = new ReminderManager();
           }
 
-          Calendar calendar = Calendar.getInstance();
-          calendar.set(Calendar.HOUR_OF_DAY, note.alarmHour);
-          calendar.set(Calendar.MINUTE, note.alarmMinute);
-
-          // alarm.cancelAlarm(this, note.getId().intValue());
-          alarm.setOnetimeTimer(this, calendar.getTimeInMillis(), note.getId().intValue(), PendingIntent.FLAG_UPDATE_CURRENT);
-
+          Calendar now = Calendar.getInstance();
+          Calendar alarmTime = (Calendar) now.clone();
+          try {
+               Date date = DateUtils.parseDate(note.date, DatabaseUtils.DATE_PATTERN_YYYY_MM_DD_HH_MM_SS);
+               date.setHours(note.alarmHour);
+               date.setMinutes(note.alarmMinute);
+               alarmTime.setTime(date);
+               if ( alarmTime.compareTo(now) == 1 ) {
+                    alarm.setOnetimeTimer(this, alarmTime.getTimeInMillis(), note.getId().intValue(), PendingIntent.FLAG_UPDATE_CURRENT);
+               } else {
+                    Utils.showCustomToast(this, R.string.date_in_past_alarm_not_set, R.drawable.alarm);
+               }
+          } catch (Exception e) {
+               e.printStackTrace();
+               Utils.showCustomToast(this, R.string.date_in_past_alarm_not_set, R.drawable.alarm);
+          }
      }
 }

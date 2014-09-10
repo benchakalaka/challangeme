@@ -19,24 +19,24 @@ public final class R {
 		public static final int dialog_padding = 0x7f060035;
 	}
 	public static final class drawable {
-		public static final int btn_press = 0x7f020066;
-		public static final int btn_selector = 0x7f020067;
-		public static final int btn_unpress = 0x7f020068;
-		public static final int dialog_bg = 0x7f020091;
+		public static final int btn_press = 0x7f020065;
+		public static final int btn_selector = 0x7f020066;
+		public static final int btn_unpress = 0x7f020067;
+		public static final int dialog_bg = 0x7f020090;
 	}
 	public static final class id {
-		public static final int alertTitle = 0x7f0800f9;
-		public static final int button1 = 0x7f08010c;
-		public static final int button2 = 0x7f08010d;
-		public static final int contentPanel = 0x7f0800fb;
-		public static final int customPanel = 0x7f0800fe;
+		public static final int alertTitle = 0x7f0800fc;
+		public static final int button1 = 0x7f08010d;
+		public static final int button2 = 0x7f08010e;
+		public static final int contentPanel = 0x7f0800fe;
+		public static final int customPanel = 0x7f080101;
 		public static final int icon = 0x7f08003b;
-		public static final int main = 0x7f0800f5;
-		public static final int message = 0x7f08010b;
-		public static final int parentPanel = 0x7f0800f6;
-		public static final int titleDivider = 0x7f0800fa;
-		public static final int title_template = 0x7f0800f8;
-		public static final int topPanel = 0x7f0800f7;
+		public static final int main = 0x7f0800f8;
+		public static final int message = 0x7f08010c;
+		public static final int parentPanel = 0x7f0800f9;
+		public static final int titleDivider = 0x7f0800fd;
+		public static final int title_template = 0x7f0800fb;
+		public static final int topPanel = 0x7f0800fa;
 	}
 	public static final class layout {
 		public static final int dialog_layout = 0x7f030037;

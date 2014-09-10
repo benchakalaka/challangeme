@@ -59,8 +59,6 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
                if ( note.isCompleted ) {
                     ivCompleted.setImageResource(R.drawable.ok48selected);
                }
-          } else {
-               Utils.logw("CListViewItem :: setNote : note == null");
           }
      }
 

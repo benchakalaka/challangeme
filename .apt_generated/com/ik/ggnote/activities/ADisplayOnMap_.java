@@ -85,17 +85,47 @@ public final class ADisplayOnMap_
 
     @Override
     public void onViewChanged(HasViews hasViews) {
-        twDuration = ((TextView) hasViews.findViewById(id.twDuration));
-        llBottomMapMenuDescritption = ((LinearLayout) hasViews.findViewById(id.llBottomMapMenuDescritption));
         ivRouteType = ((ImageView) hasViews.findViewById(id.ivRouteType));
+        llBottomMapMenuDescritption = ((LinearLayout) hasViews.findViewById(id.llBottomMapMenuDescritption));
         ivCar = ((ImageView) hasViews.findViewById(id.ivCar));
-        ivCloseRouteInfo = ((ImageView) hasViews.findViewById(id.ivCloseRouteInfo));
-        ivBike = ((ImageView) hasViews.findViewById(id.ivBike));
         ivMap = ((ImageView) hasViews.findViewById(id.ivMap));
         twEndAddress = ((TextView) hasViews.findViewById(id.twEndAddress));
-        twStartAddress = ((TextView) hasViews.findViewById(id.twStartAddress));
+        ivBike = ((ImageView) hasViews.findViewById(id.ivBike));
+        ivCloseRouteInfo = ((ImageView) hasViews.findViewById(id.ivCloseRouteInfo));
+        twDuration = ((TextView) hasViews.findViewById(id.twDuration));
         twDistance = ((TextView) hasViews.findViewById(id.twDistance));
         ivWalking = ((ImageView) hasViews.findViewById(id.ivWalking));
+        twStartAddress = ((TextView) hasViews.findViewById(id.twStartAddress));
+        {
+            View view = hasViews.findViewById(id.ivCloseRouteInfo);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADisplayOnMap_.this.ivCloseRouteInfo();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = hasViews.findViewById(id.ivCar);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        ADisplayOnMap_.this.ivCar();
+                    }
+
+                }
+                );
+            }
+        }
         {
             View view = hasViews.findViewById(id.ivMap);
             if (view!= null) {
@@ -127,21 +157,6 @@ public final class ADisplayOnMap_
             }
         }
         {
-            View view = hasViews.findViewById(id.ivCar);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADisplayOnMap_.this.ivCar();
-                    }
-
-                }
-                );
-            }
-        }
-        {
             View view = hasViews.findViewById(id.ivBike);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
@@ -156,36 +171,7 @@ public final class ADisplayOnMap_
                 );
             }
         }
-        {
-            View view = hasViews.findViewById(id.ivCloseRouteInfo);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        ADisplayOnMap_.this.ivCloseRouteInfo();
-                    }
-
-                }
-                );
-            }
-        }
         afterViews();
-    }
-
-    @Override
-    public void hideProgressDialog() {
-        handler_.post(new Runnable() {
-
-
-            @Override
-            public void run() {
-                ADisplayOnMap_.super.hideProgressDialog();
-            }
-
-        }
-        );
     }
 
     @Override
@@ -196,6 +182,20 @@ public final class ADisplayOnMap_
             @Override
             public void run() {
                 ADisplayOnMap_.super.showProgressDialog();
+            }
+
+        }
+        );
+    }
+
+    @Override
+    public void hideProgressDialog() {
+        handler_.post(new Runnable() {
+
+
+            @Override
+            public void run() {
+                ADisplayOnMap_.super.hideProgressDialog();
             }
 
         }

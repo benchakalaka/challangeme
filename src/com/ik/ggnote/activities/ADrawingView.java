@@ -34,16 +34,14 @@ import com.ik.ggnote.R;
 import com.ik.ggnote.colpicker.ColorPicker;
 import com.ik.ggnote.colpicker.ColorPicker.OnColorChangedListener;
 import com.ik.ggnote.colpicker.OpacityBar;
-import com.ik.ggnote.colpicker.OpacityBar.OnOpacityChangedListener;
 import com.ik.ggnote.colpicker.SaturationBar;
-import com.ik.ggnote.colpicker.SaturationBar.OnSaturationChangedListener;
 import com.ik.ggnote.constants.ActiveRecord;
 import com.ik.ggnote.custom.CDrawingView;
 import com.ik.ggnote.model.PathSerializable;
 import com.ik.ggnote.utils.Utils;
 import com.ik.ggnote.utils.Utils.AnimationManager;
 
-@EActivity ( R.layout.activity_drawview ) public class ADrawingView extends ActionBarActivity implements OnClickListener , OnColorChangedListener , OnOpacityChangedListener , OnSaturationChangedListener {
+@EActivity ( R.layout.activity_drawview ) public class ADrawingView extends ActionBarActivity implements OnClickListener , OnColorChangedListener {
 
      // --------------------------------- VIEWS
      @ViewById ImageButton      ibShapesCircle , ibShapesRectangle , ibShapesTriangle , ibShapesFreeDrawing , ibShapesLine;
@@ -62,10 +60,10 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
      private Dialog             dialogChangeColour;
      // color picker view
      private ColorPicker        picker;
-     // indicates level of saturation and opacity in change color dialog
-     private TextView           twSaturationBar , twOpacityBar;
 
      private int                colorToSet;
+
+     SaturationBar              saturationBar;
 
      // Saving dialog
      private NiftyDialogBuilder dialogBuilder;
@@ -80,12 +78,9 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           // dialogInputText.setContentView(R.layout.dialog_input_text_for_drawing);
           dialogChangeColour.setTitle(R.string.choose_color_saturation_opacity);
 
-          twSaturationBar = ((TextView) dialogChangeColour.findViewById(R.id.twSaturationBar));
-          twOpacityBar = ((TextView) dialogChangeColour.findViewById(R.id.twOpacityBar));
-
           picker = (ColorPicker) dialogChangeColour.findViewById(R.id.picker);
           OpacityBar opacityBar = (OpacityBar) dialogChangeColour.findViewById(R.id.opacitybar);
-          SaturationBar saturationBar = (SaturationBar) dialogChangeColour.findViewById(R.id.saturationbar);
+          saturationBar = (SaturationBar) dialogChangeColour.findViewById(R.id.saturationbar);
 
           picker.addOpacityBar(opacityBar);
           picker.addSaturationBar(saturationBar);
@@ -94,10 +89,6 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           picker.setOnColorChangedListener(this);
           // to turn of showing the old color
           picker.setShowOldCenterColor(true);
-          // set listener when opacity has been changed
-          opacityBar.setOnOpacityChangedListener(this);
-          // set listener when saturation has been changed
-          saturationBar.setOnSaturationChangedListener(this);
 
           ((Button) dialogChangeColour.findViewById(R.id.buttonOk)).setOnClickListener(new OnClickListener() {
                @Override public void onClick(View v) {
@@ -220,7 +211,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           ivShapesDone.setVisibility(View.INVISIBLE);
           ivBrushColoursDone.setVisibility(View.INVISIBLE);
           ibDrawingSettingsDone.setVisibility(View.VISIBLE);
-          Utils.showStickyNotification(ADrawingView.this, R.string.drawing_settings, AppMsg.STYLE_INFO, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.drawing_settings, AppMsg.STYLE_INFO, 1500);
      }
 
      @Click void ibBrushColours() {
@@ -232,7 +223,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           ivShapesDone.setVisibility(View.INVISIBLE);
           ivBrushColoursDone.setVisibility(View.VISIBLE);
           ibDrawingSettingsDone.setVisibility(View.INVISIBLE);
-          Utils.showStickyNotification(ADrawingView.this, R.string.brush_color, AppMsg.STYLE_INFO, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.brush_color, AppMsg.STYLE_INFO, 1500);
      }
 
      @Click void ibShapes() {
@@ -243,7 +234,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           ivShapesDone.setVisibility(View.VISIBLE);
           ivBrushColoursDone.setVisibility(View.INVISIBLE);
           ibDrawingSettingsDone.setVisibility(View.INVISIBLE);
-          Utils.showStickyNotification(ADrawingView.this, R.string.shapes, AppMsg.STYLE_INFO, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.shapes, AppMsg.STYLE_INFO, 1500);
      }
 
      private void inverseHorizontalScrollViewVisibility(ScrollView view) {
@@ -253,10 +244,12 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
 
      @Click void ibColorPicker() {
           ibColorPicker.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
-          Utils.showStickyNotification(ADrawingView.this, R.string.choose_custom_color, AppMsg.STYLE_CONFIRM, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.choose_custom_color, AppMsg.STYLE_CONFIRM, 1500);
           try {
                picker.setOldCenterColor(cDrawingView.getCurrentColor());
                picker.setColor(cDrawingView.getCurrentColor());
+               saturationBar.setSaturation(0.9f);
+
           } catch (Exception ex) {
                Utils.logw(ex.getMessage());
           }
@@ -265,21 +258,21 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
 
      @Click void ibClearAll() {
 
-          dialogBuilder.withButton1Text(getResources().getString(android.R.string.cancel)).withButton2Text(getResources().getString(android.R.string.yes)).withIcon(R.drawable.warning).withEffect(Effectstype.Slit).withTitle(getResources()
-                    .getString(R.string.everything_will_be_clear)).withMessage(getResources().getString(R.string.do_you_really_want_clear_canvas)).setButton1Click(new View.OnClickListener() {
-               @Override public void onClick(View v) {
-                    dialogBuilder.dismiss();
-               }
-          }).setButton2Click(new OnClickListener() {
-               @Override public void onClick(View v) {
-                    ivColorAndShape.setImageResource(R.drawable.free_drawing);
-                    cDrawingView.disableEraserMode();
-                    cDrawingView.clearAll();
-                    ibClearAll.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
-                    Utils.showStickyNotification(ADrawingView.this, R.string.clear_canvas, AppMsg.STYLE_CONFIRM, 1000);
-                    dialogBuilder.dismiss();
-               }
-          }).show();
+          dialogBuilder.withButton1Text(getResources().getString(android.R.string.cancel)).withButton2Text(getResources().getString(android.R.string.yes)).withIcon(R.drawable.warning).withEffect(Effectstype.Slit).withTitle(getResources().getString(R.string.clear_canvas))
+                    .withMessage(getResources().getString(R.string.do_you_really_want_clear_canvas)).setButton1Click(new View.OnClickListener() {
+                         @Override public void onClick(View v) {
+                              dialogBuilder.dismiss();
+                         }
+                    }).setButton2Click(new OnClickListener() {
+                         @Override public void onClick(View v) {
+                              ivColorAndShape.setImageResource(R.drawable.free_drawing);
+                              cDrawingView.disableEraserMode();
+                              cDrawingView.clearAll();
+                              ibClearAll.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
+                              Utils.showStickyNotification(ADrawingView.this, R.string.clear_drawing, AppMsg.STYLE_CONFIRM, 1500);
+                              dialogBuilder.dismiss();
+                         }
+                    }).show();
      }
 
      @Click void ibEraser() {
@@ -287,25 +280,25 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           cDrawingView.setEraserMode();
           ivColorAndShape.setBackgroundColor(Color.TRANSPARENT);
           ivColorAndShape.setImageResource(R.drawable.erase);
-          Utils.showStickyNotification(ADrawingView.this, R.string.erase_mode_is_active, AppMsg.STYLE_CONFIRM, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.erase_mode_is_active, AppMsg.STYLE_CONFIRM, 1500);
      }
 
      @Click void ibThin() {
           ibThin.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
           cDrawingView.setBrushSize(15);
-          Utils.showStickyNotification(ADrawingView.this, R.string.thick_brush, AppMsg.STYLE_INFO, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.thick_brush, AppMsg.STYLE_INFO, 1500);
      }
 
      @Click void ibMedium() {
           ibMedium.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
           cDrawingView.setBrushSize(10);
-          Utils.showStickyNotification(ADrawingView.this, R.string.medium_brush_size, AppMsg.STYLE_INFO, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.medium_brush_size, AppMsg.STYLE_INFO, 1500);
      }
 
      @Click void ibThick() {
           ibThick.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
           cDrawingView.setBrushSize(5);
-          Utils.showStickyNotification(ADrawingView.this, R.string.thin_brush_size, AppMsg.STYLE_INFO, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.thin_brush_size, AppMsg.STYLE_INFO, 1500);
      }
 
      @Click void ibShapesRectangle() {
@@ -313,7 +306,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           ibShapesRectangle.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
           cDrawingView.setDrawingShape(CDrawingView.ShapesType.RECTANGLE);
           ivColorAndShape.setImageResource(R.drawable.rectangle);
-          Utils.showStickyNotification(ADrawingView.this, R.string.draw_rectangle, AppMsg.STYLE_CONFIRM, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.draw_rectangle, AppMsg.STYLE_CONFIRM, 1500);
      }
 
      @Click void ibShapesCircle() {
@@ -321,7 +314,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           ibShapesCircle.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
           cDrawingView.setDrawingShape(CDrawingView.ShapesType.CIRCLE);
           ivColorAndShape.setImageResource(R.drawable.circle);
-          Utils.showStickyNotification(ADrawingView.this, R.string.draw_circle, AppMsg.STYLE_CONFIRM, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.draw_circle, AppMsg.STYLE_CONFIRM, 1500);
      }
 
      @Click void ibShapesLine() {
@@ -329,7 +322,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           ibShapesLine.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
           cDrawingView.setDrawingShape(CDrawingView.ShapesType.LINE);
           ivColorAndShape.setImageResource(R.drawable.line);
-          Utils.showStickyNotification(ADrawingView.this, R.string.draw_line, AppMsg.STYLE_CONFIRM, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.draw_line, AppMsg.STYLE_CONFIRM, 1500);
      }
 
      @Click void ibShapesTriangle() {
@@ -337,7 +330,7 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           ibShapesTriangle.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
           cDrawingView.setDrawingShape(CDrawingView.ShapesType.TRIANGLE);
           ivColorAndShape.setImageResource(R.drawable.triangle);
-          Utils.showStickyNotification(ADrawingView.this, R.string.draw_triangle, AppMsg.STYLE_CONFIRM, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.draw_triangle, AppMsg.STYLE_CONFIRM, 1500);
      }
 
      @Click void ibShapesFreeDrawing() {
@@ -345,32 +338,24 @@ import com.ik.ggnote.utils.Utils.AnimationManager;
           ibShapesFreeDrawing.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
           cDrawingView.setDrawingShape(CDrawingView.ShapesType.STANDART_DRAWING);
           ivColorAndShape.setImageResource(R.drawable.free_drawing);
-          Utils.showStickyNotification(ADrawingView.this, R.string.free_drawing, AppMsg.STYLE_CONFIRM, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.free_drawing, AppMsg.STYLE_CONFIRM, 1500);
      }
 
      @Click void ibUndo() {
           ibUndo.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
           cDrawingView.redo();
-          Utils.showStickyNotification(ADrawingView.this, R.string.redo, AppMsg.STYLE_CONFIRM, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.redo, AppMsg.STYLE_CONFIRM, 1500);
      }
 
      @Click void ibRedo() {
           ibRedo.startAnimation(AnimationManager.load(R.anim.pump_bottom, 1000));
           cDrawingView.undo();
-          Utils.showStickyNotification(ADrawingView.this, R.string.undo, AppMsg.STYLE_CONFIRM, 1000);
+          Utils.showStickyNotification(ADrawingView.this, R.string.undo, AppMsg.STYLE_CONFIRM, 1500);
 
      }
 
      @Override public void onColorChanged(int color) {
           colorToSet = color;
-     }
-
-     @Override public void onOpacityChanged(int opacity) {
-          twOpacityBar.setText(Math.abs(Math.round(opacity / 2.55) - 100) + "%");
-     }
-
-     @Override public void onSaturationChanged(int saturation) {
-          twSaturationBar.setText(saturation + "%");
      }
 
      @Override public void onClick(View v) {

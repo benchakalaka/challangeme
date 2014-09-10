@@ -396,7 +396,7 @@ import com.roomorama.caldroid.CaldroidFragment;
      public void logout() {
           final NiftyDialogBuilder dialogBuilder = new NiftyDialogBuilder(this);
 
-          dialogBuilder.withButton1Text(getResources().getString(R.string.cancel)).withButton2Text(getResources().getString(android.R.string.ok)).withIcon(R.drawable.book).withEffect(Effectstype.Slit).withTitle(getResources().getString(R.string.logout))
+          dialogBuilder.withButton1Text(getResources().getString(R.string.cancel)).withButton2Text(getResources().getString(android.R.string.ok)).withIcon(R.drawable.warning).withEffect(Effectstype.Slit).withTitle(getResources().getString(R.string.logout))
                     .withMessage(getResources().getString(R.string.do_you_really_want_logout)).setButton1Click(new OnClickListener() {
 
                          @Override public void onClick(View v) {

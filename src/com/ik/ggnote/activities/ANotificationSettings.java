@@ -1,6 +1,7 @@
 package com.ik.ggnote.activities;
 
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.androidannotations.annotations.sharedpreferences.Pref;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ik.ggnote.R;
@@ -21,6 +23,7 @@ import com.ik.ggnote.utils.AppSharedPreferences_;
 
      // ============================================= VIEWS
      @ViewById CheckBox          cbVibrate , cbDisplayMessage;
+     @ViewById RelativeLayout    rlDisplayText , rlVibrate;
      // @ViewById ImageView ivSimpleUp , ivSimpleDown , ivEventUp , ivEventDown , ivUrgentUp , ivUrgentDown , ivReminderUp , ivReminderDown , ivWorkUp ,
      // ivWorkDown;
 
@@ -47,6 +50,14 @@ import com.ik.ggnote.utils.AppSharedPreferences_;
           ((TextView) getSupportActionBar().getCustomView().findViewById(R.id.text1)).setText(R.string.notifications);
           cbDisplayMessage.setChecked(appPref.displayMessageText().get());
           cbVibrate.setChecked(appPref.vibrateOnNotification().get());
+     }
+
+     @Click void rlDisplayText() {
+          cbDisplayMessage.performClick();
+     }
+
+     @Click void rlVibrate() {
+          cbVibrate.performClick();
      }
 
      @Override protected void onPause() {

@@ -61,7 +61,7 @@
 
 			<CheckBox
 				android:id="@+id/cbSortByDate"
-				android:layout_width="50dp"
+				android:layout_width="90dp"
 				android:layout_height="50dp"
 				android:button="@drawable/checkbox_selector_sort_by_date" />
 		</LinearLayout>

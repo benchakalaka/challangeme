@@ -65,6 +65,7 @@ import com.roomorama.caldroid.CaldroidFragment;
      private Marker                 locationMarker;
      // saving dialog
      private NiftyDialogBuilder     dialogBuilder;
+     LocationManager                mlocManager;
 
      @AfterViews void afterViews() {
           // obtaining map object
@@ -132,7 +133,6 @@ import com.roomorama.caldroid.CaldroidFragment;
                ActiveRecord.currentNote.location = new ModelLocation(getApplicationContext());
                ActiveRecord.currentNote.location.latitude = locationMarker.getPosition().latitude;
                ActiveRecord.currentNote.location.longitude = locationMarker.getPosition().longitude;
-               ActiveRecord.currentNote.location.address = "addr";
                Utils.showCustomToast(this, R.string.location_has_been_saved, R.drawable.ok);
           }
           onBackPressed();
@@ -170,7 +170,6 @@ import com.roomorama.caldroid.CaldroidFragment;
                // animate to center of location
                animateCamera(location, 12);
           } else {
-               Utils.showStickyNotification(this, R.string.problem_obtaining_address, AppMsg.STYLE_INFO, 1000);
                createMarkerOnMyLocation();
           }
      }
@@ -199,6 +198,11 @@ import com.roomorama.caldroid.CaldroidFragment;
           locationClient.disconnect();
           dialogBuilder.dismiss();
           overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+          try {
+               mlocManager.removeUpdates(this);
+          } catch (Exception ex) {
+               ex.printStackTrace();
+          }
      }
 
      /**
@@ -211,8 +215,8 @@ import com.roomorama.caldroid.CaldroidFragment;
 
      private void createMarkerOnMyLocation() {
           /* Use the LocationManager class to obtain GPS locations */
-          LocationManager mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-          mlocManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 300000, 40, this);
+          mlocManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+          mlocManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 300000, 40, this);
 
           Location location = mlocManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
           /* check both providers even for lastKnownLocation */
@@ -250,11 +254,11 @@ import com.roomorama.caldroid.CaldroidFragment;
      }
 
      @Override public void onMarkerDragEnd(Marker marker) {
-          Utils.showStickyNotification(this, R.string.position_has_been_changed, AppMsg.STYLE_CONFIRM, 1000);
+          Utils.showStickyNotification(this, R.string.position_has_been_changed, AppMsg.STYLE_CONFIRM, 1500);
      }
 
      @Override public void onMarkerDragStart(Marker marker) {
-          Utils.showStickyNotification(this, R.string.drag_me_to_any_position, AppMsg.STYLE_INFO, 1000);
+          Utils.showStickyNotification(this, R.string.drag_me_to_any_position, AppMsg.STYLE_INFO, 1500);
      }
 
      @Override public void onLocationChanged(Location location) {
